@@ -33,3 +33,28 @@ public void KeyValiation()
     }
 }
 ```
+
+###Key Activation
+For *pid*, *uid* and *hsum*, please see https://serialkeymanager.com/ext/val
+```
+public void KeyActivation()
+{
+    var validationResult = SKGL.SKM.KeyActivation("pid", "uid", "hsum", "serial key to validate", "machine code", {sign the data}, {sign machine code});
+
+    if (validationResult.Valid)
+    {
+        //valid key
+        var created = validationResult.CreationDate;
+        var expires = validationResult.ExpirationDate;
+        var setTime = validationResult.SetTime;
+        var timeLeft = validationResult.TimeLeft;
+        var features = validationResult.Features;
+        
+    }
+    else
+    {
+        //invalid key
+        Assert.Fail();
+    }
+}
+```
