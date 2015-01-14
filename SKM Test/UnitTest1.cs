@@ -1,6 +1,9 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
+using System.Diagnostics;
+using System.Linq;
+
 namespace SKM_Test
 {
     [TestClass]
@@ -93,7 +96,37 @@ namespace SKM_Test
         }
 
         [TestMethod]
-        public void KeyValidation()
+        public void KeyValiation()
+        {
+            // client app
+
+
+            var validationResult = SKGL.SKM.KeyValidation("3", "2", "751963", "MNIVR-MGQRL-QGUZK-BGJHQ");
+
+            var newKey = validationResult.NewKey;
+
+            if (validationResult.Valid)
+            {
+                //valid key
+                var created = validationResult.CreationDate;
+                var expires = validationResult.ExpirationDate;
+                var setTime = validationResult.SetTime;
+                var timeLeft = validationResult.TimeLeft;
+                var features = validationResult.Features;
+
+            }
+            else
+            {
+                //invalid key
+                Assert.Fail();
+            }
+
+
+            //Assert.IsTrue(activationResult);
+        }
+
+        [TestMethod]
+        public void KeyActivation()
         {
             // client app
 
@@ -262,6 +295,23 @@ namespace SKM_Test
             
 
             
+        }
+
+
+        [TestMethod]
+        public void HasLocalTimeChanged()
+        {
+            bool hasChanged = SKGL.SKM.TimeCheck();
+
+            if(hasChanged)
+            {
+                Debug.WriteLine("The local time was changed by the user. Validation fails.");
+            }
+            else
+            {
+                Debug.WriteLine("The local time hasn't been changed. Continue validation.");
+            }
+
         }
     }
 
