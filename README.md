@@ -6,7 +6,9 @@ The original repository of this project was: https://skgl.codeplex.com/.
 NB: This is only SKGL.SKM, not the entire SKGL API.
 
 ##How to use
-
+1. [Key Validation](#key-validation)
+2. [Key Activation](#key-activation)
+3. [Offline Key Validation](#offline-key-validation)
 ###Key Validation
 For *pid*, *uid* and *hsum*, please see https://serialkeymanager.com/Ext/Val.
 ```
