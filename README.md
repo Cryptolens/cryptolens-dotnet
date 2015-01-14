@@ -9,6 +9,12 @@ NB: This is only SKGL.SKM, not the entire SKGL API.
 1. [Key Validation](#key-validation)
 2. [Key Activation](#key-activation)
 3. [Offline Key Validation](#offline-key-validation)
+4. [List User Products](#list-user-products)
+5. [Get Product Variables](#get-product-variables)
+6. [Check Against Time Rollback](#check-against-time-rollback)
+7. [Other Methods in Web API](#other-methods-in-web-api)
+8. [Simple machine code](#simple-machine-code)
+
 ###Key Validation
 For *pid*, *uid* and *hsum*, please see https://serialkeymanager.com/Ext/Val.
 ```
@@ -53,7 +59,6 @@ public void KeyActivation()
         var setTime = validationResult.SetTime;
         var timeLeft = validationResult.TimeLeft;
         var features = validationResult.Features;
-        
     }
     else
     {
@@ -113,4 +118,80 @@ public void SecureKeyValidation()
         }
     }
 }
+```
+
+###List User Products
+```
+public void ListAllProducts()
+{
+    var listOfProducts = SKGL.SKM.ListUserProducts("username", "password");
+
+    foreach (var product in listOfProducts)
+    {
+        Debug.WriteLine("The product with the name \""+ product.Key + "\" has the pid \"" + product.Value + "\"");
+    }
+}
+```
+
+###Get Product Variables
+This will get *pid*, *uid* and *hsum*.
+```
+public void GetProductVariables()
+{
+    var listOfProducts = SKGL.SKM.ListUserProducts("username", "password");
+
+    //variables needed in for instance validation/activation
+    //note, First requires System.Linq.
+    var productVar = SKGL.SKM.GetProductVariables("username","password", listOfProducts.First().Value);
+
+
+    Debug.WriteLine("The uid=" + productVar.UID + ", pid=" + productVar.PID + " and hsum=" + productVar.HSUM);
+}
+```
+
+###Check Against Time Rollback
+In order to make sure that the local time (date and time) was changed by the user, the following code can be used.
+```
+public void HasLocalTimeChanged()
+{
+    bool hasChanged = SKGL.SKM.TimeCheck();
+
+    if(hasChanged)
+    {
+        Debug.WriteLine("The local time was changed by the user. Validation fails.");
+    }
+    else
+    {
+        Debug.WriteLine("The local time hasn't been changed. Continue validation.");
+    }
+}
+```
+
+###Other Methods in Web API
+If you would like to access a method in the Web API manually, please use *GetParameters* method. A list of them can be found [here](http://docs.serialkeymanager.com/web-api/).
+```
+public void GetParamtersTest()
+{
+    var input = new System.Collections.Generic.Dictionary<string, string>();
+    input.Add("uid", "1");
+    input.Add("pid", "1");
+    input.Add("hsum", "11111");
+    input.Add("sid", "ABCD-EFGHI-GKLMN-OPQRS");
+    input.Add("sign","true");
+
+    var result = SKGL.SKM.GetParameters(input, "Validate");
+
+    var keyinfo = SKGL.SKM.GetKeyInformationFromParameters(result);
+
+    if(result.ContainsKey("error") && result["error"] != "")
+    {
+        Assert.Fail();
+    }
+}
+```
+
+###Simple Machine Code
+Machine code can be calculated with the function below. Any other hash algorithm will do, as long as it only contains letters and digits only.
+```
+string machineCode = SKGL.SKM.getMachineCode(SKGL.SKM.getEightByteHash);
 ```
