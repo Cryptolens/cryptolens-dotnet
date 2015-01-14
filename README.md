@@ -1,4 +1,4 @@
-# SKGL-Extension-for-dot-NET
+# SKGL-Extension for .NET
 
 The original repository of this project is: https://skgl.codeplex.com/.
 NB: This is only SKGL.SKM, not the entire SKGL API.
