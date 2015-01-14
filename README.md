@@ -37,7 +37,7 @@ public void KeyValiation()
 ###Key Activation
 For *pid*, *uid* and *hsum*, please see https://serialkeymanager.com/ext/val.
 
-NB: If trial activation is configured, the api can return a new key (read more [http://support.serialkeymanager.com/howto/trial-activation/](here)).
+NB: If trial activation is configured, the API can return a new key (read more [here](http://support.serialkeymanager.com/howto/trial-activation/)).
 ```
 public void KeyActivation()
 {
