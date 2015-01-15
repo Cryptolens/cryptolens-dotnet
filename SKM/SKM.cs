@@ -16,7 +16,7 @@ using System.Net.NetworkInformation;
 namespace SKGL
 {
     /// <summary>
-    /// This class contains additional methods to ease serial key validation with Serial Key Manager. For definitions of some variables, please go to http://serialkeymanager.com/Key/ProductValidation.
+    /// This class contains additional methods to ease serial key validation with Serial Key Manager. For definitions of some variables, please go to https://serialkeymanager.com/Ext/Val.
     /// </summary>
     public static class SKM
     {
@@ -401,7 +401,7 @@ namespace SKGL
         /// <summary>
         /// This method will calculates a machine code
         /// </summary>
-        /// <param name="hashFunction">The hash function that is to be used. getEightByteHash can be used as a default hash function.</param>
+        /// <param name="hashFunction">The hash function that is to be used. getEightDigitLongHash or SHA1 can be used as a default hash function.</param>
         /// <returns></returns>
         [SecuritySafeCritical]
         public static string getMachineCode(Func<string,string> hashFunction)
