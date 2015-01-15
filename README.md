@@ -16,7 +16,7 @@ NB: This is only SKGL.SKM, not the entire SKGL API.
 8. [Simple machine code](#simple-machine-code)
 
 ###Key Validation
-For *pid*, *uid* and *hsum*, please see https://serialkeymanager.com/Ext/Val.
+For *pid*, *uid* and *hsum*, please see https://serialkeymanager.com/Ext/Val. You can retreive them using  [Get Product Variables](#get-product-variables).
 ```
 public void KeyValiation()
 {
@@ -193,5 +193,11 @@ public void GetParamtersTest()
 ###Simple Machine Code
 Machine code can be calculated with the function below. Any other hash algorithm will do, as long as it only contains letters and digits only.
 ```
-string machineCode = SKGL.SKM.getMachineCode(SKGL.SKM.getEightByteHash);
+public void TestingHashes()
+{
+    //eg. "61843235" (getEightDigitsLongHash)
+    //eg. "D38F13CAB8938AC3C393BC111E1A85BB4BA2CCC9" (getSHA1)
+    string machineID1 = SKGL.SKM.getMachineCode(SKGL.SKM.getEightDigitsLongHash);
+    string machineID2 = SKGL.SKM.getMachineCode(SKGL.SKM.getSHA1);
+}
 ```
