@@ -71,7 +71,7 @@ namespace SKM_Test
         {
             // client app
 
-            string machineCode = SKGL.SKM.getMachineCode(SKGL.SKM.getEightByteHash);
+            string machineCode = SKGL.SKM.getMachineCode(SKGL.SKM.getEightDigitsLongHash);
 
             string keyToValidate = "KMAXI-BJHQS-HZXHT-XUTLS";
 
@@ -312,6 +312,16 @@ namespace SKM_Test
                 Debug.WriteLine("The local time hasn't been changed. Continue validation.");
             }
 
+        }
+
+
+        [TestMethod]
+        public void TestingHashes()
+        {
+            //eg. "61843235" (getEightDigitsLongHash)
+            //eg. "D38F13CAB8938AC3C393BC111E1A85BB4BA2CCC9" (getSHA1)
+            string machineID1 = SKGL.SKM.getMachineCode(SKGL.SKM.getEightDigitsLongHash);
+            string machineID2 = SKGL.SKM.getMachineCode(SKGL.SKM.getSHA1);
         }
     }
 

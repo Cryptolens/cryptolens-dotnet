@@ -9,6 +9,7 @@ using System.Text;
 using System.Management;
 using System.Text.RegularExpressions;
 using System.Security.Cryptography;
+using System.Net.NetworkInformation;
 
 [assembly: AllowPartiallyTrustedCallers()]
 [assembly: CLSCompliant(true)]
@@ -405,6 +406,8 @@ namespace SKGL
         [SecuritySafeCritical]
         public static string getMachineCode(Func<string,string> hashFunction)
         {
+            // please see https://skgl.codeplex.com/workitem/2246 for a list of developers of this code.
+
             ManagementObjectSearcher searcher = new ManagementObjectSearcher("select * from Win32_Processor");
             string collectedInfo = "";
             // here we will put the informa
@@ -434,7 +437,37 @@ namespace SKGL
                 collectedInfo += getHddSerialNumber();
             }
 
-            return hashFunction(collectedInfo);
+            // In case we have message "To be filled by O.E.M." - there is incorrect motherboard/BIOS serial number 
+            // - we should relay to NIC
+            if (collectedInfo.Contains("To be filled by O.E.M."))
+            {
+              var nic = GetNicInfo();
+
+              if (!string.IsNullOrWhiteSpace(nic))
+                collectedInfo += nic;
+            }
+
+            return hashFunction(collectedInfo);//m.getEightByteHash(collectedInfo, 100000);
+        
+        }
+
+        /// <summary>
+        /// Enumerate all Nic adapters, take first one, who has MAC address and return it.
+        /// </summary>
+        /// <remarks> Function MUST! be updated to select only real NIC cards (and filter out USB and PPTP etc interfaces).
+        /// Otherwise user can run in this scenario: a) Insert USB NIC b) Generate machine code c) Remove USB NIC...
+        /// </remarks>
+        /// <returns>MAC address of NIC adapter</returns>
+        [SecuritySafeCritical]
+        private static string GetNicInfo()
+        {
+            var nics = NetworkInterface.GetAllNetworkInterfaces();
+            var mac = string.Empty;
+
+            foreach (var adapter in nics.Where(adapter => string.IsNullOrWhiteSpace(mac)))
+                mac = adapter.GetPhysicalAddress().ToString();
+
+            return mac;
         }
 
         [SecuritySafeCritical]
@@ -492,11 +525,11 @@ namespace SKGL
         }
 
         /// <summary>
-        /// This method will generate a 8 digit long hash which can be stored as an Int32.
+        /// This method will generate an 8 digit long hash which can be stored as an Int32.
         /// </summary>
         /// <param name="s">The string value of the infromation that is to be hashed.</param>
-        /// <returns>A stiring with the hash value</returns>
-        public static string getEightByteHash(string s)
+        /// <returns>A string with the hash value</returns>
+        public static string getEightDigitsLongHash(string s)
         {
             //This function generates a eight byte hash
 
@@ -529,6 +562,28 @@ namespace SKGL
             return result.ToString();
         }
 
+        /// <summary>
+        /// This method will generate a SHA1 hash.
+        /// </summary>
+        /// <param name="s">The string value of the infromation that is to be hashed.</param>
+        /// <returns>A string with the hash value</returns>
+        public static string getSHA1(string s)
+        {
+            using (SHA1Managed sha1 = new SHA1Managed())
+            {
+                var hash = sha1.ComputeHash(System.Text.Encoding.Unicode.GetBytes(s));
+                //return Convert.ToBase64String(hash);
+
+                var sb = new StringBuilder(hash.Length * 2);
+                foreach (byte b in hash)
+                {
+                    // can be "x2" if you want lowercase
+                    sb.Append(b.ToString("X2"));
+                }
+
+                return sb.ToString();
+            }
+        }
 
         #endregion
 
