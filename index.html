@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <title>SKGL Extension for .NET by artemlos</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="inner">
+        <h1>SKGL Extension for .NET</h1>
+        <h2></h2>
+        <a href="https://github.com/artemlos/SKGL-Extension-for-dot-NET" class="button"><small>View project on</small> GitHub</a>
+      </div>
+    </header>
+
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <h1>
+<a id="skgl-extension-for-net" class="anchor" href="#skgl-extension-for-net" aria-hidden="true"><span class="octicon octicon-link"></span></a>SKGL Extension for .NET</h1>
+
+<p>This API is intergrated with the Serial Key Manager Web API 2.0 (<a href="http://docs.serialkeymanager.com/">http://docs.serialkeymanager.com/</a>)</p>
+
+<p>The original repository of this project was: <a href="https://skgl.codeplex.com/">https://skgl.codeplex.com/</a>.
+NB: This is only SKGL.SKM, not the entire SKGL API.</p>
+
+<h2>
+<a id="how-to-use" class="anchor" href="#how-to-use" aria-hidden="true"><span class="octicon octicon-link"></span></a>How to use</h2>
+
+<ol>
+<li><a href="#key-validation">Key Validation</a></li>
+<li><a href="#key-activation">Key Activation</a></li>
+<li><a href="#offline-key-validation">Offline Key Validation</a></li>
+<li><a href="#list-user-products">List User Products</a></li>
+<li><a href="#get-product-variables">Get Product Variables</a></li>
+<li><a href="#check-against-time-rollback">Check Against Time Rollback</a></li>
+<li><a href="#other-methods-in-web-api">Other Methods in Web API</a></li>
+<li><a href="#calculating-machine-code">Calculating Machine code</a></li>
+</ol>
+
+<h3>
+<a id="key-validation" class="anchor" href="#key-validation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Key Validation</h3>
+
+<p>For <em>pid</em>, <em>uid</em> and <em>hsum</em>, please see <a href="https://serialkeymanager.com/Ext/Val">https://serialkeymanager.com/Ext/Val</a>. You can retreive them using  <a href="#get-product-variables">Get Product Variables</a>.</p>
+
+<pre><code>public void KeyValiation()
+{
+    var validationResult = SKGL.SKM.KeyValidation("pid", "uid", "hsum", "serial key to validate");
+
+    var newKey = validationResult.NewKey;
+
+    if (validationResult.Valid)
+    {
+        //valid key
+        var created = validationResult.CreationDate;
+        var expires = validationResult.ExpirationDate;
+        var setTime = validationResult.SetTime;
+        var timeLeft = validationResult.TimeLeft;
+        var features = validationResult.Features;
+
+    }
+    else
+    {
+        //invalid key
+        Assert.Fail();
+    }
+}
+</code></pre>
+
+<h3>
+<a id="key-activation" class="anchor" href="#key-activation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Key Activation</h3>
+
+<p>For <em>pid</em>, <em>uid</em> and <em>hsum</em>, please see <a href="https://serialkeymanager.com/Ext/Val">https://serialkeymanager.com/Ext/Val</a>.</p>
+
+<p>NB: If trial activation is configured, the API can return a new key (read more <a href="http://support.serialkeymanager.com/howto/trial-activation/">here</a>).</p>
+
+<pre><code>public void KeyActivation()
+{
+    var validationResult = SKGL.SKM.KeyActivation("pid", "uid", "hsum", "serial key to validate", "machine code", {sign the data}, {sign machine code});
+
+    if (validationResult.Valid)
+    {
+        //valid key
+        var created = validationResult.CreationDate;
+        var expires = validationResult.ExpirationDate;
+        var setTime = validationResult.SetTime;
+        var timeLeft = validationResult.TimeLeft;
+        var features = validationResult.Features;
+    }
+    else
+    {
+        //invalid key
+        Assert.Fail();
+    }
+}
+</code></pre>
+
+<h3>
+<a id="offline-key-validation" class="anchor" href="#offline-key-validation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Offline key validation</h3>
+
+<p>Read more about offline key validation <a href="http://support.serialkeymanager.com/howto/passive-key-validation-offline/">here</a>.</p>
+
+<pre><code>public void SecureKeyValidation()
+{
+    // your public key can be found at http://serialkeymanager.com/Account/Manage.
+    string rsaPublicKey = "&lt;RSAKeyValue&gt;&lt;Modulus&gt;pL01ClSf7U5kp2E7C9qFecZGiaV8rFpET1u9QvuBrLNkCRB5mQFiaCqHyJd8Wj5o/vkBAenQO+K45hLQakve/iAmr4NX/Hca9WyN8DVhif6p9wD+FIGWeheOkbcrfiFgMzC+3g/w1n73fK0GCLF4j2kqnWrDBjaB4WfzmtA5hmrBFX3u9xcYed+dXWJW/I4MYmG0cQiBqR/P5xTTE+zZWOXwvmSZZaMvBh884H9foLgPWWsLllobQTHUqRq6pr48XrQ8GjV7oGigTImolenMLSR59anDCIhZy59PPsi2WE7OoYP8ecNvkdHWr1RlEFtx4bUZr3FPNWLm7QIq7AWwgw==&lt;/Modulus&gt;&lt;Exponent&gt;AQAB&lt;/Exponent&gt;&lt;/RSAKeyValue&gt;";
+
+    SKGL.KeyInformation keyInfo = new SKGL.KeyInformation();
+    bool fileLoaded = false;
+
+    try
+    {
+        keyInfo = SKGL.SKM.LoadKeyInformationFromFile("file.txt");
+        fileLoaded = true;
+    }
+    catch{}
+
+
+    if(fileLoaded)
+    {
+        if (SKGL.SKM.IsKeyInformationGenuine(keyInfo, rsaPublicKey))
+        {
+            // if we've come so far, we know that
+            // * the key has been checked against the database once
+            // * the file with the key infromation has not been modified.
+
+            // check the key
+            if (keyInfo.Valid)
+            {
+                // here we can retrive some useful info
+                Console.WriteLine(keyInfo.CreationDate);
+                //... etc.
+            }
+        }
+        else
+        {
+            Assert.Fail();
+        }
+    }
+    else
+    {
+        // it's crucial that both json and secure are set to true
+        keyInfo = SKGL.SKM.KeyValidation("pid", "uid", "hsum", "serial key", {sign key information file}); // KeyActivation method works also.
+
+        if(keyInfo.Valid)
+        {
+            SKGL.SKM.SaveKeyInformationToFile(keyInfo, "file.txt");
+        }
+    }
+}
+</code></pre>
+
+<h3>
+<a id="list-user-products" class="anchor" href="#list-user-products" aria-hidden="true"><span class="octicon octicon-link"></span></a>List User Products</h3>
+
+<pre><code>public void ListAllProducts()
+{
+    var listOfProducts = SKGL.SKM.ListUserProducts("username", "password");
+
+    foreach (var product in listOfProducts)
+    {
+        Debug.WriteLine("The product with the name \""+ product.Key + "\" has the pid \"" + product.Value + "\"");
+    }
+}
+</code></pre>
+
+<h3>
+<a id="get-product-variables" class="anchor" href="#get-product-variables" aria-hidden="true"><span class="octicon octicon-link"></span></a>Get Product Variables</h3>
+
+<p>This will get <em>pid</em>, <em>uid</em> and <em>hsum</em>.</p>
+
+<pre><code>public void GetProductVariables()
+{
+    var listOfProducts = SKGL.SKM.ListUserProducts("username", "password");
+
+    //variables needed in for instance validation/activation
+    //note, First requires System.Linq.
+    var productVar = SKGL.SKM.GetProductVariables("username","password", listOfProducts.First().Value);
+
+    Debug.WriteLine("The uid=" + productVar.UID + ", pid=" + productVar.PID + " and hsum=" + productVar.HSUM);
+}
+</code></pre>
+
+<h3>
+<a id="check-against-time-rollback" class="anchor" href="#check-against-time-rollback" aria-hidden="true"><span class="octicon octicon-link"></span></a>Check Against Time Rollback</h3>
+
+<p>In order to make sure that the local time (date and time) was changed by the user, the following code can be used.</p>
+
+<pre><code>public void HasLocalTimeChanged()
+{
+    bool hasChanged = SKGL.SKM.TimeCheck();
+
+    if(hasChanged)
+    {
+        Debug.WriteLine("The local time was changed by the user. Validation fails.");
+    }
+    else
+    {
+        Debug.WriteLine("The local time hasn't been changed. Continue validation.");
+    }
+}
+</code></pre>
+
+<h3>
+<a id="other-methods-in-web-api" class="anchor" href="#other-methods-in-web-api" aria-hidden="true"><span class="octicon octicon-link"></span></a>Other Methods in Web API</h3>
+
+<p>If you would like to access a method in the Web API manually, please use <em>GetParameters</em> method. A list of them can be found <a href="http://docs.serialkeymanager.com/web-api/">here</a>.</p>
+
+<pre><code>public void GetParamtersTest()
+{
+    var input = new System.Collections.Generic.Dictionary&lt;string, string&gt;();
+    input.Add("uid", "1");
+    input.Add("pid", "1");
+    input.Add("hsum", "11111");
+    input.Add("sid", "ABCD-EFGHI-GKLMN-OPQRS");
+    input.Add("sign","true");
+
+    var result = SKGL.SKM.GetParameters(input, "Validate");
+
+    var keyinfo = SKGL.SKM.GetKeyInformationFromParameters(result);
+
+    if(result.ContainsKey("error") &amp;&amp; result["error"] != "")
+    {
+        Assert.Fail();
+    }
+}
+</code></pre>
+
+<h3>
+<a id="calculating-machine-code" class="anchor" href="#calculating-machine-code" aria-hidden="true"><span class="octicon octicon-link"></span></a>Calculating Machine code</h3>
+
+<p>Machine code can be calculated with the function below. Any other hash algorithm will do, as long as it only contains letters and digits only.</p>
+
+<pre><code>public void TestingHashes()
+{
+    //eg. "61843235" (getEightDigitsLongHash)
+    //eg. "D38F13CAB8938AC3C393BC111E1A85BB4BA2CCC9" (getSHA1)
+    string machineID1 = SKGL.SKM.getMachineCode(SKGL.SKM.getEightDigitsLongHash);
+    string machineID2 = SKGL.SKM.getMachineCode(SKGL.SKM.getSHA1);
+}
+</code></pre>
+        </section>
+
+        <aside id="sidebar">
+          <a href="https://github.com/artemlos/SKGL-Extension-for-dot-NET/zipball/master" class="button">
+            <small>Download</small>
+            .zip file
+          </a>
+          <a href="https://github.com/artemlos/SKGL-Extension-for-dot-NET/tarball/master" class="button">
+            <small>Download</small>
+            .tar.gz file
+          </a>
+
+          <p class="repo-owner"><a href="https://github.com/artemlos/SKGL-Extension-for-dot-NET"></a> is maintained by <a href="https://github.com/artemlos">artemlos</a>.</p>
+
+          <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
+        </aside>
+      </div>
+    </div>
+
+  
+  </body>
+</html>
