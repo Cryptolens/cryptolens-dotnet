@@ -13,7 +13,7 @@ NB: This is only SKGL.SKM, not the entire SKGL API.
 5. [Get Product Variables](#get-product-variables)
 6. [Check Against Time Rollback](#check-against-time-rollback)
 7. [Other Methods in Web API](#other-methods-in-web-api)
-8. [Simple machine code](#simple-machine-code)
+8. [Calculating Machine code](#calculating-machine-code)
 
 ###Key Validation
 For *pid*, *uid* and *hsum*, please see https://serialkeymanager.com/Ext/Val. You can retreive them using  [Get Product Variables](#get-product-variables).
@@ -190,7 +190,7 @@ public void GetParamtersTest()
 }
 ```
 
-###Simple Machine Code
+###Calculating Machine code
 Machine code can be calculated with the function below. Any other hash algorithm will do, as long as it only contains letters and digits only.
 ```
 public void TestingHashes()
