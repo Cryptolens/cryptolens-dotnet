@@ -144,7 +144,6 @@ public void GetProductVariables()
     //note, First requires System.Linq.
     var productVar = SKGL.SKM.GetProductVariables("username","password", listOfProducts.First().Value);
 
-
     Debug.WriteLine("The uid=" + productVar.UID + ", pid=" + productVar.PID + " and hsum=" + productVar.HSUM);
 }
 ```
