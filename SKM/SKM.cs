@@ -220,25 +220,48 @@ namespace SKGL
         /// </summary>
         /// <param name="keyInformation">The key infromation that should be saved into a file</param>
         /// <param name="file">The entire path including file name, i.e. c:\folder\file.txt</param>
-        public static void SaveKeyInformationToFile( KeyInformation keyInformation, string file)
+        /// <param name="json">If the file should be stored in JSON (eg. an activation file with .skm extension), set this parameter to TRUE.</param>
+        public static void SaveKeyInformationToFile( KeyInformation keyInformation, string file, bool json=false)
         {
-            var bf = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
-            var fs = new System.IO.FileStream (file, System.IO.FileMode.OpenOrCreate);
-            bf.Serialize(fs, keyInformation);
-            fs.Close();
+            if (json)
+            {
+                var obj = Newtonsoft.Json.JsonConvert.SerializeObject(keyInformation);
+                var sw = new System.IO.StreamWriter(file);
+                sw.Write(obj);
+                sw.Close();
+
+            }
+            else
+            {
+                var bf = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
+                var fs = new System.IO.FileStream(file, System.IO.FileMode.OpenOrCreate);
+                bf.Serialize(fs, keyInformation);
+                fs.Close();
+            }
         }
         /// <summary>
         /// This method loads key information stored in a file into a key information variable.
         /// </summary>
         /// <param name="file">The entire path including file name, i.e. c:\folder\file.txt</param>
+        /// <param name="json">If the file is stored in JSON (eg. an activation file with .skm extension), set this parameter to TRUE.</param>
         /// <returns></returns>
-        public static KeyInformation LoadKeyInformationFromFile(string file)
+        public static KeyInformation LoadKeyInformationFromFile(string file, bool json = false)
         {
-            var bf = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
-            var fs = new System.IO.FileStream(file, System.IO.FileMode.Open);
-            KeyInformation keyInfo = (KeyInformation)bf.Deserialize(fs);
-            fs.Close();
-            return keyInfo;
+            if (json)
+            {
+                var sr = new System.IO.StreamReader(file);
+                var ki = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string,string>>(sr.ReadToEnd());
+                sr.Close();
+                return GetKeyInformationFromParameters(ki);  
+            }
+            else
+            {
+                var bf = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
+                var fs = new System.IO.FileStream(file, System.IO.FileMode.Open);
+                KeyInformation keyInfo = (KeyInformation)bf.Deserialize(fs);
+                fs.Close();
+                return keyInfo;
+            }
         }
 
         // useful snippettes by @Mehrdad

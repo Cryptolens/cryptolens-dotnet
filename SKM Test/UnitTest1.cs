@@ -323,6 +323,17 @@ namespace SKM_Test
             string machineID1 = SKGL.SKM.getMachineCode(SKGL.SKM.getEightDigitsLongHash);
             string machineID2 = SKGL.SKM.getMachineCode(SKGL.SKM.getSHA1);
         }
+
+        [TestMethod]
+        public void TestJSONReadAndWrite()
+        {
+            var ki = SKGL.SKM.LoadKeyInformationFromFile("c:\\out\\test.skm", json: true);
+            SKGL.SKM.SaveKeyInformationToFile(ki,"c:\\out\\hello.skm" ,  json: true);
+
+            //an error is thrown since we don't really store the features array as an array. fix this.
+            var ki2 = SKGL.SKM.LoadKeyInformationFromFile("c:\\out\\hello.skm", json: true);
+            
+        }
     }
 
 }
