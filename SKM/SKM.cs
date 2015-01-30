@@ -220,24 +220,13 @@ namespace SKGL
         /// </summary>
         /// <param name="keyInformation">The key infromation that should be saved into a file</param>
         /// <param name="file">The entire path including file name, i.e. c:\folder\file.txt</param>
-        /// <param name="json">If the file should be stored in JSON (eg. an activation file with .skm extension), set this parameter to TRUE.</param>
-        public static void SaveKeyInformationToFile( KeyInformation keyInformation, string file, bool json=false)
+        public static void SaveKeyInformationToFile(KeyInformation keyInformation, string file)
         {
-            if (json)
-            {
-                var obj = Newtonsoft.Json.JsonConvert.SerializeObject(keyInformation);
-                var sw = new System.IO.StreamWriter(file);
-                sw.Write(obj);
-                sw.Close();
+            var bf = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
+            var fs = new System.IO.FileStream(file, System.IO.FileMode.OpenOrCreate);
+            bf.Serialize(fs, keyInformation);
+            fs.Close();
 
-            }
-            else
-            {
-                var bf = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
-                var fs = new System.IO.FileStream(file, System.IO.FileMode.OpenOrCreate);
-                bf.Serialize(fs, keyInformation);
-                fs.Close();
-            }
         }
         /// <summary>
         /// This method loads key information stored in a file into a key information variable.

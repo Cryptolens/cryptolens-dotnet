@@ -328,10 +328,10 @@ namespace SKM_Test
         public void TestJSONReadAndWrite()
         {
             var ki = SKGL.SKM.LoadKeyInformationFromFile("c:\\out\\test.skm", json: true);
-            SKGL.SKM.SaveKeyInformationToFile(ki,"c:\\out\\hello.skm" ,  json: true);
+            SKGL.SKM.SaveKeyInformationToFile(ki,"c:\\out\\hello.skm" );
 
             //an error is thrown since we don't really store the features array as an array. fix this.
-            var ki2 = SKGL.SKM.LoadKeyInformationFromFile("c:\\out\\hello.skm", json: true);
+            var ki2 = SKGL.SKM.LoadKeyInformationFromFile("c:\\out\\hello.skm");
             
         }
     }
