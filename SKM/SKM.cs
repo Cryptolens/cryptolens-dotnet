@@ -564,12 +564,24 @@ namespace SKGL
             hash += (hash << 15);
 
             int result = (int)(hash % MUST_BE_LESS_THAN);
+
+            //we want the result to not be zero, as this would thrown an exception in check.
+            if (result == 0)
+                result = 1;
+
+
             int check = MUST_BE_LESS_THAN / result;
 
             if (check > 1)
             {
                 result *= check;
             }
+
+            //when result is less than MUST_BE_LESS_THAN, multiplication of result with check will be in that boundary.
+            //otherwise, we have to divide by 10.
+            if (MUST_BE_LESS_THAN == result)
+                result /= 10;
+                
 
             return result.ToString();
         }
