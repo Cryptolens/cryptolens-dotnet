@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Net;
 
 namespace SKM_Test
 {
@@ -9,6 +10,9 @@ namespace SKM_Test
         [TestMethod]
         public void TestMethod1()
         {
+            //IWebProxy a = new IWebProxy();
+
+            
         }
 
         [TestMethod]

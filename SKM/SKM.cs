@@ -278,8 +278,9 @@ namespace SKGL
         /// </summary>
         /// <param name="inputParameters">A dictionary that contains data such as "uid", "pid", etc.</param>
         /// <param name="typeOfAction">A string that tells what to do, i.e. "validate", "activate" etc.</param>
+        /// <param name="proxy">(Optional) The proxy settings.</param>
         /// <returns>A dictionary of the JSON elements returned for that particular request.</returns>
-        public static Dictionary<string, string> GetParameters(Dictionary<string, string> inputParameters, string typeOfAction)
+        public static Dictionary<string, string> GetParameters(Dictionary<string, string> inputParameters, string typeOfAction, WebProxy proxy = null)
         {
             using (WebClient client = new WebClient())
             {
@@ -293,6 +294,10 @@ namespace SKGL
                 client.Proxy = WebRequest.DefaultWebProxy;
                 client.Credentials = System.Net.CredentialCache.DefaultCredentials;
                 client.Proxy.Credentials = System.Net.CredentialCache.DefaultCredentials;
+
+                //in case we have a proxy server.
+                if (proxy != null)
+                    client.Proxy = proxy;
 
                 byte[] responsebytes = client.UploadValues("https://serialkeymanager.com/Ext/" + typeOfAction, "POST", reqparm);
                 string responsebody = Encoding.UTF8.GetString(responsebytes);
@@ -356,8 +361,9 @@ namespace SKGL
         /// </summary>
         /// <param name="username">Your username</param>
         /// <param name="password">Your password</param>
+        /// <param name="proxy">(Optional) The proxy settings.</param>
         /// <returns>All products as a dictionary. The "key" is the product name and the "value" is the product id.</returns>
-        public static Dictionary<string, string> ListUserProducts(string username, string password)
+        public static Dictionary<string, string> ListUserProducts(string username, string password, WebProxy proxy = null)
         {
             using (WebClient client = new WebClient())
             {
@@ -368,6 +374,11 @@ namespace SKGL
                 client.Proxy = WebRequest.DefaultWebProxy;
                 client.Credentials = System.Net.CredentialCache.DefaultCredentials;
                 client.Proxy.Credentials = System.Net.CredentialCache.DefaultCredentials;
+
+                //in case we have a proxy server.
+                if (proxy != null)
+                    client.Proxy = proxy;
+
 
                 byte[] responsebytes = client.UploadValues("https://serialkeymanager.com/Ext/ListProducts", "POST", reqparm);
                 string responsebody = Encoding.UTF8.GetString(responsebytes);
@@ -383,8 +394,9 @@ namespace SKGL
         /// <param name="username">Your username</param>
         /// <param name="password">Your password</param>
         /// <param name="productID">The desired product ID</param>
+        /// <param name="proxy">(Optional) The proxy settings.</param>
         /// <returns>The "uid","pid", and "hsum" variables</returns>
-        public static ProductVariables GetProductVariables(string username, string password, string productID)
+        public static ProductVariables GetProductVariables(string username, string password, string productID, WebProxy proxy = null)
         {
             using (WebClient client = new WebClient())
             {
@@ -396,6 +408,11 @@ namespace SKGL
                 client.Proxy = WebRequest.DefaultWebProxy;
                 client.Credentials = System.Net.CredentialCache.DefaultCredentials;
                 client.Proxy.Credentials = System.Net.CredentialCache.DefaultCredentials;
+
+                //in case we have a proxy server.
+                if (proxy != null)
+                    client.Proxy = proxy;
+
 
                 byte[] responsebytes = client.UploadValues("https://serialkeymanager.com/Ext/GetProductVariables", "POST", reqparm);
                 string responsebody = Encoding.UTF8.GetString(responsebytes);
