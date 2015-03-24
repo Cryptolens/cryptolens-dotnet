@@ -149,7 +149,7 @@ public void GetProductVariables()
 ```
 
 ###Check Against Time Rollback
-In order to make sure that the local time (date and time) was changed by the user, the following code can be used.
+In order to make sure that the local time (date and time) wasn't changed by the user, the following code can be used.
 ```
 public void HasLocalTimeChanged()
 {
