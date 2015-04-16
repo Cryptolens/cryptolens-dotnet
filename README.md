@@ -24,7 +24,7 @@ public void KeyValiation()
 
     var newKey = validationResult.NewKey;
 
-    if (validationResult.Valid)
+    if (validationResult != null)
     {
         //valid key
         var created = validationResult.CreationDate;
@@ -51,7 +51,7 @@ public void KeyActivation()
 {
     var validationResult = SKGL.SKM.KeyActivation("pid", "uid", "hsum", "serial key to validate", "machine code", {sign the data}, {sign machine code});
 
-    if (validationResult.Valid)
+    if (validationResult != null)
     {
         //valid key
         var created = validationResult.CreationDate;
@@ -112,7 +112,7 @@ public void SecureKeyValidation()
         // it's crucial that both json and secure are set to true
         keyInfo = SKGL.SKM.KeyValidation("pid", "uid", "hsum", "serial key", {sign key information file}); // KeyActivation method works also.
 
-        if(keyInfo.Valid)
+        if(keyInfo != null)
         {
             SKGL.SKM.SaveKeyInformationToFile(keyInfo, "file.txt");
         }
