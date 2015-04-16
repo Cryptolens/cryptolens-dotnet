@@ -40,7 +40,7 @@ NB: This is only SKGL.SKM, not the entire SKGL API.</p>
 <a id="download" class="anchor" href="#download" aria-hidden="true"><span class="octicon octicon-link"></span></a>Download</h2>
 
 <ul>
-<li><a href="https://skgl.codeplex.com/releases/view/610768">The latest version</a></li>
+<li><a href="http://support.serialkeymanager.com/skgl-extension/">The latest version</a></li>
 </ul>
 
 <h2>
@@ -66,9 +66,7 @@ NB: This is only SKGL.SKM, not the entire SKGL API.</p>
 {
     var validationResult = SKGL.SKM.KeyValidation("pid", "uid", "hsum", "serial key to validate");
 
-    var newKey = validationResult.NewKey;
-
-    if (validationResult.Valid)
+    if (validationResult != null)
     {
         //valid key
         var created = validationResult.CreationDate;
@@ -97,7 +95,7 @@ NB: This is only SKGL.SKM, not the entire SKGL API.</p>
 {
     var validationResult = SKGL.SKM.KeyActivation("pid", "uid", "hsum", "serial key to validate", "machine code", {sign the data}, {sign machine code});
 
-    if (validationResult.Valid)
+    if (validationResult != null)
     {
         //valid key
         var created = validationResult.CreationDate;
@@ -161,7 +159,7 @@ NB: This is only SKGL.SKM, not the entire SKGL API.</p>
         // it's crucial that both json and secure are set to true
         keyInfo = SKGL.SKM.KeyValidation("pid", "uid", "hsum", "serial key", {sign key information file}); // KeyActivation method works also.
 
-        if(keyInfo.Valid)
+        if(keyInfo != null)
         {
             SKGL.SKM.SaveKeyInformationToFile(keyInfo, "file.txt");
         }
@@ -203,7 +201,7 @@ NB: This is only SKGL.SKM, not the entire SKGL API.</p>
 <h3>
 <a id="check-against-time-rollback" class="anchor" href="#check-against-time-rollback" aria-hidden="true"><span class="octicon octicon-link"></span></a>Check Against Time Rollback</h3>
 
-<p>In order to make sure that the local time (date and time) was changed by the user, the following code can be used.</p>
+<p>In order to make sure that the local time (date and time) wasn't changed by the user, the following code can be used.</p>
 
 <pre><code>public void HasLocalTimeChanged()
 {
