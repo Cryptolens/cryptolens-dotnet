@@ -22,8 +22,6 @@ public void KeyValiation()
 {
     var validationResult = SKGL.SKM.KeyValidation("pid", "uid", "hsum", "serial key to validate");
 
-    var newKey = validationResult.NewKey;
-
     if (validationResult != null)
     {
         //valid key
