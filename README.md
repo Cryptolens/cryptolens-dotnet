@@ -22,9 +22,7 @@ public void KeyValiation()
 {
     var validationResult = SKGL.SKM.KeyValidation("pid", "uid", "hsum", "serial key to validate");
 
-    var newKey = validationResult.NewKey;
-
-    if (validationResult.Valid)
+    if (validationResult != null)
     {
         //valid key
         var created = validationResult.CreationDate;
@@ -51,7 +49,7 @@ public void KeyActivation()
 {
     var validationResult = SKGL.SKM.KeyActivation("pid", "uid", "hsum", "serial key to validate", "machine code", {sign the data}, {sign machine code});
 
-    if (validationResult.Valid)
+    if (validationResult != null)
     {
         //valid key
         var created = validationResult.CreationDate;
@@ -112,7 +110,7 @@ public void SecureKeyValidation()
         // it's crucial that both json and secure are set to true
         keyInfo = SKGL.SKM.KeyValidation("pid", "uid", "hsum", "serial key", {sign key information file}); // KeyActivation method works also.
 
-        if(keyInfo.Valid)
+        if(keyInfo != null)
         {
             SKGL.SKM.SaveKeyInformationToFile(keyInfo, "file.txt");
         }
@@ -149,7 +147,7 @@ public void GetProductVariables()
 ```
 
 ###Check Against Time Rollback
-In order to make sure that the local time (date and time) was changed by the user, the following code can be used.
+In order to make sure that the local time (date and time) wasn't changed by the user, the following code can be used.
 ```
 public void HasLocalTimeChanged()
 {
