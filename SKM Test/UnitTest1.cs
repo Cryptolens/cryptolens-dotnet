@@ -101,7 +101,7 @@ namespace SKM_Test
             // client app
 
 
-            var validationResult = SKGL.SKM.KeyValidation("3", "2", "751963", "MNIVR-MGQRL-QGUZK-BGJHQ");
+            var validationResult = SKGL.SKM.KeyValidation("3", "2", "751963", "MNIVR-MGQRL-QGUZK-BGJHQ",true);
 
             var newKey = validationResult.NewKey;
 

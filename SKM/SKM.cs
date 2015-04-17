@@ -105,7 +105,7 @@ namespace SKGL
         #region KeyValidation
         /// <summary>
         /// This method will check whether the key is valid or invalid against the Serial Key Manager database
-        /// The method will return TRUE only if:
+        /// The method will return an object (KeyInformation) only if:
         ///  * the key exists in the database (it has been generated)
         ///  * the key is not blocked
         /// </summary>
@@ -114,7 +114,7 @@ namespace SKGL
         /// <param name="hsum">hsum</param>
         /// <param name="sid">Serial Key that is to be validated</param>
         /// <param name="secure">If true, the key information will contain a signature of itself that you can validate with IsKeyInformationGenuine</param>
-        /// <returns>KeyInformation</returns>
+        /// <returns>KeyInformation or null.</returns>
         public static KeyInformation KeyValidation(string pid, string uid, string hsum, string sid, bool secure=false)
         {
 
@@ -142,7 +142,7 @@ namespace SKGL
 
         /// <summary>
         /// This method will check whether the key is valid or invalid against the Serial Key Manager database.
-        /// The method will return TRUE only if:
+        /// The method will return an object (KeyInformation) only if:
         ///  * the key exists in the database (it has been generated)</summary>
         ///  * the key is not blocked
         ///  * the machine code that is activated has not been activated before
@@ -157,7 +157,7 @@ namespace SKGL
         /// <param name="json">If true, additional information is returned in JSON format</param>
         /// <param name="secure">If true, the key information will contain a signature of itself that you can validate with IsKeyInformationGenuine</param>
         /// <param name="signMid">if set to true, the mid parameter will be included into the signature (requires secure to be true)</param>
-        /// <returns>Returns TRUE if the key follows the defined rules.</returns>
+        /// <returns>Returns a KeyInformation object if all rules were satisfied and null if an error occured.</returns>
         public static KeyInformation KeyActivation(string pid, string uid, string hsum, string sid, string mid, bool secure = false, bool signMid = false )
         {
             Dictionary<string, string> input = new Dictionary<string, string>();
@@ -182,6 +182,44 @@ namespace SKGL
             return GetKeyInformationFromParameters(result);
             
         }
+
+
+        /// <summary>
+        /// This method will attempt to de-activate a machine code from the given key.
+        /// If the given machine code was de-activated, KeyInformation confirming the key and the machine code will be returned.
+        /// If something went wrong, for instance, if the machine code did not exist, null will be returned.
+        /// <param name="pid">pid</param>
+        /// <param name="uid">uid</param>
+        /// <param name="hsum">hsum</param>
+        /// <param name="sid">Serial Key that is to be validated</param>
+        /// <param name="mid">Machine code</param>
+        /// <remarks>In Debug mode, the error is going to be displayed in the Output Window.<br/>
+        /// Note: The key is going to be stored in "NewKey" field, while the machine code is going to be stored in "mid".
+        /// </remarks>
+        /// <returns>Returns a KeyInformation object (with a key and machine code only) or null.</returns>
+        public static KeyInformation KeyDeactivation(string pid, string uid, string hsum, string sid, string mid)
+        {
+            Dictionary<string, string> input = new Dictionary<string, string>();
+            input.Add("uid", uid);
+            input.Add("pid", pid);
+            input.Add("hsum", hsum);
+            input.Add("mid", mid);
+            input.Add("sid", sid);
+
+            var result = GetParameters(input, "Deactivate");
+
+            if (result.ContainsKey("error"))
+            {
+#if DEBUG
+                System.Diagnostics.Debug.WriteLine("Error: " + result["error"]);
+#endif
+                return null;
+            }
+
+            return new KeyInformation() { NewKey = result["key"], Mid = result["mid"]};
+
+        }
+
 
         /// <summary>
         /// This method allows you to check if the key information (creation date, expiration date, etc.) in a request was modified on the way from Serial Key Manager server to the client application.
