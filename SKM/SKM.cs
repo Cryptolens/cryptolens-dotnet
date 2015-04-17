@@ -187,7 +187,7 @@ namespace SKGL
         /// <summary>
         /// This method will attempt to de-activate a machine code from the given key.
         /// If the given machine code was de-activated, KeyInformation confirming the key and the machine code will be returned.
-        /// If something went wrong, for instance, if the machine code did not exist, null will be returned.
+        /// If something went wrong, for instance, if the machine code did not exist, null will be returned.</summary>
         /// <param name="pid">pid</param>
         /// <param name="uid">uid</param>
         /// <param name="hsum">hsum</param>
