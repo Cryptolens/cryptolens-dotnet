@@ -113,9 +113,12 @@ namespace SKGL
         /// <param name="uid">uid</param>
         /// <param name="hsum">hsum</param>
         /// <param name="sid">Serial Key that is to be validated</param>
-        /// <param name="secure">If true, the key information will contain a signature of itself that you can validate with IsKeyInformationGenuine</param>
+        /// <param name="secure">If true, the Key Information will contain a signature of itself that you can validate with IsKeyInformationGenuine</param>
+        /// <param name="signPid">If true, the Key Information object will contain the Pid field. (Note, secure has to be true, since otherwise Pid will not be included into the signature.)</param>
+        /// /// <param name="signUid">If true, the Key Information object will contain the Uid field. (Note, secure has to be true, since otherwise Uid will not be included into the signature.)</param>
+        /// /// <param name="signDate">If true, the Key Information object will contain the Date field. (when validation was performed). (Note, secure has to be true, since otherwise Date will not be included into the signature.)</param>
         /// <returns>KeyInformation or null.</returns>
-        public static KeyInformation KeyValidation(string pid, string uid, string hsum, string sid, bool secure=false)
+        public static KeyInformation KeyValidation(string pid, string uid, string hsum, string sid, bool secure=false, bool signPid=false, bool signUid=false, bool signDate = false)
         {
 
             Dictionary<string,string> input = new Dictionary<string,string>();

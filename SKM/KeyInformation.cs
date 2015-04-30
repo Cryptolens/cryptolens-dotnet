@@ -52,9 +52,24 @@ namespace SKGL
         public string Notes { get; set; }
 
         /// <summary>
-        /// The mid (machine id) that was provided as an input parameter. Mid will only be stored if 'signMid' was set to true.
+        /// The mid (machine id) that was provided as an input parameter. Mid will only be stored if 'signMid' was set to true. Null otherwise.
         /// </summary>
         public string Mid { get; set; }
+
+        /// <summary>
+        /// The product id (pid) that was provided as an input parameter. Pid will only be stored if 'signPid' was set to true. Null otherwise.
+        /// </summary>
+        public string Pid { get; set; }
+
+        /// <summary>
+        /// The user id (uid) that was provided as an input parameter. Uid will only be stored if 'signUid' was set to true. Null otherwise.
+        /// </summary>
+        public string Uid { get; set; }
+
+        /// <summary>
+        /// The date when the key was validated/activated. Date will only be stored if 'signDate' was set to true. Null otherwise.
+        /// </summary>
+        public DateTime? Date { get; set; }
 
         /// <summary>
         /// When secure option is set to true, this variable will contain the signature of the information that the server returns. It is a signature of almost all variables stored in this variable except for NewKey.
