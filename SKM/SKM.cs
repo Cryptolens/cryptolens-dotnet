@@ -247,6 +247,14 @@ namespace SKGL
         /// <returns>True, if no changes were detected. False, otherwise.</returns>
         public static bool IsKeyInformationGenuine(KeyInformation keyInformation, string rsaPublicKey)
         {
+            if(keyInformation == null)
+            {
+#if DEBUG
+                System.Diagnostics.Debug.WriteLine("Error: The KeyInformation object is null. False result will be returned.");
+#endif
+                return false;
+            }
+
             byte[] data = GetBytes(keyInformation.Valid.ToString() + keyInformation.CreationDate.ToString("yyyy-MM-dd") + keyInformation.ExpirationDate.ToString("yyyy-MM-dd")
                  + keyInformation.SetTime.ToString() + keyInformation.TimeLeft.ToString() + 
                  keyInformation.Features[0].ToString() +
@@ -258,7 +266,10 @@ namespace SKGL
                  keyInformation.Features[6].ToString() +
                  keyInformation.Features[7].ToString() +
                  (keyInformation.Notes == null ? "": keyInformation.Notes) + 
-                 (keyInformation.Mid == null ? "" : keyInformation.Mid)
+                 (keyInformation.Mid == null ? "" : keyInformation.Mid) +
+                 (keyInformation.Pid == null ? "" : keyInformation.Pid) +
+                 (keyInformation.Uid == null ? "" : keyInformation.Uid) +
+                 (keyInformation.Date == null ? "" : keyInformation.Date.Value.ToString("yyy-MM-dd"))
                  );
 
             RSACryptoServiceProvider rsa = new RSACryptoServiceProvider(2048);
@@ -407,6 +418,21 @@ namespace SKGL
                 ki.Mid = parameters["mid"];
             }
 
+            if (parameters.ContainsKey("pid"))
+            {
+                ki.Pid = parameters["pid"];
+            }
+
+            if (parameters.ContainsKey("uid"))
+            {
+                ki.Uid = parameters["uid"];
+            }
+
+            if (parameters.ContainsKey("date"))
+            {
+                // risky here.
+                ki.Date = DateTime.Parse(parameters["date"]);
+            }
 
             return ki;
 

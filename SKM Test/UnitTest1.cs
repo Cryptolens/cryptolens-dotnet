@@ -8,7 +8,7 @@ namespace SKM_Test
 {
     [TestClass]
     public class UnitTest1
-    {   
+    {
 
         [TestMethod]
         public void TestMachineIDSignature()
@@ -24,10 +24,10 @@ namespace SKM_Test
                 keyInfo = SKGL.SKM.LoadKeyInformationFromFile("file007.txt");
                 fileLoaded = true;
             }
-            catch{}
+            catch { }
 
 
-            if(fileLoaded)
+            if (fileLoaded)
             {
                 if (SKGL.SKM.IsKeyInformationGenuine(keyInfo, rsaPublicKey))
                 {
@@ -38,7 +38,7 @@ namespace SKM_Test
                     // check the key
                     if (keyInfo.Valid)
                     {
-                        
+
                         // here we can retrive some useful info
                         Console.WriteLine(keyInfo.CreationDate);
 
@@ -58,7 +58,7 @@ namespace SKM_Test
                 //keyInfo = SKGL.SKM.KeyValidation("1012", "3", "941508", "LGNDO-LTHUB-MBRQV-PMLSJ", true,true);
                 keyInfo = SKGL.SKM.KeyActivation("2202", "2", "882018", "LJEHZ-KRVNU-KTORH-KFKOV", "abc", true, true); // KeyActivation method works also.
 
-                if(keyInfo.Valid)
+                if (keyInfo.Valid)
                 {
                     SKGL.SKM.SaveKeyInformationToFile(keyInfo, "file007.txt");
                 }
@@ -101,7 +101,7 @@ namespace SKM_Test
             // client app
 
 
-            var validationResult = SKGL.SKM.KeyValidation("3", "2", "751963", "MNIVR-MGQRL-QGUZK-BGJHQ",true);
+            var validationResult = SKGL.SKM.KeyValidation("3", "2", "751963", "MNIVR-MGQRL-QGUZK-BGJHQ", true);
 
             var newKey = validationResult.NewKey;
 
@@ -143,7 +143,7 @@ namespace SKM_Test
                 var setTime = validationResult.SetTime;
                 var timeLeft = validationResult.TimeLeft;
                 var features = validationResult.Features;
-                
+
             }
             else
             {
@@ -168,10 +168,10 @@ namespace SKM_Test
                 keyInfo = SKGL.SKM.LoadKeyInformationFromFile("file11112qavw.txt");
                 fileLoaded = true;
             }
-            catch{}
+            catch { }
 
 
-            if(fileLoaded)
+            if (fileLoaded)
             {
                 if (SKGL.SKM.IsKeyInformationGenuine(keyInfo, rsaPublicKey))
                 {
@@ -182,7 +182,7 @@ namespace SKM_Test
                     // check the key
                     if (keyInfo.Valid)
                     {
-                        
+
                         // here we can retrive some useful info
                         Console.WriteLine(keyInfo.CreationDate);
 
@@ -202,7 +202,7 @@ namespace SKM_Test
                 //keyInfo = SKGL.SKM.KeyValidation("1012", "3", "941508", "LGNDO-LTHUB-MBRQV-PMLSJ", true,true);
                 keyInfo = SKGL.SKM.KeyValidation("2202", "2", "882018", "LJEHZ-KRVNU-KTORH-KFKOV", true); // KeyActivation method works also.
 
-                if(keyInfo.Valid)
+                if (keyInfo.Valid)
                 {
                     SKGL.SKM.SaveKeyInformationToFile(keyInfo, "file11112qavw.txt");
 
@@ -280,21 +280,21 @@ namespace SKM_Test
             input.Add("pid", "3");
             input.Add("hsum", "751963");
             input.Add("sid", "JLLKY-NEPGJ-BQCOR-EIJGY");
-            input.Add("sign","true");
+            input.Add("sign", "true");
 
-            
+
             var result = SKGL.SKM.GetParameters(input, "Validate");
 
             var keyinfo = SKGL.SKM.GetKeyInformationFromParameters(result);
 
-            if(result.ContainsKey("error") && result["error"] != "")
+            if (result.ContainsKey("error") && result["error"] != "")
             {
                 Assert.Fail();
             }
 
-            
 
-            
+
+
         }
 
 
@@ -303,7 +303,7 @@ namespace SKM_Test
         {
             bool hasChanged = SKGL.SKM.TimeCheck();
 
-            if(hasChanged)
+            if (hasChanged)
             {
                 Debug.WriteLine("The local time was changed by the user. Validation fails.");
             }
@@ -328,11 +328,25 @@ namespace SKM_Test
         public void TestJSONReadAndWrite()
         {
             var ki = SKGL.SKM.LoadKeyInformationFromFile("c:\\out\\test.skm", json: true);
-            SKGL.SKM.SaveKeyInformationToFile(ki,"c:\\out\\hello.skm" );
+            SKGL.SKM.SaveKeyInformationToFile(ki, "c:\\out\\hello.skm");
 
             //an error is thrown since we don't really store the features array as an array. fix this.
             var ki2 = SKGL.SKM.LoadKeyInformationFromFile("c:\\out\\hello.skm");
-            
+
+        }
+
+
+        [TestMethod]
+        public void SignMidPidUidDateTest()
+        {
+            var validationResult = SKGL.SKM.KeyActivation("74", "2", "508133", "JWMKK-QMCPX-DZAMF-IOUZC", "artem", true, true, true, true, true);
+
+            var rsa = "<RSAKeyValue><Modulus>pL01ClSf7U5kp2E7C9qFecZGiaV8rFpET1u9QvuBrLNkCRB5mQFiaCqHyJd8Wj5o/vkBAenQO+K45hLQakve/iAmr4NX/Hca9WyN8DVhif6p9wD+FIGWeheOkbcrfiFgMzC+3g/w1n73fK0GCLF4j2kqnWrDBjaB4WfzmtA5hmrBFX3u9xcYed+dXWJW/I4MYmG0cQiBqR/P5xTTE+zZWOXwvmSZZaMvBh884H9foLgPWWsLllobQTHUqRq6pr48XrQ8GjV7oGigTImolenMLSR59anDCIhZy59PPsi2WE7OoYP8ecNvkdHWr1RlEFtx4bUZr3FPNWLm7QIq7AWwgw==</Modulus><Exponent>AQAB</Exponent></RSAKeyValue>";
+            if (!SKGL.SKM.IsKeyInformationGenuine(validationResult, rsa))
+            {
+                Assert.Fail();
+            }
+
         }
     }
 
