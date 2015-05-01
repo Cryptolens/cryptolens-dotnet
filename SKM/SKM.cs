@@ -18,6 +18,8 @@ namespace SKGL
     /// <summary>
     /// This class contains additional methods to ease serial key validation with Serial Key Manager. For definitions of some variables, please go to https://serialkeymanager.com/Ext/Val.
     /// </summary>
+    /// <remarks>In Debug mode, the error is going to be displayed in the Output Window.
+    /// </remarks>
     public static class SKM
     {
         #region TimeCheck
@@ -115,8 +117,10 @@ namespace SKGL
         /// <param name="sid">Serial Key that is to be validated</param>
         /// <param name="secure">If true, the Key Information will contain a signature of itself that you can validate with IsKeyInformationGenuine</param>
         /// <param name="signPid">If true, the Key Information object will contain the Pid field. (Note, secure has to be true, since otherwise Pid will not be included into the signature.)</param>
-        /// /// <param name="signUid">If true, the Key Information object will contain the Uid field. (Note, secure has to be true, since otherwise Uid will not be included into the signature.)</param>
-        /// /// <param name="signDate">If true, the Key Information object will contain the Date field. (when validation was performed). (Note, secure has to be true, since otherwise Date will not be included into the signature.)</param>
+        /// <param name="signUid">If true, the Key Information object will contain the Uid field. (Note, secure has to be true, since otherwise Uid will not be included into the signature.)</param>
+        /// <param name="signDate">If true, the Key Information object will contain the Date field. (when validation was performed). (Note, secure has to be true, since otherwise Date will not be included into the signature.)</param>
+        /// <remarks>In Debug mode, the error is going to be displayed in the Output Window.
+        /// </remarks>
         /// <returns>KeyInformation or null.</returns>
         public static KeyInformation KeyValidation(string pid, string uid, string hsum, string sid, bool secure=false, bool signPid=false, bool signUid=false, bool signDate = false)
         {
@@ -127,6 +131,9 @@ namespace SKGL
             input.Add("hsum", hsum);
             input.Add("sid", sid);
             input.Add("sign", secure.ToString());
+            input.Add("signPid", signPid.ToString());
+            input.Add("signUid", signUid.ToString());
+            input.Add("signDate", signDate.ToString());
 
             var result = GetParameters(input, "Validate");
 
@@ -159,9 +166,14 @@ namespace SKGL
         /// <param name="mid">Machine code</param>
         /// <param name="json">If true, additional information is returned in JSON format</param>
         /// <param name="secure">If true, the key information will contain a signature of itself that you can validate with IsKeyInformationGenuine</param>
-        /// <param name="signMid">if set to true, the mid parameter will be included into the signature (requires secure to be true)</param>
+        /// <param name="signMid">if set to true, the mid parameter will be included into the signature (requires secure to be true).  (Note, secure has to be true, since otherwise machine code (mid) will not be included into the signature.)</param>
+        /// <param name="signPid">If true, the Key Information object will contain the Pid field. (Note, secure has to be true, since otherwise Pid will not be included into the signature.)</param>
+        /// <param name="signUid">If true, the Key Information object will contain the Uid field. (Note, secure has to be true, since otherwise Uid will not be included into the signature.)</param>
+        /// <param name="signDate">If true, the Key Information object will contain the Date field. (when validation was performed). (Note, secure has to be true, since otherwise Date will not be included into the signature.)</param>
+        /// <remarks>In Debug mode, the error is going to be displayed in the Output Window.
+        /// </remarks>
         /// <returns>Returns a KeyInformation object if all rules were satisfied and null if an error occured.</returns>
-        public static KeyInformation KeyActivation(string pid, string uid, string hsum, string sid, string mid, bool secure = false, bool signMid = false )
+        public static KeyInformation KeyActivation(string pid, string uid, string hsum, string sid, string mid, bool secure = false, bool signMid = false, bool signPid=false, bool signUid=false, bool signDate = false )
         {
             Dictionary<string, string> input = new Dictionary<string, string>();
             input.Add("uid", uid);
@@ -171,6 +183,9 @@ namespace SKGL
             input.Add("sid", sid);
             input.Add("sign", secure.ToString());
             input.Add("signMid", signMid.ToString());
+            input.Add("signPid", signPid.ToString());
+            input.Add("signUid", signUid.ToString());
+            input.Add("signDate", signDate.ToString());
 
             var result = GetParameters(input, "Activate");
 
