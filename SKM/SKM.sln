@@ -36,4 +36,7 @@ Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
+	GlobalSection(NDepend) = preSolution
+		Project = ".\SKM1.ndproj"
+	EndGlobalSection
 EndGlobal

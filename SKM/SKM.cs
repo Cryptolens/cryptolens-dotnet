@@ -16,7 +16,7 @@ using System.Net.NetworkInformation;
 namespace SKGL
 {
     /// <summary>
-    /// This class contains additional methods to ease serial key validation with Serial Key Manager. For definitions of some variables, please go to https://serialkeymanager.com/Ext/Val.
+    /// This class contains additional methods to ease serial key validation with Serial Key Manager. For definitions of some variables, please go to <a href="https://serialkeymanager.com/Ext/Val">https://serialkeymanager.com/Ext/Val</a>.
     /// </summary>
     /// <remarks>In Debug mode, the error is going to be displayed in the Output Window.
     /// </remarks>
@@ -121,6 +121,30 @@ namespace SKGL
         /// <param name="signDate">If true, the Key Information object will contain the Date field. (when validation was performed). (Note, secure has to be true, since otherwise Date will not be included into the signature.)</param>
         /// <remarks>In Debug mode, the error is going to be displayed in the Output Window.
         /// </remarks>
+        /// <example>
+        /// For pid, uid and hsum, please see <a href="https://serialkeymanager.com/Ext/Val">https://serialkeymanager.com/Ext/Val</a>. You can retreive them using <see cref="GetProductVariables"/>.
+        /// <code>
+        /// public void KeyActivation()
+        /// {
+        ///    var validationResult = SKGL.SKM.KeyValidation("pid", "uid", "hsum", "serial key to validate", "machine code", {sign the data}, {sign machine code});
+        ///
+        ///    if (validationResult != null)
+        ///    {
+        ///        //valid key
+        ///        var created = validationResult.CreationDate;
+        ///        var expires = validationResult.ExpirationDate;
+        ///        var setTime = validationResult.SetTime;
+        ///        var timeLeft = validationResult.TimeLeft;
+        ///        var features = validationResult.Features;
+        ///    }
+        ///    else
+        ///    {
+        ///        //invalid key
+        ///        Assert.Fail();
+        ///    }
+        /// }
+        /// </code>
+        /// </example>
         /// <returns>KeyInformation or null.</returns>
         public static KeyInformation KeyValidation(string pid, string uid, string hsum, string sid, bool secure=false, bool signPid=false, bool signUid=false, bool signDate = false)
         {
@@ -172,6 +196,30 @@ namespace SKGL
         /// <param name="signDate">If true, the Key Information object will contain the Date field. (when validation was performed). (Note, secure has to be true, since otherwise Date will not be included into the signature.)</param>
         /// <remarks>In Debug mode, the error is going to be displayed in the Output Window.
         /// </remarks>
+        /// <example>
+        /// For pid, uid and hsum, please see <a href="https://serialkeymanager.com/Ext/Val">https://serialkeymanager.com/Ext/Val</a>. You can also retreive them using <see cref="GetProductVariables"/>. NB: If trial activation is configured, the API can return a new key (read more at <a href="http://support.serialkeymanager.com/kb/trial-activation/">http://support.serialkeymanager.com/kb/trial-activation/</a>).
+        /// <code>
+        /// public void KeyActivation()
+        /// {
+        ///    var validationResult = SKGL.SKM.KeyActivation("pid", "uid", "hsum", "serial key to validate", "machine code", {sign the data}, {sign machine code});
+        ///
+        ///    if (validationResult != null)
+        ///    {
+        ///        //valid key
+        ///        var created = validationResult.CreationDate;
+        ///        var expires = validationResult.ExpirationDate;
+        ///        var setTime = validationResult.SetTime;
+        ///        var timeLeft = validationResult.TimeLeft;
+        ///        var features = validationResult.Features;
+        ///    }
+        ///    else
+        ///    {
+        ///        //invalid key
+        ///        Assert.Fail();
+        ///    }
+        /// }
+        /// </code>
+        /// </example>
         /// <returns>Returns a KeyInformation object if all rules were satisfied and null if an error occured.</returns>
         public static KeyInformation KeyActivation(string pid, string uid, string hsum, string sid, string mid, bool secure = false, bool signMid = false, bool signPid=false, bool signUid=false, bool signDate = false )
         {
@@ -244,6 +292,59 @@ namespace SKGL
         /// </summary>
         /// <param name="keyInformation">The variable that contains the key information (including the signature)</param>
         /// <param name="rsaPublicKey">The public key (RSA)</param>
+        /// <example>
+        /// The code below demonstrates how IsKeyInformationGenueine can be used in offine key validation. Please read more about offline key validation at <a href="http://support.serialkeymanager.com/kb/passive-key-validation/">http://support.serialkeymanager.com/kb/passive-key-validation/</a>.
+        /// <code>
+        /// public void SecureKeyValidation()
+        /// {
+        ///    // your public key can be found at <a href="http://serialkeymanager.com/Account/Manage">http://serialkeymanager.com/Account/Manage</a>.
+        ///    string rsaPublicKey = "<RSAKeyValue><Modulus>something in base 64 ==</Modulus><Exponent>something in hex dec?</Exponent></RSAKeyValue>";
+        ///
+        ///    SKGL.KeyInformation keyInfo = new SKGL.KeyInformation();
+        ///    bool fileLoaded = false;
+        ///
+        ///    try
+        ///    {
+        ///        keyInfo = SKGL.SKM.LoadKeyInformationFromFile("file.txt");
+        ///        fileLoaded = true;
+        ///    }
+        ///    catch{}
+        ///
+        ///
+        ///    if(fileLoaded)
+        ///    {
+        ///        if (SKGL.SKM.IsKeyInformationGenuine(keyInfo, rsaPublicKey))
+        ///        {
+        ///            // if we've come so far, we know that
+        ///            // * the key has been checked against the database once
+        ///            // * the file with the key infromation has not been modified.
+        ///
+        ///            // check the key
+        ///            if (keyInfo.Valid)
+        ///            {
+        ///                // here we can retrive some useful info
+        ///                Console.WriteLine(keyInfo.CreationDate);
+        ///                //... etc.
+        ///            }
+        ///        }
+        ///        else
+        ///        {
+        ///            Assert.Fail();
+        ///        }
+        ///    }
+        ///    else
+        ///    {
+        ///        // it's crucial that both json and secure are set to true
+        ///        keyInfo = SKGL.SKM.KeyValidation("pid", "uid", "hsum", "serial key", {sign key information file}); // KeyActivation method works also.
+        ///
+        ///        if(keyInfo != null)
+        ///        {
+        ///            SKGL.SKM.SaveKeyInformationToFile(keyInfo, "file.txt");
+        ///        }
+        ///    }
+        /// }
+        /// </code>
+        /// </example>
         /// <returns>True, if no changes were detected. False, otherwise.</returns>
         public static bool IsKeyInformationGenuine(KeyInformation keyInformation, string rsaPublicKey)
         {
@@ -341,11 +442,34 @@ namespace SKGL
         #region OtherAPIRequests
 
         /// <summary>
-        /// This method will take in a set of parameters (input parameters) and send them to the given action. You can find them here: http://docs.serialkeymanager.com/web-api/
+        /// This method will take in a set of parameters (input parameters) and send them to the given action. You can find them here: <a href="http://docs.serialkeymanager.com/web-api/">http://docs.serialkeymanager.com/web-api/</a>.
         /// </summary>
         /// <param name="inputParameters">A dictionary that contains data such as "uid", "pid", etc.</param>
         /// <param name="typeOfAction">A string that tells what to do, i.e. "validate", "activate" etc.</param>
         /// <param name="proxy">(Optional) The proxy settings.</param>
+        /// <example>
+        /// If you would like to access a method in the Web API manually, please use GetParameters method. A list of them can be found at <a href="http://docs.serialkeymanager.com/web-api/">http://docs.serialkeymanager.com/web-api/</a>.
+        /// <code>
+        /// public void GetParamtersExample()
+        /// {
+        ///    var input = new System.Collections.Generic.Dictionary<string, string>();
+        ///    input.Add("uid", "1");
+        ///    input.Add("pid", "1");
+        ///    input.Add("hsum", "11111");
+        ///    input.Add("sid", "ABCD-EFGHI-GKLMN-OPQRS");
+        ///    input.Add("sign","true");
+        ///
+        ///    var result = SKGL.SKM.GetParameters(input, "Validate");
+        ///
+        ///    var keyinfo = SKGL.SKM.GetKeyInformationFromParameters(result);
+        ///
+        ///    if(result.ContainsKey("error") && result["error"] != "")
+        ///    {
+        ///        // if we are here, something went wrong.
+        ///    }
+        /// }
+        /// </code>
+        /// </example>
         /// <returns>A dictionary of the JSON elements returned for that particular request.</returns>
         public static Dictionary<string, string> GetParameters(Dictionary<string, string> inputParameters, string typeOfAction, WebProxy proxy = null)
         {
@@ -477,6 +601,21 @@ namespace SKGL
         /// <param name="password">Your password</param>
         /// <param name="productID">The desired product ID</param>
         /// <param name="proxy">(Optional) The proxy settings.</param>
+        /// <example>
+        /// This will get pid, uid and hsum.
+        /// <code>
+        /// public void GetProductVariables()
+        /// {
+        ///    var listOfProducts = SKGL.SKM.ListUserProducts("username", "password");
+        ///
+        ///    //variables needed in for instance validation/activation
+        ///    //note, First requires System.Linq.
+        ///    var productVar = SKGL.SKM.GetProductVariables("username","password", listOfProducts.First().Value);
+        ///
+        ///    Debug.WriteLine("The uid=" + productVar.UID + ", pid=" + productVar.PID + " and hsum=" + productVar.HSUM);
+        /// }
+        /// </code>
+        /// </example>
         /// <returns>The "uid","pid", and "hsum" variables</returns>
         public static ProductVariables GetProductVariables(string username, string password, string productID, WebProxy proxy = null)
         {
@@ -510,10 +649,19 @@ namespace SKGL
         #region NewMachineCode
 
         /// <summary>
-        /// This method will calculates a machine code
+        /// This method will calculate a machine code
         /// </summary>
         /// <param name="hashFunction">The hash function that is to be used. getEightDigitLongHash or SHA1 can be used as a default hash function.</param>
-        /// <returns></returns>
+        /// <example>
+        /// Machine code can be calculated with the function below. Any other hash algorithm will do, as long as it only contains letters and digits only.
+        /// <code>
+        /// //eg. "61843235" (getEightDigitsLongHash)
+        /// //eg. "D38F13CAB8938AC3C393BC111E1A85BB4BA2CCC9" (getSHA1)
+        /// string machineID1 = SKGL.SKM.getMachineCode(SKGL.SKM.getEightDigitsLongHash);
+        /// string machineID2 = SKGL.SKM.getMachineCode(SKGL.SKM.getSHA1);
+        /// </code>
+        /// </example>
+        /// <returns>A machine code</returns>
         [SecuritySafeCritical]
         public static string getMachineCode(Func<string,string> hashFunction)
         {
