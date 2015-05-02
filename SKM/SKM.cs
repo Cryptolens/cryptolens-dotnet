@@ -107,8 +107,8 @@ namespace SKGL
         #region KeyValidation
         /// <summary>
         /// This method will check whether the key is valid or invalid against the Serial Key Manager database
-        /// The method will return an object (KeyInformation) only if:
-        ///  * the key exists in the database (it has been generated)
+        /// The method will return an object (KeyInformation) only if:<br/>
+        ///  * the key exists in the database (it has been generated)<br/>
         ///  * the key is not blocked
         /// </summary>
         /// <param name="pid">pid</param>
@@ -123,8 +123,8 @@ namespace SKGL
         /// </remarks>
         /// <example>
         /// For pid, uid and hsum, please see <a href="https://serialkeymanager.com/Ext/Val">https://serialkeymanager.com/Ext/Val</a>. You can retreive them using <see cref="GetProductVariables"/>.
-        /// <code>
-        /// public void KeyActivation()
+        /// <code language="cs">
+        /// public void KeyValidation()
         /// {
         ///    var validationResult = SKGL.SKM.KeyValidation("pid", "uid", "hsum", "serial key to validate", "machine code", {sign the data}, {sign machine code});
         ///
@@ -176,13 +176,14 @@ namespace SKGL
 
         /// <summary>
         /// This method will check whether the key is valid or invalid against the Serial Key Manager database.
-        /// The method will return an object (KeyInformation) only if:
-        ///  * the key exists in the database (it has been generated)</summary>
-        ///  * the key is not blocked
-        ///  * the machine code that is activated has not been activated before
-        ///  * the limit for maximum number of machine codes has not been achieved
-        ///  * the machine code exists in the Allowed Machine codes.
-        ///  NOTE: In Addition, depending on the settings, this method will activate a machine code.
+        /// The method will return an object (KeyInformation) only if:<br/>
+        ///  * the key exists in the database (it has been generated)<br/>
+        ///  * the key is not blocked<br/>
+        ///  * the machine code that is activated has not been activated before<br/>
+        ///  * the limit for maximum number of machine codes has not been achieved<br/>
+        ///  * the machine code exists in the Allowed Machine codes.<br/>
+        ///  NOTE: In Addition, depending on the settings, this method will activate a machine code.<br/>
+        ///  </summary>
         /// <param name="pid">pid</param>
         /// <param name="uid">uid</param>
         /// <param name="hsum">hsum</param>
@@ -198,7 +199,7 @@ namespace SKGL
         /// </remarks>
         /// <example>
         /// For pid, uid and hsum, please see <a href="https://serialkeymanager.com/Ext/Val">https://serialkeymanager.com/Ext/Val</a>. You can also retreive them using <see cref="GetProductVariables"/>. NB: If trial activation is configured, the API can return a new key (read more at <a href="http://support.serialkeymanager.com/kb/trial-activation/">http://support.serialkeymanager.com/kb/trial-activation/</a>).
-        /// <code>
+        /// <code language="cs">
         /// public void KeyActivation()
         /// {
         ///    var validationResult = SKGL.SKM.KeyActivation("pid", "uid", "hsum", "serial key to validate", "machine code", {sign the data}, {sign machine code});
@@ -294,7 +295,7 @@ namespace SKGL
         /// <param name="rsaPublicKey">The public key (RSA)</param>
         /// <example>
         /// The code below demonstrates how IsKeyInformationGenueine can be used in offine key validation. Please read more about offline key validation at <a href="http://support.serialkeymanager.com/kb/passive-key-validation/">http://support.serialkeymanager.com/kb/passive-key-validation/</a>.
-        /// <code>
+        /// <code language="cs">
         /// public void SecureKeyValidation()
         /// {
         ///    // your public key can be found at <a href="http://serialkeymanager.com/Account/Manage">http://serialkeymanager.com/Account/Manage</a>.
@@ -444,18 +445,37 @@ namespace SKGL
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="pv">The object that contains Uid, Pid and Hsum</param>
+        /// <param name="productVariables">The object that contains Uid, Pid and Hsum</param>
         /// <param name="sid">Serial Key that is to be validated</param>
         /// <param name="todo">Action to perform. Either Get or Set.</param>
         /// <param name="decrement">If <paramref name="todo"/> is set to "Set", this method will try to decrease the current value of the optional field by this value.<br/>Note, it has to be a positive integer.</param>
+        /// <example>
+        /// The code below first checks the value of the optional field and then decreases it by 1. The Assert.True will be true in this case.
+        /// <code language="cs">
+        /// public void TestOptionalField()
+        /// {
+        ///     // let's assume that the following key has an optional field of the value 5.
+        ///     // edit: this will pass several thousand times. then, it has to be increased again.
+        /// 
+        ///     var productVariables = new SKGL.ProductVariables() { UID = "2", PID = "2196", HSUM = "749172" };
+        /// 
+        ///     int currentvalue = SKGL.SKM.OptionalField(productVariables, "KTDOU-JZQUY-NOJCU-ECTAA");
+        /// 
+        ///     int newValue = SKGL.SKM.OptionalField(productVariables, "KTDOU-JZQUY-NOJCU-ECTAA", SKGL.SKM.Todo.Set, 1);
+        /// 
+        ///     Assert.IsTrue(newValue == currentvalue - 1);
+        /// 
+        /// }
+        /// </code>
+        /// </example>
         /// <returns>An intger that is currently stored in the optional field.</returns>
-        public static int OptionalField(ProductVariables pv, string sid, Todo todo = Todo.Get, int decrement = 0)
+        public static int OptionalField(ProductVariables productVariables, string sid, Todo todo = Todo.Get, int decrement = 0)
         {
 
             Dictionary<string, string> input = new Dictionary<string, string>();
-            input.Add("uid", pv.UID);
-            input.Add("pid", pv.PID);
-            input.Add("hsum", pv.HSUM);
+            input.Add("uid", productVariables.UID);
+            input.Add("pid", productVariables.PID);
+            input.Add("hsum", productVariables.HSUM);
             input.Add("sid", sid);
 
             input.Add("todo", todo == Todo.Get ? "get" : "set");
@@ -499,7 +519,7 @@ namespace SKGL
         /// <param name="proxy">(Optional) The proxy settings.</param>
         /// <example>
         /// If you would like to access a method in the Web API manually, please use GetParameters method. A list of them can be found at <a href="http://docs.serialkeymanager.com/web-api/">http://docs.serialkeymanager.com/web-api/</a>.
-        /// <code>
+        /// <code language="cs">
         /// public void GetParamtersExample()
         /// {
         ///    var input = new System.Collections.Generic.Dictionary<string, string>();
@@ -653,7 +673,7 @@ namespace SKGL
         /// <param name="proxy">(Optional) The proxy settings.</param>
         /// <example>
         /// This will get pid, uid and hsum.
-        /// <code>
+        /// <code language="cs">
         /// public void GetProductVariables()
         /// {
         ///    var listOfProducts = SKGL.SKM.ListUserProducts("username", "password");
@@ -694,6 +714,30 @@ namespace SKGL
             }  
         }
 
+        /// <summary>
+        /// This method will load ProductVariables data from a json serialized string. (see Example below.)
+        /// </summary>
+        /// <param name="productVariablesString">The json version of Product Variables, i.e. {"uid":"111", "pid":"111", "hsum":"111"}</param>
+        /// <example>
+        /// An example of a string that contains the the serialized json string is shown below:
+        /// <code language="cs">
+        /// public void LoadProductVariablesFromString()
+        /// {
+        ///    var productVariables = SKGL.SKM.LoadProductVariablesFromString("{\"pid\":\"test\", \"uid\":\"test1\", \"hsum\":\"test2\"}");
+        ///    Assert.AreEqual(productVariables.PID, "test");
+        ///    Assert.AreEqual(productVariables.UID, "test1");
+        ///    Assert.AreEqual(productVariables.HSUM, "test2");
+        /// }
+        /// </code>
+        /// </example>
+        /// <returns></returns>
+        public static ProductVariables LoadProductVariablesFromString(string productVariablesString)
+        {
+            var obj = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, string>>(productVariablesString);
+
+            return new ProductVariables() { ProductName = obj.ContainsKey("productName") ? obj["productName"] : "", UID = obj["uid"], PID = obj["pid"], HSUM = obj["hsum"] };
+        }
+
         #endregion
 
         #region NewMachineCode
@@ -704,11 +748,17 @@ namespace SKGL
         /// <param name="hashFunction">The hash function that is to be used. getEightDigitLongHash or SHA1 can be used as a default hash function.</param>
         /// <example>
         /// Machine code can be calculated with the function below. Any other hash algorithm will do, as long as it only contains letters and digits only.
-        /// <code>
+        /// <code langauge="cs">
         /// //eg. "61843235" (getEightDigitsLongHash)
         /// //eg. "D38F13CAB8938AC3C393BC111E1A85BB4BA2CCC9" (getSHA1)
         /// string machineID1 = SKGL.SKM.getMachineCode(SKGL.SKM.getEightDigitsLongHash);
         /// string machineID2 = SKGL.SKM.getMachineCode(SKGL.SKM.getSHA1);
+        /// </code>
+        /// <code language="vbnet">
+        /// //eg. "61843235" (getEightDigitsLongHash)
+        /// //eg. "D38F13CAB8938AC3C393BC111E1A85BB4BA2CCC9" (getSHA1)
+        /// Dim machineCode = SKGL.SKM.getMachineCode(AddressOf SKGL.SKM.getEightDigitsLongHash)
+        /// Dim machineCode = SKGL.SKM.getMachineCode(AddressOf SKGL.SKM.getSHA1)
         /// </code>
         /// </example>
         /// <returns>A machine code</returns>

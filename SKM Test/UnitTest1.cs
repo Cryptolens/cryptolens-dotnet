@@ -348,6 +348,31 @@ namespace SKM_Test
             }
 
         }
+
+        [TestMethod]
+        public void TestOptionalField()
+        {
+            // let's assume that the following key has an optional field of the value 5.
+            // edit: this will pass several thousand times. then, it has to be increased again.
+
+            var productVariables = new SKGL.ProductVariables() { UID = "2", PID = "2196", HSUM = "749172" };
+
+            int currentvalue = SKGL.SKM.OptionalField(productVariables, "KTDOU-JZQUY-NOJCU-ECTAA");
+
+            int newValue = SKGL.SKM.OptionalField(productVariables, "KTDOU-JZQUY-NOJCU-ECTAA", SKGL.SKM.Todo.Set, 1);
+
+            Assert.IsTrue(newValue == currentvalue - 1);
+
+        }
+
+        [TestMethod]
+        public void LoadProductVariablesFromString()
+        {
+            var productVariables = SKGL.SKM.LoadProductVariablesFromString("{\"pid\":\"test\", \"uid\":\"test1\", \"hsum\":\"test2\"}");
+            Assert.AreEqual(productVariables.PID, "test");
+            Assert.AreEqual(productVariables.UID, "test1");
+            Assert.AreEqual(productVariables.HSUM, "test2");
+        }
     }
 
 }
