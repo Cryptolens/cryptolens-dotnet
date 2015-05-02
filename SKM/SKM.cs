@@ -26,6 +26,24 @@ namespace SKGL
         /// <summary>
         /// This method checks whether the network time is different from the local time (client computer). This helps to prevent date changes caused by a client.
         /// </summary>
+        /// <example>
+        /// The following code demonstrances the way TimeCheck can be used.
+        /// <code language="cs">
+        /// public void HasLocalTimeChanged()
+        /// {
+        ///    bool hasChanged = SKGL.SKM.TimeCheck();
+        ///
+        ///    if(hasChanged)
+        ///    {
+        ///        Debug.WriteLine("The local time was changed by the user. Validation fails.");
+        ///    }
+        ///    else
+        ///    {
+        ///        Debug.WriteLine("The local time hasn't been changed. Continue validation.");
+        ///    }
+        /// }
+        /// </code>
+        /// </example>
         /// <returns>Returns FALSE if time was NOT changed and TRUE if the time was changed.</returns>
         public static bool TimeCheck()
         {
@@ -755,8 +773,8 @@ namespace SKGL
         /// string machineID2 = SKGL.SKM.getMachineCode(SKGL.SKM.getSHA1);
         /// </code>
         /// <code language="vbnet">
-        /// //eg. "61843235" (getEightDigitsLongHash)
-        /// //eg. "D38F13CAB8938AC3C393BC111E1A85BB4BA2CCC9" (getSHA1)
+        /// 'eg. "61843235" (getEightDigitsLongHash)
+        /// 'eg. "D38F13CAB8938AC3C393BC111E1A85BB4BA2CCC9" (getSHA1)
         /// Dim machineCode = SKGL.SKM.getMachineCode(AddressOf SKGL.SKM.getEightDigitsLongHash)
         /// Dim machineCode = SKGL.SKM.getMachineCode(AddressOf SKGL.SKM.getSHA1)
         /// </code>
