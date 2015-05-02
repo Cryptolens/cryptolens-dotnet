@@ -442,6 +442,56 @@ namespace SKGL
         #region OtherAPIRequests
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pv">The object that contains Uid, Pid and Hsum</param>
+        /// <param name="sid">Serial Key that is to be validated</param>
+        /// <param name="todo">Action to perform. Either Get or Set.</param>
+        /// <param name="decrement">If <paramref name="todo"/> is set to "Set", this method will try to decrease the current value of the optional field by this value.<br/>Note, it has to be a positive integer.</param>
+        /// <returns>An intger that is currently stored in the optional field.</returns>
+        public static int OptionalField(ProductVariables pv, string sid, Todo todo = Todo.Get, int decrement = 0)
+        {
+
+            Dictionary<string, string> input = new Dictionary<string, string>();
+            input.Add("uid", pv.UID);
+            input.Add("pid", pv.PID);
+            input.Add("hsum", pv.HSUM);
+            input.Add("sid", sid);
+
+            input.Add("todo", todo == Todo.Get ? "get" : "set");
+            input.Add("decrement", decrement.ToString());
+
+            var result = GetParameters(input, "OptionalField");
+
+            if (result.ContainsKey("error"))
+            {
+#if DEBUG
+                System.Diagnostics.Debug.WriteLine("Error: " + result["error"]);
+#endif
+                return 0;
+            }
+
+            return Convert.ToInt32(result["optva"]);
+
+        }
+
+        /// <summary>
+        /// Action to perform when using the <see cref="OptionalField"/>.
+        /// </summary>
+        public enum Todo
+        {
+            /// <summary>
+            /// This will retrieve the current value stored in the optional field.
+            /// </summary>
+            Get,
+            /// <summary>
+            /// This will attempt to decrease the optional field value by the value in "decrement". The new value will then be returned.
+            /// </summary>
+            Set
+        }
+
+
+        /// <summary>
         /// This method will take in a set of parameters (input parameters) and send them to the given action. You can find them here: <a href="http://docs.serialkeymanager.com/web-api/">http://docs.serialkeymanager.com/web-api/</a>.
         /// </summary>
         /// <param name="inputParameters">A dictionary that contains data such as "uid", "pid", etc.</param>
