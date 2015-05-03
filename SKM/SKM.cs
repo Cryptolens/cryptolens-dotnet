@@ -281,6 +281,33 @@ namespace SKGL
         /// <remarks>In Debug mode, the error is going to be displayed in the Output Window.<br/>
         /// Note: The key is going to be stored in "NewKey" field, while the machine code is going to be stored in "mid".
         /// </remarks>
+        /// <example>
+        /// The following code demonstrates activation of a machine code followed by its deactivation.
+        /// <code language="cs">
+        /// public void KeyDeactivationTest()
+        /// {
+        ///     // first, we need to activate a machine code. In this case, it's "artem123"
+        ///     var activationResult = SKGL.SKM.KeyActivation("2196", "2", "749172", "KTDOU-JZQUY-NOJCU-ECTAA", "artem123");
+        /// 
+        ///     if(activationResult == null)
+        ///     {
+        ///         Assert.Fail("Unable to activate");
+        ///     }
+        /// 
+        ///     // now, let's deactivate it:
+        /// 
+        ///     var deactivationResult = SKGL.SKM.KeyDeactivation("2196", "2", "749172", "KTDOU-JZQUY-NOJCU-ECTAA", "artem123");
+        /// 
+        ///     if(deactivationResult == null)
+        ///     {
+        ///         Assert.Fail("Unable to deactivate");
+        ///     }
+        /// 
+        ///     // if we are here, the machine code "artem123" was successfuly deactivated.
+        /// 
+        /// }
+        /// </code>
+        /// </example>
         /// <returns>Returns a KeyInformation object (with a key and machine code only) or null.</returns>
         public static KeyInformation KeyDeactivation(string pid, string uid, string hsum, string sid, string mid)
         {
@@ -773,7 +800,7 @@ namespace SKGL
         /// Dim machineCode = SKGL.SKM.getMachineCode(AddressOf SKGL.SKM.getEightDigitsLongHash)
         /// Dim machineCode = SKGL.SKM.getMachineCode(AddressOf SKGL.SKM.getSHA1)
         /// </code>
-        /// <code langauge="cs" title="C#">
+        /// <code language="cs" title="C#">
         /// //eg. "61843235" (getEightDigitsLongHash)
         /// //eg. "D38F13CAB8938AC3C393BC111E1A85BB4BA2CCC9" (getSHA1)
         /// string machineID1 = SKGL.SKM.getMachineCode(SKGL.SKM.getEightDigitsLongHash);

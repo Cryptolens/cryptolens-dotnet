@@ -373,6 +373,30 @@ namespace SKM_Test
             Assert.AreEqual(productVariables.UID, "test1");
             Assert.AreEqual(productVariables.HSUM, "test2");
         }
+
+        [TestMethod]
+        public void KeyDeactivationTest()
+        {
+            // first, we need to activate a machine code. In this case, it's "artem123"
+            var activationResult = SKGL.SKM.KeyActivation("2196", "2", "749172", "KTDOU-JZQUY-NOJCU-ECTAA", "artem123");
+
+            if(activationResult == null)
+            {
+                Assert.Fail("Unable to activate");
+            }
+
+            // now, let's deactivate it:
+
+            var deactivationResult = SKGL.SKM.KeyDeactivation("2196", "2", "749172", "KTDOU-JZQUY-NOJCU-ECTAA", "artem123");
+
+            if(deactivationResult == null)
+            {
+                Assert.Fail("Unable to deactivate");
+            }
+
+            // if we are here, the machine code "artem123" was successfuly deactivated.
+
+        }
     }
 
 }
