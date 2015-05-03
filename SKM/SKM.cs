@@ -766,17 +766,18 @@ namespace SKGL
         /// <param name="hashFunction">The hash function that is to be used. getEightDigitLongHash or SHA1 can be used as a default hash function.</param>
         /// <example>
         /// Machine code can be calculated with the function below. Any other hash algorithm will do, as long as it only contains letters and digits only.
-        /// <code langauge="cs">
-        /// //eg. "61843235" (getEightDigitsLongHash)
-        /// //eg. "D38F13CAB8938AC3C393BC111E1A85BB4BA2CCC9" (getSHA1)
-        /// string machineID1 = SKGL.SKM.getMachineCode(SKGL.SKM.getEightDigitsLongHash);
-        /// string machineID2 = SKGL.SKM.getMachineCode(SKGL.SKM.getSHA1);
-        /// </code>
-        /// <code language="vbnet">
+        /// 
+        /// <code language="VB.NET">
         /// 'eg. "61843235" (getEightDigitsLongHash)
         /// 'eg. "D38F13CAB8938AC3C393BC111E1A85BB4BA2CCC9" (getSHA1)
         /// Dim machineCode = SKGL.SKM.getMachineCode(AddressOf SKGL.SKM.getEightDigitsLongHash)
         /// Dim machineCode = SKGL.SKM.getMachineCode(AddressOf SKGL.SKM.getSHA1)
+        /// </code>
+        /// <code langauge="cs" title="C#">
+        /// //eg. "61843235" (getEightDigitsLongHash)
+        /// //eg. "D38F13CAB8938AC3C393BC111E1A85BB4BA2CCC9" (getSHA1)
+        /// string machineID1 = SKGL.SKM.getMachineCode(SKGL.SKM.getEightDigitsLongHash);
+        /// string machineID2 = SKGL.SKM.getMachineCode(SKGL.SKM.getSHA1);
         /// </code>
         /// </example>
         /// <returns>A machine code</returns>
@@ -906,6 +907,7 @@ namespace SKGL
         /// </summary>
         /// <param name="s">The string value of the infromation that is to be hashed.</param>
         /// <returns>A string with the hash value</returns>
+        /// <remarks>Please see <see cref="getMachineCode"/> for a code example of how this method can be used.</remarks>
         public static string getEightDigitsLongHash(string s)
         {
             //This function generates a eight byte hash
@@ -956,6 +958,7 @@ namespace SKGL
         /// </summary>
         /// <param name="s">The string value of the infromation that is to be hashed.</param>
         /// <returns>A string with the hash value</returns>
+        /// <remarks>Please see <see cref="getMachineCode"/> for a code example of how this method can be used.</remarks>
         public static string getSHA1(string s)
         {
             using (SHA1Managed sha1 = new SHA1Managed())
