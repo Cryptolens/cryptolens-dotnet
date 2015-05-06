@@ -49,5 +49,41 @@ namespace SKM_Test
                 Assert.Fail();
             }
         }
+
+        [TestMethod]
+        public void TimeLimitedKeysFeatureLockingOffline()
+        {
+            var machineCode = SKGL.SKM.getMachineCode(SKGL.SKM.getSHA1);
+
+            var activationResult = SKGL.SKM.KeyActivation("2196", "2", "749172", "LPGQX-KBKUY-JZNDO-TLPJO", machineCode);
+
+            if (activationResult != null)
+            {
+                // the key is valid (it might have expired, but at least it's not blocked).
+
+                if (activationResult.Features[0]) // this basically says that the key is time limited.
+                {
+                    TimeSpan diff = DateTime.Now - activationResult.CreationDate;
+                    if (activationResult.SetTime  >= diff.Days) // the time check.
+                    {
+                        // everything is ok.
+                    }
+                    else
+                    {
+                        // tell the user that the key has expired.
+                    }
+                }
+                else
+                {
+                    // If this feature was false, maybe this is a different key, so we could have different logic heere. 
+                    // otherwise, you could also treat this as invalid.
+                }
+            }
+            else
+            {
+                //invalid key
+                Assert.Fail();
+            }
+        }
     }
 }
