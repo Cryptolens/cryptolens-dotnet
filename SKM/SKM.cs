@@ -276,7 +276,7 @@ namespace SKGL
         /// <param name="pid">pid</param>
         /// <param name="uid">uid</param>
         /// <param name="hsum">hsum</param>
-        /// <param name="sid">Serial Key that is to be validated</param>
+        /// <param name="sid">Machine code's serial key.</param>
         /// <param name="mid">Machine code</param>
         /// <remarks>In Debug mode, the error is going to be displayed in the Output Window.<br/>
         /// Note: The key is going to be stored in "NewKey" field, while the machine code is going to be stored in "mid".
@@ -332,6 +332,41 @@ namespace SKGL
 
         }
 
+        /// <summary>
+        /// This method will retrieve the list of activated machines for a given serial key. <br />
+        /// If successful, a list of type ActivatedData will be returned. If an error occurs, null is returned.
+        /// </summary>
+        /// <param name="productVariables">The object that contains Uid, Pid and Hsum</param>
+        /// <param name="sid">Serial Key that is to be validated</param>
+        /// <param name="privateKey">The private key of the user.</param>
+        /// <returns>A list of ActivatedData or null.</returns>
+        public static List<ActivationData> GetActivatedMachines(ProductVariables productVariables,string privateKey, string sid)
+        {
+            using (WebClient client = new WebClient())
+            {
+                NameValueCollection reqparm = new NameValueCollection();
+
+                reqparm.Add("uid", productVariables.UID);
+                reqparm.Add("pid", productVariables.PID);
+                reqparm.Add("hsum", productVariables.HSUM);
+                reqparm.Add("sid", sid);
+                reqparm.Add("privateKey", privateKey);
+
+                //in case we have a proxy server.
+                
+                byte[] responsebytes = client.UploadValues("https://serialkeymanager.com/Ext/GetActivatedMachines", "POST", reqparm);
+                string responsebody = Encoding.UTF8.GetString(responsebytes);
+
+                if(responsebody.StartsWith("{error:"))
+                {
+                    return null;
+                }
+
+                return Newtonsoft.Json.JsonConvert.DeserializeObject<List<ActivationData>>(responsebody);
+
+            }
+        }
+  
 
         /// <summary>
         /// This method allows you to check if the key information (creation date, expiration date, etc.) in a request was modified on the way from Serial Key Manager server to the client application.

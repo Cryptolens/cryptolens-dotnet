@@ -397,6 +397,15 @@ namespace SKM_Test
             // if we are here, the machine code "artem123" was successfuly deactivated.
 
         }
+
+        [TestMethod]
+        public void GetActivatedMachinesTest()
+        {
+            var productVal = SKGL.SKM.LoadProductVariablesFromString("{\"uid\":\"2\",\"pid\":\"3\",\"hsum\":\"751963\"}");
+
+            Assert.IsNull(SKGL.SKM.GetActivatedMachines(productVal, "dawdwadwa", "MJAWL-ITPVZ-LKGAN-DLJDN"));
+            var devices = SKGL.SKM.GetActivatedMachines(productVal, "8dOtQ44PdMLPLNzelOtPqVGdrQEVs36Z7aDQEKzJvt8pGYvtPx", "MJAWL-ITPVZ-LKGAN-DLJDN");
+        }
     }
 
 }

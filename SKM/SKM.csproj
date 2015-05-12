@@ -54,6 +54,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActivationData.cs" />
     <Compile Include="KeyInformation.cs" />
     <Compile Include="ProductVariables.cs" />
     <Compile Include="SKM.cs" />
