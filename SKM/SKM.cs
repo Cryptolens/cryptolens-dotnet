@@ -515,7 +515,8 @@ namespace SKGL
                 catch { }
                 finally
                 {
-                    sr.Close();
+                    if(sr != null)
+                        sr.Dispose();
                 }
 
                 if (ki == null)
@@ -541,7 +542,8 @@ namespace SKGL
                 catch { }
                 finally
                 {
-                    fs.Close();
+                    if (fs != null)
+                        fs.Dispose();
                 }
               
                 return keyInfo;
