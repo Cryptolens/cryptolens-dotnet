@@ -469,35 +469,81 @@ namespace SKGL
         /// </summary>
         /// <param name="keyInformation">The key infromation that should be saved into a file</param>
         /// <param name="file">The entire path including file name, i.e. c:\folder\file.txt</param>
-        public static void SaveKeyInformationToFile(KeyInformation keyInformation, string file)
+        /// <returns>If successful, this method returns a KeyInformation object. Null otherwise.</returns>
+        public static bool SaveKeyInformationToFile(KeyInformation keyInformation, string file)
         {
             var bf = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
-            var fs = new System.IO.FileStream(file, System.IO.FileMode.OpenOrCreate);
-            bf.Serialize(fs, keyInformation);
-            fs.Close();
+            System.IO.FileStream fs = null;
 
+            bool state = false;
+
+            try
+            {
+                fs = new System.IO.FileStream(file, System.IO.FileMode.OpenOrCreate);
+                bf.Serialize(fs, keyInformation);
+                state = true;
+            }
+            catch (Exception e)
+            {
+                state = false;
+            }
+            finally
+            {
+                if (fs != null)
+                    fs.Dispose();
+            }
+
+            return state;
         }
         /// <summary>
         /// This method loads key information stored in a file into a key information variable.
         /// </summary>
         /// <param name="file">The entire path including file name, i.e. c:\folder\file.txt</param>
         /// <param name="json">If the file is stored in JSON (eg. an activation file with .skm extension), set this parameter to TRUE.</param>
-        /// <returns></returns>
+        /// <returns>If successful, this method returns a KeyInformation object. Null otherwise.</returns>
         public static KeyInformation LoadKeyInformationFromFile(string file, bool json = false)
         {
             if (json)
             {
-                var sr = new System.IO.StreamReader(file);
-                var ki = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string,string>>(sr.ReadToEnd());
-                sr.Close();
-                return GetKeyInformationFromParameters(ki);  
+                System.IO.StreamReader sr = null;
+                Dictionary<string, string> ki = null;
+                try
+                {
+                    sr = new System.IO.StreamReader(file);
+                    ki = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, string>>(sr.ReadToEnd());
+                }
+                catch { }
+                finally
+                {
+                    sr.Close();
+                }
+
+                if (ki == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    return GetKeyInformationFromParameters(ki);
+                }
             }
             else
             {
                 var bf = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
-                var fs = new System.IO.FileStream(file, System.IO.FileMode.Open);
-                KeyInformation keyInfo = (KeyInformation)bf.Deserialize(fs);
-                fs.Close();
+                System.IO.FileStream fs = null;
+
+                KeyInformation keyInfo  = null;
+                try
+                {
+                    fs = new System.IO.FileStream(file, System.IO.FileMode.Open);
+                    keyInfo = (KeyInformation)bf.Deserialize(fs);
+                }
+                catch { }
+                finally
+                {
+                    fs.Close();
+                }
+              
                 return keyInfo;
             }
         }

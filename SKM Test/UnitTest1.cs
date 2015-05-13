@@ -406,6 +406,25 @@ namespace SKM_Test
             Assert.IsNull(SKGL.SKM.GetActivatedMachines(productVal, "dawdwadwa", "MJAWL-ITPVZ-LKGAN-DLJDN"));
             var devices = SKGL.SKM.GetActivatedMachines(productVal, "8dOtQ44PdMLPLNzelOtPqVGdrQEVs36Z7aDQEKzJvt8pGYvtPx", "MJAWL-ITPVZ-LKGAN-DLJDN");
         }
+
+
+        [TestMethod]
+        public void SaveKeyInformationToFileTest()
+        {
+            Assert.IsTrue( SKGL.SKM.SaveKeyInformationToFile(new SKGL.KeyInformation(), "123.123"));
+            Assert.IsTrue(SKGL.SKM.LoadKeyInformationFromFile("123.123") != null);
+            Assert.IsTrue(SKGL.SKM.LoadKeyInformationFromFile("123.123") != null);
+            Assert.IsTrue(SKGL.SKM.LoadKeyInformationFromFile("123.123",true) == null);
+
+            Assert.IsTrue(SKGL.SKM.SaveKeyInformationToFile(new SKGL.KeyInformation(), "123.123"));
+            Assert.IsTrue(SKGL.SKM.LoadKeyInformationFromFile("123.123") != null);
+            Assert.IsTrue(SKGL.SKM.LoadKeyInformationFromFile("123.123") != null);
+            Assert.IsTrue(SKGL.SKM.LoadKeyInformationFromFile("123.123", true) == null);
+
+
+            Assert.IsFalse(SKGL.SKM.SaveKeyInformationToFile(new SKGL.KeyInformation(), "c:\\123.123"));
+
+        }
     }
 
 }
