@@ -6,7 +6,7 @@ using System.Text;
 namespace SKGL
 {
     /// <summary>
-    /// This is the structure of each entry
+    /// This is the structure of each entry that will be returned by GetActivatedMachines.
     /// </summary>
     public class ActivationData
     {
