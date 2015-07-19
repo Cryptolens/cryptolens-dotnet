@@ -774,14 +774,12 @@ namespace SKGL
                 reqparm.Add("usern", username);
                 reqparm.Add("passw", password);
 
-                client.Proxy = WebRequest.DefaultWebProxy;
                 client.Credentials = System.Net.CredentialCache.DefaultCredentials;
                 client.Proxy.Credentials = System.Net.CredentialCache.DefaultCredentials;
 
-                //in case we have a proxy server.
-                if (proxy != null)
-                    client.Proxy = proxy;
-
+                //in case we have a proxy server. (see the comment in the GetParameter method)
+                
+                client.Proxy = proxy;
 
                 byte[] responsebytes = client.UploadValues("https://serialkeymanager.com/Ext/ListProducts", "POST", reqparm);
                 string responsebody = Encoding.UTF8.GetString(responsebytes);
@@ -823,14 +821,11 @@ namespace SKGL
                 reqparm.Add("passw", password);
                 reqparm.Add("productid", productID);
 
-                client.Proxy = WebRequest.DefaultWebProxy;
                 client.Credentials = System.Net.CredentialCache.DefaultCredentials;
                 client.Proxy.Credentials = System.Net.CredentialCache.DefaultCredentials;
 
-                //in case we have a proxy server.
-                if (proxy != null)
-                    client.Proxy = proxy;
-
+                //in case we have a proxy server. (see the comment in GetParameters)                
+                client.Proxy = proxy;
 
                 byte[] responsebytes = client.UploadValues("https://serialkeymanager.com/Ext/GetProductVariables", "POST", reqparm);
                 string responsebody = Encoding.UTF8.GetString(responsebytes);
