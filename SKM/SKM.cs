@@ -685,10 +685,7 @@ namespace SKGL
 
                 // in case we have a proxy server. if not, we set it to null to avoid unnecessary time delays.
                 // based on http://stackoverflow.com/a/4420429/1275924 and http://stackoverflow.com/a/6990291/1275924. 
-                if (proxy != null)
-                    client.Proxy = proxy;
-                else
-                    client.Proxy = null;
+                client.Proxy = proxy;
 
                 byte[] responsebytes = client.UploadValues("https://serialkeymanager.com/Ext/" + typeOfAction, "POST", reqparm);
                 string responsebody = Encoding.UTF8.GetString(responsebytes);
