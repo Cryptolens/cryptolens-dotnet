@@ -680,8 +680,7 @@ namespace SKGL
                     reqparm.Add(input.Key, input.Value);
                 }
 
-                client.Credentials = System.Net.CredentialCache.DefaultCredentials;
-                client.Proxy.Credentials = System.Net.CredentialCache.DefaultCredentials;
+                //client.Credentials = System.Net.CredentialCache.DefaultCredentials;
 
                 // in case we have a proxy server. if not, we set it to null to avoid unnecessary time delays.
                 // based on http://stackoverflow.com/a/4420429/1275924 and http://stackoverflow.com/a/6990291/1275924. 
@@ -774,11 +773,9 @@ namespace SKGL
                 reqparm.Add("usern", username);
                 reqparm.Add("passw", password);
 
-                client.Credentials = System.Net.CredentialCache.DefaultCredentials;
-                client.Proxy.Credentials = System.Net.CredentialCache.DefaultCredentials;
+                //client.Credentials = System.Net.CredentialCache.DefaultCredentials;
 
                 //in case we have a proxy server. (see the comment in the GetParameter method)
-                
                 client.Proxy = proxy;
 
                 byte[] responsebytes = client.UploadValues("https://serialkeymanager.com/Ext/ListProducts", "POST", reqparm);
@@ -821,8 +818,7 @@ namespace SKGL
                 reqparm.Add("passw", password);
                 reqparm.Add("productid", productID);
 
-                client.Credentials = System.Net.CredentialCache.DefaultCredentials;
-                client.Proxy.Credentials = System.Net.CredentialCache.DefaultCredentials;
+                //client.Credentials = System.Net.CredentialCache.DefaultCredentials;
 
                 //in case we have a proxy server. (see the comment in GetParameters)                
                 client.Proxy = proxy;

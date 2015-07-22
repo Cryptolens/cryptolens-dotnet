@@ -22,6 +22,6 @@ Is the NDepend project missing the containing folder of the .NET assembly?</Warn
   <Info>10 source files parsed ; all source files found ; all source files in-sync with PDB</Info>
   <Info>0 code rule has been extracted from code.</Info>
   <Info>No dependency cycle detected in assemblies referencement graph.</Info>
-  <Info>07-19-2015 19:47:47 Log trend metrics values.</Info>
-  <Info>07-19-2015 19:47:49 NDepend analysis done. Duration: 00:03</Info>
+  <Info>07-22-2015 09:42:25 Log trend metrics values.</Info>
+  <Info>07-22-2015 09:42:27 NDepend analysis done. Duration: 00:03</Info>
 </InfoWarnings>
