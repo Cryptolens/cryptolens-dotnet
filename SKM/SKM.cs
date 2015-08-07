@@ -401,7 +401,7 @@ namespace SKGL
         ///            // * the file with the key infromation has not been modified.
         ///
         ///            // check the key
-        ///            if (keyInfo.Valid)
+        ///            if (keyInfo!= null && keyInfo.Valid)
         ///            {
         ///                // here we can retrive some useful info
         ///                Console.WriteLine(keyInfo.CreationDate);
