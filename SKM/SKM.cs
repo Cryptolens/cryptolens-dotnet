@@ -379,7 +379,7 @@ namespace SKGL
         /// public void SecureKeyValidation()
         /// {
         ///    // your public key can be found at <a href="http://serialkeymanager.com/Account/Manage">http://serialkeymanager.com/Account/Manage</a>.
-        ///    string rsaPublicKey = "<RSAKeyValue><Modulus>something in base 64 ==</Modulus><Exponent>something in hex dec?</Exponent></RSAKeyValue>";
+        ///    string rsaPublicKey = "&lt;RSAKeyValue&gt;&lt;Modulus>something in base 64 ==&lt;/Modulus&gt;&lt;Exponent&gt;something in hex dec?&lt;/Exponent&gt;&lt;/RSAKeyValue&gt;";
         ///
         ///    SKGL.KeyInformation keyInfo = new SKGL.KeyInformation();
         ///    bool fileLoaded = false;
