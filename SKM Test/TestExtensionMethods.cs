@@ -49,5 +49,24 @@ namespace SKM_Test
             Assert.IsTrue(ki.IsValid(rsaPubKey));
         }
 
+        [TestMethod]
+        public void SaveAndLoadFromFile()
+        {
+            var ki = new KeyInformation()
+            {
+                CreationDate = DateTime.Today,
+                ExpirationDate = DateTime.Today.AddDays(3)
+            };
+
+            ki.SaveToFile("test123.txt");
+
+            ki = null;
+
+            Assert.IsTrue(ki.LoadFromFile("test123.txt")
+                            .HasNotExpired()
+                            .IsValid());
+        }
+
+
     }
 }
