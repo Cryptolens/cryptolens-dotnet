@@ -120,5 +120,40 @@ namespace SKGL
         {
             return SKGL.SKM.LoadKeyInformationFromFile(file, json);
         }
+
+
+        /// <summary>
+        /// Checks so that a certain Feature is enabled (i.e. it's set to TRUE).
+        /// </summary>
+        /// <param name="keyInformation"></param>
+        /// <param name="featureNumber">The feature number, eg. feature1, feature 2, etc. FeatureNumber can be 1,2,...,8.</param>
+        /// <returns>A key information object if the condition is satisfied. Null otherwise.</returns>
+        public static KeyInformation HasFeature(this KeyInformation keyInformation, int featureNumber)
+        {
+            if (keyInformation != null && featureNumber <= 8
+                                       && featureNumber >= 1
+                                       && keyInformation.Features[featureNumber - 1])
+            {
+                return keyInformation;
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Checks so that a certain Feature is disabled (i.e. it's set to TRUE).
+        /// </summary>
+        /// <param name="keyInformation"></param>
+        /// <param name="featureNumber">The feature number, eg. feature1, feature 2, etc. FeatureNumber can be 1,2,...,8.</param>
+        /// <returns>A key information object if the condition is satisfied. Null otherwise.</returns>
+        public static KeyInformation HasNotFeature(this KeyInformation keyInformation, int featureNumber)
+        {
+            if (keyInformation != null && featureNumber <= 8
+                                       && featureNumber >= 1
+                                       && !keyInformation.Features[featureNumber - 1])
+            {
+                return keyInformation;
+            }
+            return null;
+        }
     }
 }

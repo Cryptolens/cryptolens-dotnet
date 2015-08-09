@@ -71,5 +71,23 @@ namespace SKM_Test
         }
 
 
+        [TestMethod]
+        public void HasFeatureTest()
+        {
+            var ki = new KeyInformation()
+            {
+                ExpirationDate = DateTime.Today.AddDays(3),
+                Features = new bool[] { true, false, false, false, true, true, true, true }
+            };
+
+            bool result = ki.HasFeature(1)
+                            .HasNotFeature(2)
+                            .HasFeature(5)
+                            .HasNotExpired()
+                            .IsValid();
+
+            Assert.IsTrue(result);
+        }
+
     }
 }
