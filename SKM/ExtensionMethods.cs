@@ -63,7 +63,7 @@ namespace SKGL
 
                 if (ts.Days >= 0)
                 {
-                    if (checkWithInternetTime && !SKGL.SKM.TimeCheck())
+                    if (checkWithInternetTime && SKGL.SKM.TimeCheck())
                         return null;
                     return keyInformation;
                 }

@@ -29,6 +29,9 @@ namespace SKM_Test
             Assert.IsTrue( keyInfo.HasNotExpired()
                                   .IsValid());
 
+            Assert.IsTrue(keyInfo.HasNotExpired(checkWithInternetTime: true)
+                                 .IsValid());
+
 
             keyInfo.ExpirationDate = DateTime.Today.AddDays(-1);
 
