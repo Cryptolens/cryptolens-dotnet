@@ -127,5 +127,25 @@ namespace SKM_Test
             Assert.Fail();
 
         }
+
+
+        [TestMethod]
+        public void IsOnRightMachineTest()
+        {
+            var ki = new KeyInformation();
+
+            var result = ki.IsOnRightMachine().IsValid();
+
+            ki = new KeyInformation() 
+            { 
+                Mid = "hi"
+            };
+
+            Assert.IsFalse(ki.IsOnRightMachine().IsValid());
+
+            ki.Mid = SKM.getMachineCode(SKM.getSHA1);
+
+            Assert.IsTrue(ki.IsOnRightMachine().IsValid());
+        }
     }
 }

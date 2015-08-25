@@ -165,7 +165,7 @@ namespace SKGL
         }
 
         /// <summary>
-        /// Checks so that a certain Feature is disabled (i.e. it's set to TRUE).
+        /// Checks so that a certain Feature is disabled (i.e. it's set to FALSE).
         /// </summary>
         /// <param name="keyInformation"></param>
         /// <param name="featureNumber">The feature number, eg. feature1, feature 2, etc. FeatureNumber can be 1,2,...,8.</param>
@@ -176,6 +176,34 @@ namespace SKGL
                                        && featureNumber >= 1
                                        && !keyInformation.Features[featureNumber - 1])
             {
+                return keyInformation;
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Checks so that the machine code corresponds to the machine code of this computer.
+        /// The default hash function is SHA1.
+        /// </summary>
+        /// <param name="keyInformation"></param>
+        /// <returns></returns>
+        public static KeyInformation IsOnRightMachine(this KeyInformation keyInformation)
+        {
+            return IsOnRightMachine(keyInformation, SKM.getSHA1);
+        }
+
+        /// <summary>
+        /// Checks so that the machine code corresponds to the machine code of this computer.
+        /// </summary>
+        /// <param name="keyInformation"></param>
+        /// <param name="hashFunction">A hash function used to hash the current computer's parameters.</param>
+        /// <returns></returns>
+        public static KeyInformation IsOnRightMachine(this KeyInformation keyInformation, Func<string,string> hashFunction)
+        {
+            if (keyInformation != null && SKM.getMachineCode(hashFunction)
+                                             .Equals(keyInformation.Mid))
+            {
+
                 return keyInformation;
             }
             return null;

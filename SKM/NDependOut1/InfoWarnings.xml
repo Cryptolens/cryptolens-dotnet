@@ -14,14 +14,14 @@ Is the NDepend project missing the containing folder of the .NET assembly?</Warn
    System.Core.dll   v4.0.0.0</Info>
   <Warning>No application or third party assembly found in directory {C:\WINDOWS\Microsoft.NET\Framework\v4.0.30319\WPF}</Warning>
   <Info>.NET Assemblies loaded from {C:\Users\Artem Los\Documents\GitHub\SKGL-Extension-for-dot-NET\SKM\bin\Debug} 
-   SKM.dll   v2.0.6.1
+   SKM.dll   v2.0.7.1
    Newtonsoft.Json.dll   v6.0.0.0</Info>
   <Info>.NET Assembly loaded from {C:\Users\Artem Los\Documents\GitHub\SKGL-Extension-for-dot-NET\SKM Test\bin\Debug} 
    SKM Test.dll   v1.0.0.0</Info>
   <Warning>Assembly {Microsoft.VisualStudio.QualityTools.UnitTestFramework} is referenced by {SKM Test} but is not found.</Warning>
-  <Info>10 source files parsed ; all source files found ; all source files in-sync with PDB</Info>
+  <Info>12 source files parsed ; all source files found ; all source files in-sync with PDB</Info>
   <Info>0 code rule has been extracted from code.</Info>
   <Info>No dependency cycle detected in assemblies referencement graph.</Info>
-  <Info>08-06-2015 22:05:11 Log trend metrics values.</Info>
-  <Info>08-06-2015 22:05:16 NDepend analysis done. Duration: 00:06</Info>
+  <Info>08-25-2015 17:36:02 Log trend metrics values.</Info>
+  <Info>08-25-2015 17:36:04 NDepend analysis done. Duration: 00:03</Info>
 </InfoWarnings>
