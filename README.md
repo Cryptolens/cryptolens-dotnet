@@ -66,53 +66,39 @@ public void KeyActivation()
 }
 ```
 ###Offline key validation
-Read more about offline key validation [here](http://support.serialkeymanager.com/howto/passive-key-validation-offline/).
+Read more about offline key validation [here](https://support.serialkeymanager.com/kb/passive-key-validation/).
 ```
-public void SecureKeyValidation()
+public static void OfflineKeyValidationWithPeriodicTimeCheck()
 {
-    // your public key can be found at http://serialkeymanager.com/Account/Manage.
-    string rsaPublicKey = "<RSAKeyValue><Modulus>pL01ClSf7U5kp2E7C9qFecZGiaV8rFpET1u9QvuBrLNkCRB5mQFiaCqHyJd8Wj5o/vkBAenQO+K45hLQakve/iAmr4NX/Hca9WyN8DVhif6p9wD+FIGWeheOkbcrfiFgMzC+3g/w1n73fK0GCLF4j2kqnWrDBjaB4WfzmtA5hmrBFX3u9xcYed+dXWJW/I4MYmG0cQiBqR/P5xTTE+zZWOXwvmSZZaMvBh884H9foLgPWWsLllobQTHUqRq6pr48XrQ8GjV7oGigTImolenMLSR59anDCIhZy59PPsi2WE7OoYP8ecNvkdHWr1RlEFtx4bUZr3FPNWLm7QIq7AWwgw==</Modulus><Exponent>AQAB</Exponent></RSAKeyValue>";
-    
-    SKGL.KeyInformation keyInfo = new SKGL.KeyInformation();
-    bool fileLoaded = false;
-
-    try
+    var RSAPublicKey = "RSA public key";
+ 
+    var keyInfo = new KeyInformation().LoadFromFile("license2.txt");
+ 
+    if (keyInfo.HasValidSignature(RSAPublicKey, 30)
+               .IsOnRightMachine()
+               .IsValid())
     {
-        keyInfo = SKGL.SKM.LoadKeyInformationFromFile("file.txt");
-        fileLoaded = true;
-    }
-    catch{}
-
-
-    if(fileLoaded)
-    {
-        if (SKGL.SKM.IsKeyInformationGenuine(keyInfo, rsaPublicKey))
-        {
-            // if we've come so far, we know that
-            // * the key has been checked against the database once
-            // * the file with the key infromation has not been modified.
-
-            // check the key
-            if (keyInfo.Valid)
-            {
-                // here we can retrive some useful info
-                Console.WriteLine(keyInfo.CreationDate);
-                //... etc.
-            }
-        }
-        else
-        {
-            Assert.Fail();
-        }
+        // the signature is correct so
+        // the program can now launch
     }
     else
     {
-        // it's crucial that both json and secure are set to true
-        keyInfo = SKGL.SKM.KeyValidation("pid", "uid", "hsum", "serial key", {sign key information file}); // KeyActivation method works also.
-
-        if(keyInfo != null)
+        var machineCode = SKGL.SKM.getMachineCode(SKGL.SKM.getSHA1);
+        keyInfo = SKGL.SKM.KeyActivation("3", "2", "751963", "MJAWL-ITPVZ-LKGAN-DLJDN", machineCode, secure: true, signMid: true, signDate: true);
+ 
+        if (keyInfo.HasValidSignature(RSAPublicKey)
+                   .IsOnRightMachine()
+                   .IsValid())
         {
-            SKGL.SKM.SaveKeyInformationToFile(keyInfo, "file.txt");
+            // the signature is correct and the key is valid.
+            // save to file.
+            keyInfo.SaveToFile("license2.txt");
+ 
+            // the program can now launch
+        }
+        else
+        {
+            // failure. close the program.
         }
     }
 }
