@@ -455,63 +455,116 @@ namespace SKGL
         /// </summary>
         /// <param name="keyInformation">The key infromation that should be saved into a file</param>
         /// <param name="file">The entire path including file name, i.e. c:\folder\file.txt</param>
-        /// <returns>If successful, this method returns a KeyInformation object. Null otherwise.</returns>
-        public static bool SaveKeyInformationToFile(KeyInformation keyInformation, string file)
+        /// <returns>If successful, true will be returned. False otherwise.</returns>
+        /// <remarks>This method does not use the same JSON format structure as activation files. Instead,
+        /// if you want to read these files using <see cref="LoadKeyInformationFromFile"/>, then activationFile has
+        /// to be set to FALSE.</remarks>
+        public static bool SaveKeyInformationToFile(KeyInformation keyInformation, string file, bool json=false)
         {
-            var bf = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
-            System.IO.FileStream fs = null;
-
-            bool state = false;
-
-            try
+            if (json)
             {
-                fs = new System.IO.FileStream(file, System.IO.FileMode.OpenOrCreate);
-                bf.Serialize(fs, keyInformation);
-                state = true;
-            }
-            catch (Exception e)
-            {
-                state = false;
-            }
-            finally
-            {
-                if (fs != null)
-                    fs.Dispose();
-            }
+                System.IO.StreamWriter sw = null;
+                bool state =false;
+                try
+                {
+                    sw = new System.IO.StreamWriter(file);
+                    sw.Write(Newtonsoft.Json.JsonConvert.SerializeObject(keyInformation));
+                    state = true;
+                }
+                catch {
+                    state = false;
 
-            return state;
+                }
+                finally
+                {
+                    if (sw != null)
+                        sw.Dispose();
+                }
+
+                return state;
+
+            }
+            else
+            {
+                var bf = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
+                System.IO.FileStream fs = null;
+
+                bool state = false;
+
+                try
+                {
+                    fs = new System.IO.FileStream(file, System.IO.FileMode.OpenOrCreate);
+                    bf.Serialize(fs, keyInformation);
+                    state = true;
+                }
+                catch (Exception e)
+                {
+                    state = false;
+                }
+                finally
+                {
+                    if (fs != null)
+                        fs.Dispose();
+                }
+
+                return state;
+            }
         }
         /// <summary>
         /// This method loads key information stored in a file into a key information variable.
         /// </summary>
         /// <param name="file">The entire path including file name, i.e. c:\folder\file.txt</param>
         /// <param name="json">If the file is stored in JSON (eg. an activation file with .skm extension), set this parameter to TRUE.</param>
+        /// <param name="activationFile">If you obtained this file from an Activation Form (.skm extension), this should be set to true.</param>
+        /// <remarks>If you want to read a file that uses the JSON format created by <see cref="SaveKeyInformationToFile"/>, activationFile has to be set to FALSE while
+        /// json is set to TRUE.</remarks>
         /// <returns>If successful, this method returns a KeyInformation object. Null otherwise.</returns>
-        public static KeyInformation LoadKeyInformationFromFile(string file, bool json = false)
+        public static KeyInformation LoadKeyInformationFromFile(string file, bool json = false, bool activationFile = true)
         {
-            if (json)
+            if (json || activationFile)
             {
-                System.IO.StreamReader sr = null;
-                Dictionary<string, string> ki = null;
-                try
+                if (activationFile)
                 {
-                    sr = new System.IO.StreamReader(file);
-                    ki = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, string>>(sr.ReadToEnd());
-                }
-                catch { }
-                finally
-                {
-                    if(sr != null)
-                        sr.Dispose();
-                }
+                    System.IO.StreamReader sr = null;
+                    Dictionary<string, string> ki = null;
+                    try
+                    {
+                        sr = new System.IO.StreamReader(file);
+                        ki = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, string>>(sr.ReadToEnd());
+                    }
+                    catch { }
+                    finally
+                    {
+                        if (sr != null)
+                            sr.Dispose();
+                    }
 
-                if (ki == null)
-                {
-                    return null;
+                    if (ki == null)
+                    {
+                        return null;
+                    }
+                    else
+                    {
+                        return GetKeyInformationFromParameters(ki);
+                    }
                 }
                 else
                 {
-                    return GetKeyInformationFromParameters(ki);
+                    System.IO.StreamReader sr = null;
+                    KeyInformation ki = null;
+                    try
+                    {
+                        sr = new System.IO.StreamReader(file);
+                        ki = Newtonsoft.Json.JsonConvert.DeserializeObject<KeyInformation>(sr.ReadToEnd());
+                    }
+                    catch { }
+                    finally
+                    {
+                        if (sr != null)
+                            sr.Dispose();
+                    }
+
+                    return ki;
                 }
             }
             else
