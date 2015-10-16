@@ -519,7 +519,7 @@ namespace SKGL
         /// <remarks>If you want to read a file that uses the JSON format created by <see cref="SaveKeyInformationToFile"/>, activationFile has to be set to FALSE while
         /// json is set to TRUE.</remarks>
         /// <returns>If successful, this method returns a KeyInformation object. Null otherwise.</returns>
-        public static KeyInformation LoadKeyInformationFromFile(string file, bool json = false, bool activationFile = true)
+        public static KeyInformation LoadKeyInformationFromFile(string file, bool json = false, bool activationFile = false)
         {
             if (json || activationFile)
             {

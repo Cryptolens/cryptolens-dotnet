@@ -63,6 +63,7 @@
     <Compile Include="UnitTest2.cs" />
     <Compile Include="Support.cs" />
     <Compile Include="TestExtensionMethods.cs" />
+    <Compile Include="TestSaveAndLoadFile.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SKM\SKM.csproj">
