@@ -124,14 +124,41 @@ namespace SKGL
         /// <returns>A key information object if the condition is satisfied. Null otherwise.</returns>
         public static KeyInformation SaveToFile(this KeyInformation keyInformation, string file = "")
         {
+            return SaveToFile(keyInformation, file);
+        }
+
+        /// <summary>
+        /// Save the current object into a file. It can be read using @<see cref="LoadFromFile"/>.
+        /// </summary>
+        /// <param name="keyInformation"></param>
+        /// <param name="file">The entire path including file name, i.e. c:\folder\file.txt</param>
+        /// <param name="json">If the file is stored in JSON (eg. an activation file with .skm extension), set this parameter to TRUE.</param>
+        /// <returns>A key information object if the condition is satisfied. Null otherwise.</returns>
+        /// <remarks>This method does not use the same JSON format structure as activation files. Instead,
+        /// if you want to read these files using <see cref="LoadFromFile"/>, then activationFile has
+        /// to be set to FALSE.</remarks>
+        public static KeyInformation SaveToFile(this KeyInformation keyInformation, string file = "", bool json = false)
+        {
             if (keyInformation != null)
             {
-                if(SKGL.SKM.SaveKeyInformationToFile(keyInformation, file))
+                if(SKGL.SKM.SaveKeyInformationToFile(keyInformation, file, json))
                 {
                     return keyInformation;
                 }
             }
             return null;
+        }
+
+
+        /// <summary>
+        /// Load a saved object from file (using @<see cref="SaveToFile"/>).
+        /// </summary>
+        /// <param name="keyInformation"></param>
+        /// <param name="file">The entire path including file name, i.e. c:\folder\file.txt</param>
+        /// <returns>A key information object if the condition is satisfied. Null otherwise.</returns>
+        public static KeyInformation LoadFromFile(this KeyInformation keyInformation, string file = "")
+        {
+            return LoadFromFile(keyInformation, file);
         }
 
         /// <summary>
@@ -140,8 +167,9 @@ namespace SKGL
         /// <param name="keyInformation"></param>
         /// <param name="file">The entire path including file name, i.e. c:\folder\file.txt</param>
         /// <param name="json">If the file is stored in JSON (eg. an activation file with .skm extension), set this parameter to TRUE.</param>
+        /// <param name="activationFile">If you obtained this file from an Activation Form (.skm extension), this should be set to true.</param>
         /// <returns>A key information object if the condition is satisfied. Null otherwise.</returns>
-        public static KeyInformation LoadFromFile(this KeyInformation keyInformation, string file = "", bool json = false)
+        public static KeyInformation LoadFromFile(this KeyInformation keyInformation, string file = "", bool json = false, bool activationFile = false)
         {
             return SKGL.SKM.LoadKeyInformationFromFile(file, json);
         }

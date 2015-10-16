@@ -455,6 +455,7 @@ namespace SKGL
         /// </summary>
         /// <param name="keyInformation">The key infromation that should be saved into a file</param>
         /// <param name="file">The entire path including file name, i.e. c:\folder\file.txt</param>
+        /// <param name="json">Save the file using JSON format.</param>
         /// <returns>If successful, true will be returned. False otherwise.</returns>
         /// <remarks>This method does not use the same JSON format structure as activation files. Instead,
         /// if you want to read these files using <see cref="LoadKeyInformationFromFile"/>, then activationFile has
