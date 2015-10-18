@@ -68,6 +68,14 @@ namespace SKM_Test
             Assert.IsTrue(ki.LoadFromFile("test123.txt")
                             .HasNotExpired()
                             .IsValid());
+
+            ki.SaveToFile("test123.txt", json: true);
+
+            ki.LoadFromFile("test123.txt", json: true);
+
+            Assert.IsTrue(ki.LoadFromFile("test123.txt")
+                           .HasNotExpired()
+                           .IsValid());
         }
 
 

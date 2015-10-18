@@ -124,7 +124,7 @@ namespace SKGL
         /// <returns>A key information object if the condition is satisfied. Null otherwise.</returns>
         public static KeyInformation SaveToFile(this KeyInformation keyInformation, string file = "")
         {
-            return SaveToFile(keyInformation, file);
+            return SaveToFile(keyInformation, file, json: false);
         }
 
         /// <summary>
@@ -158,7 +158,7 @@ namespace SKGL
         /// <returns>A key information object if the condition is satisfied. Null otherwise.</returns>
         public static KeyInformation LoadFromFile(this KeyInformation keyInformation, string file = "")
         {
-            return LoadFromFile(keyInformation, file);
+            return LoadFromFile(keyInformation, file, json: false, activationFile: false);
         }
 
         /// <summary>
