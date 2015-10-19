@@ -56,10 +56,12 @@
   <ItemGroup>
     <Compile Include="ActivationData.cs" />
     <Compile Include="ExtensionMethods.cs" />
+    <Compile Include="HelperMethods.cs" />
     <Compile Include="KeyInformation.cs" />
     <Compile Include="ProductVariables.cs" />
     <Compile Include="SKM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WebAPIModels.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="certifikat.pfx" />

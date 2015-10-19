@@ -52,7 +52,9 @@
     </When>
     <Otherwise>
       <ItemGroup>
-        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework" />
+        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework">
+          <Private>False</Private>
+        </Reference>
       </ItemGroup>
     </Otherwise>
   </Choose>
@@ -64,6 +66,7 @@
     <Compile Include="Support.cs" />
     <Compile Include="TestExtensionMethods.cs" />
     <Compile Include="TestSaveAndLoadFile.cs" />
+    <Compile Include="TestHelperMethods.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SKM\SKM.csproj">
