@@ -21,7 +21,7 @@ namespace SKGL
     /// These can be found here https://serialkeymanager.com/docs/api/v2/Activate (please make sure you are logged in).
     /// In addition to this, you need to explicitly set each product to be IsPublic and, for some methods,
     /// enable the functionality on your Security page (https://serialkeymanager.com/User/Security). 
-    /// RSA public keys and your private key can also be found on the Security page.<br>
+    /// RSA public keys and your private key can also be found on the Security page.<br/>
     /// For Web API 3, you only need one token. You can find information on how it is generated here:
     /// https://serialkeymanager.com/docs/api/v3/Auth.
     /// </summary>

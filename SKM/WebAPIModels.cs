@@ -1,5 +1,8 @@
 ﻿namespace SKGL
 {
+    /// <summary>
+    /// Stores the parameters that are required by <see cref="ExtendLicense"/>
+    /// </summary>
     public class ExtendLicenseModel
     {
         /// <summary>
