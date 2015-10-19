@@ -7,7 +7,6 @@ Can't find the .NET assembly {Microsoft.VisualStudio.QualityTools.UnitTestFramew
 Has it been compiled properly? 
 Is the NDepend project missing the containing folder of the .NET assembly?</Warning>
   <Info>Concurrent mode</Info>
-  <Warning>Found corrupted PDB file {C:\Users\Artem Los\Documents\GitHub\SKGL-Extension-for-dot-NET\SKM\bin\Debug\SKM.pdb} corresponding to the assembly {SKM}. Source code info won't be available for this assembly.</Warning>
   <Info>.NET Assemblies loaded from {C:\WINDOWS\Microsoft.NET\Framework\v4.0.30319} 
    mscorlib.dll   v4.0.0.0
    System.dll   v4.0.0.0
@@ -20,9 +19,9 @@ Is the NDepend project missing the containing folder of the .NET assembly?</Warn
   <Info>.NET Assembly loaded from {C:\Users\Artem Los\Documents\GitHub\SKGL-Extension-for-dot-NET\SKM Test\bin\Debug} 
    SKM Test.dll   v1.0.0.0</Info>
   <Warning>Assembly {Microsoft.VisualStudio.QualityTools.UnitTestFramework} is referenced by {SKM Test} but is not found.</Warning>
-  <Info>7 source files parsed ; all source files found ; all source files in-sync with PDB</Info>
+  <Info>16 source files parsed ; all source files found ; all source files in-sync with PDB</Info>
   <Info>0 code rule has been extracted from code.</Info>
   <Info>No dependency cycle detected in assemblies referencement graph.</Info>
-  <Info>10-18-2015 13:31:39 Log trend metrics values.</Info>
-  <Info>10-18-2015 13:31:41 NDepend analysis done. Duration: 00:03</Info>
+  <Info>10-19-2015 19:24:15 Log trend metrics values.</Info>
+  <Info>10-19-2015 19:24:18 NDepend analysis done. Duration: 00:04</Info>
 </InfoWarnings>

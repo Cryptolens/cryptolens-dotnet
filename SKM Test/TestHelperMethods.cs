@@ -11,8 +11,6 @@ namespace SKM_Test
         [TestMethod]
         public void SendRequestToWebAPI3Test()
         {
-            var param = new Dictionary<string, string>();
-
             var keydata = new ExtendLicenseModel() { Key = "ITVBC-GXXNU-GSMTK-NIJBT" , NoOfDays=30, ProductId = 3349 };
 
             string tkn = "WyI0IiwiY0E3aHZCci9FWFZtOWJYNVJ5eTFQYk8rOXJSNFZ5TTh1R25YaDVFUiJd";

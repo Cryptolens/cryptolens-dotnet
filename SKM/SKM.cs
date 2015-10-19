@@ -16,7 +16,9 @@ using System.Net.NetworkInformation;
 namespace SKGL
 {
     /// <summary>
-    /// This class contains additional methods to ease serial key validation with Serial Key Manager. For definitions of some variables, please go to <a href="https://serialkeymanager.com/Ext/Val">https://serialkeymanager.com/Ext/Val</a>.
+    /// This class contains additional methods to ease serial key validation with Serial Key Manager. 
+    /// For definitions of some variables, please go to 
+    /// <a href="https://serialkeymanager.com/Ext/Val">https://serialkeymanager.com/Ext/Val</a>.
     /// </summary>
     /// <remarks>In Debug mode, the error is going to be displayed in the Output Window.
     /// </remarks>
@@ -899,6 +901,40 @@ namespace SKGL
         #endregion
 
         #region WebAPI3
+
+        /// <summary>
+        /// This method will extend a license by a certain amount of days. 
+        /// If the key algorithm in the product is SKGL, the key string 
+        /// will be changed if necessary. Otherwise, if SKM15 is used, 
+        /// the key will stay the same.
+        /// </summary>
+        /// <param name="auth">Details such as Token and Version.</param>
+        /// <returns>A BasicResult object or null.</returns>
+        /// <example>
+        /// Here is an example that demonstrates the use of the method.
+        /// <code language="cs" title="C#">
+        /// public void ExtendLicenseExample()
+        /// {
+        ///    var keydata = new ExtendLicenseModel() { Key = "ITVBC-GXXNU-GSMTK-NIJBT", NoOfDays = 30, ProductId = 3349 };
+        ///    var auth = new AuthDetails() { Token = "WyI0IiwiY0E3aHZCci9FWFZtOWJYNVJ5eTFQYk8rOXJSNFZ5TTh1R25YaDVFUiJd" };
+        ///
+        ///    var result = SKM.ExtendLicense(auth, keydata);
+        ///
+        ///    if (result != null && result.Result == ResultType.Success)
+        ///    {
+        ///        // the license was successfully extended with 30 days.
+        ///    }
+        ///
+        /// }
+        /// </code>
+        /// </example>
+        /// <remarks>This method may, in rare cases, return null if an error has occurred.
+        /// Null should be seen as an unsuccessful result.
+        /// </remarks>
+        public static BasicResult ExtendLicense(AuthDetails auth, ExtendLicenseModel parameters)
+        {
+            return HelperMethods.SendRequestToWebAPI3<BasicResult>(parameters, "/key/extendlicense/", auth.Token);
+        }
 
         #endregion
 

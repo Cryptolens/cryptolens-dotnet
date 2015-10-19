@@ -17,7 +17,7 @@ namespace SKGL
                                                 string typeOfAction,
                                                 string token,
                                                 WebProxy proxy = null,
-                                                int version = 1 )                                                         
+                                                int version = 1 )                                                    
         {
 
             // converting the input
@@ -46,10 +46,20 @@ namespace SKGL
                 // based on http://stackoverflow.com/a/4420429/1275924 and http://stackoverflow.com/a/6990291/1275924. 
                 client.Proxy = proxy;
 
-                byte[] responsebytes = client.UploadValues("https://serialkeymanager.com//api/" + typeOfAction, "POST", reqparm);
-                string responsebody = Encoding.UTF8.GetString(responsebytes);
+                try
+                {
+                    byte[] responsebytes = client.UploadValues("https://serialkeymanager.com//api/" + typeOfAction, "POST", reqparm);
+                    string responsebody = Encoding.UTF8.GetString(responsebytes);
 
-                return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(responsebody);
+                    return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(responsebody);
+                }
+                catch(Exception ex)
+                {
+#if DEBUG
+                    System.Diagnostics.Debug.WriteLine("An error occurred when we tried to contact SKM. The following error was received: " + ex.Message);
+#endif
+                    return default(T);
+                }
 
             }
         }
