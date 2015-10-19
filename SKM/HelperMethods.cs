@@ -12,7 +12,9 @@ namespace SKGL
     /// </summary>
     public class HelperMethods
     {
-
+        /// <summary>
+        /// Used to send requests to Web API 3.
+        /// </summary>
         public static T SendRequestToWebAPI3<T>(object inputParameters, 
                                                 string typeOfAction,
                                                 string token,

@@ -68,6 +68,7 @@
     <Compile Include="TestSaveAndLoadFile.cs" />
     <Compile Include="TestHelperMethods.cs" />
     <Compile Include="TestWebAPI3.cs" />
+    <Compile Include="TestMachineCode.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SKM\SKM.csproj">

@@ -17,8 +17,13 @@ namespace SKGL
 {
     /// <summary>
     /// This class contains additional methods to ease serial key validation with Serial Key Manager. 
-    /// For definitions of some variables, please go to 
-    /// <a href="https://serialkeymanager.com/Ext/Val">https://serialkeymanager.com/Ext/Val</a>.
+    /// Most of the methods will Web API 2, where "uid", "pid" and "hsum" are required in each request.
+    /// These can be found here https://serialkeymanager.com/docs/api/v2/Activate (please make sure you are logged in).
+    /// In addition to this, you need to explicitly set each product to be IsPublic and, for some methods,
+    /// enable the functionality on your Security page (https://serialkeymanager.com/User/Security). 
+    /// RSA public keys and your private key can also be found on the Security page.<br>
+    /// For Web API 3, you only need one token. You can find information on how it is generated here:
+    /// https://serialkeymanager.com/docs/api/v3/Auth.
     /// </summary>
     /// <remarks>In Debug mode, the error is going to be displayed in the Output Window.
     /// </remarks>
@@ -945,6 +950,7 @@ namespace SKGL
         /// This method will calculate a machine code
         /// </summary>
         /// <param name="hashFunction">The hash function that is to be used. getEightDigitLongHash or SHA1 can be used as a default hash function.</param>
+        /// <param name="includeUserName">If set to TRUE, the user name of the current user will be added into the </param>
         /// <example>
         /// Machine code can be calculated with the function below. Any other hash algorithm will do, as long as it only contains letters and digits only.
         /// 
@@ -963,7 +969,7 @@ namespace SKGL
         /// </example>
         /// <returns>A machine code</returns>
         [SecuritySafeCritical]
-        public static string getMachineCode(Func<string,string> hashFunction)
+        public static string getMachineCode(Func<string,string> hashFunction, bool includeUserName = false)
         {
             // please see https://skgl.codeplex.com/workitem/2246 for a list of developers of this code.
 
@@ -1005,6 +1011,9 @@ namespace SKGL
               if (!string.IsNullOrWhiteSpace(nic))
                 collectedInfo += nic;
             }
+
+            if(includeUserName)
+                collectedInfo += System.Security.Principal.WindowsIdentity.GetCurrent().Name;
 
             return hashFunction(collectedInfo);//m.getEightByteHash(collectedInfo, 100000);
         
