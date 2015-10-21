@@ -430,31 +430,44 @@ namespace SKGL
                 return false;
             }
 
-            byte[] data = GetBytes(keyInformation.Valid.ToString() + keyInformation.CreationDate.ToString("yyyy-MM-dd") + keyInformation.ExpirationDate.ToString("yyyy-MM-dd")
-                 + keyInformation.SetTime.ToString() + keyInformation.TimeLeft.ToString() + 
-                 keyInformation.Features[0].ToString() +
-                 keyInformation.Features[1].ToString() +
-                 keyInformation.Features[2].ToString() +
-                 keyInformation.Features[3].ToString() +
-                 keyInformation.Features[4].ToString() +
-                 keyInformation.Features[5].ToString() +
-                 keyInformation.Features[6].ToString() +
-                 keyInformation.Features[7].ToString() +
-                 (keyInformation.Notes == null ? "": keyInformation.Notes) + 
-                 (keyInformation.Mid == null ? "" : keyInformation.Mid) +
-                 (keyInformation.Pid == null ? "" : keyInformation.Pid) +
-                 (keyInformation.Uid == null ? "" : keyInformation.Uid) +
-                 (keyInformation.Date == null ? "" : keyInformation.Date.Value.ToString("yyy-MM-dd"))
-                 );
+            // try catch require more, so better to simply check if features are null, etc.
+            try
+            {
+                byte[] data = GetBytes(keyInformation.Valid.ToString() + keyInformation.CreationDate.ToString("yyyy-MM-dd") + keyInformation.ExpirationDate.ToString("yyyy-MM-dd")
+                     + keyInformation.SetTime.ToString() + keyInformation.TimeLeft.ToString() +
+                     keyInformation.Features[0].ToString() +
+                     keyInformation.Features[1].ToString() +
+                     keyInformation.Features[2].ToString() +
+                     keyInformation.Features[3].ToString() +
+                     keyInformation.Features[4].ToString() +
+                     keyInformation.Features[5].ToString() +
+                     keyInformation.Features[6].ToString() +
+                     keyInformation.Features[7].ToString() +
+                     (keyInformation.Notes == null ? "" : keyInformation.Notes) +
+                     (keyInformation.Mid == null ? "" : keyInformation.Mid) +
+                     (keyInformation.Pid == null ? "" : keyInformation.Pid) +
+                     (keyInformation.Uid == null ? "" : keyInformation.Uid) +
+                     (keyInformation.Date == null ? "" : keyInformation.Date.Value.ToString("yyy-MM-dd"))
+                     );
 
-            RSACryptoServiceProvider rsa = new RSACryptoServiceProvider(2048);
+                RSACryptoServiceProvider rsa = new RSACryptoServiceProvider(2048);
 
-            rsa.FromXmlString(rsaPublicKey);
+                rsa.FromXmlString(rsaPublicKey);
 
-            byte[] signature = Convert.FromBase64String(keyInformation.Signature);
+                byte[] signature = Convert.FromBase64String(keyInformation.Signature);
 
-            return rsa.VerifyData(data, "SHA256", signature);
+                return rsa.VerifyData(data, "SHA256", signature);
+            }
+            catch
+            {
+                return false;
+            }
             
+        }
+
+        private static bool CheckDefaultKeyInformation(KeyInformation ki)
+        {
+            return false;
         }
 
         /// <summary>
