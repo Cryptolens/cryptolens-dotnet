@@ -1,7 +1,7 @@
 ﻿namespace SKGL
 {
     /// <summary>
-    /// Stores the parameters that are required by <see cref="ExtendLicense"/>
+    /// Stores the parameters that are required by the Extend License method.
     /// </summary>
     public class ExtendLicenseModel
     {
@@ -33,6 +33,9 @@
         public string Message { get; set; }
     }
 
+    /// <summary>
+    /// Indicates whether a result was successful or unsuccessful.
+    /// </summary>
     public enum ResultType
     {
         Success,

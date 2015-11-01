@@ -710,7 +710,7 @@ namespace SKGL
         /// <code language="cs">
         /// public void GetParamtersExample()
         /// {
-        ///    var input = new System.Collections.Generic.Dictionary<string, string>();
+        ///    var input = new System.Collections.Generic.Dictionary&lt;string, string &gt;();
         ///    input.Add("uid", "1");
         ///    input.Add("pid", "1");
         ///    input.Add("hsum", "11111");
@@ -721,7 +721,7 @@ namespace SKGL
         ///
         ///    var keyinfo = SKGL.SKM.GetKeyInformationFromParameters(result);
         ///
-        ///    if(result.ContainsKey("error") && result["error"] != "")
+        ///    if(result.ContainsKey("error") &amp;&amp; result["error"] != "")
         ///    {
         ///        // if we are here, something went wrong.
         ///    }
@@ -927,7 +927,7 @@ namespace SKGL
         /// the key will stay the same.
         /// </summary>
         /// <param name="auth">Details such as Token and Version.</param>
-        /// <returns>A BasicResult object or null.</returns>
+        /// <param name="parameters">The parameters that the method needs.</param>
         /// <example>
         /// Here is an example that demonstrates the use of the method.
         /// <code language="cs" title="C#">
@@ -938,17 +938,17 @@ namespace SKGL
         ///
         ///    var result = SKM.ExtendLicense(auth, keydata);
         ///
-        ///    if (result != null && result.Result == ResultType.Success)
+        ///    if (result != null &amp;&amp; result.Result == ResultType.Success)
         ///    {
         ///        // the license was successfully extended with 30 days.
         ///    }
-        ///
         /// }
         /// </code>
         /// </example>
         /// <remarks>This method may, in rare cases, return null if an error has occurred.
         /// Null should be seen as an unsuccessful result.
         /// </remarks>
+        /// <returns>A BasicResult object or null.</returns>
         public static BasicResult ExtendLicense(AuthDetails auth, ExtendLicenseModel parameters)
         {
             return HelperMethods.SendRequestToWebAPI3<BasicResult>(parameters, "/key/extendlicense/", auth.Token);
