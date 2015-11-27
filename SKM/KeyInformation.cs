@@ -41,8 +41,15 @@ namespace SKGL
         /// </summary>
         public bool[] Features { get; set; }
 
+
         /// <summary>
-        /// In some cases, KeyActivation will return the new key that will be stored in this variable. If there are no changes to the key, the current key will be stored here.
+        /// The initial key used during activation or validation.
+        /// </summary>
+        public string Key { get; set; }
+
+        /// <summary>
+        /// In some cases, KeyActivation will return the new key that will be stored in this variable. If there are no changes to the key, this field will be left empty (in most cases). Changes to the key will only occur if you use SKGL instead of SKM15.
+        /// If certain methods are used, this field will contain the initial key. However, it's better to use the Key field for that.
         /// </summary>
         public string NewKey { get; set; }
 

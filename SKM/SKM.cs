@@ -194,7 +194,9 @@ namespace SKGL
                 return null;
             }
 
-            return GetKeyInformationFromParameters(result);
+            var keydata = GetKeyInformationFromParameters(result);
+            keydata.Key = sid;
+            return keydata;
 
         }
 
@@ -271,7 +273,9 @@ namespace SKGL
                 return null;
             }
 
-            return GetKeyInformationFromParameters(result);
+            var keydata = GetKeyInformationFromParameters(result);
+            keydata.Key = sid;
+            return keydata;
             
         }
 
@@ -310,7 +314,7 @@ namespace SKGL
         ///         Assert.Fail("Unable to deactivate");
         ///     }
         /// 
-        ///     // if we are here, the machine code "artem123" was successfuly deactivated.
+        ///     // if we are here, the machine code "artem123" was successfully deactivated.
         /// 
         /// }
         /// </code>
@@ -335,7 +339,7 @@ namespace SKGL
                 return null;
             }
 
-            return new KeyInformation() { NewKey = result["key"], Mid = result["mid"]};
+            return new KeyInformation() { Key = result["key"], NewKey = result["key"], Mid = result["mid"]};
 
         }
 
