@@ -961,6 +961,7 @@ namespace SKGL
         /// If the key algorithm in the product is SKGL, the key string 
         /// will be changed if necessary. Otherwise, if SKM15 is used, 
         /// the key will stay the same.
+        /// If the key is changed, the new key will be stored in the message.
         /// </summary>
         /// <param name="auth">Details such as Token and Version.</param>
         /// <param name="parameters">The parameters that the method needs.</param>
@@ -989,6 +990,85 @@ namespace SKGL
         {
             return HelperMethods.SendRequestToWebAPI3<BasicResult>(parameters, "/key/extendlicense/", auth.Token);
         }
+
+        /// <summary>
+        /// This method will change a given feature to be true (in a license).
+        /// If the key algorithm in the product is SKGL, the key string 
+        /// will be changed if necessary. Otherwise, if SKM15 is used, 
+        /// the key will stay the same.
+        /// If the key is changed, the new key will be stored in the message.
+        /// </summary>
+        /// <param name="auth">Details such as Token and Version.</param>
+        /// <param name="parameters">The parameters that the method needs.</param>
+        /// <example>
+        /// Here is an example that demonstrates the use of the method.
+        /// <code language="cs" title="C#">
+        /// public void AddFeatureTest()
+        /// {
+        ///     var keydata = new FeatureModel() { Key = "LXWVI-HSJDU-CADTC-BAJGW", Feature = 2, ProductId = 3349 };
+        ///     var auth = new AuthDetails() { Token = "WyI2Iiwib3lFQjFGYk5pTHYrelhIK2pveWdReDdEMXd4ZDlQUFB3aGpCdTRxZiJd" };
+        /// 
+        ///     var result = SKM.AddFeature(auth, keydata);
+        /// 
+        ///     if (result != null && result.Result == ResultType.Success)
+        ///     {
+        ///         // feature 2 is set to true.
+        ///     }
+        ///     else
+        ///     {
+        ///         Assert.Fail();
+        ///     }
+        /// }
+        /// </code>
+        /// </example>
+        /// <remarks>This method may, in rare cases, return null if an error has occurred.
+        /// Null should be seen as an unsuccessful result.
+        /// </remarks>
+        /// <returns>A BasicResult object or null.</returns>
+        public static BasicResult AddFeature(AuthDetails auth, FeatureModel parameters)
+        {
+            return HelperMethods.SendRequestToWebAPI3<BasicResult>(parameters, "/key/addfeature/", auth.Token);
+        }
+
+        /// <summary>
+        /// This method will change a given feature to be true (in a license).
+        /// If the key algorithm in the product is SKGL, the key string 
+        /// will be changed if necessary. Otherwise, if SKM15 is used, 
+        /// the key will stay the same.
+        /// If the key is changed, the new key will be stored in the message.
+        /// </summary>
+        /// <param name="auth">Details such as Token and Version.</param>
+        /// <param name="parameters">The parameters that the method needs.</param>
+        /// <example>
+        /// Here is an example that demonstrates the use of the method.
+        /// <code language="cs" title="C#">
+        /// public void AddFeatureTest()
+        /// {
+        ///     var keydata = new FeatureModel() { Key = "LXWVI-HSJDU-CADTC-BAJGW", Feature = 2, ProductId = 3349 };
+        ///     var auth = new AuthDetails() { Token = "WyI2Iiwib3lFQjFGYk5pTHYrelhIK2pveWdReDdEMXd4ZDlQUFB3aGpCdTRxZiJd" };
+        /// 
+        ///     var result = SKM.RemoveFeature(auth, keydata);
+        /// 
+        ///     if (result != null && result.Result == ResultType.Success)
+        ///     {
+        ///         // feature 2 is set to true.
+        ///     }
+        ///     else
+        ///     {
+        ///         Assert.Fail();
+        ///     }
+        /// }
+        /// </code>
+        /// </example>
+        /// <remarks>This method may, in rare cases, return null if an error has occurred.
+        /// Null should be seen as an unsuccessful result.
+        /// </remarks>
+        /// <returns>A BasicResult object or null.</returns>
+        public static BasicResult RemoveFeature(AuthDetails auth, FeatureModel parameters)
+        {
+            return HelperMethods.SendRequestToWebAPI3<BasicResult>(parameters, "/key/removefeature/", auth.Token);
+        }
+
 
         #endregion
 

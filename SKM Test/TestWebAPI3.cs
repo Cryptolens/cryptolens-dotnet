@@ -24,5 +24,42 @@ namespace SKM_Test
                 Assert.Fail();
             }
         }
+
+        [TestMethod]
+        public void AddFeatureTest()
+        {
+            var keydata = new FeatureModel() { Key = "LXWVI-HSJDU-CADTC-BAJGW", Feature = 2, ProductId = 3349 };
+            var auth = new AuthDetails() { Token = "WyI2Iiwib3lFQjFGYk5pTHYrelhIK2pveWdReDdEMXd4ZDlQUFB3aGpCdTRxZiJd" };
+
+            var result = SKM.AddFeature(auth, keydata);
+
+            if (result != null && result.Result == ResultType.Success)
+            {
+                // feature 2 is set to true.
+            }
+            else
+            {
+                Assert.Fail();
+            }
+        }
+
+        [TestMethod]
+        public void RemoveFeatureTest()
+        {
+            var keydata = new FeatureModel() { Key = "LXWVI-HSJDU-CADTC-BAJGW", Feature = 2, ProductId = 3349 };
+            var auth = new AuthDetails() { Token = "WyI2Iiwib3lFQjFGYk5pTHYrelhIK2pveWdReDdEMXd4ZDlQUFB3aGpCdTRxZiJd" };
+
+            var result = SKM.RemoveFeature(auth, keydata);
+
+            if (result != null && result.Result == ResultType.Success)
+            {
+                // feature 2 is set to true.
+            }
+            else
+            {
+                Assert.Fail();
+            }
+        }
+
     }
 }

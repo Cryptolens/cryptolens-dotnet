@@ -24,6 +24,23 @@
     }
 
     /// <summary>
+    /// Stores the parameters required by AddFeature and RemoveFeature methods.
+    /// </summary>
+    public class FeatureModel
+    {
+        public int ProductId { get; set; }
+        /// <summary>
+        /// The Key String, i.e. ABCDE-ABCDE-ABCDE-ABCDE.
+        /// </summary>
+        public string Key { get; set; }
+
+        /// <summary>
+        /// From 1 to 8.
+        /// </summary>
+        public int Feature { get; set; }
+    }
+
+    /// <summary>
     /// A simple result that tells if a request is successful,
     /// and optionally provides a message.
     /// </summary>
