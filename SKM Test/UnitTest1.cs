@@ -297,24 +297,6 @@ namespace SKM_Test
 
         }
 
-
-        [TestMethod]
-        public void HasLocalTimeChanged()
-        {
-            bool hasChanged = SKGL.SKM.TimeCheck();
-
-            if (hasChanged)
-            {
-                Debug.WriteLine("The local time was changed by the user. Validation fails.");
-            }
-            else
-            {
-                Debug.WriteLine("The local time hasn't been changed. Continue validation.");
-            }
-
-        }
-
-
         [TestMethod]
         public void TestingHashes()
         {

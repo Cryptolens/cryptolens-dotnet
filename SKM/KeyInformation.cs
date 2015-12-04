@@ -33,6 +33,9 @@ namespace SKGL
 
         /// <summary>
         /// The number of days before the key expires.
+        /// NOTE: If you don't check the license regularly (i.e. at application start up),
+        /// it's better to use <see cref="SKM.DaysLeft(KeyInformation)"/>. When <see cref="KeyInformation"/> is not
+        /// updated, <see cref="TimeLeft"/> will not be updated either.
         /// </summary>
         public int TimeLeft { get; set; }
 
