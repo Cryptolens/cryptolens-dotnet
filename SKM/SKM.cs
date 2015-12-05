@@ -1010,7 +1010,7 @@ namespace SKGL
         /// 
         ///     var result = SKM.AddFeature(auth, keydata);
         /// 
-        ///     if (result != null && result.Result == ResultType.Success)
+        ///     if (result != null &amp;&amp; result.Result == ResultType.Success)
         ///     {
         ///         // feature 2 is set to true.
         ///     }
@@ -1049,7 +1049,7 @@ namespace SKGL
         /// 
         ///     var result = SKM.RemoveFeature(auth, keydata);
         /// 
-        ///     if (result != null && result.Result == ResultType.Success)
+        ///     if (result != null &amp;&amp; result.Result == ResultType.Success)
         ///     {
         ///         // feature 2 is set to true.
         ///     }
