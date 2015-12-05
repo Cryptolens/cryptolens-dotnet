@@ -1031,7 +1031,7 @@ namespace SKGL
         }
 
         /// <summary>
-        /// This method will change a given feature to be true (in a license).
+        /// This method will change a given feature to be false (in a license).
         /// If the key algorithm in the product is SKGL, the key string 
         /// will be changed if necessary. Otherwise, if SKM15 is used, 
         /// the key will stay the same.
