@@ -55,6 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActivationData.cs" />
+    <Compile Include="DataObject.cs" />
     <Compile Include="ExtensionMethods.cs" />
     <Compile Include="HelperMethods.cs" />
     <Compile Include="KeyInformation.cs" />

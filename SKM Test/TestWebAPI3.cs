@@ -61,5 +61,24 @@ namespace SKM_Test
             }
         }
 
+        [TestMethod]
+        public void AddDataObjectTest()
+        {
+            var keydata = new AddDataObjectModel() { };
+            var auth = new AuthDetails() { Token = "WyIxMSIsInRFLzRQSzJkT2V0Y1pyN3Y3a1I2Rm9YdmczNUw0SzJTRHJwUERhRFMiXQ==" };
+
+            var result = SKM.AddDataObject(auth, keydata);
+
+            if (result != null && result.Result == ResultType.Success)
+            {
+                // feature 2 is set to true.
+            }
+            else
+            {
+                Assert.Fail();
+            }
+        }
+
+
     }
 }

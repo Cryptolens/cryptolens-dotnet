@@ -1069,6 +1069,12 @@ namespace SKGL
             return HelperMethods.SendRequestToWebAPI3<BasicResult>(parameters, "/key/removefeature/", auth.Token);
         }
 
+        public static DataObjectIdResult AddDataObject(AuthDetails auth, AddDataObjectModel parameters)
+        {
+            return HelperMethods.SendRequestToWebAPI3<DataObjectIdResult>(parameters, "/data/adddataobject/", auth.Token);
+        }
+
+
 
         #endregion
 
