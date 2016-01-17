@@ -71,12 +71,50 @@ namespace SKM_Test
 
             if (result != null && result.Result == ResultType.Success)
             {
-                // feature 2 is set to true.
+                if (result.Id == 0)
+                    Assert.Fail();
             }
             else
             {
                 Assert.Fail();
             }
+        }
+
+        [TestMethod]
+        public void ListDataObjectsTest()
+        {
+            var keydata = new ListDataObjectsModel {  ShowAll = true };
+            var auth = new AuthDetails() { Token = "WyIxMSIsInRFLzRQSzJkT2V0Y1pyN3Y3a1I2Rm9YdmczNUw0SzJTRHJwUERhRFMiXQ==" };
+
+            var result = SKM.ListDataObjects(auth, keydata);
+            
+            if (result != null && result.Result == ResultType.Success)
+            {
+                var firstObject =  (DataObjectWithReferencer)result.DataObjects[0];
+
+                if (firstObject.ReferencerId == 0)
+                    Assert.Fail();
+            }
+            else
+            {
+                Assert.Fail();
+            }
+
+            keydata.ShowAll = false;
+
+            result = SKM.ListDataObjects(auth, keydata);
+
+            if (result != null && result.Result == ResultType.Success)
+            {
+                if (result.DataObjects[0] is DataObjectWithReferencer)
+                    Assert.Fail();
+            }
+            else
+            {
+                Assert.Fail();
+            }
+
+
         }
 
 

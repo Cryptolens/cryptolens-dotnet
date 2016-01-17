@@ -1069,11 +1069,43 @@ namespace SKGL
             return HelperMethods.SendRequestToWebAPI3<BasicResult>(parameters, "/key/removefeature/", auth.Token);
         }
 
+        /// <summary>
+        /// Creates a new <see cref="DataObject"/>.
+        /// </summary>
+        /// <param name="auth">Details such as Token and Version</param>
+        /// <param name="parameters">The parameters that the method needs</param>
+        /// <returns></returns>
         public static DataObjectIdResult AddDataObject(AuthDetails auth, AddDataObjectModel parameters)
         {
             return HelperMethods.SendRequestToWebAPI3<DataObjectIdResult>(parameters, "/data/adddataobject/", auth.Token);
         }
 
+        /// <summary>
+        /// This method lists either all Data Object associated with a
+        /// license key, a product or your entire account, or all of them at once.
+        /// </summary>
+        /// <param name="auth">Details such as Token and Version</param>
+        /// <param name="parameters">The parameters that the method needs</param>
+        /// <remarks>Note: for more details, please see 
+        /// <a href="https://serialkeymanager.com/docs/api/v3/ListDataObjects">https://serialkeymanager.com/docs/api/v3/ListDataObjects</a> </remarks>
+        /// <returns>Returns <see cref="ListOfDataObjectsResult"/> or null.</returns>
+        public static ListOfDataObjectsResult ListDataObjects(AuthDetails auth, ListDataObjectsModel parameters)
+        {
+            if (parameters.ShowAll)
+            {
+                var result = HelperMethods.SendRequestToWebAPI3<ListOfDataObjectsResultWithReferencer>(parameters, "/data/listdataobjects/", auth.Token);
+                return new ListOfDataObjectsResult
+                {
+                    Message = result.Message,
+                    Result = result.Result,
+                    DataObjects = result.DataObjects.Select(x => (DataObject)x).ToList()
+                };
+            }
+            else
+            {
+                return HelperMethods.SendRequestToWebAPI3<ListOfDataObjectsResult>(parameters, "/data/listdataobjects/", auth.Token);
+            }
+        }
 
 
         #endregion

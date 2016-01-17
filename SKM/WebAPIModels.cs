@@ -20,22 +20,31 @@ namespace SKGL
     }
     public class AddDataObjectModel : IAddOrListDataObjectsModel
     {
+        /// <summary>
+        /// The name of the data object. Max 10 characters.
+        /// </summary>
         public string Name { get; set; }
+        /// <summary>
+        /// A string value (text) to store. Max 100 characters.
+        /// </summary>
         public string StringValue { get; set; }
+        /// <summary>
+        /// An int value (int32) to store.
+        /// </summary>
         public int IntValue { get; set; }
 
         /// <summary>
-        /// Same as Reference Type, i.e. a key, a product or a user. <see cref="DataObject"/>
+        /// Indicates if the data object should be added to a
+        /// license key, a product or the entire user account. 
+        /// <see cref="DataObject"/>
         /// </summary>
         public DataObjectType ReferencerType { get; set; }
 
         /// <summary>
-        /// The id of the product, key, or the user.
+        /// The id of the Referencer. It can either be an id to a product
+        /// that you have or to a license key. When ReferencerType is set
+        /// to User, there is no need to set this value.
         /// </summary>
-        /// <remarks>
-        /// NOTE: In future, we might want to change to long
-        /// as Key already uses long for identification.
-        /// </remarks>
         public int ReferencerId { get; set; }
 
     }
@@ -44,26 +53,31 @@ namespace SKGL
     {
 
         /// <summary>
-        /// Same as Reference Type, i.e. a key, a product or a user. <see cref="DataObject"/>
+        /// Indicates if the data object is associated with a license key, 
+        /// a product or the entire user account. User = 0, Product = 1, Key = 2.
         /// </summary>
         public DataObjectType ReferencerType { get; set; }
 
         /// <summary>
-        /// The id of the product, key, or the user.
+        /// The id of the Referencer. It can either be an id to a product that
+        /// you have or to a license key. When ReferencerType is set to User,
+        /// there is no need to set this value.
         /// </summary>
-        /// <remarks>
-        /// NOTE: In future, we might want to change to long
-        /// as Key already uses long for identification.
-        /// </remarks>
         public int ReferencerId { get; set; }
 
         /// <summary>
-        /// Lists the names that contain the desired string only.
+        /// Shows only Data Objects where the name contains the following string.
         /// </summary>
         public string Contains { get; set; }
 
         /// <summary>
-        /// Show all data objects for the current user.
+        /// If set to true, all data objects will be returned, that is, 
+        /// both those associated with your entire account, a specific
+        /// product and a license key. In addition, each data object
+        /// item will include the ReferencerType and its Id. Otherwise,
+        /// i.e. when set to false, only the data objects associated 
+        /// with the user, product or key will be returned, without the 
+        /// ReferencerType and its Id.
         /// </summary>
         public bool ShowAll { get; set; }
     }
@@ -155,14 +169,36 @@ namespace SKGL
     /// </summary>
     public class ListOfDataObjectsResult : BasicResult
     {
+        /// <summary>
+        /// A list of data objects, where each data object is of the type
+        /// <see cref="DataObject"/>. Note, when <see cref="ListDataObjectsModel.ShowAll"/>
+        /// is set to true, the data objects will contain additional information about the
+        /// referencer. So, when <see cref="ListDataObjectsModel.ShowAll"/>, you can convert
+        /// the <see cref="DataObject"/> to a <see cref="DataObjectWithReferencer"/> using
+        /// implicit or explicit conversion.
+        /// </summary>
         public List<DataObject> DataObjects { get; set; }
     }
+
+
+    /// <summary>
+    /// Used to return the list of <see cref="DataObjectWithReferencer"/> 
+    /// for internal purposes.
+    /// </summary>
+    internal class ListOfDataObjectsResultWithReferencer : BasicResult
+    {
+        public List<DataObjectWithReferencer> DataObjects { get; set; }
+    }
+
 
     /// <summary>
     /// Used to return the object Id of a Data Object.
     /// </summary>
     public class DataObjectIdResult : BasicResult
     {
+        /// <summary>
+        /// The unique object id for the new data object.
+        /// </summary>
         public long Id { get; set; }
     }
 
