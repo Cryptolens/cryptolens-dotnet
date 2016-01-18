@@ -15,10 +15,13 @@ namespace SKGL
         public string Name { get; set; }
 
         /// <summary>
-        /// Max 100 chars.
+        /// A string value (text) to store. Max 100 characters.
         /// </summary>
         public string StringValue { get; set; }
 
+        /// <summary>
+        /// An int value (int32) to store.
+        /// </summary>
         public int IntValue { get; set; }
     }
 

@@ -18,6 +18,10 @@ namespace SKGL
         /// </summary>
         int ReferencerId { get; set; }
     }
+
+    /// <summary>
+    /// Used to add a new Data Object.
+    /// </summary>
     public class AddDataObjectModel : IAddOrListDataObjectsModel
     {
         /// <summary>
@@ -49,6 +53,9 @@ namespace SKGL
 
     }
 
+    /// <summary>
+    /// Used to list Data Objects.
+    /// </summary>
     public class ListDataObjectsModel : IAddOrListDataObjectsModel
     {
 
