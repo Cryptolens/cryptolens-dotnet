@@ -119,7 +119,13 @@ namespace SKGL
         public long Id { get; set; }
 
         /// <summary>
-        /// The new int value that should be assigned to the data object.
+        /// This is either the new int value that should be assigned to the Data Object
+        /// when using <see cref="SKM.SetIntValue(AuthDetails, ChangeIntValueModel)"/>
+        /// in which case it can be a signed int32, eg. 10, and -10 OR it is a the value that
+        /// should be added to the current IntValue of an existing Data Object, in which case
+        /// this value will be treated as an unsigned value, eg. 10 = -10. The latter case is
+        /// relevant for <see cref="SKM.IncrementIntValue(AuthDetails, ChangeIntValueModel)"/>
+        /// and <see cref="SKM.DecrementIntValue(AuthDetails, ChangeIntValueModel)"/>.
         /// </summary>
         public int IntValue { get; set; }
     }

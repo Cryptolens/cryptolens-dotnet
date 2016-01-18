@@ -1139,6 +1139,36 @@ namespace SKGL
         }
 
 
+        /// <summary>
+        /// This method will increment the current int value by the one specified as an input parameter,
+        /// i.e. <see cref="ChangeIntValueModel.IntValue"/>.
+        /// </summary>
+        /// <param name="auth">Details such as Token and Version</param>
+        /// <param name="parameters">The parameters that the method needs</param>
+        /// <remarks>Note: for more details, please see 
+        /// <a href="https://serialkeymanager.com/docs/api/v3/IncrementIntValue">https://serialkeymanager.com/docs/api/v3/IncrementIntValue</a> <br/>
+        /// </remarks>
+        /// <returns>Returns <see cref="ListOfDataObjectsResult"/> or null.</returns>
+        public static BasicResult IncrementIntValue(AuthDetails auth, ChangeIntValueModel parameters)
+        {
+            return HelperMethods.SendRequestToWebAPI3<BasicResult>(parameters, "/data/incrementintvalue/", auth.Token);
+        }
+
+
+        /// <summary>
+        /// This method will decrement the current int value by the one specified as an input parameter,
+        /// i.e. <see cref="ChangeIntValueModel.IntValue"/>.
+        /// </summary>
+        /// <param name="auth">Details such as Token and Version</param>
+        /// <param name="parameters">The parameters that the method needs</param>
+        /// <remarks>Note: for more details, please see 
+        /// <a href="https://serialkeymanager.com/docs/api/v3/DecrementIntValue">https://serialkeymanager.com/docs/api/v3/DecrementIntValue</a> <br/>
+        /// </remarks>
+        /// <returns>Returns <see cref="ListOfDataObjectsResult"/> or null.</returns>
+        public static BasicResult DecrementIntValue(AuthDetails auth, ChangeIntValueModel parameters)
+        {
+            return HelperMethods.SendRequestToWebAPI3<BasicResult>(parameters, "/data/decrementintvalue/", auth.Token);
+        }
 
         #endregion
 

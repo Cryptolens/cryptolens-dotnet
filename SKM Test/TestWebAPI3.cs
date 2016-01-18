@@ -118,7 +118,7 @@ namespace SKM_Test
         }
 
         [TestMethod]
-        public void SetIntValue()
+        public void SetIntValueTest()
         {
             var auth = new AuthDetails() { Token = "WyIxMSIsInRFLzRQSzJkT2V0Y1pyN3Y3a1I2Rm9YdmczNUw0SzJTRHJwUERhRFMiXQ==" };
 
@@ -143,7 +143,7 @@ namespace SKM_Test
         }
 
         [TestMethod]
-        public void SetStringValue()
+        public void SetStringValueTest()
         {
             var auth = new AuthDetails() { Token = "WyIxMSIsInRFLzRQSzJkT2V0Y1pyN3Y3a1I2Rm9YdmczNUw0SzJTRHJwUERhRFMiXQ==" };
 
@@ -167,7 +167,56 @@ namespace SKM_Test
             }
         }
 
+        [TestMethod]
+        public void IncrementIntValueTest()
+        {
+            var auth = new AuthDetails() { Token = "WyIxMSIsInRFLzRQSzJkT2V0Y1pyN3Y3a1I2Rm9YdmczNUw0SzJTRHJwUERhRFMiXQ==" };
 
+            //first, let's obtain a random object. we record the old int value and the object id
+            var objInt = SKM.ListDataObjects(auth, new ListDataObjectsModel { ShowAll = true }).DataObjects[0];
+            int oldInt = objInt.IntValue;
+            long Id = objInt.Id;
+
+            var keydata = new ChangeIntValueModel() { IntValue = 10, Id = Id };
+
+            var result = SKM.IncrementIntValue(auth, keydata);
+
+            if (result != null && result.Result == ResultType.Success)
+            {
+                int objIntNew = SKM.ListDataObjects(auth, new ListDataObjectsModel { ShowAll = true }).DataObjects[0].IntValue;
+                Assert.IsTrue(objIntNew == oldInt+10);
+            }
+            else
+            {
+                Assert.Fail();
+            }
+        }
+
+
+        [TestMethod]
+        public void DecrementIntValueTest()
+        {
+            var auth = new AuthDetails() { Token = "WyIxMSIsInRFLzRQSzJkT2V0Y1pyN3Y3a1I2Rm9YdmczNUw0SzJTRHJwUERhRFMiXQ==" };
+
+            //first, let's obtain a random object. we record the old int value and the object id
+            var objInt = SKM.ListDataObjects(auth, new ListDataObjectsModel { ShowAll = true }).DataObjects[0];
+            int oldInt = objInt.IntValue;
+            long Id = objInt.Id;
+
+            var keydata = new ChangeIntValueModel() { IntValue = 10, Id = Id };
+
+            var result = SKM.DecrementIntValue(auth, keydata);
+
+            if (result != null && result.Result == ResultType.Success)
+            {
+                int objIntNew = SKM.ListDataObjects(auth, new ListDataObjectsModel { ShowAll = true }).DataObjects[0].IntValue;
+                Assert.IsTrue(objIntNew == oldInt - 10);
+            }
+            else
+            {
+                Assert.Fail();
+            }
+        }
 
     }
 }

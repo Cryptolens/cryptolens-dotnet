@@ -11,8 +11,8 @@ namespace SKM_Test
         [TestMethod]
         public void UserNameMachineCodeTest()
         {
-            string machineCode = SKGL.SKM.getMachineCode(SKM.getSHA1);
-            string machineCode2 = SKGL.SKM.getMachineCode(SKM.getSHA1, true);
+            string machineCode = SKM.getMachineCode(SKM.getSHA1);
+            string machineCode2 =SKM.getMachineCode(SKM.getSHA1, true);
 
             Assert.AreNotEqual(machineCode, machineCode2);
         }
