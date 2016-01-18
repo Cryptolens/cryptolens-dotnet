@@ -1074,7 +1074,9 @@ namespace SKGL
         /// </summary>
         /// <param name="auth">Details such as Token and Version</param>
         /// <param name="parameters">The parameters that the method needs</param>
-        /// <returns></returns>
+        /// <remarks>Note: for more details, please see 
+        /// <a href="https://serialkeymanager.com/docs/api/v3/AddDataObject">https://serialkeymanager.com/docs/api/v3/AddDataObject</a> </remarks>
+        /// <returns>Returns <see cref="DataObjectIdResult"/> or null.</returns>
         public static DataObjectIdResult AddDataObject(AuthDetails auth, AddDataObjectModel parameters)
         {
             return HelperMethods.SendRequestToWebAPI3<DataObjectIdResult>(parameters, "/data/adddataobject/", auth.Token);
@@ -1106,6 +1108,36 @@ namespace SKGL
                 return HelperMethods.SendRequestToWebAPI3<ListOfDataObjectsResult>(parameters, "/data/listdataobjects/", auth.Token);
             }
         }
+
+
+        /// <summary>
+        /// This method will set the int value to a new one.
+        /// </summary>
+        /// <param name="auth">Details such as Token and Version</param>
+        /// <param name="parameters">The parameters that the method needs</param>
+        /// <remarks>Note: for more details, please see 
+        /// <a href="https://serialkeymanager.com/docs/api/v3/SetIntValue">https://serialkeymanager.com/docs/api/v3/SetIntValue</a> <br/>
+        /// Note also: Integer overflows are not allowed. If you attempt to assign an int value that is beyond the limits of an int32, zero will be assigned to the data object's IntValue.</remarks>
+        /// <returns>Returns <see cref="ListOfDataObjectsResult"/> or null.</returns>
+        public static BasicResult SetIntValue(AuthDetails auth, ChangeIntValueModel parameters)
+        {
+            return HelperMethods.SendRequestToWebAPI3<BasicResult>(parameters, "/data/setintvalue/", auth.Token);
+        }
+
+        /// <summary>
+        /// This method will set the string value to a new one.
+        /// </summary>
+        /// <param name="auth">Details such as Token and Version</param>
+        /// <param name="parameters">The parameters that the method needs</param>
+        /// <remarks>Note: for more details, please see 
+        /// <a href="https://serialkeymanager.com/docs/api/v3/SetStringValue">https://serialkeymanager.com/docs/api/v3/SetStringValue</a> <br/>
+        /// </remarks>
+        /// <returns>Returns <see cref="ListOfDataObjectsResult"/> or null.</returns>
+        public static BasicResult SetStringValue(AuthDetails auth, ChangeStringValueModel parameters)
+        {
+            return HelperMethods.SendRequestToWebAPI3<BasicResult>(parameters, "/data/setstringvalue/", auth.Token);
+        }
+
 
 
         #endregion

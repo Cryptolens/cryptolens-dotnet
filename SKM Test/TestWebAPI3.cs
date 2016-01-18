@@ -117,6 +117,57 @@ namespace SKM_Test
 
         }
 
+        [TestMethod]
+        public void SetIntValue()
+        {
+            var auth = new AuthDetails() { Token = "WyIxMSIsInRFLzRQSzJkT2V0Y1pyN3Y3a1I2Rm9YdmczNUw0SzJTRHJwUERhRFMiXQ==" };
+
+            //first, let's obtain a random object. we record the old int value and the object id
+            var objInt = SKM.ListDataObjects(auth, new ListDataObjectsModel { ShowAll = true }).DataObjects[0];
+            int oldInt = objInt.IntValue;
+            long Id = objInt.Id;
+
+            var keydata = new ChangeIntValueModel() {IntValue = 4711, Id = Id };
+           
+            var result = SKM.SetIntValue(auth, keydata);
+
+            if (result != null && result.Result == ResultType.Success)
+            {
+                int objIntNew = SKM.ListDataObjects(auth, new ListDataObjectsModel { ShowAll = true }).DataObjects[0].IntValue;
+                Assert.IsTrue(objIntNew == 4711);
+            }
+            else
+            {
+                Assert.Fail();
+            }
+        }
+
+        [TestMethod]
+        public void SetStringValue()
+        {
+            var auth = new AuthDetails() { Token = "WyIxMSIsInRFLzRQSzJkT2V0Y1pyN3Y3a1I2Rm9YdmczNUw0SzJTRHJwUERhRFMiXQ==" };
+
+            //first, let's obtain a random object. we record the old string value and the object id
+            var objInt = SKM.ListDataObjects(auth, new ListDataObjectsModel { ShowAll = true }).DataObjects[0];
+            string oldString = objInt.StringValue;
+            long Id = objInt.Id;
+
+            var keydata = new ChangeStringValueModel() { StringValue = "foo", Id = Id };
+
+            var result = SKM.SetStringValue(auth, keydata);
+
+            if (result != null && result.Result == ResultType.Success)
+            {
+                string objIntNew = SKM.ListDataObjects(auth, new ListDataObjectsModel { ShowAll = true }).DataObjects[0].StringValue;
+                Assert.AreEqual(objIntNew, "foo");
+            }
+            else
+            {
+                Assert.Fail();
+            }
+        }
+
+
 
     }
 }

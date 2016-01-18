@@ -97,8 +97,14 @@ namespace SKGL
     /// </summary>
     public class ChangeStringValueModel : IChangeValueModel
     {
+        /// <summary>
+        /// The unique object id for the data object.
+        /// </summary>
         public long Id { get; set; }
 
+        /// <summary>
+        /// A string value (text) to store. Max 100 characters.
+        /// </summary>
         public string StringValue { get; set; }
     }
 
@@ -107,8 +113,14 @@ namespace SKGL
     /// </summary>
     public class ChangeIntValueModel : IChangeValueModel
     {
+        /// <summary>
+        /// The unique object id for the data object.
+        /// </summary>
         public long Id { get; set; }
 
+        /// <summary>
+        /// The new int value that should be assigned to the data object.
+        /// </summary>
         public int IntValue { get; set; }
     }
 
