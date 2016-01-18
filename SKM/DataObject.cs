@@ -29,14 +29,18 @@ namespace SKGL
     public class DataObjectWithReferencer : DataObject
     {
         /// <summary>
-        /// The id of the product, key, or the user.
-        /// </summary>
-        public int ReferencerId { get; set; }
-
-        /// <summary>
-        /// Specifies what this data object should be associated to, eg. a Key, a Product or the entire user account.
+        /// Indicates if the data object should be added to a
+        /// license key, a product or the entire user account. 
+        /// <see cref="DataObject"/>
         /// </summary>
         public DataObjectType ReferencerType { get; set; }
+
+        /// <summary>
+        /// The id of the Referencer. It can either be an id to a product
+        /// that you have or to a license key. When ReferencerType is set
+        /// to User, there is no need to set this value.
+        /// </summary>
+        public int ReferencerId { get; set; }
     }
 
     /// <summary>

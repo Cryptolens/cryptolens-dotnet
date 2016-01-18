@@ -1170,6 +1170,20 @@ namespace SKGL
             return HelperMethods.SendRequestToWebAPI3<BasicResult>(parameters, "/data/decrementintvalue/", auth.Token);
         }
 
+        /// <summary>
+        /// This method will remove an existing data object.
+        /// </summary>
+        /// <param name="auth">Details such as Token and Version</param>
+        /// <param name="parameters">The parameters that the method needs</param>
+        /// <remarks>Note: for more details, please see 
+        /// <a href="https://serialkeymanager.com/docs/api/v3/RemoveDataObject">https://serialkeymanager.com/docs/api/v3/RemoveDataObject</a> <br/>
+        /// </remarks>
+        /// <returns>Returns <see cref="ListOfDataObjectsResult"/> or null.</returns>
+        public static BasicResult RemoveDataObject(AuthDetails auth, RemoveDataObjectModel parameters)
+        {
+            return HelperMethods.SendRequestToWebAPI3<BasicResult>(parameters, "/data/removedataobject/", auth.Token);
+        }
+
         #endregion
 
 

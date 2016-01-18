@@ -2,20 +2,20 @@
 
 namespace SKGL
 {
-    public interface IAddOrListDataObjectsModel
+    internal interface IAddOrListDataObjectsModel
     {
         /// <summary>
-        /// Same as Reference Type, i.e. a key, a product or a user. <see cref="DataObject"/>
+        /// Indicates if the data object should be added to a
+        /// license key, a product or the entire user account. 
+        /// <see cref="DataObject"/>
         /// </summary>
         DataObjectType ReferencerType { get; set; }
 
         /// <summary>
-        /// The id of the product, key, or the user.
+        /// The id of the Referencer. It can either be an id to a product that
+        /// you have or to a license key. When ReferencerType is set to User,
+        /// there is no need to set this value.
         /// </summary>
-        /// <remarks>
-        /// NOTE: In future, we might want to change to long
-        /// as Key already uses long for identification.
-        /// </remarks>
         int ReferencerId { get; set; }
     }
     public class AddDataObjectModel : IAddOrListDataObjectsModel
@@ -87,8 +87,11 @@ namespace SKGL
     /// <summary>
     /// Used to identify a data object.
     /// </summary>
-    public interface IChangeValueModel
+    internal interface IChangeValueModel
     {
+        /// <summary>
+        /// The unique object id for the data object.
+        /// </summary>
         long Id { get; set; }
     }
 
@@ -135,6 +138,9 @@ namespace SKGL
     /// </summary>
     public class RemoveDataObjectModel : IChangeValueModel
     {
+        /// <summary>
+        /// The unique object id for the data object.
+        /// </summary>
         public long Id { get; set; }
     }
 
@@ -226,7 +232,16 @@ namespace SKGL
     /// </summary>
     public class BasicResult
     {
+        /// <summary>
+        /// Tells whether the result is successful or unsuccessful.
+        /// </summary>
         public ResultType Result { get; set; }
+
+        /// <summary>
+        /// The message that provides additional information about the result.
+        /// If it's a successful result, null will be returned. Otherwise,
+        /// in case of an error, a short message will be returned describing the error.
+        /// </summary>
         public string Message { get; set; }
     }
 

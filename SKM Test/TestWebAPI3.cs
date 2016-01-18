@@ -73,6 +73,13 @@ namespace SKM_Test
             {
                 if (result.Id == 0)
                     Assert.Fail();
+
+                var removeObj = SKM.RemoveDataObject(auth, new RemoveDataObjectModel { Id = result.Id });
+
+                if(removeObj == null || removeObj.Result == ResultType.Error)
+                {
+                    Assert.Fail();
+                }
             }
             else
             {
