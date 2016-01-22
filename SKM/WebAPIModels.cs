@@ -2,6 +2,59 @@
 
 namespace SKGL
 {
+    /// <summary>
+    /// Input parameters to KeyLock method.
+    /// </summary>
+    public class KeyLockModel
+    {
+        /// <summary>
+        /// The id of the product you want to access. You can find it
+        /// when you are logged in on https://serialkeymanager.com/docs/api/v3/KeyLock
+        /// and select the product in the drop down list.
+        /// </summary>
+        public int ProductId { get; set; }
+
+        /// <summary>
+        /// The Key String, i.e. ABCDE-ABCDE-ABCDE-ABCDE.
+        /// </summary>
+        public string Key { get; set; }
+    }
+    /// <summary>
+    /// The result of <see cref="SKM.KeyLock(AuthDetails, RemoveDataObjectModel)"/>
+    /// </summary>
+    public class KeyLockResult : BasicResult
+    {
+        public long KeyId { get; set; }
+        public string Token { get; set; }
+
+        /// <summary>
+        /// Returns an <see cref="AuthDetails"/> which can be used 
+        /// to authenticate a Web API 3 method.
+        /// </summary>
+        public AuthDetails GetAuthDetails()
+        {
+            return new AuthDetails
+            {
+                Token = Token,
+                Version = 1
+            };
+        }
+        /// <summary>
+        /// Returns an <see cref="AuthDetails"/> which can be used 
+        /// to authenticate a Web API 3 method.
+        /// </summary>
+        /// <param name="version">The API version</param>
+        public AuthDetails GetAuthDetails(int version = 1)
+        {
+            return new AuthDetails
+            {
+                Token = Token,
+                Version = version
+            };
+        }
+    }
+
+
     internal interface IAddOrListDataObjectsModel
     {
         /// <summary>
