@@ -191,6 +191,25 @@ namespace SKGL
         /// and <see cref="SKM.DecrementIntValue(AuthDetails, ChangeIntValueModel)"/>.
         /// </summary>
         public int IntValue { get; set; }
+
+
+        /// <summary>
+        /// If set to true, it will be possible to specify an upper/lower bound. 
+        /// (for Increment Int Value) For example, if you set the Bound parameter (below) to 10, you
+        /// will be able to increment the int value until you reach ten (inclusive).
+        /// Once the upper bound is reached, an error will be thrown.
+        /// (for Decrement Int Value) For example, if you set the Bound parameter (below) to 0, 
+        /// you will be able to decrement the int value until you reach zero (inclusive).
+        /// Once the lower bound is reached, an error will be thrown.
+        /// </summary>
+        public bool EnableBound { get; set; }
+
+        /// <summary>
+        /// This is the upper/lower bound that will be enforced on the increment or
+        /// decrement operation. It will only be enforced if EnableBound
+        /// is set to true. Please read the description above.
+        /// </summary>
+        public int Bound { get; set; }
     }
 
     /// <summary>
