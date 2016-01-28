@@ -85,6 +85,11 @@ namespace SKGL
         /// When secure option is set to true, this variable will contain the signature of the information that the server returns. It is a signature of almost all variables stored in this variable except for NewKey.
         /// </summary>
         public string Signature { get; set; }
+
+        /// <summary>
+        /// This allows you to store a copy of a specific access token used to access information related to this key.
+        /// </summary>
+        public AuthDetails Auth { get; set; }
     }
 
 }
