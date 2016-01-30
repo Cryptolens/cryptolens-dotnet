@@ -90,6 +90,11 @@ namespace SKGL
         /// This allows you to store a copy of a specific access token used to access information related to this key.
         /// </summary>
         public AuthDetails Auth { get; set; }
+
+        /// <summary>
+        /// This is the id of the license key.
+        /// </summary>
+        public long Id { get; set; }
     }
 
 }
