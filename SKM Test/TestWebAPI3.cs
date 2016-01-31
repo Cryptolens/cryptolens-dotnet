@@ -232,7 +232,7 @@ namespace SKM_Test
             // the token below has key lock set to "-1" and access to "AddFeature" method.
             // note, we cannot use this token for anything but the Key Lock method, in order
             // to get a new token.
-            var auth = new AuthDetails() { Token = "WyIxOSIsIkpRM2RTUjNOUS9vNyt3bERKcG5HdlNlQ2NSTWJGckJmUlNVdkVxYlYiXQ==" };
+            var auth = new AuthDetails() { Token = "WyI0NCIsInRhOGNJZm1BS0xkbGJjUW55UkdEN3lzTzhWckd6SzRzYlgvRkFOQmQiXQ==" };
 
             // 1. Get a new token
             var key = "ITVBC-GXXNU-GSMTK-NIJBT";
@@ -251,7 +251,7 @@ namespace SKM_Test
             var addFeatureWrongKey = SKM.AddFeature(newAuth, new FeatureModel { Feature = 2, ProductId = 3, Key = wrongKey });
 
             // this should not work
-            if (addFeatureWrongKey.Result == ResultType.Success)
+            if (addFeatureWrongKey != null && addFeatureWrongKey.Result == ResultType.Success)
                 Assert.Fail();
 
         }
