@@ -1,6 +1,13 @@
 # SKGL Extension for .NET
 
-This API is intergrated with the Serial Key Manager Web API 2.0 (http://docs.serialkeymanager.com/)
+This API serves as a layer that simplifies communication with Serial Key Manager Web API 2 and 3 (https://serialkeymanager.com/docs/api).
+
+###Web API versions
+In Web API 2, authentication usually contains variables such as "pid", "uid" and "hsum". In Web API 3, authentication is performed using access tokens (https://serialkeymanager.com/docs/api/v3/Auth).
+###Examples
+Use cases, examples in different languages, and examples that are not shown here can be found at:
+* https://support.serialkeymanager.com/ac/skgl-extension
+* https://support.serialkeymanager.com/ac/examples
 
 The original repository of this project was: https://skgl.codeplex.com/.
 NB: This is only SKGL.SKM, not the entire SKGL API.
