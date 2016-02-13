@@ -105,7 +105,7 @@ namespace SKM_Test
 
             var keyInfo = new KeyInformation().LoadFromFile("c:\\test\\license2.txt");
 
-            if (keyInfo.HasValidSignature(RSAPublicKey, -3)
+            if (keyInfo.HasValidSignature(RSAPublicKey, 3)
                        .IsValid())
             {
                 // the signature is correct so
