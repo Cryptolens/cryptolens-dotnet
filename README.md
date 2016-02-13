@@ -1,6 +1,6 @@
 # SKGL Extension for .NET
 
-This API servers as a layer that simplifies communication with Serial Key Manager Web API 2 and 3 (https://serialkeymanager.com/docs/api).
+This API serves as a layer that simplifies communication with Serial Key Manager Web API 2 and 3 (https://serialkeymanager.com/docs/api).
 
 ###Web API versions
 In Web API 2, authentication usually contains variables such as "pid", "uid" and "hsum". In Web API 3, authentication is performed using access tokens (https://serialkeymanager.com/docs/api/v3/Auth).
