@@ -850,6 +850,11 @@ namespace SKGL
                 ki.Date = DateTime.Parse(parameters["date"]);
             }
 
+            if (parameters.ContainsKey("customer"))
+            {
+                ki.Customer = parameters["customer"];
+            }
+
             return ki;
 
         }

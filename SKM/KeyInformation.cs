@@ -77,6 +77,11 @@ namespace SKGL
         public string Uid { get; set; }
 
         /// <summary>
+        /// The customer name associated with this key. Customer will only be stored if 'signCustomer' was set to true. Null otherwise.
+        /// </summary>
+        public string Customer { get; set; }
+
+        /// <summary>
         /// The date when the key was validated/activated. Date will only be stored if 'signDate' was set to true. Null otherwise.
         /// </summary>
         public DateTime? Date { get; set; }
