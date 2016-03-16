@@ -2,16 +2,11 @@
 <InfoWarnings>
   <Info>Begin full analysis with NDepend v5.4.1.8430</Info>
   <Info>No Baseline for Comparison loaded.</Info>
-  <Warning>Can't load the assembly {SKM Test}:
-Can't find the .NET assembly {SKM Test} in specified folders. 
-Has it been compiled properly? 
-Is the NDepend project missing the containing folder of the .NET assembly?</Warning>
   <Warning>Can't load the assembly {Microsoft.VisualStudio.QualityTools.UnitTestFramework}:
 Can't find the .NET assembly {Microsoft.VisualStudio.QualityTools.UnitTestFramework} in specified folders. 
 Has it been compiled properly? 
 Is the NDepend project missing the containing folder of the .NET assembly?</Warning>
   <Info>Concurrent mode</Info>
-  <Warning>Found corrupted PDB file {C:\Users\Artem Los\Documents\GitHub\SKGL-Extension-for-dot-NET\SKM\bin\Debug\SKM.pdb} corresponding to the assembly {SKM}. Source code info won't be available for this assembly.</Warning>
   <Info>.NET Assemblies loaded from {C:\WINDOWS\Microsoft.NET\Framework\v4.0.30319} 
    mscorlib.dll   v4.0.0.0
    System.dll   v4.0.0.0
@@ -19,11 +14,14 @@ Is the NDepend project missing the containing folder of the .NET assembly?</Warn
    System.Core.dll   v4.0.0.0</Info>
   <Warning>No application or third party assembly found in directory {C:\WINDOWS\Microsoft.NET\Framework\v4.0.30319\WPF}</Warning>
   <Info>.NET Assemblies loaded from {C:\Users\Artem Los\Documents\GitHub\SKGL-Extension-for-dot-NET\SKM\bin\Debug} 
-   SKM.dll   v3.0.2.1
-   Newtonsoft.Json.dll   v8.0.0.0</Info>
-  <Warning>No application or third party assembly found in directory {C:\Users\Artem Los\Documents\GitHub\SKGL-Extension-for-dot-NET\SKM Test\bin\Debug}</Warning>
+   SKM.dll   v3.0.3.1
+   Newtonsoft.Json.dll   v6.0.0.0</Info>
+  <Info>.NET Assembly loaded from {C:\Users\Artem Los\Documents\GitHub\SKGL-Extension-for-dot-NET\SKM Test\bin\Debug} 
+   SKM Test.dll   v1.0.0.0</Info>
+  <Warning>Assembly {Microsoft.VisualStudio.QualityTools.UnitTestFramework} is referenced by {SKM Test} but is not found.</Warning>
+  <Info>21 source files parsed ; all source files found ; all source files in-sync with PDB</Info>
   <Info>0 code rule has been extracted from code.</Info>
   <Info>No dependency cycle detected in assemblies referencement graph.</Info>
-  <Info>03-13-2016 17:40:04 Log trend metrics values.</Info>
-  <Info>03-13-2016 17:40:06 NDepend analysis done. Duration: 00:03</Info>
+  <Info>03-16-2016 22:11:47 Log trend metrics values.</Info>
+  <Info>03-16-2016 22:11:52 NDepend analysis done. Duration: 00:07</Info>
 </InfoWarnings>

@@ -334,11 +334,11 @@ namespace SKGL
         Error
     }
 
-    [Serializable]
     /// <summary>
     /// Stores information that is required to identify yourself to SKM.
     /// This includes the Token and Version.
     /// </summary>
+    [Serializable]
     public class AuthDetails
     {
         /// <summary>
