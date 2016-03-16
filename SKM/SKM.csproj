@@ -59,6 +59,7 @@
     <Compile Include="ExtensionMethods.cs" />
     <Compile Include="HelperMethods.cs" />
     <Compile Include="KeyInformation.cs" />
+    <Compile Include="LicenseKey.cs" />
     <Compile Include="ProductVariables.cs" />
     <Compile Include="SKM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-using SKGL;
 namespace SKM_Test
 {
+    using SKGL;
     /// <summary>
     /// These tests do not access the Web API.
     /// </summary>

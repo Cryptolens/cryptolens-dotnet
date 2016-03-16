@@ -72,16 +72,16 @@
     <Compile Include="TestSKMTimeMethods.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SKM\SKM.csproj">
-      <Project>{9c8e33e5-7833-4eb2-9d3d-a16200b14390}</Project>
-      <Name>SKM</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="Samples\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="bin\Debug\Samples\crypto.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SKM\SKM.csproj">
+      <Project>{9c8e33e5-7833-4eb2-9d3d-a16200b14390}</Project>
+      <Name>SKM</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

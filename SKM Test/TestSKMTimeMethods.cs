@@ -1,10 +1,11 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-using SKGL;
 using System.Diagnostics;
 namespace SKM_Test
 {
+    using SKGL;
+
     [TestClass]
     public class TestSKMTimeMethods
     {
