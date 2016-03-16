@@ -483,7 +483,8 @@ namespace SKGL
                      (keyInformation.Mid == null ? "" : keyInformation.Mid) +
                      (keyInformation.Pid == null ? "" : keyInformation.Pid) +
                      (keyInformation.Uid == null ? "" : keyInformation.Uid) +
-                     (keyInformation.Date == null ? "" : keyInformation.Date.Value.ToString("yyy-MM-dd"))
+                     (keyInformation.Date == null ? "" : keyInformation.Date.Value.ToString("yyy-MM-dd")) +
+                     (keyInformation.Customer == null ? "" : keyInformation.Customer.Value.ToString())
                      );
 
                 RSACryptoServiceProvider rsa = new RSACryptoServiceProvider(2048);
@@ -852,7 +853,7 @@ namespace SKGL
 
             if (parameters.ContainsKey("customer"))
             {
-                ki.Customer = parameters["customer"];
+                ki.Customer = Convert.ToInt32(parameters["customer"]);
             }
 
             return ki;
