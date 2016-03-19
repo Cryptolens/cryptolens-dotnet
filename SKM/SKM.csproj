@@ -46,6 +46,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Management" />
     <Reference Include="System.Xml.Linq" />
@@ -55,11 +56,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActivationData.cs" />
-    <Compile Include="DataObject.cs" />
+    <Compile Include="Extended License Info\Customer.cs" />
+    <Compile Include="Extended License Info\DataObject.cs" />
     <Compile Include="ExtensionMethods.cs" />
     <Compile Include="HelperMethods.cs" />
     <Compile Include="KeyInformation.cs" />
-    <Compile Include="LicenseKey.cs" />
+    <Compile Include="Extended License Info\LicenseKey.cs" />
     <Compile Include="ProductVariables.cs" />
     <Compile Include="SKM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
