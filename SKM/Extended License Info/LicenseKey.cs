@@ -44,6 +44,8 @@ namespace SKGL
 
         public List<DataObject> DataObjects { get; set; }
 
+        public DateTime SignDate { get; set; }
+
         public string Signature { get; set; }
 
     }
