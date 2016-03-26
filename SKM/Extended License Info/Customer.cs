@@ -23,5 +23,11 @@ namespace SKGL
         public string CompanyName { get; set; }
 
         public DateTime Created { get; set; }
+        public override string ToString()
+        {
+            if (this != null)
+                return Name + "," + Email + "," + CompanyName + "," + Created.ToString(new System.Globalization.CultureInfo("sv-SE"));
+            return base.ToString();
+        }
     }
 }

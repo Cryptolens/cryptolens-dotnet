@@ -23,6 +23,18 @@ namespace SKGL
         /// An int value (int32) to store.
         /// </summary>
         public int IntValue { get; set; }
+
+        public override string ToString()
+        {
+            if (this == null)
+            {
+                return base.ToString();
+            }
+            else
+            {
+                return Id.ToString() + "," + Name + "," + StringValue + "," + IntValue;
+            }
+        }
     }
 
     /// <summary>
