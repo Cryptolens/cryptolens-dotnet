@@ -220,7 +220,6 @@ namespace SKM_Test
         public void SecureKeyActivation()
         {
             // your public key can be found at http://serialkeymanager.com/Account/Manage.
-            string rsaPublicKey = "<RSAKeyValue><Modulus>pL01ClSf7U5kp2E7C9qFecZGiaV8rFpET1u9QvuBrLNkCRB5mQFiaCqHyJd8Wj5o/vkBAenQO+K45hLQakve/iAmr4NX/Hca9WyN8DVhif6p9wD+FIGWeheOkbcrfiFgMzC+3g/w1n73fK0GCLF4j2kqnWrDBjaB4WfzmtA5hmrBFX3u9xcYed+dXWJW/I4MYmG0cQiBqR/P5xTTE+zZWOXwvmSZZaMvBh884H9foLgPWWsLllobQTHUqRq6pr48XrQ8GjV7oGigTImolenMLSR59anDCIhZy59PPsi2WE7OoYP8ecNvkdHWr1RlEFtx4bUZr3FPNWLm7QIq7AWwgw==</Modulus><Exponent>AQAB</Exponent></RSAKeyValue>";
             SKGL.KeyInformation keyInfo = new SKGL.KeyInformation();
             bool fileLoaded = false;
 
@@ -234,7 +233,7 @@ namespace SKM_Test
 
             if (fileLoaded)
             {
-                if (SKGL.SKM.IsKeyInformationGenuine(keyInfo, rsaPublicKey))
+                if (SKGL.SKM.IsKeyInformationGenuine(keyInfo, TestCases.TestData.pubkey))
                 {
                     // if we've come so far, we know that
                     // * the key has been checked against the database once
@@ -323,8 +322,7 @@ namespace SKM_Test
         {
             var validationResult = SKGL.SKM.KeyActivation("74", "2", "508133", "JWMKK-QMCPX-DZAMF-IOUZC", "artem", true, true, true, true, true);
 
-            var rsa = "<RSAKeyValue><Modulus>pL01ClSf7U5kp2E7C9qFecZGiaV8rFpET1u9QvuBrLNkCRB5mQFiaCqHyJd8Wj5o/vkBAenQO+K45hLQakve/iAmr4NX/Hca9WyN8DVhif6p9wD+FIGWeheOkbcrfiFgMzC+3g/w1n73fK0GCLF4j2kqnWrDBjaB4WfzmtA5hmrBFX3u9xcYed+dXWJW/I4MYmG0cQiBqR/P5xTTE+zZWOXwvmSZZaMvBh884H9foLgPWWsLllobQTHUqRq6pr48XrQ8GjV7oGigTImolenMLSR59anDCIhZy59PPsi2WE7OoYP8ecNvkdHWr1RlEFtx4bUZr3FPNWLm7QIq7AWwgw==</Modulus><Exponent>AQAB</Exponent></RSAKeyValue>";
-            if (!SKGL.SKM.IsKeyInformationGenuine(validationResult, rsa))
+            if (!SKGL.SKM.IsKeyInformationGenuine(validationResult, TestCases.TestData.pubkey))
             {
                 Assert.Fail();
             }
@@ -339,9 +337,9 @@ namespace SKM_Test
 
             var productVariables = new SKGL.ProductVariables() { UID = "2", PID = "2196", HSUM = "749172" };
 
-            int currentvalue = SKGL.SKM.OptionalField(productVariables, "KTDOU-JZQUY-NOJCU-ECTAA");
+            int currentvalue = SKGL.SKM.OptionalField(productVariables, "LPGQX-KBKUY-JZNDO-TLPJO");
 
-            int newValue = SKGL.SKM.OptionalField(productVariables, "KTDOU-JZQUY-NOJCU-ECTAA", SKGL.SKM.Todo.Set, 1);
+            int newValue = SKGL.SKM.OptionalField(productVariables, "LPGQX-KBKUY-JZNDO-TLPJO", SKGL.SKM.Todo.Set, 1);
 
             Assert.IsTrue(newValue == currentvalue - 1);
 
@@ -360,7 +358,7 @@ namespace SKM_Test
         public void KeyDeactivationTest()
         {
             // first, we need to activate a machine code. In this case, it's "artem123"
-            var activationResult = SKGL.SKM.KeyActivation("2196", "2", "749172", "KTDOU-JZQUY-NOJCU-ECTAA", "artem123");
+            var activationResult = SKGL.SKM.KeyActivation("2196", "2", "749172", "LPGQX-KBKUY-JZNDO-TLPJO", "artem123");
 
             if(activationResult == null)
             {
@@ -369,7 +367,7 @@ namespace SKM_Test
 
             // now, let's deactivate it:
 
-            var deactivationResult = SKGL.SKM.KeyDeactivation("2196", "2", "749172", "KTDOU-JZQUY-NOJCU-ECTAA", "artem123");
+            var deactivationResult = SKGL.SKM.KeyDeactivation("2196", "2", "749172", "LPGQX-KBKUY-JZNDO-TLPJO", "artem123");
 
             if(deactivationResult == null)
             {
