@@ -257,5 +257,16 @@ namespace SKM_Test
 
         }
 
+        [TestMethod]
+        public void MyTestMethod()
+        {
+            var keyInfoResult = Newtonsoft.Json.JsonConvert.DeserializeObject<KeyInfoResult>(TestCases.TestData.signedData);
+
+            var license = keyInfoResult.LicenseKey;
+
+            Assert.IsTrue(SKM.IsLicenceseKeyGenuine(license, TestCases.TestData.pubkey));
+            
+        }
+
     }
 }

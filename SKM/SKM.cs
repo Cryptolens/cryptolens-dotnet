@@ -502,9 +502,35 @@ namespace SKGL
             
         }
 
-        private static bool CheckDefaultKeyInformation(KeyInformation ki)
+        public static bool IsLicenceseKeyGenuine(LicenseKey licenseKey, string rsaPublicKey)
         {
+            if (licenseKey?.Signature != "")
+            {
+                var prevSignature = licenseKey.Signature;
+
+                try
+                {
+                    licenseKey.Signature = "";
+                    var rawResult = licenseKey.AsDictionary();
+                    RSACryptoServiceProvider rsa = new RSACryptoServiceProvider(2048);
+
+                    rsa.FromXmlString(rsaPublicKey);
+
+                    byte[] signature = Convert.FromBase64String(prevSignature);
+
+                     // the signature should not be included into the signature :)
+                    System.Diagnostics.Debug.WriteLine(String.Join(",", rawResult.Select(x => x.Value)));
+                    return rsa.VerifyData(GetBytes(String.Join(",", rawResult.Select(x => x.Value))), "SHA256", signature);
+                }
+                catch { }
+                finally
+                {
+                    licenseKey.Signature = prevSignature;
+                }
+            }
+
             return false;
+
         }
 
         /// <summary>

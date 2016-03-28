@@ -26,7 +26,7 @@ namespace SKGL
         public override string ToString()
         {
             if (this != null)
-                return Name + "," + Email + "," + CompanyName + "," + Created.ToString(new System.Globalization.CultureInfo("sv-SE"));
+                return Name + "," + Email + "," + CompanyName + "," + Created.ToString(ConfigValues.DEFAULT_TIME_REPSENTATION);
             return base.ToString();
         }
     }

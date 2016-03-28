@@ -56,10 +56,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActivationData.cs" />
+    <Compile Include="Core\ConfigValues.cs" />
+    <Compile Include="Core\HelperExtensionMethods.cs" />
     <Compile Include="Extended License Info\Customer.cs" />
     <Compile Include="Extended License Info\DataObject.cs" />
     <Compile Include="ExtensionMethods.cs" />
-    <Compile Include="HelperMethods.cs" />
+    <Compile Include="Core\HelperMethods.cs" />
     <Compile Include="KeyInformation.cs" />
     <Compile Include="Extended License Info\LicenseKey.cs" />
     <Compile Include="ProductVariables.cs" />

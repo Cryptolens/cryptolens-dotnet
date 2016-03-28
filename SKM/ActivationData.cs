@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace SKGL
 {
@@ -28,7 +25,7 @@ namespace SKGL
         public override string ToString()
         {
             if (this != null)
-                return Mid + "," + IP + "," + Time;
+                return Mid + "," + IP + "," + (Time.HasValue ? Time.Value.ToString(ConfigValues.DEFAULT_TIME_REPSENTATION) : "");
             return base.ToString();
         }
     }

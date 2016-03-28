@@ -4,6 +4,14 @@ using System.Collections.Generic;
 namespace SKGL
 {
     /// <summary>
+    /// 
+    /// </summary>
+    public class KeyInfoResult : BasicResult
+    {
+        public LicenseKey LicenseKey { get; set; }
+    }
+
+    /// <summary>
     /// Input parameters to KeyLock method.
     /// </summary>
     public class KeyLockModel
