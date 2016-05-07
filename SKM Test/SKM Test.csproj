@@ -80,6 +80,7 @@
     <Compile Include="TestWebAPI3.cs" />
     <Compile Include="TestMachineCode.cs" />
     <Compile Include="TestSKMTimeMethods.cs" />
+    <Compile Include="SKMv3.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Samples\" />

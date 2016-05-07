@@ -3,6 +3,20 @@ using System.Collections.Generic;
 
 namespace SKGL
 {
+    public class ActivateModel 
+    {
+        public int ProductId { get; set; }
+        /// <summary>
+        /// The Key Id, eg. 12345.
+        /// </summary>
+        public string Key { get; set; }
+        public bool Sign { get; set; }
+
+        public string MachineCode { get; set; }
+
+        public int FieldsToReturn { get; set; }
+
+    }
     /// <summary>
     /// 
     /// </summary>

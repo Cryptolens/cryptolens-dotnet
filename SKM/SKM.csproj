@@ -67,6 +67,7 @@
     <Compile Include="ProductVariables.cs" />
     <Compile Include="SKM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SKMv3.cs" />
     <Compile Include="WebAPIModels.cs" />
   </ItemGroup>
   <ItemGroup>
