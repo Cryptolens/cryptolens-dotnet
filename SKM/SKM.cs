@@ -11,6 +11,9 @@ using System.Text.RegularExpressions;
 using System.Security.Cryptography;
 using System.Net.NetworkInformation;
 
+using SKM.V3;
+using SKM;
+
 [assembly: AllowPartiallyTrustedCallers()]
 [assembly: CLSCompliant(true)]
 namespace SKGL
@@ -469,7 +472,7 @@ namespace SKGL
             // try catch require more, so better to simply check if features are null, etc.
             try
             {
-                byte[] data = GetBytes(keyInformation.Valid.ToString() + keyInformation.CreationDate.ToString("yyyy-MM-dd") + keyInformation.ExpirationDate.ToString("yyyy-MM-dd")
+                byte[] data = HelperMethods.GetBytes(keyInformation.Valid.ToString() + keyInformation.CreationDate.ToString("yyyy-MM-dd") + keyInformation.ExpirationDate.ToString("yyyy-MM-dd")
                      + keyInformation.SetTime.ToString() + keyInformation.TimeLeft.ToString() +
                      keyInformation.Features[0].ToString() +
                      keyInformation.Features[1].ToString() +
@@ -520,7 +523,7 @@ namespace SKGL
 
                      // the signature should not be included into the signature :)
                     System.Diagnostics.Debug.WriteLine(String.Join(",", rawResult.Select(x => x.Value)));
-                    return rsa.VerifyData(GetBytes(String.Join(",", rawResult.Select(x => x.Value))), "SHA256", signature);
+                    return rsa.VerifyData(HelperMethods.GetBytes(String.Join(",", rawResult.Select(x => x.Value))), "SHA256", signature);
                 }
                 catch { }
                 finally
@@ -671,22 +674,6 @@ namespace SKGL
               
                 return keyInfo;
             }
-        }
-
-        // useful snippettes by @Mehrdad
-        // http://stackoverflow.com/questions/472906/converting-a-string-to-byte-array
-        private static byte[] GetBytes(string str)
-        {
-            byte[] bytes = new byte[str.Length * sizeof(char)];
-            System.Buffer.BlockCopy(str.ToCharArray(), 0, bytes, 0, bytes.Length);
-            return bytes;
-        }
-
-        private static string GetString(byte[] bytes)
-        {
-            char[] chars = new char[bytes.Length / sizeof(char)];
-            System.Buffer.BlockCopy(bytes, 0, chars, 0, bytes.Length);
-            return new string(chars);
         }
 
         #endregion

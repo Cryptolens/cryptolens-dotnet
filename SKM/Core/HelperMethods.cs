@@ -51,7 +51,7 @@ namespace SKGL
 
                 try
                 {
-                    byte[] responsebytes = client.UploadValues("https://serialkeymanager.com//api/" + typeOfAction, "POST", reqparm);
+                    byte[] responsebytes = client.UploadValues("https://serialkeymanager.com/api/" + typeOfAction, "POST", reqparm);
                     string responsebody = Encoding.UTF8.GetString(responsebytes);
 
                     return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(responsebody);
@@ -66,6 +66,30 @@ namespace SKGL
 
             }
         }
+
+     
+        /// <summary>
+        /// Useful snippets by @Mehrdad
+        /// http://stackoverflow.com/questions/472906/converting-a-string-to-byte-array
+        /// </summary>
+        public static byte[] GetBytes(string str)
+        {
+            byte[] bytes = new byte[str.Length * sizeof(char)];
+            System.Buffer.BlockCopy(str.ToCharArray(), 0, bytes, 0, bytes.Length);
+            return bytes;
+        }
+
+        /// <summary>
+        /// Useful snippets by @Mehrdad
+        /// http://stackoverflow.com/questions/472906/converting-a-string-to-byte-array
+        /// </summary>
+        public static string GetString(byte[] bytes)
+        {
+            char[] chars = new char[bytes.Length / sizeof(char)];
+            System.Buffer.BlockCopy(bytes, 0, chars, 0, bytes.Length);
+            return new string(chars);
+        }
+
 
     }
 }

@@ -1,10 +1,11 @@
-﻿using System;
+﻿using SKGL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 
-namespace SKGL
+namespace SKM
 {
     /// <summary>
     /// Based on: http://stackoverflow.com/a/4944547/1275924
