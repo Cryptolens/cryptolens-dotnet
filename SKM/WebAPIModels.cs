@@ -1,8 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace SKGL
 {
+    public class GetKeysModel
+    {
+        /// <summary>
+        /// The product id
+        /// </summary>
+        public int ProductId { get; set; }
+        /// <summary>
+        /// If there are more than 100 keys, only 99 will be returned
+        /// on the first page. in order to obtain the remaining licenses, 
+        /// increment this parameter by 1.
+        /// </summary>
+        [DefaultValue(1)]
+        public int Page { get; set; }
+        public string OrderBy { get; set; }
+        public string SearchQuery { get; set; }
+    }
+
+    public class GetKeysResult : BasicResult
+    {
+        public List<LicenseKey> LicenseKeys { get; set; }
+        public int Returned { get; set; }
+        public int Total { get; set; }
+    }
+
     public class ActivateModel 
     {
         public int ProductId { get; set; }

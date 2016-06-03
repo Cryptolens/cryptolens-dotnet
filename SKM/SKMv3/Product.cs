@@ -11,7 +11,7 @@ namespace SKM.V3
     /// Methods that perform operations on a license key. A complete list
     /// can be found here: https://serialkeymanager.com/docs/api/v3/Key
     /// </summary>
-    public static class Key
+    public static class Product
     {
         /// <summary>
         /// This method will perform a key activation, similar to Activate [Web API 2]. 
@@ -32,47 +32,11 @@ namespace SKM.V3
         /// • To compute the value of the feature lock, please use the Hide column, for those fields that you want to omit in the result above.<br></br>
         /// • If the ActivatedMachines is hidden, only the current machine code will be included(used during this particular activation). Otherwise, all machine codes will be included.
         /// </remarks>
-        public static KeyInfoResult Activate(AuthDetails auth, ActivateModel parameters)
+        public static GetKeysResult GetKeys(AuthDetails auth, ActivateModel parameters)
         {
-            return HelperMethods.SendRequestToWebAPI3<KeyInfoResult>(parameters, "/key/activate/", auth.Token);
+            return HelperMethods.SendRequestToWebAPI3<GetKeysResult>(parameters, "/product/getkeys/", auth.Token);
         }
 
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="licenseKey"></param>
-        /// <param name="rsaPublicKey"></param>
-        /// <returns></returns>
-        public static bool IsLicenceseKeyGenuine(LicenseKey licenseKey, string rsaPublicKey)
-        {
-            if (licenseKey?.Signature != "")
-            {
-                var prevSignature = licenseKey.Signature;
-
-                try
-                {
-                    licenseKey.Signature = "";
-                    var rawResult = licenseKey.AsDictionary();
-                    RSACryptoServiceProvider rsa = new RSACryptoServiceProvider(2048);
-
-                    rsa.FromXmlString(rsaPublicKey);
-
-                    byte[] signature = Convert.FromBase64String(prevSignature);
-
-                    // the signature should not be included into the signature :)
-                    System.Diagnostics.Debug.WriteLine(String.Join(",", rawResult.Select(x => x.Value)));
-                    return rsa.VerifyData(HelperMethods.GetBytes(String.Join(",", rawResult.Select(x => x.Value))), "SHA256", signature);
-                }
-                catch { }
-                finally
-                {
-                    licenseKey.Signature = prevSignature;
-                }
-            }
-
-            return false;
-
-        }
+        
     }
 }
