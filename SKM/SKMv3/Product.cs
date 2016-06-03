@@ -32,7 +32,7 @@ namespace SKM.V3
         /// • To compute the value of the feature lock, please use the Hide column, for those fields that you want to omit in the result above.<br></br>
         /// • If the ActivatedMachines is hidden, only the current machine code will be included(used during this particular activation). Otherwise, all machine codes will be included.
         /// </remarks>
-        public static GetKeysResult GetKeys(AuthDetails auth, ActivateModel parameters)
+        public static GetKeysResult GetKeys(AuthDetails auth, GetKeysModel parameters)
         {
             return HelperMethods.SendRequestToWebAPI3<GetKeysResult>(parameters, "/product/getkeys/", auth.Token);
         }

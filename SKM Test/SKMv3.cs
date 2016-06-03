@@ -28,5 +28,16 @@ namespace SKM_Test
             Assert.IsFalse(Key.IsLicenceseKeyGenuine(result.LicenseKey, TestCases.TestData.pubkey));
         }
 
+        [TestMethod]
+        public void GetKeysTest()
+        {
+            var auth = new AuthDetails { Token = "WyIxMjkiLCIxRVNxYStKRTloUGorQytSMndHclNBTno5dzA0Tjl1dGgvS2k5UkxHIl0=" };
+            var result = Product.GetKeys(auth: auth, parameters:  new GetKeysModel { ProductId= 3349 });
+
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result.Result == ResultType.Success);
+
+            
+        }
     }
 }
