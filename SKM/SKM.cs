@@ -505,37 +505,6 @@ namespace SKGL
             
         }
 
-        public static bool IsLicenceseKeyGenuine(LicenseKey licenseKey, string rsaPublicKey)
-        {
-            if (licenseKey?.Signature != "")
-            {
-                var prevSignature = licenseKey.Signature;
-
-                try
-                {
-                    licenseKey.Signature = "";
-                    var rawResult = licenseKey.AsDictionary();
-                    RSACryptoServiceProvider rsa = new RSACryptoServiceProvider(2048);
-
-                    rsa.FromXmlString(rsaPublicKey);
-
-                    byte[] signature = Convert.FromBase64String(prevSignature);
-
-                     // the signature should not be included into the signature :)
-                    System.Diagnostics.Debug.WriteLine(String.Join(",", rawResult.Select(x => x.Value)));
-                    return rsa.VerifyData(HelperMethods.GetBytes(String.Join(",", rawResult.Select(x => x.Value))), "SHA256", signature);
-                }
-                catch { }
-                finally
-                {
-                    licenseKey.Signature = prevSignature;
-                }
-            }
-
-            return false;
-
-        }
-
         /// <summary>
         /// This method saves all information inside key information into a file.
         /// </summary>
@@ -679,6 +648,11 @@ namespace SKGL
         #endregion
 
         #region OtherAPIRequests
+
+        public static string GenerateKey()
+        {
+            return "";
+        }
 
         /// <summary>
         /// 
@@ -975,254 +949,201 @@ namespace SKGL
 
         #region WebAPI3
 
-        /// <summary>
-        /// This method will extend a license by a certain amount of days. 
-        /// If the key algorithm in the product is SKGL, the key string 
-        /// will be changed if necessary. Otherwise, if SKM15 is used, 
-        /// the key will stay the same.
-        /// If the key is changed, the new key will be stored in the message.
-        /// </summary>
-        /// <param name="auth">Details such as Token and Version.</param>
-        /// <param name="parameters">The parameters that the method needs.</param>
-        /// <example>
-        /// Here is an example that demonstrates the use of the method.
-        /// <code language="cs" title="C#">
-        /// public void ExtendLicenseExample()
-        /// {
-        ///    var keydata = new ExtendLicenseModel() { Key = "ITVBC-GXXNU-GSMTK-NIJBT", NoOfDays = 30, ProductId = 3349 };
-        ///    var auth = new AuthDetails() { Token = "WyI0IiwiY0E3aHZCci9FWFZtOWJYNVJ5eTFQYk8rOXJSNFZ5TTh1R25YaDVFUiJd" };
-        ///
-        ///    var result = SKM.ExtendLicense(auth, keydata);
-        ///
-        ///    if (result != null &amp;&amp; result.Result == ResultType.Success)
-        ///    {
-        ///        // the license was successfully extended with 30 days.
-        ///    }
-        /// }
-        /// </code>
-        /// </example>
-        /// <remarks>This method may, in rare cases, return null if an error has occurred.
-        /// Null should be seen as an unsuccessful result.
-        /// </remarks>
-        /// <returns>A BasicResult object or null.</returns>
-        public static BasicResult ExtendLicense(AuthDetails auth, ExtendLicenseModel parameters)
-        {
-            return HelperMethods.SendRequestToWebAPI3<BasicResult>(parameters, "/key/extendlicense/", auth.Token);
-        }
-
-        /// <summary>
-        /// This method will change a given feature to be true (in a license).
-        /// If the key algorithm in the product is SKGL, the key string 
-        /// will be changed if necessary. Otherwise, if SKM15 is used, 
-        /// the key will stay the same.
-        /// If the key is changed, the new key will be stored in the message.
-        /// </summary>
-        /// <param name="auth">Details such as Token and Version.</param>
-        /// <param name="parameters">The parameters that the method needs.</param>
-        /// <example>
-        /// Here is an example that demonstrates the use of the method.
-        /// <code language="cs" title="C#">
-        /// public void AddFeatureTest()
-        /// {
-        ///     var keydata = new FeatureModel() { Key = "LXWVI-HSJDU-CADTC-BAJGW", Feature = 2, ProductId = 3349 };
-        ///     var auth = new AuthDetails() { Token = "WyI2Iiwib3lFQjFGYk5pTHYrelhIK2pveWdReDdEMXd4ZDlQUFB3aGpCdTRxZiJd" };
-        /// 
-        ///     var result = SKM.AddFeature(auth, keydata);
-        /// 
-        ///     if (result != null &amp;&amp; result.Result == ResultType.Success)
-        ///     {
-        ///         // feature 2 is set to true.
-        ///     }
-        ///     else
-        ///     {
-        ///         Assert.Fail();
-        ///     }
-        /// }
-        /// </code>
-        /// </example>
-        /// <remarks>This method may, in rare cases, return null if an error has occurred.
-        /// Null should be seen as an unsuccessful result.
-        /// </remarks>
-        /// <returns>A BasicResult object or null.</returns>
-        public static BasicResult AddFeature(AuthDetails auth, FeatureModel parameters)
-        {
-            return HelperMethods.SendRequestToWebAPI3<BasicResult>(parameters, "/key/addfeature/", auth.Token);
-        }
-
-        /// <summary>
-        /// This method will change a given feature to be false (in a license).
-        /// If the key algorithm in the product is SKGL, the key string 
-        /// will be changed if necessary. Otherwise, if SKM15 is used, 
-        /// the key will stay the same.
-        /// If the key is changed, the new key will be stored in the message.
-        /// </summary>
-        /// <param name="auth">Details such as Token and Version.</param>
-        /// <param name="parameters">The parameters that the method needs.</param>
-        /// <example>
-        /// Here is an example that demonstrates the use of the method.
-        /// <code language="cs" title="C#">
-        /// public void AddFeatureTest()
-        /// {
-        ///     var keydata = new FeatureModel() { Key = "LXWVI-HSJDU-CADTC-BAJGW", Feature = 2, ProductId = 3349 };
-        ///     var auth = new AuthDetails() { Token = "WyI2Iiwib3lFQjFGYk5pTHYrelhIK2pveWdReDdEMXd4ZDlQUFB3aGpCdTRxZiJd" };
-        /// 
-        ///     var result = SKM.RemoveFeature(auth, keydata);
-        /// 
-        ///     if (result != null &amp;&amp; result.Result == ResultType.Success)
-        ///     {
-        ///         // feature 2 is set to true.
-        ///     }
-        ///     else
-        ///     {
-        ///         Assert.Fail();
-        ///     }
-        /// }
-        /// </code>
-        /// </example>
-        /// <remarks>This method may, in rare cases, return null if an error has occurred.
-        /// Null should be seen as an unsuccessful result.
-        /// </remarks>
-        /// <returns>A BasicResult object or null.</returns>
-        public static BasicResult RemoveFeature(AuthDetails auth, FeatureModel parameters)
-        {
-            return HelperMethods.SendRequestToWebAPI3<BasicResult>(parameters, "/key/removefeature/", auth.Token);
-        }
-
-        /// <summary>
-        /// Creates a new <see cref="DataObject"/>.
-        /// </summary>
-        /// <param name="auth">Details such as Token and Version</param>
-        /// <param name="parameters">The parameters that the method needs</param>
-        /// <remarks>Note: for more details, please see 
-        /// <a href="https://serialkeymanager.com/docs/api/v3/AddDataObject">https://serialkeymanager.com/docs/api/v3/AddDataObject</a> </remarks>
-        /// <returns>Returns <see cref="DataObjectIdResult"/> or null.</returns>
-        public static DataObjectIdResult AddDataObject(AuthDetails auth, AddDataObjectModel parameters)
-        {
-            return HelperMethods.SendRequestToWebAPI3<DataObjectIdResult>(parameters, "/data/adddataobject/", auth.Token);
-        }
-
-        /// <summary>
-        /// This method lists either all Data Object associated with a
-        /// license key, a product or your entire account, or all of them at once.
-        /// </summary>
-        /// <param name="auth">Details such as Token and Version</param>
-        /// <param name="parameters">The parameters that the method needs</param>
-        /// <remarks>Note: for more details, please see 
-        /// <a href="https://serialkeymanager.com/docs/api/v3/ListDataObjects">https://serialkeymanager.com/docs/api/v3/ListDataObjects</a> </remarks>
-        /// <returns>Returns <see cref="ListOfDataObjectsResult"/> or null.</returns>
-        public static ListOfDataObjectsResult ListDataObjects(AuthDetails auth, ListDataObjectsModel parameters)
-        {
-            if (parameters.ShowAll)
-            {
-                var result = HelperMethods.SendRequestToWebAPI3<ListOfDataObjectsResultWithReferencer>(parameters, "/data/listdataobjects/", auth.Token);
-                return new ListOfDataObjectsResult
-                {
-                    Message = result.Message,
-                    Result = result.Result,
-                    DataObjects = result.DataObjects.Select(x => (DataObject)x).ToList()
-                };
-            }
-            else
-            {
-                return HelperMethods.SendRequestToWebAPI3<ListOfDataObjectsResult>(parameters, "/data/listdataobjects/", auth.Token);
-            }
-        }
+        ///// <summary>
+        ///// This method will extend a license by a certain amount of days. 
+        ///// If the key algorithm in the product is SKGL, the key string 
+        ///// will be changed if necessary. Otherwise, if SKM15 is used, 
+        ///// the key will stay the same.
+        ///// If the key is changed, the new key will be stored in the message.
+        ///// </summary>
+        ///// <param name="auth">Details such as Token and Version.</param>
+        ///// <param name="parameters">The parameters that the method needs.</param>
+        ///// <example>
+        ///// Here is an example that demonstrates the use of the method.
+        ///// <code language="cs" title="C#">
+        ///// public void ExtendLicenseExample()
+        ///// {
+        /////    var keydata = new ExtendLicenseModel() { Key = "ITVBC-GXXNU-GSMTK-NIJBT", NoOfDays = 30, ProductId = 3349 };
+        /////    var auth = new AuthDetails() { Token = "WyI0IiwiY0E3aHZCci9FWFZtOWJYNVJ5eTFQYk8rOXJSNFZ5TTh1R25YaDVFUiJd" };
+        /////
+        /////    var result = SKM.ExtendLicense(auth, keydata);
+        /////
+        /////    if (result != null &amp;&amp; result.Result == ResultType.Success)
+        /////    {
+        /////        // the license was successfully extended with 30 days.
+        /////    }
+        ///// }
+        ///// </code>
+        ///// </example>
+        ///// <remarks>This method may, in rare cases, return null if an error has occurred.
+        ///// Null should be seen as an unsuccessful result.
+        ///// </remarks>
+        ///// <returns>A BasicResult object or null.</returns>
+        //public static BasicResult ExtendLicense(AuthDetails auth, ExtendLicenseModel parameters)
+        //{
+        //    return HelperMethods.SendRequestToWebAPI3<BasicResult>(parameters, "/key/extendlicense/", auth.Token);
+        //}
 
 
-        /// <summary>
-        /// This method will set the int value to a new one.
-        /// </summary>
-        /// <param name="auth">Details such as Token and Version</param>
-        /// <param name="parameters">The parameters that the method needs</param>
-        /// <remarks>Note: for more details, please see 
-        /// <a href="https://serialkeymanager.com/docs/api/v3/SetIntValue">https://serialkeymanager.com/docs/api/v3/SetIntValue</a> <br/>
-        /// Note also: Integer overflows are not allowed. If you attempt to assign an int value that is beyond the limits of an int32, zero will be assigned to the data object's IntValue.</remarks>
-        /// <returns>Returns <see cref="ListOfDataObjectsResult"/> or null.</returns>
-        public static BasicResult SetIntValue(AuthDetails auth, ChangeIntValueModel parameters)
-        {
-            return HelperMethods.SendRequestToWebAPI3<BasicResult>(parameters, "/data/setintvalue/", auth.Token);
-        }
+        ///// <summary>
+        ///// Moved to SKM.V3 namespace into the Key class.
+        ///// </summary>
+        ///// <param name="auth"></param>
+        ///// <param name="parameters"></param>
+        ///// <returns></returns>
+        //[Obsolete]
+        //public static BasicResult AddFeature(AuthDetails auth, FeatureModel parameters)
+        //{
+        //    return HelperMethods.SendRequestToWebAPI3<BasicResult>(parameters, "/key/addfeature/", auth.Token);
+        //}
 
-        /// <summary>
-        /// This method will set the string value to a new one.
-        /// </summary>
-        /// <param name="auth">Details such as Token and Version</param>
-        /// <param name="parameters">The parameters that the method needs</param>
-        /// <remarks>Note: for more details, please see 
-        /// <a href="https://serialkeymanager.com/docs/api/v3/SetStringValue">https://serialkeymanager.com/docs/api/v3/SetStringValue</a> <br/>
-        /// </remarks>
-        /// <returns>Returns <see cref="ListOfDataObjectsResult"/> or null.</returns>
-        public static BasicResult SetStringValue(AuthDetails auth, ChangeStringValueModel parameters)
-        {
-            return HelperMethods.SendRequestToWebAPI3<BasicResult>(parameters, "/data/setstringvalue/", auth.Token);
-        }
+        ///// <summary>
+        ///// Moved to SKM.V3 namespace into the Key class.
+        ///// </summary>
+        ///// <param name="auth"></param>
+        ///// <param name="parameters"></param>
+        ///// <returns></returns>
+        //[Obsolete]
+        //public static BasicResult RemoveFeature(AuthDetails auth, FeatureModel parameters)
+        //{
+        //    return HelperMethods.SendRequestToWebAPI3<BasicResult>(parameters, "/key/removefeature/", auth.Token);
+        //}
+
+        ///// <summary>
+        ///// Creates a new <see cref="DataObject"/>.
+        ///// </summary>
+        ///// <param name="auth">Details such as Token and Version</param>
+        ///// <param name="parameters">The parameters that the method needs</param>
+        ///// <remarks>Note: for more details, please see 
+        ///// <a href="https://serialkeymanager.com/docs/api/v3/AddDataObject">https://serialkeymanager.com/docs/api/v3/AddDataObject</a> </remarks>
+        ///// <returns>Returns <see cref="DataObjectIdResult"/> or null.</returns>
+        //public static DataObjectIdResult AddDataObject(AuthDetails auth, AddDataObjectModel parameters)
+        //{
+        //    return HelperMethods.SendRequestToWebAPI3<DataObjectIdResult>(parameters, "/data/adddataobject/", auth.Token);
+        //}
+
+        ///// <summary>
+        ///// This method lists either all Data Object associated with a
+        ///// license key, a product or your entire account, or all of them at once.
+        ///// </summary>
+        ///// <param name="auth">Details such as Token and Version</param>
+        ///// <param name="parameters">The parameters that the method needs</param>
+        ///// <remarks>Note: for more details, please see 
+        ///// <a href="https://serialkeymanager.com/docs/api/v3/ListDataObjects">https://serialkeymanager.com/docs/api/v3/ListDataObjects</a> </remarks>
+        ///// <returns>Returns <see cref="ListOfDataObjectsResult"/> or null.</returns>
+        //public static ListOfDataObjectsResult ListDataObjects(AuthDetails auth, ListDataObjectsModel parameters)
+        //{
+        //    if (parameters.ShowAll)
+        //    {
+        //        var result = HelperMethods.SendRequestToWebAPI3<ListOfDataObjectsResultWithReferencer>(parameters, "/data/listdataobjects/", auth.Token);
+        //        return new ListOfDataObjectsResult
+        //        {
+        //            Message = result.Message,
+        //            Result = result.Result,
+        //            DataObjects = result.DataObjects.Select(x => (DataObject)x).ToList()
+        //        };
+        //    }
+        //    else
+        //    {
+        //        return HelperMethods.SendRequestToWebAPI3<ListOfDataObjectsResult>(parameters, "/data/listdataobjects/", auth.Token);
+        //    }
+        //}
 
 
-        /// <summary>
-        /// This method will increment the current int value by the one specified as an input parameter,
-        /// i.e. <see cref="ChangeIntValueModel.IntValue"/>.
-        /// </summary>
-        /// <param name="auth">Details such as Token and Version</param>
-        /// <param name="parameters">The parameters that the method needs</param>
-        /// <remarks>Note: for more details, please see 
-        /// <a href="https://serialkeymanager.com/docs/api/v3/IncrementIntValue">https://serialkeymanager.com/docs/api/v3/IncrementIntValue</a> <br/>
-        /// </remarks>
-        /// <returns>Returns <see cref="ListOfDataObjectsResult"/> or null.</returns>
-        public static BasicResult IncrementIntValue(AuthDetails auth, ChangeIntValueModel parameters)
-        {
-            return HelperMethods.SendRequestToWebAPI3<BasicResult>(parameters, "/data/incrementintvalue/", auth.Token);
-        }
+        ///// <summary>
+        ///// This method will set the int value to a new one.
+        ///// </summary>
+        ///// <param name="auth">Details such as Token and Version</param>
+        ///// <param name="parameters">The parameters that the method needs</param>
+        ///// <remarks>Note: for more details, please see 
+        ///// <a href="https://serialkeymanager.com/docs/api/v3/SetIntValue">https://serialkeymanager.com/docs/api/v3/SetIntValue</a> <br/>
+        ///// Note also: Integer overflows are not allowed. If you attempt to assign an int value that is beyond the limits of an int32, zero will be assigned to the data object's IntValue.</remarks>
+        ///// <returns>Returns <see cref="ListOfDataObjectsResult"/> or null.</returns>
+        //public static BasicResult SetIntValue(AuthDetails auth, ChangeIntValueModel parameters)
+        //{
+        //    return HelperMethods.SendRequestToWebAPI3<BasicResult>(parameters, "/data/setintvalue/", auth.Token);
+        //}
+
+        ///// <summary>
+        ///// This method will set the string value to a new one.
+        ///// </summary>
+        ///// <param name="auth">Details such as Token and Version</param>
+        ///// <param name="parameters">The parameters that the method needs</param>
+        ///// <remarks>Note: for more details, please see 
+        ///// <a href="https://serialkeymanager.com/docs/api/v3/SetStringValue">https://serialkeymanager.com/docs/api/v3/SetStringValue</a> <br/>
+        ///// </remarks>
+        ///// <returns>Returns <see cref="ListOfDataObjectsResult"/> or null.</returns>
+        //public static BasicResult SetStringValue(AuthDetails auth, ChangeStringValueModel parameters)
+        //{
+        //    return HelperMethods.SendRequestToWebAPI3<BasicResult>(parameters, "/data/setstringvalue/", auth.Token);
+        //}
 
 
-        /// <summary>
-        /// This method will decrement the current int value by the one specified as an input parameter,
-        /// i.e. <see cref="ChangeIntValueModel.IntValue"/>.
-        /// </summary>
-        /// <param name="auth">Details such as Token and Version</param>
-        /// <param name="parameters">The parameters that the method needs</param>
-        /// <remarks>Note: for more details, please see 
-        /// <a href="https://serialkeymanager.com/docs/api/v3/DecrementIntValue">https://serialkeymanager.com/docs/api/v3/DecrementIntValue</a> <br/>
-        /// </remarks>
-        /// <returns>Returns <see cref="ListOfDataObjectsResult"/> or null.</returns>
-        public static BasicResult DecrementIntValue(AuthDetails auth, ChangeIntValueModel parameters)
-        {
-            return HelperMethods.SendRequestToWebAPI3<BasicResult>(parameters, "/data/decrementintvalue/", auth.Token);
-        }
+        ///// <summary>
+        ///// This method will increment the current int value by the one specified as an input parameter,
+        ///// i.e. <see cref="ChangeIntValueModel.IntValue"/>.
+        ///// </summary>
+        ///// <param name="auth">Details such as Token and Version</param>
+        ///// <param name="parameters">The parameters that the method needs</param>
+        ///// <remarks>Note: for more details, please see 
+        ///// <a href="https://serialkeymanager.com/docs/api/v3/IncrementIntValue">https://serialkeymanager.com/docs/api/v3/IncrementIntValue</a> <br/>
+        ///// </remarks>
+        ///// <returns>Returns <see cref="ListOfDataObjectsResult"/> or null.</returns>
+        //public static BasicResult IncrementIntValue(AuthDetails auth, ChangeIntValueModel parameters)
+        //{
+        //    return HelperMethods.SendRequestToWebAPI3<BasicResult>(parameters, "/data/incrementintvalue/", auth.Token);
+        //}
 
-        /// <summary>
-        /// This method will remove an existing data object.
-        /// </summary>
-        /// <param name="auth">Details such as Token and Version</param>
-        /// <param name="parameters">The parameters that the method needs</param>
-        /// <remarks>Note: for more details, please see 
-        /// <a href="https://serialkeymanager.com/docs/api/v3/RemoveDataObject">https://serialkeymanager.com/docs/api/v3/RemoveDataObject</a> <br/>
-        /// </remarks>
-        /// <returns>Returns <see cref="ListOfDataObjectsResult"/> or null.</returns>
-        public static BasicResult RemoveDataObject(AuthDetails auth, RemoveDataObjectModel parameters)
-        {
-            return HelperMethods.SendRequestToWebAPI3<BasicResult>(parameters, "/data/removedataobject/", auth.Token);
-        }
 
-        /// <summary>
-        /// This method will, given a license key, generate a new access token
-        /// that is locked to that particular key and return the Id of that key.
-        /// The scope of the access token is preserved (i.e. all methods that were
-        /// enabled in the access token used to access this method will be copied
-        /// to the new access token) except for the key lock, which is going to be
-        /// changed to the id of the license key. Note, for this method to work,
-        /// the access token used to access this method has to have key lock set
-        /// to -1. All of these details are described in Remarks.
-        /// </summary>
-        /// <param name="auth">Details such as Token and Version</param>
-        /// <param name="parameters">The parameters that the method needs</param>
-        /// <remarks>Note: for more details, please see 
-        /// <a href="https://serialkeymanager.com/docs/api/v3/KeyLock">https://serialkeymanager.com/docs/api/v3/KeyLock</a> <br/>
-        /// </remarks>
-        /// <returns>Returns <see cref="KeyLockResult"/> or null.</returns>
-        public static KeyLockResult KeyLock(AuthDetails auth, KeyLockModel parameters)
-        {
-            return HelperMethods.SendRequestToWebAPI3<KeyLockResult>(parameters, "/auth/keylock/", auth.Token);
-        }
+        ///// <summary>
+        ///// This method will decrement the current int value by the one specified as an input parameter,
+        ///// i.e. <see cref="ChangeIntValueModel.IntValue"/>.
+        ///// </summary>
+        ///// <param name="auth">Details such as Token and Version</param>
+        ///// <param name="parameters">The parameters that the method needs</param>
+        ///// <remarks>Note: for more details, please see 
+        ///// <a href="https://serialkeymanager.com/docs/api/v3/DecrementIntValue">https://serialkeymanager.com/docs/api/v3/DecrementIntValue</a> <br/>
+        ///// </remarks>
+        ///// <returns>Returns <see cref="ListOfDataObjectsResult"/> or null.</returns>
+        //public static BasicResult DecrementIntValue(AuthDetails auth, ChangeIntValueModel parameters)
+        //{
+        //    return HelperMethods.SendRequestToWebAPI3<BasicResult>(parameters, "/data/decrementintvalue/", auth.Token);
+        //}
+
+        ///// <summary>
+        ///// This method will remove an existing data object.
+        ///// </summary>
+        ///// <param name="auth">Details such as Token and Version</param>
+        ///// <param name="parameters">The parameters that the method needs</param>
+        ///// <remarks>Note: for more details, please see 
+        ///// <a href="https://serialkeymanager.com/docs/api/v3/RemoveDataObject">https://serialkeymanager.com/docs/api/v3/RemoveDataObject</a> <br/>
+        ///// </remarks>
+        ///// <returns>Returns <see cref="ListOfDataObjectsResult"/> or null.</returns>
+        //public static BasicResult RemoveDataObject(AuthDetails auth, RemoveDataObjectModel parameters)
+        //{
+        //    return HelperMethods.SendRequestToWebAPI3<BasicResult>(parameters, "/data/removedataobject/", auth.Token);
+        //}
+
+        ///// <summary>
+        ///// This method will, given a license key, generate a new access token
+        ///// that is locked to that particular key and return the Id of that key.
+        ///// The scope of the access token is preserved (i.e. all methods that were
+        ///// enabled in the access token used to access this method will be copied
+        ///// to the new access token) except for the key lock, which is going to be
+        ///// changed to the id of the license key. Note, for this method to work,
+        ///// the access token used to access this method has to have key lock set
+        ///// to -1. All of these details are described in Remarks.
+        ///// </summary>
+        ///// <param name="auth">Details such as Token and Version</param>
+        ///// <param name="parameters">The parameters that the method needs</param>
+        ///// <remarks>Note: for more details, please see 
+        ///// <a href="https://serialkeymanager.com/docs/api/v3/KeyLock">https://serialkeymanager.com/docs/api/v3/KeyLock</a> <br/>
+        ///// </remarks>
+        ///// <returns>Returns <see cref="KeyLockResult"/> or null.</returns>
+        //public static KeyLockResult KeyLock(AuthDetails auth, KeyLockModel parameters)
+        //{
+        //    return HelperMethods.SendRequestToWebAPI3<KeyLockResult>(parameters, "/auth/keylock/", auth.Token);
+        //}
 
         #endregion
 

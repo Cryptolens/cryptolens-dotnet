@@ -5,7 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 
-namespace SKM
+namespace SKM.V3
 {
     /// <summary>
     /// Based on: http://stackoverflow.com/a/4944547/1275924

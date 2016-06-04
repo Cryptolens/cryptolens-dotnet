@@ -1,5 +1,5 @@
 ﻿
-namespace SKGL
+namespace SKM.V3
 {
     /// <summary>
     /// A Data Object used to store information.

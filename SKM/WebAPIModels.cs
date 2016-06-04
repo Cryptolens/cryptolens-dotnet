@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 
-namespace SKGL
+namespace SKM.V3
 {
     public class GetKeysModel
     {

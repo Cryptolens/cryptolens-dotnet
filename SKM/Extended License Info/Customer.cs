@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Configuration;
 
-namespace SKGL
+namespace SKM.V3
 {
     public class Customer
     {

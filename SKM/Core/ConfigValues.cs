@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace SKGL
+namespace SKM.V3
 {
     internal class ConfigValues
     {

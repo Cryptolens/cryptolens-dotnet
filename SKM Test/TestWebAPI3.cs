@@ -1,10 +1,11 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-
+using SKGL;
+using SKM.V3;
 
 namespace SKM_Test
 {
-    using SKGL;
+
     [TestClass]
     public class TestWebAPI3
     {
@@ -14,7 +15,7 @@ namespace SKM_Test
             var keydata = new ExtendLicenseModel() { Key = "ITVBC-GXXNU-GSMTK-NIJBT", NoOfDays = 30, ProductId = 3349 };
             var auth = new AuthDetails() { Token = "WyI0IiwiY0E3aHZCci9FWFZtOWJYNVJ5eTFQYk8rOXJSNFZ5TTh1R25YaDVFUiJd" };
 
-            var result = SKM.ExtendLicense(auth, keydata);
+            var result = Key.ExtendLicense(auth, keydata);
 
             if (result != null && result.Result == ResultType.Success)
             {
@@ -32,7 +33,7 @@ namespace SKM_Test
             var keydata = new FeatureModel() { Key = "LXWVI-HSJDU-CADTC-BAJGW", Feature = 2, ProductId = 3349 };
             var auth = new AuthDetails() { Token = "WyI2Iiwib3lFQjFGYk5pTHYrelhIK2pveWdReDdEMXd4ZDlQUFB3aGpCdTRxZiJd" };
 
-            var result = SKM.AddFeature(auth, keydata);
+            var result = Key.AddFeature(auth, keydata);
 
             if (result != null && result.Result == ResultType.Success)
             {
@@ -50,7 +51,7 @@ namespace SKM_Test
             var keydata = new FeatureModel() { Key = "LXWVI-HSJDU-CADTC-BAJGW", Feature = 2, ProductId = 3349 };
             var auth = new AuthDetails() { Token = "WyI2Iiwib3lFQjFGYk5pTHYrelhIK2pveWdReDdEMXd4ZDlQUFB3aGpCdTRxZiJd" };
 
-            var result = SKM.RemoveFeature(auth, keydata);
+            var result = Key.RemoveFeature(auth, keydata);
 
             if (result != null && result.Result == ResultType.Success)
             {
@@ -68,14 +69,14 @@ namespace SKM_Test
             var keydata = new AddDataObjectModel() { };
             var auth = new AuthDetails() { Token = "WyIxMSIsInRFLzRQSzJkT2V0Y1pyN3Y3a1I2Rm9YdmczNUw0SzJTRHJwUERhRFMiXQ==" };
 
-            var result = SKM.AddDataObject(auth, keydata);
+            var result = Data.AddDataObject(auth, keydata);
 
             if (result != null && result.Result == ResultType.Success)
             {
                 if (result.Id == 0)
                     Assert.Fail();
 
-                var removeObj = SKM.RemoveDataObject(auth, new RemoveDataObjectModel { Id = result.Id });
+                var removeObj = Data.RemoveDataObject(auth, new RemoveDataObjectModel { Id = result.Id });
 
                 if(removeObj == null || removeObj.Result == ResultType.Error)
                 {
@@ -94,7 +95,7 @@ namespace SKM_Test
             var keydata = new ListDataObjectsModel {  ShowAll = true };
             var auth = new AuthDetails() { Token = "WyIxMSIsInRFLzRQSzJkT2V0Y1pyN3Y3a1I2Rm9YdmczNUw0SzJTRHJwUERhRFMiXQ==" };
 
-            var result = SKM.ListDataObjects(auth, keydata);
+            var result = Data.ListDataObjects(auth, keydata);
             
             if (result != null && result.Result == ResultType.Success)
             {
@@ -110,7 +111,7 @@ namespace SKM_Test
 
             keydata.ShowAll = false;
 
-            result = SKM.ListDataObjects(auth, keydata);
+            result = Data.ListDataObjects(auth, keydata);
 
             if (result != null && result.Result == ResultType.Success)
             {
@@ -131,17 +132,17 @@ namespace SKM_Test
             var auth = new AuthDetails() { Token = "WyIxMSIsInRFLzRQSzJkT2V0Y1pyN3Y3a1I2Rm9YdmczNUw0SzJTRHJwUERhRFMiXQ==" };
 
             //first, let's obtain a random object. we record the old int value and the object id
-            var objInt = SKM.ListDataObjects(auth, new ListDataObjectsModel { ShowAll = true }).DataObjects[0];
+            var objInt = Data.ListDataObjects(auth, new ListDataObjectsModel { ShowAll = true }).DataObjects[0];
             int oldInt = objInt.IntValue;
             long Id = objInt.Id;
 
             var keydata = new ChangeIntValueModel() {IntValue = 4711, Id = Id };
            
-            var result = SKM.SetIntValue(auth, keydata);
+            var result = Data.SetIntValue(auth, keydata);
 
             if (result != null && result.Result == ResultType.Success)
             {
-                int objIntNew = SKM.ListDataObjects(auth, new ListDataObjectsModel { ShowAll = true }).DataObjects[0].IntValue;
+                int objIntNew = Data.ListDataObjects(auth, new ListDataObjectsModel { ShowAll = true }).DataObjects[0].IntValue;
                 Assert.IsTrue(objIntNew == 4711);
             }
             else
@@ -156,17 +157,17 @@ namespace SKM_Test
             var auth = new AuthDetails() { Token = "WyIxMSIsInRFLzRQSzJkT2V0Y1pyN3Y3a1I2Rm9YdmczNUw0SzJTRHJwUERhRFMiXQ==" };
 
             //first, let's obtain a random object. we record the old string value and the object id
-            var objInt = SKM.ListDataObjects(auth, new ListDataObjectsModel { ShowAll = true }).DataObjects[0];
+            var objInt = Data.ListDataObjects(auth, new ListDataObjectsModel { ShowAll = true }).DataObjects[0];
             string oldString = objInt.StringValue;
             long Id = objInt.Id;
 
             var keydata = new ChangeStringValueModel() { StringValue = "foo", Id = Id };
 
-            var result = SKM.SetStringValue(auth, keydata);
+            var result = Data.SetStringValue(auth, keydata);
 
             if (result != null && result.Result == ResultType.Success)
             {
-                string objIntNew = SKM.ListDataObjects(auth, new ListDataObjectsModel { ShowAll = true }).DataObjects[0].StringValue;
+                string objIntNew = Data.ListDataObjects(auth, new ListDataObjectsModel { ShowAll = true }).DataObjects[0].StringValue;
                 Assert.AreEqual(objIntNew, "foo");
             }
             else
@@ -181,17 +182,17 @@ namespace SKM_Test
             var auth = new AuthDetails() { Token = "WyIxMSIsInRFLzRQSzJkT2V0Y1pyN3Y3a1I2Rm9YdmczNUw0SzJTRHJwUERhRFMiXQ==" };
 
             //first, let's obtain a random object. we record the old int value and the object id
-            var objInt = SKM.ListDataObjects(auth, new ListDataObjectsModel { ShowAll = true }).DataObjects[0];
+            var objInt = Data.ListDataObjects(auth, new ListDataObjectsModel { ShowAll = true }).DataObjects[0];
             int oldInt = objInt.IntValue;
             long Id = objInt.Id;
 
             var keydata = new ChangeIntValueModel() { IntValue = 10, Id = Id };
 
-            var result = SKM.IncrementIntValue(auth, keydata);
+            var result = Data.IncrementIntValue(auth, keydata);
 
             if (result != null && result.Result == ResultType.Success)
             {
-                int objIntNew = SKM.ListDataObjects(auth, new ListDataObjectsModel { ShowAll = true }).DataObjects[0].IntValue;
+                int objIntNew = Data.ListDataObjects(auth, new ListDataObjectsModel { ShowAll = true }).DataObjects[0].IntValue;
                 Assert.IsTrue(objIntNew == oldInt+10);
             }
             else
@@ -207,17 +208,17 @@ namespace SKM_Test
             var auth = new AuthDetails() { Token = "WyIxMSIsInRFLzRQSzJkT2V0Y1pyN3Y3a1I2Rm9YdmczNUw0SzJTRHJwUERhRFMiXQ==" };
 
             //first, let's obtain a random object. we record the old int value and the object id
-            var objInt = SKM.ListDataObjects(auth, new ListDataObjectsModel { ShowAll = true }).DataObjects[0];
+            var objInt = Data.ListDataObjects(auth, new ListDataObjectsModel { ShowAll = true }).DataObjects[0];
             int oldInt = objInt.IntValue;
             long Id = objInt.Id;
 
             var keydata = new ChangeIntValueModel() { IntValue = 10, Id = Id };
 
-            var result = SKM.DecrementIntValue(auth, keydata);
+            var result = Data.DecrementIntValue(auth, keydata);
 
             if (result != null && result.Result == ResultType.Success)
             {
-                int objIntNew = SKM.ListDataObjects(auth, new ListDataObjectsModel { ShowAll = true }).DataObjects[0].IntValue;
+                int objIntNew = Data.ListDataObjects(auth, new ListDataObjectsModel { ShowAll = true }).DataObjects[0].IntValue;
                 Assert.IsTrue(objIntNew == oldInt - 10);
             }
             else
@@ -237,19 +238,19 @@ namespace SKM_Test
 
             // 1. Get a new token
             var key = "ITVBC-GXXNU-GSMTK-NIJBT";
-            var result = SKM.KeyLock(auth, new KeyLockModel { Key = key, ProductId = 3349 });
+            var result = Key.KeyLock(auth, new KeyLockModel { Key = key, ProductId = 3349 });
 
             var newAuth = result.GetAuthDetails();
 
             // 2. Access the method
-            var addFeature = SKM.AddFeature(newAuth, new FeatureModel { Feature = 2, ProductId = 3349, Key = key });
+            var addFeature = Key.AddFeature(newAuth, new FeatureModel { Feature = 2, ProductId = 3349, Key = key });
 
             // this should work
             if (addFeature.Result == ResultType.Error)
                 Assert.Fail();
 
             var wrongKey = "MTMPW-VZERP-JZVNZ-SCPZM";  
-            var addFeatureWrongKey = SKM.AddFeature(newAuth, new FeatureModel { Feature = 2, ProductId = 3, Key = wrongKey });
+            var addFeatureWrongKey = Key.AddFeature(newAuth, new FeatureModel { Feature = 2, ProductId = 3, Key = wrongKey });
 
             // this should not work
             if (addFeatureWrongKey != null && addFeatureWrongKey.Result == ResultType.Success)
@@ -264,7 +265,7 @@ namespace SKM_Test
 
             var license = keyInfoResult.LicenseKey;
 
-            Assert.IsTrue(SKM.IsLicenceseKeyGenuine(license, TestCases.TestData.pubkey));
+            Assert.IsTrue(SKM.V3.Key.IsLicenceseKeyGenuine(license, TestCases.TestData.pubkey));
             
         }
 

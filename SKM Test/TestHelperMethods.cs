@@ -1,6 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SKGL;
+using SKM.V3;
 using System.Collections.Generic;
 
 namespace SKM_Test

@@ -29,6 +29,14 @@ namespace SKM_Test
         }
 
         [TestMethod]
+        public void SaveFileToFileTest()
+        {
+            var test = new LicenseKey() { Key = "abc" };
+            test.SaveToFile("c:\\file.skm");
+            
+        }
+
+        [TestMethod]
         public void GetKeysTest()
         {
             var auth = new AuthDetails { Token = "WyIxMjkiLCIxRVNxYStKRTloUGorQytSMndHclNBTno5dzA0Tjl1dGgvS2k5UkxHIl0=" };

@@ -6,7 +6,7 @@ using System.Net;
 using System.Reflection;
 using System.Text;
 
-namespace SKGL
+namespace SKM.V3
 {
     /// <summary>
     /// The methods that are being used under the hood.
