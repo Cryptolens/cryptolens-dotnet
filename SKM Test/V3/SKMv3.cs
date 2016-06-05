@@ -22,11 +22,11 @@ namespace SKM_Test
             Assert.IsNotNull(result);
             Assert.IsTrue(result.Result == ResultType.Success);
 
-            Assert.IsTrue(Key.IsLicenceseKeyGenuine(result.LicenseKey, TestCases.TestData.pubkey));
+            Assert.IsTrue(result.LicenseKey.IsValid(TestCases.TestData.pubkey));
 
             result.LicenseKey.Signature = "test";
 
-            Assert.IsFalse(Key.IsLicenceseKeyGenuine(result.LicenseKey, TestCases.TestData.pubkey));
+            Assert.IsFalse(result.LicenseKey.IsValid(TestCases.TestData.pubkey));
         }
 
         [TestMethod]
@@ -47,6 +47,19 @@ namespace SKM_Test
             Assert.IsTrue(result.Result == ResultType.Success);
 
             
+        }
+
+        [TestMethod]
+        public void SaveLoadFile()
+        {
+            var key = new LicenseKey() { Key = "hello", Expires = DateTime.Today};
+
+            key.SaveToFile();
+
+            var load = new LicenseKey().LoadFromFile();
+
+            Assert.IsTrue(key.Key == load.Key);
+
         }
     }
 }

@@ -267,7 +267,7 @@ namespace SKM_Test
 
             var license = keyInfoResult.LicenseKey;
 
-            Assert.IsTrue(SKM.V3.Key.IsLicenceseKeyGenuine(license, TestCases.TestData.pubkey));
+            Assert.IsTrue(license.IsValid(TestCases.TestData.pubkey));
             
         }
 
