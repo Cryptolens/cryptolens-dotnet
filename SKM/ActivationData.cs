@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SKM.V3
+namespace SKM.V3.Models
 {
     /// <summary>
     /// This is the structure of each entry that will be returned by GetActivatedMachines.

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 
-namespace SKM.V3
+namespace SKM.V3.Models
 {
     public class GetKeysModel
     {

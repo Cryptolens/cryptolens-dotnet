@@ -11,8 +11,8 @@ using System.Text.RegularExpressions;
 using System.Security.Cryptography;
 using System.Net.NetworkInformation;
 
-using SKM.V3;
-using SKM;
+using SKM.V3.Models;
+using SKM.V3.Internal;
 
 [assembly: AllowPartiallyTrustedCallers()]
 [assembly: CLSCompliant(true)]

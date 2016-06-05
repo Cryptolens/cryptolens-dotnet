@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SKGL;
 using SKM.V3;
+using SKM.V3.Models;
 
 namespace SKM_Test
 {
@@ -19,6 +20,7 @@ namespace SKM_Test
 
             if (result != null && result.Result == ResultType.Success)
             {
+                
                 // the license was successfully extended with 30 days.
             }
             else

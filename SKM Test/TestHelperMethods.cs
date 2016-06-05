@@ -3,6 +3,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SKM.V3;
 using System.Collections.Generic;
 
+using SKM.V3.Models;
+using SKM.V3.Internal;
+
 namespace SKM_Test
 {
     [TestClass]

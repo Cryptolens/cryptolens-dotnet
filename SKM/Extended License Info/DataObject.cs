@@ -1,5 +1,5 @@
 ﻿
-namespace SKM.V3
+namespace SKM.V3.Models
 {
     /// <summary>
     /// A Data Object used to store information.

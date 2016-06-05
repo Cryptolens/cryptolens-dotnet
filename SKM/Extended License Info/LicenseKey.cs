@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SKM.V3
+namespace SKM.V3.Models
 {
     public class LicenseKey
     {

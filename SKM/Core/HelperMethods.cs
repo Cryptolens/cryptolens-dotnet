@@ -6,7 +6,7 @@ using System.Net;
 using System.Reflection;
 using System.Text;
 
-namespace SKM.V3
+namespace SKM.V3.Internal
 {
     /// <summary>
     /// The methods that are being used under the hood.
