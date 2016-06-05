@@ -51,5 +51,36 @@ namespace SKM.V3.Models
 
         public string Signature { get; set; }
 
+
+        /// <summary>
+        /// Returns the number of days left for a given license (time left). This method is particularly useful 
+        /// when KeyInfo is not updated regularly, because TimeLeft will not be affected (stay constant).
+        /// If your implementation checks the license with the server periodically, this method should be used instead of TimeLeft.
+        /// </summary>
+        /// <returns></returns>
+        public int DaysLeft()
+        {
+            return DaysLeft(false);
+
+        }
+
+        /// <summary>
+        /// Returns the number of days left for a given license (time left). This method is particularly useful 
+        /// when KeyInfo is not updated regularly, because TimeLeft will not be affected (stay constant).
+        /// If your implementation checks the license with the server periodically, this method should be used instead of TimeLeft.
+        /// </summary>
+        /// <param name="zeroIfExpired">If true, when a license has expired, zero will be returned.</param>
+        /// <returns></returns>
+        public int DaysLeft(bool zeroIfExpired = false)
+        {
+            var days = Expires - DateTime.Today;
+
+            if (zeroIfExpired)
+                return days.Days < 0 ? 0 : days.Days;
+            else
+                return days.Days;
+
+        }
+
     }
 }
