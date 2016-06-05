@@ -17,14 +17,43 @@ namespace SKM.V3.Models
         /// </summary>
         [DefaultValue(1)]
         public int Page { get; set; }
+        /// <summary>
+        /// Specifies the way to order the result. The order by field has the
+        /// following structure: fieldName [ascending|descending]. For example, 
+        /// If you want to order by the feature field 1 (F1), you should use F1.
+        /// If you want it in descending order, please add the descending keywords 
+        /// right after the field, eg. F1 descending. The ascending keyword is 
+        /// the default, hence optional.
+        /// </summary>
         public string OrderBy { get; set; }
+        /// <summary>
+        /// Sorts the result so that only the license keys that satisfy the
+        /// criterion will be displayed. Please see:
+        /// https://support.serialkeymanager.com/kb/searching-for-licenses-using-linq-queries
+        /// </summary>
         public string SearchQuery { get; set; }
     }
 
     public class GetKeysResult : BasicResult
     {
+        /// <summary>
+        /// A list of <see cref="LicenseKey"/> objects.
+        /// </summary>
         public List<LicenseKey> LicenseKeys { get; set; }
+        /// <summary>
+        /// The number of licenses returned in the request, eg. size
+        /// of the returned list.
+        /// </summary>
         public int Returned { get; set; }
+        /// <summary>
+        /// The total number of keys available that satisfy the condition.
+        /// For example, if search query is empty, the total is the number
+        /// of license keys in the entire product. Otherwise, it's the 
+        /// number of results of that query. By default, only 99 license 
+        /// keys will be returned in a single request. There may still 
+        /// be more license keys, which are obtained by increasing the 
+        /// Page parameter.
+        /// </summary>
         public int Total { get; set; }
     }
 
