@@ -8,6 +8,8 @@ namespace SKM.V3.Models
 {
     public class LicenseKey
     {
+        public int ProductId { get; set; }
+
         public int ID { get; set; }
 
         public string Key { get; set; }

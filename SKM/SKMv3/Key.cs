@@ -174,5 +174,19 @@ namespace SKM.V3
             return HelperMethods.SendRequestToWebAPI3<KeyLockResult>(parameters, "/auth/keylock/", auth.Token);
         }
 
+        /// <summary>
+        /// Creates a new <see cref="DataObject"/>.
+        /// </summary>
+        /// <param name="auth">Details such as Token and Version</param>
+        /// <param name="parameters">The parameters that the method needs</param>
+        /// <remarks>Note: for more details, please see 
+        /// <a href="https://serialkeymanager.com/docs/api/v3/AddDataObject">https://serialkeymanager.com/docs/api/v3/AddDataObject</a> </remarks>
+        /// <returns>Returns <see cref="DataObjectIdResult"/> or null.</returns>
+        public static DataObjectIdResult AddDataObject(AuthDetails auth, int ProductId, int keyId, DataObject dataObject)
+        {
+            return null;
+            //return HelperMethods.SendRequestToWebAPI3<DataObjectIdResult>(parameters, "/data/adddataobject/", auth.Token);
+        }
+
     }
 }
