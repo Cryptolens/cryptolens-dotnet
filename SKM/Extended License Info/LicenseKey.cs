@@ -87,8 +87,8 @@ namespace SKM.V3.Models
         /// <summary>
         /// Creates a new <see cref="DataObject"/>.
         /// </summary>
-        /// <param name="auth">Details such as Token and Version</param>
-        /// <param name="parameters">The parameters that the method needs</param>
+        /// <param name="token">The access token. Read more at https://serialkeymanager.com/docs/api/v3/Auth </param>
+        /// <param name="dataObject">The data object to add to the license key.</param>
         /// <remarks>Note: for more details, please see 
         /// <a href="https://serialkeymanager.com/docs/api/v3/AddDataObject">https://serialkeymanager.com/docs/api/v3/AddDataObject</a> </remarks>
         /// <returns>Returns <see cref="DataObjectIdResult"/> or null.</returns>
