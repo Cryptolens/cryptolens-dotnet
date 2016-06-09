@@ -26,7 +26,7 @@ namespace SKM.V3
         /// More about this in Remarks. 
         /// https://serialkeymanager.com/docs/api/v3/Activate
         /// </summary>
-        /// <param name="auth">Details such as Token and Version.</param>
+        /// <param name="token">The access token. Read more at https://serialkeymanager.com/docs/api/v3/Auth </param>
         /// <param name="parameters">The parameters that the method needs.</param>
         /// <returns>A <see cref="BasicResult"/> or null.</returns>
         /// <remarks>
@@ -34,9 +34,9 @@ namespace SKM.V3
         /// • To compute the value of the feature lock, please use the Hide column, for those fields that you want to omit in the result above.<br></br>
         /// • If the ActivatedMachines is hidden, only the current machine code will be included(used during this particular activation). Otherwise, all machine codes will be included.
         /// </remarks>
-        public static KeyInfoResult Activate(AuthDetails auth, ActivateModel parameters)
+        public static KeyInfoResult Activate(string token, ActivateModel parameters)
         {
-            return HelperMethods.SendRequestToWebAPI3<KeyInfoResult>(parameters, "/key/activate/", auth.Token);
+            return HelperMethods.SendRequestToWebAPI3<KeyInfoResult>(parameters, "/key/activate/", token);
         }
 
         /// <summary>
@@ -46,7 +46,7 @@ namespace SKM.V3
         /// the key will stay the same.
         /// If the key is changed, the new key will be stored in the message.
         /// </summary>
-        /// <param name="auth">Details such as Token and Version.</param>
+        /// <param name="token">The access token. Read more at https://serialkeymanager.com/docs/api/v3/Auth </param>
         /// <param name="parameters">The parameters that the method needs.</param>
         /// <example>
         /// Here is an example that demonstrates the use of the method.
@@ -73,9 +73,9 @@ namespace SKM.V3
         /// Null should be seen as an unsuccessful result.
         /// </remarks>
         /// <returns>A BasicResult object or null.</returns>
-        public static BasicResult AddFeature(AuthDetails auth, FeatureModel parameters)
+        public static BasicResult AddFeature(string token, FeatureModel parameters)
         {
-            return HelperMethods.SendRequestToWebAPI3<BasicResult>(parameters, "/key/addfeature/", auth.Token);
+            return HelperMethods.SendRequestToWebAPI3<BasicResult>(parameters, "/key/addfeature/", token);
         }
 
         /// <summary>
@@ -112,9 +112,9 @@ namespace SKM.V3
         /// Null should be seen as an unsuccessful result.
         /// </remarks>
         /// <returns>A BasicResult object or null.</returns>
-        public static BasicResult RemoveFeature(AuthDetails auth, FeatureModel parameters)
+        public static BasicResult RemoveFeature(string token, FeatureModel parameters)
         {
-            return HelperMethods.SendRequestToWebAPI3<BasicResult>(parameters, "/key/removefeature/", auth.Token);
+            return HelperMethods.SendRequestToWebAPI3<BasicResult>(parameters, "/key/removefeature/", token);
         }
 
         /// <summary>
@@ -147,9 +147,9 @@ namespace SKM.V3
         /// Null should be seen as an unsuccessful result.
         /// </remarks>
         /// <returns>A BasicResult object or null.</returns>
-        public static BasicResult ExtendLicense(AuthDetails auth, ExtendLicenseModel parameters)
+        public static BasicResult ExtendLicense(string token, ExtendLicenseModel parameters)
         {
-            return HelperMethods.SendRequestToWebAPI3<BasicResult>(parameters, "/key/extendlicense/", auth.Token);
+            return HelperMethods.SendRequestToWebAPI3<BasicResult>(parameters, "/key/extendlicense/", token);
         }
 
 
@@ -163,15 +163,15 @@ namespace SKM.V3
         /// the access token used to access this method has to have key lock set
         /// to -1. All of these details are described in Remarks.
         /// </summary>
-        /// <param name="auth">Details such as Token and Version</param>
+        /// <param name="token">The access token. Read more at https://serialkeymanager.com/docs/api/v3/Auth </param>
         /// <param name="parameters">The parameters that the method needs</param>
         /// <remarks>Note: for more details, please see 
         /// <a href="https://serialkeymanager.com/docs/api/v3/KeyLock">https://serialkeymanager.com/docs/api/v3/KeyLock</a> <br/>
         /// </remarks>
         /// <returns>Returns <see cref="KeyLockResult"/> or null.</returns>
-        public static KeyLockResult KeyLock(AuthDetails auth, KeyLockModel parameters)
+        public static KeyLockResult KeyLock(string token, KeyLockModel parameters)
         {
-            return HelperMethods.SendRequestToWebAPI3<KeyLockResult>(parameters, "/auth/keylock/", auth.Token);
+            return HelperMethods.SendRequestToWebAPI3<KeyLockResult>(parameters, "/auth/keylock/", token);
         }
     }
 }

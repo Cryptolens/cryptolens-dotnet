@@ -104,31 +104,6 @@ namespace SKM.V3.Models
         public long KeyId { get; set; }
         public string Token { get; set; }
 
-        /// <summary>
-        /// Returns an <see cref="AuthDetails"/> which can be used 
-        /// to authenticate a Web API 3 method.
-        /// </summary>
-        public AuthDetails GetAuthDetails()
-        {
-            return new AuthDetails
-            {
-                Token = Token,
-                Version = 1
-            };
-        }
-        /// <summary>
-        /// Returns an <see cref="AuthDetails"/> which can be used 
-        /// to authenticate a Web API 3 method.
-        /// </summary>
-        /// <param name="version">The API version</param>
-        public AuthDetails GetAuthDetails(int version = 1)
-        {
-            return new AuthDetails
-            {
-                Token = Token,
-                Version = version
-            };
-        }
     }
 
 

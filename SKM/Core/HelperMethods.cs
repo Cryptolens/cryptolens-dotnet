@@ -41,9 +41,9 @@ namespace SKM.V3.Internal
 
                 reqparm.Add("token", token);
 
-                // version 1 is default so no need to send it twice.
-                if (version > 1)
-                    reqparm.Add("v", version.ToString());
+                //// version 1 is default so no need to send it twice.
+                //if (version > 1)
+                //    reqparm.Add("v", version.ToString());
 
                 // in case we have a proxy server. if not, we set it to null to avoid unnecessary time delays.
                 // based on http://stackoverflow.com/a/4420429/1275924 and http://stackoverflow.com/a/6990291/1275924. 

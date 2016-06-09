@@ -14,7 +14,7 @@ namespace SKM_Test
         public void ExtendLicenseTest()
         {
             var keydata = new ExtendLicenseModel() { Key = "ITVBC-GXXNU-GSMTK-NIJBT", NoOfDays = 30, ProductId = 3349 };
-            var auth = new AuthDetails() { Token = "WyI0IiwiY0E3aHZCci9FWFZtOWJYNVJ5eTFQYk8rOXJSNFZ5TTh1R25YaDVFUiJd" };
+            var auth = "WyI0IiwiY0E3aHZCci9FWFZtOWJYNVJ5eTFQYk8rOXJSNFZ5TTh1R25YaDVFUiJd" ;
 
             var result = Key.ExtendLicense(auth, keydata);
 
@@ -33,7 +33,7 @@ namespace SKM_Test
         public void AddFeatureTest()
         {
             var keydata = new FeatureModel() { Key = "LXWVI-HSJDU-CADTC-BAJGW", Feature = 2, ProductId = 3349 };
-            var auth = new AuthDetails() { Token = "WyI2Iiwib3lFQjFGYk5pTHYrelhIK2pveWdReDdEMXd4ZDlQUFB3aGpCdTRxZiJd" };
+            var auth = "WyI2Iiwib3lFQjFGYk5pTHYrelhIK2pveWdReDdEMXd4ZDlQUFB3aGpCdTRxZiJd";
 
             var result = Key.AddFeature(auth, keydata);
 
@@ -51,7 +51,7 @@ namespace SKM_Test
         public void RemoveFeatureTest()
         {
             var keydata = new FeatureModel() { Key = "LXWVI-HSJDU-CADTC-BAJGW", Feature = 2, ProductId = 3349 };
-            var auth = new AuthDetails() { Token = "WyI2Iiwib3lFQjFGYk5pTHYrelhIK2pveWdReDdEMXd4ZDlQUFB3aGpCdTRxZiJd" };
+            var auth = "WyI2Iiwib3lFQjFGYk5pTHYrelhIK2pveWdReDdEMXd4ZDlQUFB3aGpCdTRxZiJd";
 
             var result = Key.RemoveFeature(auth, keydata);
 
@@ -69,7 +69,7 @@ namespace SKM_Test
         public void AddDataObjectTest()
         {
             var keydata = new AddDataObjectModel() { };
-            var auth = new AuthDetails() { Token = "WyIxMSIsInRFLzRQSzJkT2V0Y1pyN3Y3a1I2Rm9YdmczNUw0SzJTRHJwUERhRFMiXQ==" };
+            var auth = "WyIxMSIsInRFLzRQSzJkT2V0Y1pyN3Y3a1I2Rm9YdmczNUw0SzJTRHJwUERhRFMiXQ==";
 
             var result = Data.AddDataObject(auth, keydata);
 
@@ -95,7 +95,7 @@ namespace SKM_Test
         public void ListDataObjectsTest()
         {
             var keydata = new ListDataObjectsModel {  ShowAll = true };
-            var auth = new AuthDetails() { Token = "WyIxMSIsInRFLzRQSzJkT2V0Y1pyN3Y3a1I2Rm9YdmczNUw0SzJTRHJwUERhRFMiXQ==" };
+            var auth = "WyIxMSIsInRFLzRQSzJkT2V0Y1pyN3Y3a1I2Rm9YdmczNUw0SzJTRHJwUERhRFMiXQ==";
 
             var result = Data.ListDataObjects(auth, keydata);
             
@@ -131,7 +131,7 @@ namespace SKM_Test
         [TestMethod]
         public void SetIntValueTest()
         {
-            var auth = new AuthDetails() { Token = "WyIxMSIsInRFLzRQSzJkT2V0Y1pyN3Y3a1I2Rm9YdmczNUw0SzJTRHJwUERhRFMiXQ==" };
+            var auth ="WyIxMSIsInRFLzRQSzJkT2V0Y1pyN3Y3a1I2Rm9YdmczNUw0SzJTRHJwUERhRFMiXQ==";
 
             //first, let's obtain a random object. we record the old int value and the object id
             var objInt = Data.ListDataObjects(auth, new ListDataObjectsModel { ShowAll = true }).DataObjects[0];
@@ -156,7 +156,7 @@ namespace SKM_Test
         [TestMethod]
         public void SetStringValueTest()
         {
-            var auth = new AuthDetails() { Token = "WyIxMSIsInRFLzRQSzJkT2V0Y1pyN3Y3a1I2Rm9YdmczNUw0SzJTRHJwUERhRFMiXQ==" };
+            var auth = "WyIxMSIsInRFLzRQSzJkT2V0Y1pyN3Y3a1I2Rm9YdmczNUw0SzJTRHJwUERhRFMiXQ==" ;
 
             //first, let's obtain a random object. we record the old string value and the object id
             var objInt = Data.ListDataObjects(auth, new ListDataObjectsModel { ShowAll = true }).DataObjects[0];
@@ -181,7 +181,7 @@ namespace SKM_Test
         [TestMethod]
         public void IncrementIntValueTest()
         {
-            var auth = new AuthDetails() { Token = "WyIxMSIsInRFLzRQSzJkT2V0Y1pyN3Y3a1I2Rm9YdmczNUw0SzJTRHJwUERhRFMiXQ==" };
+            var auth =  "WyIxMSIsInRFLzRQSzJkT2V0Y1pyN3Y3a1I2Rm9YdmczNUw0SzJTRHJwUERhRFMiXQ==" ;
 
             //first, let's obtain a random object. we record the old int value and the object id
             var objInt = Data.ListDataObjects(auth, new ListDataObjectsModel { ShowAll = true }).DataObjects[0];
@@ -207,7 +207,7 @@ namespace SKM_Test
         [TestMethod]
         public void DecrementIntValueTest()
         {
-            var auth = new AuthDetails() { Token = "WyIxMSIsInRFLzRQSzJkT2V0Y1pyN3Y3a1I2Rm9YdmczNUw0SzJTRHJwUERhRFMiXQ==" };
+            var auth = "WyIxMSIsInRFLzRQSzJkT2V0Y1pyN3Y3a1I2Rm9YdmczNUw0SzJTRHJwUERhRFMiXQ==";
 
             //first, let's obtain a random object. we record the old int value and the object id
             var objInt = Data.ListDataObjects(auth, new ListDataObjectsModel { ShowAll = true }).DataObjects[0];
@@ -236,13 +236,13 @@ namespace SKM_Test
             // the token below has key lock set to "-1" and access to "AddFeature" method.
             // note, we cannot use this token for anything but the Key Lock method, in order
             // to get a new token.
-            var auth = new AuthDetails() { Token = "WyI0NCIsInRhOGNJZm1BS0xkbGJjUW55UkdEN3lzTzhWckd6SzRzYlgvRkFOQmQiXQ==" };
+            var auth = "WyI0NCIsInRhOGNJZm1BS0xkbGJjUW55UkdEN3lzTzhWckd6SzRzYlgvRkFOQmQiXQ==" ;
 
             // 1. Get a new token
             var key = "ITVBC-GXXNU-GSMTK-NIJBT";
             var result = Key.KeyLock(auth, new KeyLockModel { Key = key, ProductId = 3349 });
 
-            var newAuth = result.GetAuthDetails();
+            var newAuth = result.Token;
 
             // 2. Access the method
             var addFeature = Key.AddFeature(newAuth, new FeatureModel { Feature = 2, ProductId = 3349, Key = key });

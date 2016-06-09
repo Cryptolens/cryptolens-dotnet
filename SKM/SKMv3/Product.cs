@@ -27,7 +27,7 @@ namespace SKM.V3
         /// More about this in Remarks. 
         /// https://serialkeymanager.com/docs/api/v3/Activate
         /// </summary>
-        /// <param name="auth">Details such as Token and Version.</param>
+        /// <param name="token">The access token. Read more at https://serialkeymanager.com/docs/api/v3/Auth </param>
         /// <param name="parameters">The parameters that the method needs.</param>
         /// <returns>A <see cref="BasicResult"/> or null.</returns>
         /// <remarks>
@@ -35,9 +35,9 @@ namespace SKM.V3
         /// • To compute the value of the feature lock, please use the Hide column, for those fields that you want to omit in the result above.<br></br>
         /// • If the ActivatedMachines is hidden, only the current machine code will be included(used during this particular activation). Otherwise, all machine codes will be included.
         /// </remarks>
-        public static GetKeysResult GetKeys(AuthDetails auth, GetKeysModel parameters)
+        public static GetKeysResult GetKeys(string token, GetKeysModel parameters)
         {
-            return HelperMethods.SendRequestToWebAPI3<GetKeysResult>(parameters, "/product/getkeys/", auth.Token);
+            return HelperMethods.SendRequestToWebAPI3<GetKeysResult>(parameters, "/product/getkeys/", token);
         }
 
         
