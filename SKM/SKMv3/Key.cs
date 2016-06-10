@@ -166,6 +166,23 @@ namespace SKM.V3
             return HelperMethods.SendRequestToWebAPI3<CreateKeyResult>(parameters, "/key/createkey/", token);
         }
 
+        /// <summary>
+        /// This method will return information about a license key, similar to 
+        /// Validate [Web API 2]. In contrast to activation, this method (aka Key Validation)
+        /// will be in read only mode. That is, it will not add a device to the license nor 
+        /// use trial activation. More about this in Remarks.
+        /// </summary>
+        /// <param name="token">Details such as Token and Version.</param>
+        /// <param name="parameters">The parameters that the method needs.</param>
+        /// <remarks>This method may, in rare cases, return null if an error has occurred.
+        /// Null should be seen as an unsuccessful result.
+        /// </remarks>
+        /// <returns>A BasicResult object or null.</returns>
+        public static KeyInfoResult GetKey(string token, KeyInfoModel parameters)
+        {
+            return HelperMethods.SendRequestToWebAPI3<KeyInfoResult>(parameters, "/key/getkey/", token);
+        }
+
 
         /// <summary>
         /// This method will, given a license key, generate a new access token

@@ -248,5 +248,21 @@ namespace SKM_Test
             }
         }
 
+        [TestMethod]
+        public void RefreshTest()
+        {
+            var activateToken = "WyIxMTgiLCJkN0dEREZ0YW03alNhRVNtV3dOQkxZdjJlMWFTVlpacjNVaisxNFBZIl0=";
+            var featureToken = "WyI2Iiwib3lFQjFGYk5pTHYrelhIK2pveWdReDdEMXd4ZDlQUFB3aGpCdTRxZiJd";
+
+            var license = Key.Activate(token: activateToken, parameters: new ActivateModel() { Key = "GEBNC-WZZJD-VJIHG-GCMVD", ProductId = 3349, Sign = true, MachineCode = "foo" }).LicenseKey;
+
+            bool feature1 = license.HasFeature(1).IsValid();
+
+            license.Refresh(activateToken);
+
+            // TODO:
+
+        }
+
     }
 }

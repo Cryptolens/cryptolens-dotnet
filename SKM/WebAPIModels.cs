@@ -4,6 +4,18 @@ using System.ComponentModel;
 
 namespace SKM.V3.Models
 {
+    public class KeyInfoModel
+    {
+        public int ProductId { get; set; }
+        /// <summary>
+        /// The Key Id, eg. 12345.
+        /// </summary>
+        public string Key { get; set; }
+
+        public bool Sign { get; set; }
+        public int FieldsToReturn { get; set; }
+    }
+
     public class CreateKeyModel
     {
         public int ProductId { get; set; }

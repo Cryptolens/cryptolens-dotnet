@@ -103,7 +103,7 @@ namespace SKM.V3.Models
                 Name = dataObject.Name
             };
 
-            var result =  HelperMethods.SendRequestToWebAPI3<DataObjectIdResult>(parameters, "/data/adddataobject/", token);
+            var result = Data.AddDataObject(token, parameters);
 
             if(result!= null && result.Result == ResultType.Success)
             {
@@ -113,6 +113,91 @@ namespace SKM.V3.Models
             }
             return -1;
         }
+
+
+        /// <summary>
+        /// Gets the new version of this license from SKM.
+        /// </summary>
+        /// <param name="token">The access token. Read more at https://serialkeymanager.com/docs/api/v3/Auth </param>
+        /// <remarks>This method uses <see cref="GetKeysModel"/></remarks>
+        /// <returns>Returns true if successful or false otherwise.</returns>
+        public bool Refresh(string token)
+        {
+            var parameters = new KeyInfoModel
+            {
+                ProductId = ProductId,
+                Key = Key
+            };
+
+            if(Signature != null && Signature != "")
+            {
+                parameters.Sign = true;
+            }
+
+            var result = V3.Key.GetKey(token, parameters);
+
+            if(result != null && result.Result == ResultType.Success)
+            {
+                this.ActivatedMachines = result.LicenseKey.ActivatedMachines;
+                this.AllowedMachines = result.LicenseKey.AllowedMachines;
+                this.AutomaticActivation = result.LicenseKey.AutomaticActivation;
+                this.Block = result.LicenseKey.Block;
+                this.Created = result.LicenseKey.Created;
+                this.Customer = result.LicenseKey.Customer;
+                this.DataObjects = result.LicenseKey.DataObjects;
+                this.Expires = result.LicenseKey.Expires;
+                this.F1 = result.LicenseKey.F1;
+                this.F2 = result.LicenseKey.F2;
+                this.F3 = result.LicenseKey.F3;
+                this.F4 = result.LicenseKey.F4;
+                this.F5 = result.LicenseKey.F5;
+                this.F6 = result.LicenseKey.F6;
+                this.F7 = result.LicenseKey.F7;
+                this.F8 = result.LicenseKey.F8;
+                this.GlobalId = result.LicenseKey.GlobalId;
+                this.ID = result.LicenseKey.ID;
+                this.Key = result.LicenseKey.Key;
+                this.MaxNoOfMachines = result.LicenseKey.MaxNoOfMachines;
+                this.Notes = result.LicenseKey.Notes;
+                this.Period = result.LicenseKey.Period;
+                this.ProductId = result.LicenseKey.ProductId;
+                this.Signature = result.LicenseKey.Signature;
+                this.SignDate = result.LicenseKey.SignDate;
+                this.TrialActivation = result.LicenseKey.TrialActivation;
+                return true;
+            }
+            return false;
+        
+        }
+
+        /// <summary>
+        /// Gets the new version of this license from SKM. Note, you need to manually assign the new value to this object, eg,
+        /// by license = license.Refresh("token");
+        /// </summary>
+        /// <param name="token">The access token. Read more at https://serialkeymanager.com/docs/api/v3/Auth </param>
+        /// <param name="feature">The feature number, eg. 1,2,...,8. </param>
+        /// <returns>Returns a newer version of<see cref="LicenseKey"/> or null if unsuccessful.</returns>
+        public LicenseKey AddFeature(string token, int feature)
+        {
+            var parameters = new FeatureModel
+            {
+                ProductId = ProductId,
+                Key = Key,
+                Feature = feature
+                
+            };
+
+            var result = V3.Key.AddFeature(token, parameters);
+
+            
+            //if (result != null && result.Result == ResultType.Success )
+            //{
+            //    ExtensionMethods.SetFeatureByNumber()
+            //}
+            return null;
+        }
+
+
 
     }
 }

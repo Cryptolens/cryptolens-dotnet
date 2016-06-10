@@ -290,7 +290,7 @@ namespace SKM.V3
             return null;
         }
 
-        private static bool GetFeatureByNumber(this LicenseKey licenseKey, int i)
+        internal static bool GetFeatureByNumber(this LicenseKey licenseKey, int i)
         {
             switch (i)
             {
@@ -312,6 +312,37 @@ namespace SKM.V3
                     return licenseKey.F8;
                 default:
                     return false;
+            }
+        }
+
+        internal static void SetFeatureByNumber(this LicenseKey licenseKey, int i, bool value)
+        {
+            switch (i)
+            {
+                case 1:
+                    licenseKey.F1 = value;
+                    break;
+                case 2:
+                     licenseKey.F2 = value;
+                    break;
+                case 3:
+                     licenseKey.F3 = value;
+                    break;
+                case 4:
+                     licenseKey.F4 = value;
+                    break;
+                case 5:
+                     licenseKey.F5 = value;
+                    break;
+                case 6:
+                     licenseKey.F6 = value;
+                    break;
+                case 7:
+                     licenseKey.F7=value;
+                    break;
+                case 8:
+                     licenseKey.F8 = value;
+                    break;
             }
         }
     }
