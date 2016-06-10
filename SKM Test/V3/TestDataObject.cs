@@ -10,61 +10,7 @@ namespace SKM_Test
     [TestClass]
     public class TestWebAPI3
     {
-        [TestMethod]
-        public void ExtendLicenseTest()
-        {
-            var keydata = new ExtendLicenseModel() { Key = "ITVBC-GXXNU-GSMTK-NIJBT", NoOfDays = 30, ProductId = 3349 };
-            var auth = "WyI0IiwiY0E3aHZCci9FWFZtOWJYNVJ5eTFQYk8rOXJSNFZ5TTh1R25YaDVFUiJd" ;
-
-            var result = Key.ExtendLicense(auth, keydata);
-
-            if (result != null && result.Result == ResultType.Success)
-            {
-                
-                // the license was successfully extended with 30 days.
-            }
-            else
-            {
-                Assert.Fail();
-            }
-        }
-
-        [TestMethod]
-        public void AddFeatureTest()
-        {
-            var keydata = new FeatureModel() { Key = "LXWVI-HSJDU-CADTC-BAJGW", Feature = 2, ProductId = 3349 };
-            var auth = "WyI2Iiwib3lFQjFGYk5pTHYrelhIK2pveWdReDdEMXd4ZDlQUFB3aGpCdTRxZiJd";
-
-            var result = Key.AddFeature(auth, keydata);
-
-            if (result != null && result.Result == ResultType.Success)
-            {
-                // feature 2 is set to true.
-            }
-            else
-            {
-                Assert.Fail();
-            }
-        }
-
-        [TestMethod]
-        public void RemoveFeatureTest()
-        {
-            var keydata = new FeatureModel() { Key = "LXWVI-HSJDU-CADTC-BAJGW", Feature = 2, ProductId = 3349 };
-            var auth = "WyI2Iiwib3lFQjFGYk5pTHYrelhIK2pveWdReDdEMXd4ZDlQUFB3aGpCdTRxZiJd";
-
-            var result = Key.RemoveFeature(auth, keydata);
-
-            if (result != null && result.Result == ResultType.Success)
-            {
-                // feature 2 is set to true.
-            }
-            else
-            {
-                Assert.Fail();
-            }
-        }
-
+      
         [TestMethod]
         public void AddDataObjectTest()
         {
@@ -229,47 +175,9 @@ namespace SKM_Test
             }
         }
 
-        [TestMethod]
-        public void KeyLockTest()
-        {
-            // make sure the access token below has key lock set to "-1".
-            // the token below has key lock set to "-1" and access to "AddFeature" method.
-            // note, we cannot use this token for anything but the Key Lock method, in order
-            // to get a new token.
-            var auth = "WyI0NCIsInRhOGNJZm1BS0xkbGJjUW55UkdEN3lzTzhWckd6SzRzYlgvRkFOQmQiXQ==" ;
 
-            // 1. Get a new token
-            var key = "ITVBC-GXXNU-GSMTK-NIJBT";
-            var result = Key.KeyLock(auth, new KeyLockModel { Key = key, ProductId = 3349 });
 
-            var newAuth = result.Token;
-
-            // 2. Access the method
-            var addFeature = Key.AddFeature(newAuth, new FeatureModel { Feature = 2, ProductId = 3349, Key = key });
-
-            // this should work
-            if (addFeature.Result == ResultType.Error)
-                Assert.Fail();
-
-            var wrongKey = "MTMPW-VZERP-JZVNZ-SCPZM";  
-            var addFeatureWrongKey = Key.AddFeature(newAuth, new FeatureModel { Feature = 2, ProductId = 3, Key = wrongKey });
-
-            // this should not work
-            if (addFeatureWrongKey != null && addFeatureWrongKey.Result == ResultType.Success)
-                Assert.Fail();
-
-        }
-
-        [TestMethod]
-        public void MyTestMethod()
-        {
-            var keyInfoResult = Newtonsoft.Json.JsonConvert.DeserializeObject<KeyInfoResult>(TestCases.TestData.signedData);
-
-            var license = keyInfoResult.LicenseKey;
-
-            Assert.IsTrue(license.IsValid(TestCases.TestData.pubkey));
-            
-        }
+    
 
     }
 }

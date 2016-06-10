@@ -76,10 +76,10 @@
     <Compile Include="TestExtensionMethods.cs" />
     <Compile Include="TestSaveAndLoadFile.cs" />
     <Compile Include="TestHelperMethods.cs" />
-    <Compile Include="V3\TestWebAPI3.cs" />
+    <Compile Include="V3\TestDataObject.cs" />
     <Compile Include="TestMachineCode.cs" />
     <Compile Include="TestSKMTimeMethods.cs" />
-    <Compile Include="V3\SKMv3.cs" />
+    <Compile Include="V3\TestProduct.cs" />
     <Compile Include="V3\TestKey.cs" />
   </ItemGroup>
   <ItemGroup>

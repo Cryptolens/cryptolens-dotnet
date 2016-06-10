@@ -4,6 +4,30 @@ using System.ComponentModel;
 
 namespace SKM.V3.Models
 {
+    public class CreateKeyModel
+    {
+        public int ProductId { get; set; }
+        public int Period { get; set; }
+        public bool F1 { get; set; }
+        public bool F2 { get; set; }
+        public bool F3 { get; set; }
+        public bool F4 { get; set; }
+        public bool F5 { get; set; }
+        public bool F6 { get; set; }
+        public bool F7 { get; set; }
+        public bool F8 { get; set; }
+        [DefaultValue("")]
+        public string Notes { get; set; }
+        public bool Block { get; set; }
+        public bool TrialActivation { get; set; }
+        public bool AutomaticActivation { get; set; }
+        public int MaxNoOfMachines { get; set; }
+        public string AllowedMachines { get; set; }
+    }
+    public class CreateKeyResult : BasicResult
+    {
+        public string Key { get; set; }
+    }
     public class GetKeysModel
     {
         /// <summary>

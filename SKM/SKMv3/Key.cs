@@ -85,7 +85,7 @@ namespace SKM.V3
         /// the key will stay the same.
         /// If the key is changed, the new key will be stored in the message.
         /// </summary>
-        /// <param name="auth">Details such as Token and Version.</param>
+        /// <param name="token">Details such as Token and Version.</param>
         /// <param name="parameters">The parameters that the method needs.</param>
         /// <example>
         /// Here is an example that demonstrates the use of the method.
@@ -124,7 +124,7 @@ namespace SKM.V3
         /// the key will stay the same.
         /// If the key is changed, the new key will be stored in the message.
         /// </summary>
-        /// <param name="auth">Details such as Token and Version.</param>
+        /// <param name="token">Details such as Token and Version.</param>
         /// <param name="parameters">The parameters that the method needs.</param>
         /// <example>
         /// Here is an example that demonstrates the use of the method.
@@ -150,6 +150,20 @@ namespace SKM.V3
         public static BasicResult ExtendLicense(string token, ExtendLicenseModel parameters)
         {
             return HelperMethods.SendRequestToWebAPI3<BasicResult>(parameters, "/key/extendlicense/", token);
+        }
+
+        /// <summary>
+        /// This method will create a new license key, which is the same as GenerateKey in Web API 2.
+        /// </summary>
+        /// <param name="token">Details such as Token and Version.</param>
+        /// <param name="parameters">The parameters that the method needs.</param>
+        /// <remarks>This method may, in rare cases, return null if an error has occurred.
+        /// Null should be seen as an unsuccessful result.
+        /// </remarks>
+        /// <returns>A BasicResult object or null.</returns>
+        public static CreateKeyResult CreateKey(string token, CreateKeyModel parameters)
+        {
+            return HelperMethods.SendRequestToWebAPI3<CreateKeyResult>(parameters, "/key/createkey/", token);
         }
 
 
