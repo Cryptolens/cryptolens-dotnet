@@ -222,5 +222,31 @@ namespace SKM_Test
             System.Diagnostics.Debug.WriteLine(newKey?.Key);
         }
 
+        [TestMethod]
+        public void AddDataObjectKeyTest()
+        {
+            var keydata = new AddDataObjectModel() { };
+            var auth = "WyIxMSIsInRFLzRQSzJkT2V0Y1pyN3Y3a1I2Rm9YdmczNUw0SzJTRHJwUERhRFMiXQ==";
+
+            var auth2 = "WyIxMTgiLCJkN0dEREZ0YW03alNhRVNtV3dOQkxZdjJlMWFTVlpacjNVaisxNFBZIl0=";
+            var license = Key.Activate(token: auth2, parameters: new ActivateModel() { Key = "GEBNC-WZZJD-VJIHG-GCMVD", ProductId = 3349, Sign = true, MachineCode = "foo" });
+
+            long id = license.LicenseKey.AddDataObject(auth, new DataObject { });
+
+            if (id > 0)
+            {
+                var removeObj = Data.RemoveDataObject(auth, new RemoveDataObjectModel { Id = id });
+
+                if (removeObj == null || removeObj.Result == ResultType.Error)
+                {
+                    Assert.Fail();
+                }
+            }
+            else
+            {
+                Assert.Fail();
+            }
+        }
+
     }
 }

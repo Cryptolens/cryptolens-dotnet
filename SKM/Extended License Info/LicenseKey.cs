@@ -91,19 +91,27 @@ namespace SKM.V3.Models
         /// <param name="dataObject">The data object to add to the license key.</param>
         /// <remarks>Note: for more details, please see 
         /// <a href="https://serialkeymanager.com/docs/api/v3/AddDataObject">https://serialkeymanager.com/docs/api/v3/AddDataObject</a> </remarks>
-        /// <returns>Returns <see cref="DataObjectIdResult"/> or null.</returns>
-        public DataObjectIdResult AddDataObject(string token, DataObject dataObject)
+        /// <returns>Returns the id of the data object (and updates the <see cref="DataObjects"/>) if successful, or -1 otherwise.</returns>
+        public long AddDataObject(string token, DataObject dataObject)
         {
             var parameters = new AddDataObjectModel
             {
                 IntValue = dataObject.IntValue,
                 StringValue = dataObject.StringValue,
                 ReferencerType = DataObjectType.Key,
-                ReferencerId = ID,
+                ReferencerId = (int)GlobalId,
                 Name = dataObject.Name
             };
 
-            return HelperMethods.SendRequestToWebAPI3<DataObjectIdResult>(parameters, "/data/adddataobject/", token);
+            var result =  HelperMethods.SendRequestToWebAPI3<DataObjectIdResult>(parameters, "/data/adddataobject/", token);
+
+            if(result!= null && result.Result == ResultType.Success)
+            {
+                dataObject.Id = result.Id;
+                DataObjects.Add(dataObject);
+                return dataObject.Id;
+            }
+            return -1;
         }
 
     }
