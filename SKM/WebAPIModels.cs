@@ -19,6 +19,7 @@ namespace SKM.V3.Models
         [DefaultValue("")]
         public string Notes { get; set; }
         public bool Block { get; set; }
+        public int CustomerId { get; set; } // maybe int instead?
         public bool TrialActivation { get; set; }
         public bool AutomaticActivation { get; set; }
         public int MaxNoOfMachines { get; set; }
