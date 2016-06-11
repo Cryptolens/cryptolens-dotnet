@@ -41,8 +41,6 @@ namespace SKM.V3.Models
 
         public bool TrialActivation { get; set; }
 
-        public bool AutomaticActivation { get; set; }
-
         public int MaxNoOfMachines { get; set; }
 
         public string AllowedMachines { get; set; }
@@ -140,7 +138,6 @@ namespace SKM.V3.Models
             {
                 this.ActivatedMachines = result.LicenseKey.ActivatedMachines;
                 this.AllowedMachines = result.LicenseKey.AllowedMachines;
-                this.AutomaticActivation = result.LicenseKey.AutomaticActivation;
                 this.Block = result.LicenseKey.Block;
                 this.Created = result.LicenseKey.Created;
                 this.Customer = result.LicenseKey.Customer;

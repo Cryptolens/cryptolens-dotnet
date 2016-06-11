@@ -30,7 +30,6 @@ namespace SKM.V3.Models
         public bool F8 { get; set; }
         [DefaultValue("")]
         public string Notes { get; set; }
-        public bool Block { get; set; }
         public int CustomerId { get; set; } // maybe int instead?
         public bool TrialActivation { get; set; }
         public bool AutomaticActivation { get; set; }
