@@ -4,11 +4,19 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Diagnostics;
 using System.Linq;
 
+using SKM.V3.Models;
+
 namespace SKM_Test
 {
     [TestClass]
     public class UnitTest1
     {
+
+        [TestMethod]
+        public void MyTestMethod()
+        {
+
+        }
 
         [TestMethod]
         public void TestMachineIDSignature()
