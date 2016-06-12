@@ -290,6 +290,33 @@ namespace SKM.V3
             return null;
         }
 
+        /// <summary>
+        /// Checks so that a they key is blocked.
+        /// </summary>
+        /// <returns>A key information object if the condition is satisfied. Null otherwise.</returns>
+        public static LicenseKey IsBlocked(this LicenseKey licenseKey)
+        {
+            if (licenseKey != null && licenseKey.Block)
+            {
+                return licenseKey;
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Checks so that a they key is not blocked.
+        /// </summary>
+        /// <returns>A key information object if the condition is satisfied. Null otherwise.</returns>
+        public static LicenseKey IsNotBlocked(this LicenseKey licenseKey)
+        {
+            if (licenseKey != null && !licenseKey.Block)
+            {
+                return licenseKey;
+            }
+            return null;
+        }
+
+
         internal static bool GetFeatureByNumber(this LicenseKey licenseKey, int i)
         {
             switch (i)
