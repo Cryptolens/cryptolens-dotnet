@@ -6,6 +6,7 @@ using System.Security.Cryptography;
 
 using SKM.V3.Models;
 using SKM.V3.Internal;
+using SKM.V3.Methods;
 
 namespace SKM_Test
 {

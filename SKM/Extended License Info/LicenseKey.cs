@@ -1,4 +1,5 @@
 ﻿using SKM.V3.Internal;
+using SKM.V3.Methods;
 using SKM.V3.Models;
 using System;
 using System.Collections.Generic;
@@ -133,7 +134,7 @@ namespace SKM.V3
                 parameters.Sign = true;
             }
 
-            var result = V3.Key.GetKey(token, parameters);
+            var result = SKM.V3.Methods.Key.GetKey(token, parameters);
 
             if(result != null && result.Result == ResultType.Success)
             {
@@ -185,7 +186,7 @@ namespace SKM.V3
                 
             };
 
-            var result = V3.Key.AddFeature(token, parameters);
+            var result = Methods.Key.AddFeature(token, parameters);
 
             
             //if (result != null && result.Result == ResultType.Success )

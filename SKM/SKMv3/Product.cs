@@ -6,8 +6,9 @@ using System.Security.Cryptography;
 using System.Text;
 
 using SKM.V3.Models;
+using SKM.V3.Internal;
 
-namespace SKM.V3.Internal
+namespace SKM.V3.Methods
 {
     /// <summary>
     /// Methods that perform operations on a license key. A complete list

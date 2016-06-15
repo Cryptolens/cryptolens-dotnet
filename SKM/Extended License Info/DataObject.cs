@@ -1,5 +1,6 @@
 ﻿
 using SKM.V3.Internal;
+using SKM.V3.Methods;
 using SKM.V3.Models;
 
 namespace SKM.V3

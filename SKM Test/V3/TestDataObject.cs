@@ -4,6 +4,7 @@ using SKGL;
 using SKM.V3;
 using SKM.V3.Models;
 using SKM.V3.Internal;
+using SKM.V3.Methods;
 
 namespace SKM_Test
 {
