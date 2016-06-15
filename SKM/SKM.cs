@@ -13,6 +13,7 @@ using System.Net.NetworkInformation;
 
 using SKM.V3.Models;
 using SKM.V3.Internal;
+using SKM.V3;
 
 [assembly: AllowPartiallyTrustedCallers()]
 [assembly: CLSCompliant(true)]

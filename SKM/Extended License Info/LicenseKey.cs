@@ -1,10 +1,11 @@
 ﻿using SKM.V3.Internal;
+using SKM.V3.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 
-namespace SKM.V3.Models
+namespace SKM.V3
 {
     public class LicenseKey
     {

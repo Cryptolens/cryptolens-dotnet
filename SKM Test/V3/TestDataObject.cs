@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SKGL;
 using SKM.V3;
 using SKM.V3.Models;
+using SKM.V3.Internal;
 
 namespace SKM_Test
 {

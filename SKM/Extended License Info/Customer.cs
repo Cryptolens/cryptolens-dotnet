@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Configuration;
 
-namespace SKM.V3.Models
+namespace SKM.V3.Internal
 {
     public class Customer
     {

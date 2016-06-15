@@ -4,6 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SKM.V3;
 using SKM.V3.Models;
 using System.Collections.Generic;
+using SKM.V3.Internal;
 
 namespace SKM_Test
 {
@@ -183,7 +184,7 @@ namespace SKM_Test
 
             // 1. Get a new token
             var key = "ITVBC-GXXNU-GSMTK-NIJBT";
-            var result = Key.KeyLock(auth, new KeyLockModel { Key = key, ProductId = 3349 });
+            var result = Auth.KeyLock(auth, new KeyLockModel { Key = key, ProductId = 3349 });
 
             var newAuth = result.Token;
 
