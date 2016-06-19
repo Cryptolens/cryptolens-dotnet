@@ -12,13 +12,11 @@ namespace SKM_Test
     [TestClass]
     public class TestWebAPI3
     {
-      
+        string auth = "WyIxMSIsInRFLzRQSzJkT2V0Y1pyN3Y3a1I2Rm9YdmczNUw0SzJTRHJwUERhRFMiXQ==";
         [TestMethod]
         public void AddDataObjectTest()
         {
             var keydata = new AddDataObjectModel() { };
-            var auth = "WyIxMSIsInRFLzRQSzJkT2V0Y1pyN3Y3a1I2Rm9YdmczNUw0SzJTRHJwUERhRFMiXQ==";
-
             var result = Data.AddDataObject(auth, keydata);
 
             if (result != null && result.Result == ResultType.Success)
@@ -28,7 +26,7 @@ namespace SKM_Test
 
                 var removeObj = Data.RemoveDataObject(auth, new RemoveDataObjectModel { Id = result.Id });
 
-                if(removeObj == null || removeObj.Result == ResultType.Error)
+                if (removeObj == null || removeObj.Result == ResultType.Error)
                 {
                     Assert.Fail();
                 }
@@ -42,14 +40,12 @@ namespace SKM_Test
         [TestMethod]
         public void ListDataObjectsTest()
         {
-            var keydata = new ListDataObjectsModel {  ShowAll = true };
-            var auth = "WyIxMSIsInRFLzRQSzJkT2V0Y1pyN3Y3a1I2Rm9YdmczNUw0SzJTRHJwUERhRFMiXQ==";
-
+            var keydata = new ListDataObjectsModel { ShowAll = true };
             var result = Data.ListDataObjects(auth, keydata);
-            
+
             if (result != null && result.Result == ResultType.Success)
             {
-                var firstObject =  (DataObjectWithReferencer)result.DataObjects[0];
+                var firstObject = (DataObjectWithReferencer)result.DataObjects[0];
 
                 if (firstObject.ReferencerId == 0)
                     Assert.Fail();
@@ -79,15 +75,13 @@ namespace SKM_Test
         [TestMethod]
         public void SetIntValueTest()
         {
-            var auth ="WyIxMSIsInRFLzRQSzJkT2V0Y1pyN3Y3a1I2Rm9YdmczNUw0SzJTRHJwUERhRFMiXQ==";
-
             //first, let's obtain a random object. we record the old int value and the object id
             var objInt = Data.ListDataObjects(auth, new ListDataObjectsModel { ShowAll = true }).DataObjects[0];
             int oldInt = objInt.IntValue;
             long Id = objInt.Id;
 
-            var keydata = new ChangeIntValueModel() {IntValue = 4711, Id = Id };
-           
+            var keydata = new ChangeIntValueModel() { IntValue = 4711, Id = Id };
+
             var result = Data.SetIntValue(auth, keydata);
 
             if (result != null && result.Result == ResultType.Success)
@@ -104,8 +98,6 @@ namespace SKM_Test
         [TestMethod]
         public void SetStringValueTest()
         {
-            var auth = "WyIxMSIsInRFLzRQSzJkT2V0Y1pyN3Y3a1I2Rm9YdmczNUw0SzJTRHJwUERhRFMiXQ==" ;
-
             //first, let's obtain a random object. we record the old string value and the object id
             var objInt = Data.ListDataObjects(auth, new ListDataObjectsModel { ShowAll = true }).DataObjects[0];
             string oldString = objInt.StringValue;
@@ -129,8 +121,6 @@ namespace SKM_Test
         [TestMethod]
         public void IncrementIntValueTest()
         {
-            var auth =  "WyIxMSIsInRFLzRQSzJkT2V0Y1pyN3Y3a1I2Rm9YdmczNUw0SzJTRHJwUERhRFMiXQ==" ;
-
             //first, let's obtain a random object. we record the old int value and the object id
             var objInt = Data.ListDataObjects(auth, new ListDataObjectsModel { ShowAll = true }).DataObjects[0];
             int oldInt = objInt.IntValue;
@@ -143,7 +133,7 @@ namespace SKM_Test
             if (result != null && result.Result == ResultType.Success)
             {
                 int objIntNew = Data.ListDataObjects(auth, new ListDataObjectsModel { ShowAll = true }).DataObjects[0].IntValue;
-                Assert.IsTrue(objIntNew == oldInt+10);
+                Assert.IsTrue(objIntNew == oldInt + 10);
             }
             else
             {
@@ -155,8 +145,6 @@ namespace SKM_Test
         [TestMethod]
         public void DecrementIntValueTest()
         {
-            var auth = "WyIxMSIsInRFLzRQSzJkT2V0Y1pyN3Y3a1I2Rm9YdmczNUw0SzJTRHJwUERhRFMiXQ==";
-
             //first, let's obtain a random object. we record the old int value and the object id
             var objInt = Data.ListDataObjects(auth, new ListDataObjectsModel { ShowAll = true }).DataObjects[0];
             int oldInt = objInt.IntValue;
@@ -177,9 +165,36 @@ namespace SKM_Test
             }
         }
 
+        [TestMethod]
+        public void AddDataObjectAndListToKey()
+        {
+            var keydata = new AddDataObjectToKeyModel { ProductId = 3349, Key = "LEPWV-FOTPG-MWBEO-FBFPS", Name = "test123" };
 
+            var result = Data.AddDataObject(auth, keydata);
 
-    
+            Assert.IsTrue(result != null && result.Result == ResultType.Success);
+
+            int id = (int)result.Id; // the new id.
+
+            var result2 = Data.ListDataObjects(auth, new ListDataObjectsToKeyModel { Key = "LEPWV-FOTPG-MWBEO-FBFPS", ProductId = 3349, Contains= "test123" });
+
+            Assert.IsTrue(result2 != null && result2.Result == ResultType.Success);
+
+            Assert.IsTrue(result2.DataObjects.Count > 0);
+
+            bool found = false;
+            foreach (var item in result2.DataObjects)
+            {
+                if (item.Name == "test123")
+                    found = true;
+            }
+
+            Assert.IsTrue(found);
+
+            var result3 = Data.RemoveDataObject(auth, new RemoveDataObjectToKeyModel { Key = "LEPWV-FOTPG-MWBEO-FBFPS", ProductId = 3349, Id = id });
+
+            Assert.IsTrue(result3 != null && result3.Result == ResultType.Success);
+        }
 
     }
 }
