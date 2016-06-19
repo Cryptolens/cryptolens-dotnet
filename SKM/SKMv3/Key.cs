@@ -182,5 +182,40 @@ namespace SKM.V3.Methods
         {
             return HelperMethods.SendRequestToWebAPI3<KeyInfoResult>(parameters, "/key/getkey/", token);
         }
+
+
+        /// <summary>
+        /// This method will block a specific license key to ensure that the key cannot be
+        /// accessible by most of the methods in the Web API (activation, validation, 
+        /// optional field, and deactivation).Note, blocking the key will still allow you 
+        /// to access the key in Web API 3, unless otherwise stated for a given Web API 3 method. 
+        /// To do the reverse, please see <see cref="UnblockKey(string, KeyLockModel)"/>.
+        /// </summary>
+        /// <param name="token">Details such as Token and Version.</param>
+        /// <param name="parameters">The parameters that the method needs.</param>
+        /// <remarks>This method may, in rare cases, return null if an error has occurred.
+        /// Null should be seen as an unsuccessful result.
+        /// </remarks>
+        /// <returns>A BasicResult object or null.</returns>
+        public static KeyInfoResult BlockKey(string token, KeyLockModel parameters)
+        {
+            return HelperMethods.SendRequestToWebAPI3<KeyInfoResult>(parameters, "/key/blockkey/", token);
+        }
+
+        /// <summary>
+        /// This method will unblock a specific license key to ensure that the key can be
+        /// accessible by most of the methods in the Web API (activation, validation,
+        /// optional field, and deactivation). To do the reverse, please see <see cref="BlockKey(string, KeyLockModel)"/>.
+        /// </summary>
+        /// <param name="token">Details such as Token and Version.</param>
+        /// <param name="parameters">The parameters that the method needs.</param>
+        /// <remarks>This method may, in rare cases, return null if an error has occurred.
+        /// Null should be seen as an unsuccessful result.
+        /// </remarks>
+        /// <returns>A BasicResult object or null.</returns>
+        public static KeyInfoResult UnblockKey(string token, KeyLockModel parameters)
+        {
+            return HelperMethods.SendRequestToWebAPI3<KeyInfoResult>(parameters, "/key/unblockkey/", token);
+        }
     }
 }

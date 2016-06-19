@@ -142,6 +142,57 @@ namespace SKM.V3.Models
 
     }
 
+    public class AddDataObjectToKeyModel : KeyLockModel
+    {
+        public string Name { get; set; }
+        public string StringValue { get; set; }
+        public int IntValue { get; set; }
+    }
+
+
+    public class ListDataObjectsToKeyModel : KeyLockModel
+    {
+        /// <summary>
+        /// Lists the names that contain the desired string only.
+        /// </summary>
+        [DefaultValue("")]
+        public string Contains { get; set; }
+    }
+
+
+    /// <summary>
+    /// Used to identify a data object.
+    /// </summary>
+    public class ChangeStringValueToKeyModel : KeyLockModel, IChangeValueModel
+    {
+        public long Id { get; set; }
+        public string StringValue { get; set; }
+    }
+
+    /// <summary>
+    /// Used to identify a data object.
+    /// </summary>
+    public class ChangeIntValueToKeyModel : KeyLockModel, IChangeValueModel
+    {
+        public long Id { get; set; }
+
+        public int IntValue { get; set; }
+
+        public int Bound { get; set; }
+
+        public bool EnableBound { get; set; }
+    }
+
+
+    /// <summary>
+    /// Used to remove a data object.
+    /// </summary>
+    public class RemoveDataObjectToKeyModel : KeyLockModel, IChangeValueModel
+    {
+        public long Id { get; set; }
+    }
+
+
 
     internal interface IAddOrListDataObjectsModel
     {

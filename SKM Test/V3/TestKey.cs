@@ -263,6 +263,30 @@ namespace SKM_Test
             license.Refresh(activateToken);
 
             // TODO:
+        }
+
+        [TestMethod]
+        public void TestKeyBlock()
+        {
+            string token = "WyIxNzIiLCJhak9OT1g3NW90YlQyRFFVUzBWdnlGSHJYdUpMdDA0REMxNzNOa2duIl0=";
+            string key = "LEPWV-FOTPG-MWBEO-FBFPS";
+
+            // this is a simple hack to retrieve license info (auto complete it).
+            var license = new LicenseKey { ProductId = 3349, Key = key };
+            license.Refresh(token);
+
+            Key.BlockKey(token, new KeyLockModel { Key = key, ProductId = 3349 });
+
+            license.Refresh(token);
+
+            Assert.IsTrue(license.IsBlocked().IsValid());
+
+            Key.UnblockKey(token, new KeyLockModel { Key = key, ProductId = 3349 });
+
+            license.Refresh(token);
+
+            Assert.IsTrue(license.IsNotBlocked().IsValid());
+
 
         }
 
