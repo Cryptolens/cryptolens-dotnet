@@ -94,18 +94,17 @@ namespace SKM.V3
         /// <returns>Returns the id of the data object (and updates the <see cref="DataObjects"/>) if successful, or -1 otherwise.</returns>
         public long AddDataObject(string token, DataObject dataObject)
         {
-            var parameters = new AddDataObjectModel
+            var parameters = new AddDataObjectToKeyModel
             {
                 IntValue = dataObject.IntValue,
                 StringValue = dataObject.StringValue,
-                ReferencerType = DataObjectType.Key,
-                ReferencerId = (int)GlobalId,
+                Key = this.Key,
                 Name = dataObject.Name
             };
 
             var result = Data.AddDataObject(token, parameters);
 
-            if(result!= null && result.Result == ResultType.Success)
+            if(result != null && result.Result == ResultType.Success)
             {
                 dataObject.Id = result.Id;
                 DataObjects.Add(dataObject);
@@ -114,6 +113,31 @@ namespace SKM.V3
             return -1;
         }
 
+        /// <summary>
+        /// This method will remove an existing data object.
+        /// </summary>
+        /// <param name="token">The access token. Read more at https://serialkeymanager.com/docs/api/v3/Auth </param>
+        /// <remarks>Note: for more details, please see 
+        /// <a href="https://serialkeymanager.com/docs/api/v3/IncrementIntValue">https://serialkeymanager.com/docs/api/v3/IncrementIntValue</a> <br/>
+        /// </remarks>
+        /// <returns>Returns true if successful or false otherwise.</returns>
+        public bool RemoveDataObject(string token)
+        {
+            var parameters = new RemoveDataObjectToKeyModel
+            {
+                ProductId = this.ProductId,
+                Key = this.Key,
+         
+            };
+
+            var result = Data.RemoveDataObject(token, parameters);
+
+            if (result != null && result.Result == ResultType.Success)
+            {
+                return true;
+            }
+            return false;
+        }
 
         /// <summary>
         /// Gets the new version of this license from SKM.
