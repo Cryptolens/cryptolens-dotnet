@@ -140,23 +140,37 @@ namespace SKM.V3
         }
 
         /// <summary>
-        /// Gets the new version of this license from SKM.
+        /// Gets the new version of this license from SKM. By default, if the <see cref="Signature"/> field
+        /// ís not null and not empty, SKM will sign the new data too. You can also require this explicitly
+        /// by calling <see cref="Refresh(string, bool)"/>, and setting the second parameter to 'true'.
         /// </summary>
         /// <param name="token">The access token. Read more at https://serialkeymanager.com/docs/api/v3/Auth </param>
         /// <remarks>This method uses <see cref="GetKeysModel"/></remarks>
         /// <returns>Returns true if successful or false otherwise.</returns>
         public bool Refresh(string token)
         {
+            if (Signature != null && Signature != "")
+            {
+                return Refresh(token, true);
+            }
+            return Refresh(token, false);
+        }
+
+        /// <summary>
+        /// Gets the new version of this license from SKM.
+        /// </summary>
+        /// <param name="token">The access token. Read more at https://serialkeymanager.com/docs/api/v3/Auth </param>
+        /// <param name="sign">If true, SKM will sign the current license key object.</param>
+        /// <remarks>This method uses <see cref="GetKeysModel"/></remarks>
+        /// <returns>Returns true if successful or false otherwise.</returns>
+        public bool Refresh(string token, bool sign)
+        {
             var parameters = new KeyInfoModel
             {
                 ProductId = ProductId,
-                Key = Key
+                Key = Key,
+                Sign = sign
             };
-
-            if(Signature != null && Signature != "")
-            {
-                parameters.Sign = true;
-            }
 
             var result = SKM.V3.Methods.Key.GetKey(token, parameters);
 
