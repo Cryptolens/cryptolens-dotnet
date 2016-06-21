@@ -99,7 +99,8 @@ namespace SKM.V3
                 IntValue = dataObject.IntValue,
                 StringValue = dataObject.StringValue,
                 Key = this.Key,
-                Name = dataObject.Name
+                Name = dataObject.Name,
+                ProductId = ProductId
             };
 
             var result = Data.AddDataObject(token, parameters);

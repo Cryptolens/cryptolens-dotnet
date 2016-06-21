@@ -12,6 +12,10 @@ namespace SKM_Test
     [TestClass]
     public class TestKey
     {
+        string activateDeactivate = "WyIxNzkiLCJQa3l3Rm00NFJrUVdVVHFnai84TUxtbStYTm5VUzdJNVpLcGNueTVXIl0=";
+        string getKeys = "WyIxNzIiLCJhak9OT1g3NW90YlQyRFFVUzBWdnlGSHJYdUpMdDA0REMxNzNOa2duIl0=";
+
+
         [TestMethod]
         public void SaveLoadFile()
         {
@@ -157,9 +161,9 @@ namespace SKM_Test
         }
 
         [TestMethod]
-        public void ActivateTest()
+        public void ActivateAndDeactivateTest()
         {
-            var auth = "WyIxMTgiLCJkN0dEREZ0YW03alNhRVNtV3dOQkxZdjJlMWFTVlpacjNVaisxNFBZIl0=";
+            var auth = activateDeactivate;
             var result = Key.Activate(token: auth, parameters: new ActivateModel() { Key = "GEBNC-WZZJD-VJIHG-GCMVD", ProductId = 3349, Sign = true, MachineCode = "foo" });
             System.Diagnostics.Debug.WriteLine(result);
 
@@ -172,6 +176,17 @@ namespace SKM_Test
             result.LicenseKey.Signature = "test";
 
             Assert.IsFalse(result.LicenseKey.IsValid(TestCases.TestData.pubkey));
+
+
+            var result2 = Key.Deactivate(auth, new DeactivateModel { Key = "GEBNC-WZZJD-VJIHG-GCMVD", ProductId = 3349, MachineCode = "foo" });
+
+            if(result2 == null || result2.Result == ResultType.Error)
+            {
+                Assert.Fail("The deactivation did not work");
+            }
+
+
+
         }
 
         [TestMethod]
@@ -230,7 +245,7 @@ namespace SKM_Test
             var keydata = new AddDataObjectModel() { };
             var auth = "WyIxMSIsInRFLzRQSzJkT2V0Y1pyN3Y3a1I2Rm9YdmczNUw0SzJTRHJwUERhRFMiXQ==";
 
-            var auth2 = "WyIxMTgiLCJkN0dEREZ0YW03alNhRVNtV3dOQkxZdjJlMWFTVlpacjNVaisxNFBZIl0=";
+            var auth2 = activateDeactivate;
             var license = Key.Activate(token: auth2, parameters: new ActivateModel() { Key = "GEBNC-WZZJD-VJIHG-GCMVD", ProductId = 3349, Sign = true, MachineCode = "foo" });
 
             long id = license.LicenseKey.AddDataObject(auth, new DataObject { });
@@ -253,7 +268,7 @@ namespace SKM_Test
         [TestMethod]
         public void RefreshTest()
         {
-            var activateToken = "WyIxMTgiLCJkN0dEREZ0YW03alNhRVNtV3dOQkxZdjJlMWFTVlpacjNVaisxNFBZIl0=";
+            var activateToken = activateDeactivate;
             var featureToken = "WyI2Iiwib3lFQjFGYk5pTHYrelhIK2pveWdReDdEMXd4ZDlQUFB3aGpCdTRxZiJd";
 
             var license = Key.Activate(token: activateToken, parameters: new ActivateModel() { Key = "GEBNC-WZZJD-VJIHG-GCMVD", ProductId = 3349, Sign = true, MachineCode = "foo" }).LicenseKey;
