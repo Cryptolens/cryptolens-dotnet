@@ -190,6 +190,45 @@ namespace SKM_Test
         }
 
         [TestMethod]
+        public void UsageCounter()
+        {
+            var token = getKeys;
+            var tokenDObj = "WyIxMSIsInRFLzRQSzJkT2V0Y1pyN3Y3a1I2Rm9YdmczNUw0SzJTRHJwUERhRFMiXQ==";
+
+            // this is a simple hack to retrieve license info (auto complete it).
+            var license = new LicenseKey { ProductId = 3349, Key = "GEBNC-WZZJD-VJIHG-GCMVD" };
+            license.Refresh(token);
+            
+            if(license.DataObjects.Contains("usagecount"))
+            {
+                var dataObj = license.DataObjects.Get("usagecount");
+
+                // attempt to increment. true means we succeed.
+                if (dataObj.IncrementIntValue(token: tokenDObj,
+                                             incrementValue: 1,
+                                             enableBound: true,
+                                             upperBound: 4,
+                                             licenseKey: license))
+                {
+                    // success, we can keep using this feature
+                }
+                else
+                {
+                    Assert.Fail();
+                    // fail, the the user has already used it 10 times.
+                }
+              
+            }
+            else
+            {
+                // if it does not exist, add a new one.
+                license.AddDataObject(tokenDObj, new DataObject { Name = "usagecount", IntValue = 0 });
+            }
+
+
+        }
+
+        [TestMethod]
         public void KeyLockTest()
         {
             // make sure the access token below has key lock set to "-1".

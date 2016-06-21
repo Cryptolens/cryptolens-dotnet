@@ -317,6 +317,47 @@ namespace SKM.V3
         }
 
 
+        /// <summary>
+        /// Checks if the list contains an object with a specific name.
+        /// </summary>
+        /// <param name="name">The name of the data object</param>
+        /// <returns>True if the data object with the specific name exists and false otherwise.</returns>
+        public static bool Contains(this List<DataObject> dataObjects, string name)
+        {
+            if (dataObjects != null)
+            {
+                foreach (var obj in dataObjects)
+                {
+                    if(obj.Name == name)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Returns a data object with the specified name.
+        /// </summary>
+        /// <param name="name">The name of the data object</param>
+        /// <returns>The data object if the data object with the specific name exists and null otherwise.</returns>
+        public static DataObject Get(this List<DataObject> dataObjects, string name)
+        {
+            if (dataObjects != null)
+            {
+                foreach (var obj in dataObjects)
+                {
+                    if (obj.Name == name)
+                    {
+                        return obj;
+                    }
+                }
+            }
+            return null;
+        }
+
+
         internal static bool GetFeatureByNumber(this LicenseKey licenseKey, int i)
         {
             switch (i)
