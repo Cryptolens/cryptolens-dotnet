@@ -17,6 +17,9 @@ using SKM.V3;
 
 [assembly: AllowPartiallyTrustedCallers()]
 [assembly: CLSCompliant(true)]
+/// <summary>
+/// Methods that are related to Web API 2 and other helper methods.
+/// </summary>
 namespace SKGL
 {
     /// <summary>

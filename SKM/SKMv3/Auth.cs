@@ -7,6 +7,10 @@ using System.Text;
 
 namespace SKM.V3.Methods
 {
+    /// <summary>
+    /// Methods that related to authentication. A complete list
+    /// can be found here: https://serialkeymanager.com/docs/api/v3/Auth
+    /// </summary>
     public class Auth
     {
         /// <summary>

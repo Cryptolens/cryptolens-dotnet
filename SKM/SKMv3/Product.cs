@@ -11,8 +11,8 @@ using SKM.V3.Internal;
 namespace SKM.V3.Methods
 {
     /// <summary>
-    /// Methods that perform operations on a license key. A complete list
-    /// can be found here: https://serialkeymanager.com/docs/api/v3/Key
+    /// Methods that perform operations on a product. A complete list
+    /// can be found here: https://serialkeymanager.com/docs/api/v3/Product
     /// </summary>
     public static class Product
     {

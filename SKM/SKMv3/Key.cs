@@ -98,26 +98,23 @@ namespace SKM.V3.Methods
         /// the key will stay the same.
         /// If the key is changed, the new key will be stored in the message.
         /// </summary>
-        /// <param name="token">Details such as Token and Version.</param>
+        /// <param name="token">The access token</param>
         /// <param name="parameters">The parameters that the method needs.</param>
         /// <example>
         /// Here is an example that demonstrates the use of the method.
         /// <code language="cs" title="C#">
-        /// public void AddFeatureTest()
+        /// var keydata = new FeatureModel() { Key = "LXWVI-HSJDU-CADTC-BAJGW", Feature = 2, ProductId = 3349 };
+        /// var auth = "WyI2Iiwib3lFQjFGYk5pTHYrelhIK2pveWdReDdEMXd4ZDlQUFB3aGpCdTRxZiJd";
+        ///
+        /// var result = Key.RemoveFeature(auth, keydata);
+        ///
+        /// if (result != null && result.Result == ResultType.Success)
         /// {
-        ///     var keydata = new FeatureModel() { Key = "LXWVI-HSJDU-CADTC-BAJGW", Feature = 2, ProductId = 3349 };
-        ///     var auth = new AuthDetails() { Token = "WyI2Iiwib3lFQjFGYk5pTHYrelhIK2pveWdReDdEMXd4ZDlQUFB3aGpCdTRxZiJd" };
-        /// 
-        ///     var result = SKM.RemoveFeature(auth, keydata);
-        /// 
-        ///     if (result != null &amp;&amp; result.Result == ResultType.Success)
-        ///     {
-        ///         // feature 2 is set to true.
-        ///     }
-        ///     else
-        ///     {
-        ///         Assert.Fail();
-        ///     }
+        ///     // feature 2 is set to true.
+        /// }
+        /// else
+        /// {
+        ///     Assert.Fail();
         /// }
         /// </code>
         /// </example>
@@ -142,17 +139,19 @@ namespace SKM.V3.Methods
         /// <example>
         /// Here is an example that demonstrates the use of the method.
         /// <code language="cs" title="C#">
-        /// public void ExtendLicenseExample()
+        /// var keydata = new ExtendLicenseModel() { Key = "ITVBC-GXXNU-GSMTK-NIJBT", NoOfDays = 30, ProductId = 3349 };
+        /// var auth = "WyI0IiwiY0E3aHZCci9FWFZtOWJYNVJ5eTFQYk8rOXJSNFZ5TTh1R25YaDVFUiJd";
+        ///
+        /// var result = Key.ExtendLicense(auth, keydata);
+        ///
+        /// if (result != null && result.Result == ResultType.Success)
         /// {
-        ///    var keydata = new ExtendLicenseModel() { Key = "ITVBC-GXXNU-GSMTK-NIJBT", NoOfDays = 30, ProductId = 3349 };
-        ///    var auth = new AuthDetails() { Token = "WyI0IiwiY0E3aHZCci9FWFZtOWJYNVJ5eTFQYk8rOXJSNFZ5TTh1R25YaDVFUiJd" };
         ///
-        ///    var result = SKM.ExtendLicense(auth, keydata);
-        ///
-        ///    if (result != null &amp;&amp; result.Result == ResultType.Success)
-        ///    {
-        ///        // the license was successfully extended with 30 days.
-        ///    }
+        ///     // the license was successfully extended with 30 days.
+        /// }
+        /// else
+        /// {
+        ///     Assert.Fail();
         /// }
         /// </code>
         /// </example>

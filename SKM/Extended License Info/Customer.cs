@@ -6,6 +6,9 @@ using System.Configuration;
 
 namespace SKM.V3.Internal
 {
+    /// <summary>
+    /// Information about a customer. Each license key may be assigned a customer.
+    /// </summary>
     public class Customer
     {
         public int Id { get; set; }

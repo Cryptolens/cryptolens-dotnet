@@ -9,6 +9,10 @@ using System.Security.Cryptography;
 
 namespace SKM.V3
 {
+    /// <summary>
+    /// The extension methods are not thought to be used through this class, but instead
+    /// through the relevant objects that they affect.
+    /// </summary>
     public static class ExtensionMethods
     {
         /// <summary>
