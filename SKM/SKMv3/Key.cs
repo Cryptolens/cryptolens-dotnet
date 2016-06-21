@@ -40,6 +40,19 @@ namespace SKM.V3.Methods
         }
 
         /// <summary>
+        ///This method will 'undo' a key activation with a certain machine code. 
+        ///The key should not be blocked, since otherwise this method will throw an error.
+        /// https://serialkeymanager.com/docs/api/v3/Deactivate
+        /// </summary>
+        /// <param name="token">The access token. Read more at https://serialkeymanager.com/docs/api/v3/Auth </param>
+        /// <param name="parameters">The parameters that the method needs.</param>
+        /// <returns>A <see cref="BasicResult"/> or null.</returns>
+        public static BasicResult Deactivate(string token, DeactivateModel parameters)
+        {
+            return HelperMethods.SendRequestToWebAPI3<BasicResult>(parameters, "/key/deactivate/", token);
+        }
+
+        /// <summary>
         /// This method will change a given feature to be true (in a license).
         /// If the key algorithm in the product is SKGL, the key string 
         /// will be changed if necessary. Otherwise, if SKM15 is used, 

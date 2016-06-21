@@ -4,6 +4,12 @@ using System.ComponentModel;
 
 namespace SKM.V3.Models
 {
+    public class DeactivateModel : KeyLockModel
+    {
+        [DefaultValue("")]
+        public string MachineCode { get; set; }
+    }
+
     public class KeyInfoModel
     {
         public int ProductId { get; set; }
