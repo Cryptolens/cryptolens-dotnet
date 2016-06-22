@@ -12,6 +12,36 @@ namespace SKM.V3.Methods
     /// Methods that perform operations on a data object. A complete list
     /// can be found here: https://serialkeymanager.com/docs/api/v3/Data
     /// </summary>
+    /// <example>
+    /// <code language="csharp" title="Usage quota for a feature">
+    /// var token = "{acesstoken to GetKey, IncrementIntValue, ListDataObjects, AddDataObjects, and Key Lock = -1 (or zero)}".
+    /// var license = new LicenseKey { ProductId = 3349, Key = "GEBNC-WZZJD-VJIHG-GCMVD" };
+    /// license.Refresh(token);
+    /// 
+    /// if(license.DataObjects.Contains("usagecount"))
+    /// {
+    ///     // attempt to increment. true means we succeed.
+    ///     var dataObj = license.DataObjects.Get("usagecount");
+    ///     if (dataObj.IncrementIntValue(token: token,
+    ///                                  incrementValue: 1,
+    ///                                  enableBound: true,
+    ///                                  upperBound: 2))
+    ///     {
+    ///         // success, we can keep using this feature
+    ///     }
+    ///     else
+    ///     {
+    ///         // fail, the the user has already used it 10 times.
+    ///     }
+    /// 
+    /// }
+    /// else
+    /// {
+    ///     // if it does not exist, add a new one.
+    ///     license.AddDataObject(tokenDObj, new DataObject { Name = "usagecount", IntValue = 0 });
+    /// }
+    /// </code>
+    /// </example>
     public class Data
     {
         /// <summary>

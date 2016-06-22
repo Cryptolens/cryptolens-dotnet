@@ -34,6 +34,26 @@ namespace SKM.V3.Methods
         /// • To compute the value of the feature lock, please use the Hide column, for those fields that you want to omit in the result above.<br></br>
         /// • If the ActivatedMachines is hidden, only the current machine code will be included(used during this particular activation). Otherwise, all machine codes will be included.
         /// </remarks>
+        /// <example>
+        /// Assuming that you've created a key in the SKM platform that has maximum number of machines set to anything greater than zero, we can run the following code:
+        /// <code language="csharp" title="Activation example">
+        /// var auth = "{access token with permission to access the activate method}"
+        /// var result = Key.Activate(token: auth, parameters: new ActivateModel()
+        /// {
+        ///     Key = "GEBNC-WZZJD-VJIHG-GCMVD",
+        ///     ProductId = 3349,
+        ///     Sign = true,
+        ///     MachineCode = SKGL.SKM.getMachineCode(SKGL.SKM.getSHA1);
+        /// });
+        ///
+        /// if(result == null || result.Result == ResultType.Error)
+        /// {
+        ///     // an error occured or the key is invalid or it cannot be activated
+        ///     // (eg. the limit of activated devices was achieved)
+        /// }
+        /// // everything went fine if we are here!
+        /// </code>
+        /// </example>
         public static KeyInfoResult Activate(string token, ActivateModel parameters)
         {
             return HelperMethods.SendRequestToWebAPI3<KeyInfoResult>(parameters, "/key/activate/", token);
@@ -47,6 +67,25 @@ namespace SKM.V3.Methods
         /// <param name="token">The access token. Read more at https://serialkeymanager.com/docs/api/v3/Auth </param>
         /// <param name="parameters">The parameters that the method needs.</param>
         /// <returns>A <see cref="BasicResult"/> or null.</returns>
+        /// <example>
+        /// <code language="csharp" title="Deactivation example">
+        /// var auth = "{access token with permission to access the deactivate method}"
+        /// var result = Key.Deactivate(token: auth, parameters: new DeactivateModel() 
+        /// {
+        ///         Key = "GEBNC-WZZJD-VJIHG-GCMVD", 
+        ///         ProductId = 3349,
+        ///         MachineCode = SKGL.SKM.getMachineCode(SKGL.SKM.getSHA1);
+        /// });
+        /// 
+        /// if(result == null || result.Result == ResultType.Error)
+        /// {
+        ///     // could not deactivate. maybe it has already been deactivated.
+        ///     // more information can be found in the message.
+        /// }
+        /// 
+        /// // everything went fine if we are here!
+        /// </code>
+        /// </example>
         public static BasicResult Deactivate(string token, DeactivateModel parameters)
         {
             return HelperMethods.SendRequestToWebAPI3<BasicResult>(parameters, "/key/deactivate/", token);

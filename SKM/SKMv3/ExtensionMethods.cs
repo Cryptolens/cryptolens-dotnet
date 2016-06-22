@@ -11,8 +11,23 @@ namespace SKM.V3
 {
     /// <summary>
     /// The extension methods are not thought to be used through this class, but instead
-    /// through the relevant objects that they affect.
+    /// through the relevant objects that they affect. Please see the examples below.
     /// </summary>
+    /// <example>
+    /// <code language="csharp" title="Checking if a license key has feature 1 set to true and that it has not expired.">
+    /// // assuming license is a LicenseKey object.
+    /// if(license.HasFeature(1)
+    ///           .HasNotExpired()
+    ///           .IsValid())
+    /// {
+    ///     // do something
+    /// }
+    /// else
+    /// {
+    ///     // invalid license.
+    /// }
+    /// </code>
+    /// </example>
     public static class ExtensionMethods
     {
         /// <summary>
