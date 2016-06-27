@@ -33,6 +33,26 @@ namespace SKM.V3.Methods
         /// * The search query field accepts the same queries as the search box on the product page.You can read about the format here.<br></br>
         /// * The key lock does not have any effect on this method, eg.you will still be able to retrieve all keys even if the key lock is set to a certain key.<br></br>
         /// </remarks>
+        /// <example>
+        /// <code language="vb" title="Listing the first 99 keys">
+        /// Private Sub GetKeysExample()
+        /// Dim parameters = New GetKeysModel() With {
+        ///     .ProductId = 3,
+        ///     .Page = 1
+        /// }
+        /// Dim auth = "{access token with GetKeys permission and optional product lock}"
+        /// Dim result = Product.GetKeys(token:=auth, parameters:=parameters)
+        /// If (result IsNot Nothing AndAlso result.Result = ResultType.Success) Then
+        ///     ' successful 
+        ///     ' displays the first 99 keys of the product.
+        ///     ' simply increment Page to 2 in order to get
+        ///     ' the rest.
+        ///     For Each key As LicenseKey In result.LicenseKeys
+        ///         Console.WriteLine(key.Key)
+        ///     Next
+        /// End If
+        /// </code>
+        /// </example>
         public static GetKeysResult GetKeys(string token, GetKeysModel parameters)
         {
             return HelperMethods.SendRequestToWebAPI3<GetKeysResult>(parameters, "/product/getkeys/", token);

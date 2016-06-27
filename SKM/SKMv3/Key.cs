@@ -212,6 +212,23 @@ namespace SKM.V3.Methods
         /// Null should be seen as an unsuccessful result.
         /// </remarks>
         /// <returns>A BasicResult object or null.</returns>
+        /// <example>
+        /// <code language="vb" title="Creating a new key">
+        /// Private Sub CreateKey()
+        ///     Dim parameters = New CreateKeyModel() With {
+        ///         .ProductId = 3,
+        ///         .F1 = 1,
+        ///         .Period = 30
+        ///     }
+        ///     Dim auth = "{access token with GetKeys permission and optional product lock}"
+        ///     Dim result = Key.CreateKey(token:=auth, parameters:=parameters)
+        ///     If (result IsNot Nothing AndAlso result.Result = ResultType.Success) Then
+        ///         ' successful
+        ///         Console.WriteLine(result.Key)
+        ///     End If
+        /// End Sub
+        /// </code>
+        /// </example>
         public static CreateKeyResult CreateKey(string token, CreateKeyModel parameters)
         {
             return HelperMethods.SendRequestToWebAPI3<CreateKeyResult>(parameters, "/key/createkey/", token);
