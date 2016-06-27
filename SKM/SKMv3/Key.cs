@@ -220,7 +220,7 @@ namespace SKM.V3.Methods
         ///         .F1 = 1,
         ///         .Period = 30
         ///     }
-        ///     Dim auth = "{access token with GetKeys permission and optional product lock}"
+        ///     Dim auth = "{access token with CreateKey permission and optional product lock}"
         ///     Dim result = Key.CreateKey(token:=auth, parameters:=parameters)
         ///     If (result IsNot Nothing AndAlso result.Result = ResultType.Success) Then
         ///         ' successful
