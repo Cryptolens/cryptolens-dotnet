@@ -344,5 +344,17 @@ namespace SKM_Test
 
         }
 
+        [TestMethod]
+        public void TestKeyDate()
+        {
+            var license = new LicenseKey()
+            {
+                Created = DateTime.Today,
+                Expires = DateTime.Today.AddDays(300)
+            };
+
+            Assert.IsTrue(license.DaysLeft() == 300);
+        }
+
     }
 }
