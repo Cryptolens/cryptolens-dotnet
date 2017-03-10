@@ -125,6 +125,26 @@ namespace SKM_Test
         }
 
         [TestMethod]
+        public void ExtendLicenseChangeExpireDateTest()
+        {
+            var keydata = new ExtendLicenseModel() { Key = "ITVBC-GXXNU-GSMTK-NIJBT", NoOfDays = 365, ProductId = 3349 };
+            var auth = "WyI0IiwiY0E3aHZCci9FWFZtOWJYNVJ5eTFQYk8rOXJSNFZ5TTh1R25YaDVFUiJd";
+
+            var result = Key.ExtendLicense(auth, keydata);
+
+            if (result != null && result.Result == ResultType.Success)
+            {
+
+                // the license was successfully extended with 30 days.
+            }
+            else
+            {
+                Assert.Fail();
+            }
+        }
+
+
+        [TestMethod]
         public void AddFeatureTest()
         {
             var keydata = new FeatureModel() { Key = "LXWVI-HSJDU-CADTC-BAJGW", Feature = 2, ProductId = 3349 };

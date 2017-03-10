@@ -13,6 +13,14 @@ namespace SKM.V3.Internal
     /// </summary>
     public class HelperMethods
     {
+
+#if DEBUG
+        private static string SERVER = "https://localhost:44300/api/";
+
+#else
+        private static string SERVER = "https://serialkeymanager.com/api/";
+#endif
+
         /// <summary>
         /// Used to send requests to Web API 3.
         /// </summary>
@@ -39,6 +47,11 @@ namespace SKM.V3.Internal
                     reqparm.Add(input.Key, input.Value);
                 }
 
+#if DEBUG
+                // ignore certificate errors only in debug mode.
+                ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;
+#endif
+
                 reqparm.Add("token", token);
 
                 //// version 1 is default so no need to send it twice.
@@ -51,7 +64,7 @@ namespace SKM.V3.Internal
 
                 try
                 {
-                    byte[] responsebytes = client.UploadValues("https://serialkeymanager.com/api/" + typeOfAction, "POST", reqparm);
+                    byte[] responsebytes = client.UploadValues(SERVER + typeOfAction, "POST", reqparm);
                     string responsebody = Encoding.UTF8.GetString(responsebytes);
 
                     return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(responsebody);
