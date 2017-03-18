@@ -14,9 +14,8 @@ namespace SKM.V3.Internal
     public class HelperMethods
     {
 
-#if DEBUG
-        private static string SERVER = "https://localhost:44300/api/";
-
+#if DEBUG        
+        private static string SERVER = Newtonsoft.Json.Linq.JObject.Parse(System.IO.File.ReadAllText(System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\..\..\..\config.json")).GetValue("SERVER").ToString();
 #else
         private static string SERVER = "https://serialkeymanager.com/api/";
 #endif
@@ -30,7 +29,7 @@ namespace SKM.V3.Internal
                                                 WebProxy proxy = null,
                                                 int version = 1 )                                                    
         {
-
+            System.Diagnostics.Debug.WriteLine(SERVER);
             // converting the input
             Dictionary<string, string> inputParams = (from x in inputParameters.GetType().GetProperties() select x)
                                                           .ToDictionary(x => x.Name, x => (x.GetGetMethod()
