@@ -14,6 +14,9 @@ namespace SKM.V3.Internal
     public class HelperMethods
     {
 
+        public static IWebProxy proxy;
+        private static bool notSet = false;
+
 #if DEBUG        
         private static string SERVER = Newtonsoft.Json.Linq.JObject.Parse(System.IO.File.ReadAllText(System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\..\..\..\config.json")).GetValue("SERVER").ToString();
 #else
@@ -26,10 +29,8 @@ namespace SKM.V3.Internal
         public static T SendRequestToWebAPI3<T>(object inputParameters, 
                                                 string typeOfAction,
                                                 string token,
-                                                WebProxy proxy = null,
                                                 int version = 1 )                                                    
         {
-            System.Diagnostics.Debug.WriteLine(SERVER);
             // converting the input
             Dictionary<string, string> inputParams = (from x in inputParameters.GetType().GetProperties() select x)
                                                           .ToDictionary(x => x.Name, x => (x.GetGetMethod()
@@ -58,7 +59,31 @@ namespace SKM.V3.Internal
                 //    reqparm.Add("v", version.ToString());
 
                 // in case we have a proxy server. if not, we set it to null to avoid unnecessary time delays.
-                // based on http://stackoverflow.com/a/4420429/1275924 and http://stackoverflow.com/a/6990291/1275924. 
+                // based on http://stackoverflow.com/a/4420429/1275924 and http://stackoverflow.com/a/6990291/1275924.
+                
+                if(!notSet)
+                {
+                    notSet = true;
+                    //first time
+                    try
+                    {
+                        var config = Newtonsoft.Json.Linq.JObject.Parse(System.IO.File.ReadAllText(System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\config.json"));
+                        switch (config.GetValue("proxy").ToString())
+                        {
+                            case "default":
+                                proxy = WebRequest.DefaultWebProxy;
+                                proxy.Credentials = CredentialCache.DefaultCredentials;
+                            break;
+                            default:
+                                proxy = null;
+                            break;
+                        }
+                    }
+                    catch
+                    {
+                        proxy = null;
+                    }
+                }
                 client.Proxy = proxy;
 
                 try
