@@ -4,6 +4,22 @@ using System.ComponentModel;
 
 namespace SKM.V3.Models
 {
+
+    public class RemoveCustomerModel
+    {
+        public int CustomerId { get; set; }
+    }
+    public class AddCustomerModel
+    {
+        public string Name { get; set; }
+        public string Email { get; set; }
+        public string CompanyName { get; set; }
+    }
+
+    public class AddCustomerResult : BasicResult
+    {
+        public int CustomerId { get; set; }
+    }
     public class DeactivateModel : KeyLockModel
     {
         [DefaultValue("")]

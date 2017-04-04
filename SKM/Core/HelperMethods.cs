@@ -53,7 +53,7 @@ namespace SKM.V3.Internal
 #endif
 
                 reqparm.Add("token", token);
-
+                reqparm.Add("v", "1");
                 //// version 1 is default so no need to send it twice.
                 //if (version > 1)
                 //    reqparm.Add("v", version.ToString());
