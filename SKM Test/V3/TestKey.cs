@@ -16,6 +16,21 @@ namespace SKM_Test
         string getKeys = "WyIxNzIiLCJhak9OT1g3NW90YlQyRFFVUzBWdnlGSHJYdUpMdDA0REMxNzNOa2duIl0=";
 
 
+
+        [TestMethod]
+        public void SignatureTest()
+        {
+            var result = Key.Activate(AccessToken.AccessToken.Activate, new ActivateModel {  MachineCode = "test", Key = "MTMPW-VZERP-JZVNZ-SCPZM", ProductId = 3349, Sign = true});
+
+            if(result == null || result.Result == ResultType.Error)
+            {
+                Assert.Fail();
+            }
+
+            if (!result.LicenseKey.HasValidSignature("<RSAKeyValue><Modulus>sGbvxwdlDbqFXOMlVUnAF5ew0t0WpPW7rFpI5jHQOFkht/326dvh7t74RYeMpjy357NljouhpTLA3a6idnn4j6c3jmPWBkjZndGsPL4Bqm+fwE48nKpGPjkj4q/yzT4tHXBTyvaBjA8bVoCTnu+LiC4XEaLZRThGzIn5KQXKCigg6tQRy0GXE13XYFVz/x1mjFbT9/7dS8p85n8BuwlY5JvuBIQkKhuCNFfrUxBWyu87CFnXWjIupCD2VO/GbxaCvzrRjLZjAngLCMtZbYBALksqGPgTUN7ZM24XbPWyLtKPaXF2i4XRR9u6eTj5BfnLbKAU5PIVfjIS+vNYYogteQ==</Modulus><Exponent>AQAB</Exponent></RSAKeyValue>", 30).IsValid())
+                Assert.Fail();
+        }
+
         [TestMethod]
         public void SaveLoadFile()
         {
