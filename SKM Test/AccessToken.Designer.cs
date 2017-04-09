@@ -68,5 +68,14 @@ namespace AccessToken {
                 return ResourceManager.GetString("CustomerAddRemoveAccessToken", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to WyI0NTciLCJpeWJmVWwwYjI1Y21HdTdXSHVtbzRTTTBjcXJEYk9RL2JsRGQxa3lqIl0=.
+        /// </summary>
+        internal static string GetCustomerLicenses {
+            get {
+                return ResourceManager.GetString("GetCustomerLicenses", resourceCulture);
+            }
+        }
     }
 }

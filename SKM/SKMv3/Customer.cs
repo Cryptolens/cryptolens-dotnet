@@ -14,5 +14,10 @@ namespace SKM.V3.Methods
         {
             return HelperMethods.SendRequestToWebAPI3<BasicResult>(parameters, "/customer/removecustomer/", token);
         }
+
+        public static GetCustomerLicensesResult GetCustomerLicenses(string token, GetCustomerLicensesModel parameters)
+        {
+            return HelperMethods.SendRequestToWebAPI3<GetCustomerLicensesResult>(parameters, "/customer/getcustomerlicenses/", token);
+        }
     }
 }

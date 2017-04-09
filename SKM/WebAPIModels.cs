@@ -4,6 +4,17 @@ using System.ComponentModel;
 
 namespace SKM.V3.Models
 {
+    public class GetCustomerLicensesModel
+    {
+        public int CustomerId { get; set; }
+
+        public bool Detailed { get; set; }
+    }
+
+    public class GetCustomerLicensesResult : BasicResult
+    {
+        public List<LicenseKey> LicenseKeys { get; set; }
+    }
 
     public class RemoveCustomerModel
     {

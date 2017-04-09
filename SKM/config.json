@@ -1,3 +1,3 @@
 {
-    "SERVER":"https://skmapp-devprod.azurewebsites.net/api/"
+    "SERVER":"https://localhost:44300/api/"
 }

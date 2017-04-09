@@ -10,7 +10,7 @@ namespace SKM_Test
     public class TestCustomer
     {
         [TestMethod]
-        public void AddCustomer()
+        public void AddCustomerTest()
         {
             var result = Customer.AddCustomer(AccessToken.AccessToken.CustomerAddRemoveAccessToken,
                                               new AddCustomerModel() { Name = "Bob" });
@@ -29,6 +29,19 @@ namespace SKM_Test
             }
         }
 
+
+        [TestMethod]
+        public void GetCustomerLicensesTest()
+        {
+            var result = Customer.GetCustomerLicenses(AccessToken.AccessToken.GetCustomerLicenses, 
+                new GetCustomerLicensesModel {  CustomerId = 3});
+
+            if(result.Result == ResultType.Error)
+            {
+                Assert.Fail();
+            }
+
+        }
     }
 }
     
