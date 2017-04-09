@@ -61,6 +61,15 @@ namespace AccessToken {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to WyI0NTgiLCJCWFdkejdhMUZGM21NaDZSSkRQYnpiYldMK1UyUWpNbVNKelNESGJMIl0=.
+        /// </summary>
+        internal static string Activate {
+            get {
+                return ResourceManager.GetString("Activate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to WyI0NDQiLCJaNFZkbDJIQWJ6SnVDc1hBWVc0T1o2VnN0MWVvODZabWJUZ3Rpcm9zIl0=.
         /// </summary>
         internal static string CustomerAddRemoveAccessToken {
