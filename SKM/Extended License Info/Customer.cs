@@ -9,7 +9,7 @@ namespace SKM.V3.Internal
     /// <summary>
     /// Information about a customer. Each license key may be assigned a customer.
     /// </summary>
-    public class CustomerData
+    public class Customer
     {
         public int Id { get; set; }
 

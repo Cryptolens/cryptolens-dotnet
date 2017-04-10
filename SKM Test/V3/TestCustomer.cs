@@ -12,7 +12,7 @@ namespace SKM_Test
         [TestMethod]
         public void AddCustomerTest()
         {
-            var result = Customer.AddCustomer(AccessToken.AccessToken.CustomerAddRemoveAccessToken,
+            var result = CustomerMethods.AddCustomer(AccessToken.AccessToken.CustomerAddRemoveAccessToken,
                                               new AddCustomerModel() { Name = "Bob" });
 
             if(result.Result == ResultType.Error)
@@ -20,7 +20,7 @@ namespace SKM_Test
                 Assert.Fail();
             }
 
-            var result2 = Customer.RemoveCustomer(AccessToken.AccessToken.CustomerAddRemoveAccessToken,
+            var result2 = CustomerMethods.RemoveCustomer(AccessToken.AccessToken.CustomerAddRemoveAccessToken,
                                   new RemoveCustomerModel() { CustomerId = result.CustomerId});
 
             if (result2.Result == ResultType.Error)
@@ -33,7 +33,7 @@ namespace SKM_Test
         [TestMethod]
         public void GetCustomerLicensesTest()
         {
-            var result = Customer.GetCustomerLicenses(AccessToken.AccessToken.GetCustomerLicenses, 
+            var result = CustomerMethods.GetCustomerLicenses(AccessToken.AccessToken.GetCustomerLicenses, 
                 new GetCustomerLicensesModel {  CustomerId = 3});
 
             if(result.Result == ResultType.Error)

@@ -37,7 +37,7 @@ namespace SKM.V3
 
         public long GlobalId { get; set; }
 
-        public CustomerData Customer { get; set; }
+        public Customer Customer { get; set; }
 
         public List<ActivationData> ActivatedMachines { get; set; }
 

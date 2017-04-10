@@ -58,7 +58,7 @@
     <Compile Include="Extended License Info\ActivationData.cs" />
     <Compile Include="Core\ConfigValues.cs" />
     <Compile Include="Core\HelperExtensionMethods.cs" />
-    <Compile Include="Extended License Info\CustomerData.cs" />
+    <Compile Include="Extended License Info\Customer.cs" />
     <Compile Include="Extended License Info\DataObject.cs" />
     <Compile Include="ExtensionMethods.cs" />
     <Compile Include="Core\HelperMethods.cs" />

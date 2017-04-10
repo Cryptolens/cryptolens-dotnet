@@ -3,7 +3,7 @@ using SKM.V3.Internal;
 
 namespace SKM.V3.Methods
 {
-    public class Customer
+    public class CustomerMethods
     {
         public static AddCustomerResult AddCustomer(string token, AddCustomerModel parameters)
         {
