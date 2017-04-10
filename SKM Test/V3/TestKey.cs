@@ -36,7 +36,8 @@ namespace SKM_Test
         {
             var key = new LicenseKey() { Key = "hello", Expires = DateTime.Today };
 
-            key.SaveToFile();
+            if (key.SaveToFile() == null)
+                Assert.Fail();
 
             var load = new LicenseKey().LoadFromFile();
 

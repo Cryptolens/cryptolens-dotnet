@@ -88,6 +88,7 @@
     <Compile Include="V3\TestProduct.cs" />
     <Compile Include="V3\TestKey.cs" />
     <Compile Include="V3\TestCustomer.cs" />
+    <Compile Include="V3\TestHelpers.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Samples\" />

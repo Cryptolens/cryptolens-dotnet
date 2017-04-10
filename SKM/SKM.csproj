@@ -71,6 +71,7 @@
     <Compile Include="SKMv3\Customer.cs" />
     <Compile Include="SKMv3\Data.cs" />
     <Compile Include="SKMv3\ExtensionMethods.cs" />
+    <Compile Include="SKMv3\Helpers.cs" />
     <Compile Include="SKMv3\Product.cs" />
     <Compile Include="SKMv3\Key.cs" />
     <Compile Include="WebAPIModels.cs" />
