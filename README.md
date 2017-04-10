@@ -2,9 +2,10 @@
 
 This API serves as a layer that simplifies communication with Serial Key Manager Web API 2 and 3 (https://serialkeymanager.com/docs/api).
 
-###Web API versions
+### Web API versions
+
 In Web API 2, authentication usually contains variables such as "pid", "uid" and "hsum". In Web API 3, authentication is performed using access tokens (https://serialkeymanager.com/docs/api/v3/Auth).
-###Examples
+### Examples
 Use cases, examples in different languages, and examples that are not shown here can be found at:
 * https://support.serialkeymanager.com/ac/skgl-extension
 * https://support.serialkeymanager.com/ac/examples
@@ -12,7 +13,7 @@ Use cases, examples in different languages, and examples that are not shown here
 The original repository of this project was: https://skgl.codeplex.com/.
 NB: This is only SKGL.SKM, not the entire SKGL API.
 
-##How to use
+## How to use
 1. [Key Validation](#key-validation)
 2. [Key Activation](#key-activation)
 3. [Offline Key Validation](#offline-key-validation)
@@ -22,7 +23,7 @@ NB: This is only SKGL.SKM, not the entire SKGL API.
 7. [Other Methods in Web API](#other-methods-in-web-api)
 8. [Calculating Machine code](#calculating-machine-code)
 
-###Key Validation
+### Key Validation
 For *pid*, *uid* and *hsum*, please see https://serialkeymanager.com/Ext/Val. You can retreive them using  [Get Product Variables](#get-product-variables).
 ```
 public void KeyValiation()
@@ -47,7 +48,7 @@ public void KeyValiation()
 }
 ```
 
-###Key Activation
+### Key Activation
 For *pid*, *uid* and *hsum*, please see https://serialkeymanager.com/Ext/Val.
 
 NB: If trial activation is configured, the API can return a new key (read more [here](http://support.serialkeymanager.com/howto/trial-activation/)).
@@ -72,7 +73,7 @@ public void KeyActivation()
     }
 }
 ```
-###Offline key validation
+### Offline key validation
 Read more about offline key validation [here](https://support.serialkeymanager.com/kb/passive-key-validation/).
 ```
 public static void OfflineKeyValidationWithPeriodicTimeCheck()
@@ -111,7 +112,7 @@ public static void OfflineKeyValidationWithPeriodicTimeCheck()
 }
 ```
 
-###List User Products
+### List User Products
 ```
 public void ListAllProducts()
 {
@@ -124,7 +125,7 @@ public void ListAllProducts()
 }
 ```
 
-###Get Product Variables
+### Get Product Variables
 This will get *pid*, *uid* and *hsum*.
 ```
 public void GetProductVariables()
@@ -139,7 +140,7 @@ public void GetProductVariables()
 }
 ```
 
-###Check Against Time Rollback
+### Check Against Time Rollback
 In order to make sure that the local time (date and time) wasn't changed by the user, the following code can be used.
 ```
 public void HasLocalTimeChanged()
@@ -157,7 +158,7 @@ public void HasLocalTimeChanged()
 }
 ```
 
-###Other Methods in Web API
+### Other Methods in Web API
 If you would like to access a method in the Web API manually, please use *GetParameters* method. A list of them can be found [here](http://docs.serialkeymanager.com/web-api/).
 ```
 public void GetParamtersTest()
@@ -180,7 +181,7 @@ public void GetParamtersTest()
 }
 ```
 
-###Calculating Machine code
+### Calculating Machine code
 Machine code can be calculated with the function below. Any other hash algorithm will do, as long as it only contains letters and digits only.
 ```
 public void TestingHashes()
