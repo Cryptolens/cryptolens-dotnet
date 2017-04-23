@@ -16,6 +16,32 @@ namespace SKM_Test
         string getKeys = "WyIxNzIiLCJhak9OT1g3NW90YlQyRFFVUzBWdnlGSHJYdUpMdDA0REMxNzNOa2duIl0=";
 
 
+        [TestMethod]
+        public void MachineLockTest()
+        {
+            var key = "BIJGF-ZNULN-FVALJ-GQDTH";
+            var license = Key.GetKey(AccessToken.AccessToken.GetKey, new KeyInfoModel { Key = key, ProductId = 3349 });
+
+            if (license == null || license.Result == ResultType.Error)
+                Assert.Fail("Could not get the key: " + license.Message );
+
+            Random rnd = new Random();
+            var num = rnd.Next(1, 999);
+
+            var increaseMachineLockLimit = Key.MachineLockLimit(AccessToken.AccessToken.MachineLoclLimit, new MachineLockLimit { Key = key, ProductId = 3349, NumberOfMachines = num });
+
+            if (increaseMachineLockLimit == null || increaseMachineLockLimit.Result == ResultType.Error)
+                Assert.Fail("Could not update.");
+
+            license = Key.GetKey(AccessToken.AccessToken.GetKey, new KeyInfoModel { Key = key, ProductId = 3349 });
+
+            if (license == null || license.Result == ResultType.Error)
+                Assert.Fail("Could not get the key 2nd time.");
+
+            Assert.IsTrue(license.LicenseKey.MaxNoOfMachines == num);
+
+        }
+
 
         [TestMethod]
         public void SignatureTest()
@@ -250,6 +276,7 @@ namespace SKM_Test
                 }
                 else
                 {
+                    dataObj.SetIntValue(tokenDObj, 0);
                     Assert.Fail();
                     // fail, the the user has already used it 10 times.
                 }

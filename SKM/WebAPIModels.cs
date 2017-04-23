@@ -149,6 +149,13 @@ namespace SKM.V3.Models
         public LicenseKey LicenseKey { get; set; }
     }
 
+    public class MachineLockLimit : KeyLockModel
+    {
+        public int NumberOfMachines { get; set; }
+    }
+
+
+
     /// <summary>
     /// Input parameters to KeyLock method.
     /// </summary>
