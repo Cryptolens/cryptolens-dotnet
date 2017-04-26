@@ -17,11 +17,9 @@ namespace SKM.V3.Internal
         public static IWebProxy proxy;
         private static bool notSet = false;
 
-#if DEBUG        
-        private static string SERVER = Newtonsoft.Json.Linq.JObject.Parse(System.IO.File.ReadAllText(System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\..\..\..\config.json")).GetValue("SERVER").ToString();
-#else
+
         private static string SERVER = "https://serialkeymanager.com/api/";
-#endif
+
 
         /// <summary>
         /// Used to send requests to Web API 3.
@@ -60,31 +58,13 @@ namespace SKM.V3.Internal
 
                 // in case we have a proxy server. if not, we set it to null to avoid unnecessary time delays.
                 // based on http://stackoverflow.com/a/4420429/1275924 and http://stackoverflow.com/a/6990291/1275924.
-                
-                if(!notSet)
+
+                IWebProxy defaultProxy = WebRequest.DefaultWebProxy;
+                if (defaultProxy != null)
                 {
-                    notSet = true;
-                    //first time
-                    try
-                    {
-                        var config = Newtonsoft.Json.Linq.JObject.Parse(System.IO.File.ReadAllText(System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\config.json"));
-                        switch (config.GetValue("proxy").ToString())
-                        {
-                            case "default":
-                                proxy = WebRequest.DefaultWebProxy;
-                                proxy.Credentials = CredentialCache.DefaultCredentials;
-                            break;
-                            default:
-                                proxy = null;
-                            break;
-                        }
-                    }
-                    catch
-                    {
-                        proxy = null;
-                    }
-                }
-                client.Proxy = proxy;
+                    defaultProxy.Credentials = CredentialCache.DefaultCredentials;
+                    client.Proxy = defaultProxy;
+                } 
 
                 try
                 {
