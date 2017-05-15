@@ -59,12 +59,7 @@ namespace SKM.V3.Internal
                 // in case we have a proxy server. if not, we set it to null to avoid unnecessary time delays.
                 // based on http://stackoverflow.com/a/4420429/1275924 and http://stackoverflow.com/a/6990291/1275924.
 
-                IWebProxy defaultProxy = WebRequest.DefaultWebProxy;
-                if (defaultProxy != null)
-                {
-                    defaultProxy.Credentials = CredentialCache.DefaultCredentials;
-                    client.Proxy = defaultProxy;
-                } 
+                client.Proxy = WebRequest.DefaultWebProxy;
 
                 try
                 {
