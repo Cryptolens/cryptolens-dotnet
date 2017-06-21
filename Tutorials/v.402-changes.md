@@ -1,4 +1,4 @@
-## Changes since previous release
+## Changes since the previous release
 
 * Support for VPN and proxy added by default.
 * SHA-256 support for machine codes has been added with `getSHA256` method. 
