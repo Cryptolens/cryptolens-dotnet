@@ -4,6 +4,33 @@ using System.ComponentModel;
 
 namespace SKM.V3.Models
 {
+    public class GetCustomerLicensesModel
+    {
+        public int CustomerId { get; set; }
+
+        public bool Detailed { get; set; }
+    }
+
+    public class GetCustomerLicensesResult : BasicResult
+    {
+        public List<LicenseKey> LicenseKeys { get; set; }
+    }
+
+    public class RemoveCustomerModel
+    {
+        public int CustomerId { get; set; }
+    }
+    public class AddCustomerModel
+    {
+        public string Name { get; set; }
+        public string Email { get; set; }
+        public string CompanyName { get; set; }
+    }
+
+    public class AddCustomerResult : BasicResult
+    {
+        public int CustomerId { get; set; }
+    }
     public class DeactivateModel : KeyLockModel
     {
         [DefaultValue("")]
@@ -121,6 +148,13 @@ namespace SKM.V3.Models
     {
         public LicenseKey LicenseKey { get; set; }
     }
+
+    public class MachineLockLimit : KeyLockModel
+    {
+        public int NumberOfMachines { get; set; }
+    }
+
+
 
     /// <summary>
     /// Input parameters to KeyLock method.

@@ -1375,6 +1375,30 @@ namespace SKGL
             }
         }
 
+        /// <summary>
+        /// This method will generate a SHA256 hash.
+        /// </summary>
+        /// <param name="s">The string value of the infromation that is to be hashed.</param>
+        /// <returns>A string with the hash value</returns>
+        /// <remarks>Please see <see cref="getMachineCode"/> for a code example of how this method can be used.</remarks>
+        public static string getSHA256(string s)
+        {
+            using (SHA256 sha256 = new SHA256Managed())
+            {
+                var hash = sha256.ComputeHash(System.Text.Encoding.Unicode.GetBytes(s));
+                //return Convert.ToBase64String(hash);
+
+                var sb = new StringBuilder(hash.Length * 2);
+                foreach (byte b in hash)
+                {
+                    // can be "x2" if you want lowercase
+                    sb.Append(b.ToString("X2"));
+                }
+
+                return sb.ToString();
+            }
+        }
+
         #endregion
 
     }

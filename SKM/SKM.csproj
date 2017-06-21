@@ -21,7 +21,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE; </DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Debug\SKM.XML</DocumentationFile>
@@ -30,7 +30,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -68,13 +68,21 @@
     <Compile Include="SKM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SKMv3\Auth.cs" />
+    <Compile Include="SKMv3\Customer.cs" />
     <Compile Include="SKMv3\Data.cs" />
     <Compile Include="SKMv3\ExtensionMethods.cs" />
+    <Compile Include="SKMv3\Helpers.cs" />
     <Compile Include="SKMv3\Product.cs" />
     <Compile Include="SKMv3\Key.cs" />
     <Compile Include="WebAPIModels.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="bin\Debug\config.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="bin\Release\config.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="certifikat.pfx" />
     <None Include="packages.config" />
   </ItemGroup>

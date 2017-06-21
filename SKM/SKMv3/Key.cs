@@ -285,5 +285,20 @@ namespace SKM.V3.Methods
         {
             return HelperMethods.SendRequestToWebAPI3<KeyInfoResult>(parameters, "/key/unblockkey/", token);
         }
+
+
+        /// <summary>
+        /// This method will change the maximum number of machine codes that a license key can have.
+        /// </summary>
+        /// <param name="token">Details such as Token and Version.</param>
+        /// <param name="parameters">The parameters that the method needs.</param>
+        /// <remarks>This method may, in rare cases, return null if an error has occurred.
+        /// Null should be seen as an unsuccessful result.
+        /// </remarks>
+        /// <returns>A BasicResult object or null.</returns>
+        public static BasicResult MachineLockLimit(string token, MachineLockLimit parameters)
+        {
+            return HelperMethods.SendRequestToWebAPI3<KeyInfoResult>(parameters, "/key/machinelocklimit/", token);
+        }
     }
 }

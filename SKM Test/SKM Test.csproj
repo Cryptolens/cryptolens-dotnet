@@ -64,6 +64,12 @@
   </Choose>
   <ItemGroup>
     <Compile Include="CodeSample.cs" />
+    <Compile Include="AccessToken.Designer.cs">
+      <DependentUpon>AccessToken.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="TestData.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -81,6 +87,8 @@
     <Compile Include="TestSKMTimeMethods.cs" />
     <Compile Include="V3\TestProduct.cs" />
     <Compile Include="V3\TestKey.cs" />
+    <Compile Include="V3\TestCustomer.cs" />
+    <Compile Include="V3\TestHelpers.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Samples\" />
@@ -95,6 +103,12 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="AccessToken.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>AccessToken.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>AccessToken</CustomToolNamespace>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="TestData.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>TestData.Designer.cs</LastGenOutput>

@@ -17,11 +17,53 @@ namespace SKM_Test
 
 
         [TestMethod]
+        public void MachineLockTest()
+        {
+            var key = "BIJGF-ZNULN-FVALJ-GQDTH";
+            var license = Key.GetKey(AccessToken.AccessToken.GetKey, new KeyInfoModel { Key = key, ProductId = 3349 });
+
+            if (license == null || license.Result == ResultType.Error)
+                Assert.Fail("Could not get the key: " + license.Message );
+
+            Random rnd = new Random();
+            var num = rnd.Next(1, 999);
+
+            var increaseMachineLockLimit = Key.MachineLockLimit(AccessToken.AccessToken.MachineLoclLimit, new MachineLockLimit { Key = key, ProductId = 3349, NumberOfMachines = num });
+
+            if (increaseMachineLockLimit == null || increaseMachineLockLimit.Result == ResultType.Error)
+                Assert.Fail("Could not update.");
+
+            license = Key.GetKey(AccessToken.AccessToken.GetKey, new KeyInfoModel { Key = key, ProductId = 3349 });
+
+            if (license == null || license.Result == ResultType.Error)
+                Assert.Fail("Could not get the key 2nd time.");
+
+            Assert.IsTrue(license.LicenseKey.MaxNoOfMachines == num);
+
+        }
+
+
+        [TestMethod]
+        public void SignatureTest()
+        {
+            var result = Key.Activate(AccessToken.AccessToken.Activate, new ActivateModel {  MachineCode = "test", Key = "MTMPW-VZERP-JZVNZ-SCPZM", ProductId = 3349, Sign = true});
+
+            if(result == null || result.Result == ResultType.Error)
+            {
+                Assert.Fail();
+            }
+
+            if (!result.LicenseKey.HasValidSignature("<RSAKeyValue><Modulus>sGbvxwdlDbqFXOMlVUnAF5ew0t0WpPW7rFpI5jHQOFkht/326dvh7t74RYeMpjy357NljouhpTLA3a6idnn4j6c3jmPWBkjZndGsPL4Bqm+fwE48nKpGPjkj4q/yzT4tHXBTyvaBjA8bVoCTnu+LiC4XEaLZRThGzIn5KQXKCigg6tQRy0GXE13XYFVz/x1mjFbT9/7dS8p85n8BuwlY5JvuBIQkKhuCNFfrUxBWyu87CFnXWjIupCD2VO/GbxaCvzrRjLZjAngLCMtZbYBALksqGPgTUN7ZM24XbPWyLtKPaXF2i4XRR9u6eTj5BfnLbKAU5PIVfjIS+vNYYogteQ==</Modulus><Exponent>AQAB</Exponent></RSAKeyValue>", 30).IsValid())
+                Assert.Fail();
+        }
+
+        [TestMethod]
         public void SaveLoadFile()
         {
             var key = new LicenseKey() { Key = "hello", Expires = DateTime.Today };
 
-            key.SaveToFile();
+            if (key.SaveToFile() == null)
+                Assert.Fail();
 
             var load = new LicenseKey().LoadFromFile();
 
@@ -125,6 +167,26 @@ namespace SKM_Test
         }
 
         [TestMethod]
+        public void ExtendLicenseChangeExpireDateTest()
+        {
+            var keydata = new ExtendLicenseModel() { Key = "ITVBC-GXXNU-GSMTK-NIJBT", NoOfDays = 365, ProductId = 3349 };
+            var auth = "WyI0IiwiY0E3aHZCci9FWFZtOWJYNVJ5eTFQYk8rOXJSNFZ5TTh1R25YaDVFUiJd";
+
+            var result = Key.ExtendLicense(auth, keydata);
+
+            if (result != null && result.Result == ResultType.Success)
+            {
+
+                // the license was successfully extended with 30 days.
+            }
+            else
+            {
+                Assert.Fail();
+            }
+        }
+
+
+        [TestMethod]
         public void AddFeatureTest()
         {
             var keydata = new FeatureModel() { Key = "LXWVI-HSJDU-CADTC-BAJGW", Feature = 2, ProductId = 3349 };
@@ -214,6 +276,7 @@ namespace SKM_Test
                 }
                 else
                 {
+                    dataObj.SetIntValue(tokenDObj, 0);
                     Assert.Fail();
                     // fail, the the user has already used it 10 times.
                 }
@@ -342,6 +405,18 @@ namespace SKM_Test
             Assert.IsTrue(license.IsNotBlocked().IsValid());
 
 
+        }
+
+        [TestMethod]
+        public void TestKeyDate()
+        {
+            var license = new LicenseKey()
+            {
+                Created = DateTime.Today,
+                Expires = DateTime.Today.AddDays(300)
+            };
+
+            Assert.IsTrue(license.DaysLeft() == 300);
         }
 
     }
