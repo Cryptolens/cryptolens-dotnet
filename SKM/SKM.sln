@@ -1,24 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.30501.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SKM", "SKM.csproj", "{9C8E33E5-7833-4EB2-9D3D-A16200B14390}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SKM Test", "..\SKM Test\SKM Test.csproj", "{53AF54EF-7047-41F8-8876-856589A87503}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SKM Experimental", "..\SKM Experimental\SKM Experimental.csproj", "{D6BFA335-BC1C-459D-848F-49066595F46C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "User Login Auth Example", "User Login Auth Example\User Login Auth Example.csproj", "{B88624C5-0ABC-48A6-810F-BB3EABDF7574}"
+EndProject
 Global
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 3
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs18
-		SccProjectUniqueName0 = SKM.csproj
-		SccLocalPath0 = .
-		SccProjectUniqueName1 = ..\\SKM\u0020Test\\SKM\u0020Test.csproj
-		SccProjectName1 = ../SKM\u0020Test
-		SccLocalPath1 = ..\\SKM\u0020Test
-		SccLocalPath2 = .
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -32,6 +25,14 @@ Global
 		{53AF54EF-7047-41F8-8876-856589A87503}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{53AF54EF-7047-41F8-8876-856589A87503}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{53AF54EF-7047-41F8-8876-856589A87503}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D6BFA335-BC1C-459D-848F-49066595F46C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6BFA335-BC1C-459D-848F-49066595F46C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6BFA335-BC1C-459D-848F-49066595F46C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6BFA335-BC1C-459D-848F-49066595F46C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B88624C5-0ABC-48A6-810F-BB3EABDF7574}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B88624C5-0ABC-48A6-810F-BB3EABDF7574}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B88624C5-0ABC-48A6-810F-BB3EABDF7574}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B88624C5-0ABC-48A6-810F-BB3EABDF7574}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
