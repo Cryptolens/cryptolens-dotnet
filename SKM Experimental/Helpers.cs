@@ -58,7 +58,7 @@ namespace Cryptolens.SKM.Helpers
 
 
                 var jObj = JObject.FromObject(inputParameters);
-                jObj.Add("token", token);
+                //jObj.Add("token", token);
                 jObj.Add("v", 1);
 
                 var serializedContent = jObj.ToString();

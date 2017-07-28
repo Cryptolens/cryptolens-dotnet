@@ -42,7 +42,7 @@ namespace Cryptolens.SKM.Auth
 
             try
             {
-                result = Helpers.HelperMethods.SendRequestToWebAPI3<GetLicenseKeysResultLinqSign>(new GetLicenseKeysModel { Sign = true}, "/User/GetLicenseKeys", tokenNew);
+                result = Helpers.HelperMethods.SendRequestToWebAPI3<GetLicenseKeysResultLinqSign>(new GetLicenseKeysModel { Sign = true, MachineCode = machineCode}, "/User/GetLicenseKeys", tokenNew);
             } catch (Exception ex) { return (null, "Could not contact SKM: " + ex.InnerException, tokenNew); }
 
 

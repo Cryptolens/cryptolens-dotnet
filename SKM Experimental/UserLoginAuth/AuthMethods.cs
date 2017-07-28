@@ -44,7 +44,7 @@ namespace Cryptolens.SKM.Auth
                 PublicKey = RSAParamsPublic,
                 Scope = JsonConvert.SerializeObject(scope),
                 VendorAppName = appName,
-                DeviceName = Environment.GetEnvironmentVariable("CUMPUTERNAME") ?? Environment.GetEnvironmentVariable("HOSTNAME"), //Environment.MachineName in .NET Standard > 1.5,
+                DeviceName = Environment.GetEnvironmentVariable("COMPUTERNAME") ?? Environment.GetEnvironmentVariable("HOSTNAME"), //Environment.MachineName in .NET Standard > 1.5,
                 MachineCode = machineCode,
                 TokenId = tokenId,
                 Algorithm = SignatureAlgorithm.RSA_2048
