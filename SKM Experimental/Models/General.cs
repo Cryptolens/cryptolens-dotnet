@@ -9,20 +9,20 @@ namespace Cryptolens.SKM.Models
     /// A simple result that tells if a request is successful,
     /// and optionally provides a message.
     /// </summary>
-    public class BasicResult
+    internal class BasicResult
     {
         public ResultType Result { get; set; }
         public string Message { get; set; }
     }
 
-    public enum ResultType
+    internal enum ResultType
     {
         Success,
         Error
     }
 
     [Serializable]
-    public class LicenseKey
+    internal class LicenseKey
     {
         public int ProductId { get; set; }
 
@@ -72,7 +72,7 @@ namespace Cryptolens.SKM.Models
     /// <summary>
     /// Information about a customer. Each license key may be assigned a customer.
     /// </summary>
-    public class Customer
+    internal class Customer
     {
         public int Id { get; set; }
 
@@ -89,7 +89,7 @@ namespace Cryptolens.SKM.Models
     /// <summary>
     /// This is the structure of each entry that will be returned by GetActivatedMachines.
     /// </summary>
-    public class ActivationData
+    internal class ActivationData
     {
         /// <summary>
         /// The machine code
@@ -111,7 +111,7 @@ namespace Cryptolens.SKM.Models
     /// <summary>
     /// A Data Object used to store information.
     /// </summary>
-    public class DataObject
+    internal class DataObject
     {
         public long Id { get; set; }
 
@@ -138,7 +138,7 @@ namespace Cryptolens.SKM.Models
         public int IntValue { get; set; }
     }
 
-    public class KeyInfoResult : BasicResult
+    internal class KeyInfoResult : BasicResult
     {
         public LicenseKey LicenseKey { get; set; }
     }

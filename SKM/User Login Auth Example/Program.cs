@@ -9,8 +9,6 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-
-
 namespace User_Login_Auth_Example
 {
     class Program

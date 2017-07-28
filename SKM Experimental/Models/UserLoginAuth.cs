@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Cryptolens.SKM.Models
 {
-    public class GetLicenseKeysModel
+    internal class GetLicenseKeysModel
     {
         public bool Sign { get; set; }
 
@@ -16,7 +16,7 @@ namespace Cryptolens.SKM.Models
         public SignMethod SignMethod { get; set; }
     }
 
-    public class GetLicenseKeysResultStringSign : BasicResult
+    internal class GetLicenseKeysResultStringSign : BasicResult
     {
         public List<BasicResult> Results { get; set; }
         public string ActivatedMachineCodes { get; set; }
@@ -24,7 +24,7 @@ namespace Cryptolens.SKM.Models
 
     }
 
-    public class GetLicenseKeysResultLinqSign : BasicResult
+    internal class GetLicenseKeysResultLinqSign : BasicResult
     {
         public List<KeyInfoResult> Results { get; set; }
         public string ActivatedMachineCodes { get; set; }
@@ -52,14 +52,14 @@ namespace Cryptolens.SKM.Models
         StringSign = 1 // treat the license key as separate json string wrapped inside basic result
     }
 
-   
-    public class GetTokenModel : GetChallengeModel
+
+    internal class GetTokenModel : GetChallengeModel
     {
         public string SignedChallenge { get; set; }
         public long Date { get; set; }
     }
 
-    public class GetTokenResult : BasicResult
+    internal class GetTokenResult : BasicResult
     {
         public string Token { get; set; }
     }
@@ -70,12 +70,12 @@ namespace Cryptolens.SKM.Models
         public string AuthorizationToken { get; set; }
     }
 
-    public class GetChallengeResult : BasicResult
+    internal class GetChallengeResult : BasicResult
     {
         public string Challenge { get; set; }
     }
 
-    public class AuthorizeAppModel
+    internal class AuthorizeAppModel
     {
         public string AuthorizationToken { get; set; }
         public string PublicKey { get; set; }
@@ -89,7 +89,7 @@ namespace Cryptolens.SKM.Models
         public SignatureAlgorithm Algorithm { get; set; }
     }
 
-    public enum SignatureAlgorithm
+    internal enum SignatureAlgorithm
     {
         RSA_2048 = 0
     }
