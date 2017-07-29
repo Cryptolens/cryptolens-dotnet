@@ -13,6 +13,9 @@ using Cryptolens.SKM.Helpers;
 
 namespace Cryptolens.SKM.Auth
 {
+    /// <summary>
+    /// Methods that are used to be able to receive an access token that can list all
+    /// </summary>
     public class AuthMethods
     {
         public static (byte[] authorizationToken , RSAParameters parameters) CreateAuthRequest(Scope scope, string appName, string machineCode, int tokenId, RSA rsa = null)

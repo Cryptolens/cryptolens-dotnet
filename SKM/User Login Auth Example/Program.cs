@@ -20,6 +20,8 @@ namespace User_Login_Auth_Example
 
             var q = UserLoginAuth.GetLicenseKeys("test123", "WyI0MzAiLCJvYmdWdk00WWlldXNWakdqakovTHhzRDFNenU2WklZbGU4NVBQYzEwIl0=", "Artem", aaa.ExportParameters(false), null, new RSACryptoServiceProvider(2048));
 
+            //var q2 = UserLoginAuth.GetLicenseKeys("test123", "WyI0MzAiLCJvYmdWdk00WWlldXNWakdqakovTHhzRDFNenU2WklZbGU4NVBQYzEwIl0=", "Artem", aaa.ExportParameters(false), q.getLicenseKeyToken , new RSACryptoServiceProvider(2048));
+
             var b = JsonConvert.DeserializeObject<GetLicenseKeysResult>(q.jsonResult);
         }
     }
@@ -27,7 +29,7 @@ namespace User_Login_Auth_Example
 
     public class GetLicenseKeysResult : BasicResult
     {
-        public List<KeyInfoResult> Results { get; set; }
+        public string Results { get; set; }
         public string ActivatedMachineCodes { get; set; }
         public string Signature { get; set; }
 
