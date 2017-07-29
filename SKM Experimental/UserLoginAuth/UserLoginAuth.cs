@@ -51,14 +51,16 @@ namespace Cryptolens.SKM.Auth
                 return (null, "An error occurred in the method: " + result?.Message, tokenNew);
             }
 
-            var signedData = Convert.FromBase64String(result.ActivatedMachineCodes);
+
+            var licenseKeys = Convert.FromBase64String(result.Results);
+            var activatedMachines = Convert.FromBase64String(result.ActivatedMachineCodes);
 
             var date = BitConverter.GetBytes(result.SignDate);
 
             if (!BitConverter.IsLittleEndian)
                 Array.Reverse(date);
 
-            var toSign = signedData.Concat(date).ToArray();
+            var toSign = licenseKeys.Concat(activatedMachines.Concat(date)).ToArray();
 
             // only if sign enabled.
             using (var rsaVal = RSA.Create())
@@ -75,8 +77,7 @@ namespace Cryptolens.SKM.Auth
                
             }
 
-            // take this out.
-            var machineCodes = JsonConvert.DeserializeObject<List<String>>(System.Text.UTF8Encoding.UTF8.GetString(signedData));
+            var machineCodes = JsonConvert.DeserializeObject<List<String>>(System.Text.UTF8Encoding.UTF8.GetString(activatedMachines));
             if (machineCodes?.Count != 0 && !machineCodes.Contains(machineCode))
             {
                 return (null, "This machine code has not been authorized.", tokenNew);

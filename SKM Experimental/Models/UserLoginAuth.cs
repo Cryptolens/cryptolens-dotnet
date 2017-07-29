@@ -18,7 +18,7 @@ namespace Cryptolens.SKM.Models
 
     internal class GetLicenseKeysResultStringSign : BasicResult
     {
-        public List<BasicResult> Results { get; set; }
+        public string Results { get; set; }
         public string ActivatedMachineCodes { get; set; }
         public string Signature { get; set; }
 
@@ -26,7 +26,7 @@ namespace Cryptolens.SKM.Models
 
     internal class GetLicenseKeysResultLinqSign : BasicResult
     {
-        public List<KeyInfoResult> Results { get; set; }
+        public string Results { get; set; }
         public string ActivatedMachineCodes { get; set; }
         public string Signature { get; set; }
         public long SignDate { get; set; }
