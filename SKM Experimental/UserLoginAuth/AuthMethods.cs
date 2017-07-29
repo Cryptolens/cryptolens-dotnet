@@ -18,7 +18,7 @@ namespace Cryptolens.SKM.Auth
     /// </summary>
     public class AuthMethods
     {
-        public static (byte[] authorizationToken , RSAParameters parameters) CreateAuthRequest(Scope scope, string appName, string machineCode, int tokenId, RSA rsa = null)
+        public static (byte[] authorizationToken , RSAParameters parameters) CreateAuthRequest(Scope scope, string appName, string machineCode, int tokenId, int expires, RSA rsa = null)
         {
             var authToken = new byte[30];
             using (RandomNumberGenerator rnd = RandomNumberGenerator.Create())
@@ -43,7 +43,7 @@ namespace Cryptolens.SKM.Auth
             var model = new AuthorizeAppModel()
             {
                 AuthorizationToken = Convert.ToBase64String(authToken),
-                Expires = 30,
+                Expires = expires,
                 PublicKey = RSAParamsPublic,
                 Scope = JsonConvert.SerializeObject(scope),
                 VendorAppName = appName,

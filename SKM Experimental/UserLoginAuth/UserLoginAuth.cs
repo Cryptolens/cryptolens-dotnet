@@ -30,6 +30,7 @@ namespace Cryptolens.SKM.Auth
         /// <param name="machineCode">The machine code you want to authorize.</param>
         /// <param name="token">The token to access the "GetToken" method.</param>
         /// <param name="appName">A user friendly name of your application.</param>
+        /// <param name="tokenExpires">Sets the number of days the token should be valid.</param>
         /// <param name="RSAPublicKey">The RSA public key can be found here:
         /// https://serialkeymanager.com/User/Security </param>
         /// <param name="existingToken">If you have already called this method once
@@ -39,13 +40,13 @@ namespace Cryptolens.SKM.Auth
         /// if you target .NET Framework. Otherwise, eg. when targeting .NET Core, it should be null.
         /// </param>
         /// <returns>A tuple containing (jsonResult, error, licenseKeyToken)</returns>
-        public static (string jsonResult, string error, string licenseKeyToken) GetLicenseKeys(string machineCode, string token, string appName, RSAParameters RSAPublicKey, string existingToken = null, RSA rsa = null)
+        public static (string jsonResult, string error, string licenseKeyToken) GetLicenseKeys(string machineCode, string token, string appName, int tokenExpires, RSAParameters RSAPublicKey, string existingToken = null, RSA rsa = null)
         {
             string tokenNew = existingToken;
 
             if (existingToken == null)
             {
-                var auth = AuthMethods.CreateAuthRequest(new Scope { GetLicenseKeys = true }, appName, machineCode, AuthMethods.GetTokenId(token), rsa);
+                var auth = AuthMethods.CreateAuthRequest(new Scope { GetLicenseKeys = true }, appName, machineCode,  AuthMethods.GetTokenId(token), tokenExpires, rsa);
 
                 for (int i = 0; i < 100; i++)
                 {
