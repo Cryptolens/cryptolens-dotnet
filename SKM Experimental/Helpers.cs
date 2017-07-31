@@ -22,7 +22,7 @@ namespace Cryptolens.SKM.Helpers
     /// </summary>
     public class HelperMethods
     {
-        public static string SERVER = "https://localhost:44300/";
+        public static string SERVER = "https://serialkeymanager.com/";
 
 
         /// <summary>
