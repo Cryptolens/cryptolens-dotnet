@@ -7,7 +7,10 @@ This API serves as a layer that simplifies communication with Serial Key Manager
 In Web API 2, authentication usually contains variables such as "pid", "uid" and "hsum". In Web API 3, authentication is performed using access tokens (https://serialkeymanager.com/docs/api/v3/Auth). Please always use Web API 3 for newer projects.
 
 ### Examples
-Examples can be found [here](https://github.com/SerialKeyManager/SKGL-Extension-for-dot-NET/blob/master/Tutorials/v401.md).
+
+* [Most common examples](https://github.com/SerialKeyManager/SKGL-Extension-for-dot-NET/blob/master/Tutorials/v401.md). - this contains our core licensing methods.
+* [Experimental features](https://github.com/SerialKeyManager/SKGL-Extension-for-dot-NET/blob/master/Tutorials/v.101-beta.md) - this includes user login auth and other experimental features.
+
 
 The original repository of this project was: https://skgl.codeplex.com/.
 NB: This is only SKGL.SKM, not the entire SKGL API.

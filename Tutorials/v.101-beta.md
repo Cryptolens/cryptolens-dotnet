@@ -91,7 +91,6 @@ Finally, we can add the code below (for .NET Framework):
      {
          Console.WriteLine("An error occurred.");
      }
-
  }
 ```
 You can also view this [as a part of a project](https://github.com/SerialKeyManager/SKGL-Extension-for-dot-NET/tree/master/SKM/User%20Login%20Auth%20Example).
