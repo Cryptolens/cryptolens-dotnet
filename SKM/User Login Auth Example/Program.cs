@@ -30,7 +30,7 @@ namespace User_Login_Auth_Example
 
                 var licenses = JsonConvert.DeserializeObject<List<KeyInfoResult>>(System.Text.UTF8Encoding.UTF8.GetString(Convert.FromBase64String(data.Results)));
 
-                licenses.Where(x => x.LicenseKey.ProductId == 3349);
+                licenses.Where(x => x.LicenseKey.ProductId == 3349 && x.LicenseKey.F1 == true && x.LicenseKey.HasNotExpired().IsValid());
 
             }
             else
