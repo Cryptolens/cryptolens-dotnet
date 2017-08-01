@@ -30,14 +30,21 @@ namespace User_Login_Auth_Example
 
                 var licenses = JsonConvert.DeserializeObject<List<KeyInfoResult>>(System.Text.UTF8Encoding.UTF8.GetString(Convert.FromBase64String(data.Results)));
 
-                licenses.Where(x => x.LicenseKey.ProductId == 3349 && x.LicenseKey.F1 == true && x.LicenseKey.HasNotExpired().IsValid());
+                var findingLicense = licenses.Where(x => x.LicenseKey.ProductId == 3349 && x.LicenseKey.F1 == true && x.LicenseKey.HasNotExpired().IsValid());
 
+                if(findingLicense.Count() > 1)
+                {
+                    Console.WriteLine("Great, the user has the right license.");
+                }
+                else
+                {
+                    Console.WriteLine("The user has to buy a new license.");
+                }
             }
             else
             {
                 Console.WriteLine("An error occurred.");
             }
-
 
         }
     }
@@ -48,6 +55,5 @@ namespace User_Login_Auth_Example
         public string Results { get; set; }
         public string ActivatedMachineCodes { get; set; }
         public string Signature { get; set; }
-
     }
 }

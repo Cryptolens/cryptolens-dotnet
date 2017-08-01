@@ -4,10 +4,19 @@
     <TargetFramework>netstandard1.4</TargetFramework>
     <RootNamespace>Cryptolens.SKM</RootNamespace>
     <Company>Cryptolens AB</Company>
-    <Description />
+    <Description>This is an extension to https://www.nuget.org/packages/SKGLExtension/ that aims to be platform independent. At the moment, it contains an implementation for User Login Auth and Payment Forms. Right now, it is thought to be used together with https://www.nuget.org/packages/SKGLExtension/.</Description>
     <Copyright>Cryptolens AB</Copyright>
-    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+    <PackageId>Cryptolens.SKM</PackageId>
+    <PackageLicenseUrl>https://github.com/SerialKeyManager/SKGL-Extension-for-dot-NET/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/SerialKeyManager/SKGL-Extension-for-dot-NET</PackageProjectUrl>
+    <Version>1.0.1</Version>
+    <AssemblyVersion>1.0.0.1</AssemblyVersion>
+    <FileVersion>1.0.0.1</FileVersion>
+    <Authors>Artem Los</Authors>
+    <PackageTags>SKM, Serial Key Manager, https://serialkeymanager.com/</PackageTags>
+    <RepositoryUrl></RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
