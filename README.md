@@ -8,7 +8,7 @@ In Web API 2, authentication usually contains variables such as "pid", "uid" and
 
 ### Examples
 
-* [Most common examples](https://github.com/SerialKeyManager/SKGL-Extension-for-dot-NET/blob/master/Tutorials/v401.md). - this contains our core licensing methods.
+* [Most common examples](https://github.com/SerialKeyManager/SKGL-Extension-for-dot-NET/blob/master/Tutorials/v401.md) - this contains our core licensing methods.
 * [Experimental features](https://github.com/SerialKeyManager/SKGL-Extension-for-dot-NET/blob/master/Tutorials/v.101-beta.md) - this includes user login auth and other experimental features.
 
 
