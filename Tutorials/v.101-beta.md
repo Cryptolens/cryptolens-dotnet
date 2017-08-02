@@ -16,7 +16,7 @@ User login authentication allows you to use user accounts instead of license key
 It is recommended that you read through this article first: [https://serialkeymanager.com/docs/api/v3/GetToken](https://serialkeymanager.com/docs/api/v3/GetToken). We plan to create a step-by-step video soon, which will appear here.
 
 #### Installing
-We need two install two packages, **SKGLExtension** and **Cryptolens.SKM**. You can find them on NuGet. 
+We need to install two packages, **SKGLExtension** and **Cryptolens.SKM**. You can find them on NuGet. 
 
 > Your application has to target at least .NET Framework 4.6.1 or .NET Core 1.0. For other platforms, please see section *What’s new in .NET Standard 2.0?* in [this article](https://blogs.msdn.microsoft.com/dotnet/2016/09/26/introducing-net-standard/).
 
