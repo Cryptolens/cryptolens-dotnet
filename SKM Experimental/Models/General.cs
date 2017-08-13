@@ -9,13 +9,13 @@ namespace Cryptolens.SKM.Models
     /// A simple result that tells if a request is successful,
     /// and optionally provides a message.
     /// </summary>
-    internal class BasicResult
+    public class BasicResult
     {
         public ResultType Result { get; set; }
         public string Message { get; set; }
     }
 
-    internal enum ResultType
+    public enum ResultType
     {
         Success,
         Error

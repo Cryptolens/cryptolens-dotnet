@@ -1,15 +1,9 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SKM.V3.Models;
-using SKM.V3;
-using System.Collections.Generic;
-using Cryptolens.SKM.Auth;
-using System.Security.Cryptography;
-using Newtonsoft.Json;
 using Cryptolens.SKM.PaymentForms;
 using Cryptolens.SKM.Models;
 
-namespace SKM_Test.Experimental
+namespace SKM_Net_Core_Test
 {
     [TestClass]
     public class PaymentFormTests
@@ -25,6 +19,4 @@ namespace SKM_Test.Experimental
 
 
     }
-
-
 }

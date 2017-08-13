@@ -9,7 +9,7 @@ namespace Cryptolens.SKM.PaymentForms
 {
     public class PaymentForm
     {
-        internal static CreateSessionResult CreateSession(CreateSessionModel inputParameters, string token)
+        public static CreateSessionResult CreateSession(CreateSessionModel inputParameters, string token)
         {
             return HelperMethods.SendRequestToWebAPI3<CreateSessionResult>(inputParameters, "/paymentform/", token);
         }

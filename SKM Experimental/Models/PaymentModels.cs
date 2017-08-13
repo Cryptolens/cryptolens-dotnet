@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Cryptolens.SKM.Models
 {
-    internal class CreateSessionResult : BasicResult
+    public class CreateSessionResult : BasicResult
     {
         public string SessionId { get; set; }
     }
