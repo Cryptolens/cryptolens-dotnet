@@ -214,8 +214,9 @@ namespace SKM.V3
         /// </summary>
         /// <param name="token">The access token. Read more at https://serialkeymanager.com/docs/api/v3/Auth </param>
         /// <param name="feature">The feature number, eg. 1,2,...,8. </param>
-        /// <returns>Returns a newer version of<see cref="LicenseKey"/> or null if unsuccessful.</returns>
-        public LicenseKey AddFeature(string token, int feature)
+        /// <returns>Returns a true if successful and false otherwise.</returns>
+        /// <exception cref="ArgumentException">If the feature value is incorrect.</exception>
+        public bool AddFeature(string token, int feature)
         {
             var parameters = new FeatureModel
             {
@@ -225,16 +226,40 @@ namespace SKM.V3
                 
             };
 
+            if(feature < 1 ||feature >8)
+                throw new ArgumentException("Feature is out of scope (should be between 1 and 8, inclusive).");
+
             var result = Methods.Key.AddFeature(token, parameters);
 
-            
-            //if (result != null && result.Result == ResultType.Success )
-            //{
-            //    ExtensionMethods.SetFeatureByNumber()
-            //}
-            return null;
+            if (result != null && result.Result == ResultType.Success)
+            {
+                SetFeatureValueById(feature, true);
+                return true;
+            }
+            return false;
         }
 
+
+        private void SetFeatureValueById(int feature, bool value)
+        {
+            if (feature == 1)
+                F1 = value;
+            else if (feature == 2)
+                F2 = value;
+            else if (feature == 3)
+                F3 = value;
+            else if (feature == 4)
+                F4 = value;
+            else if (feature == 5)
+                F5 = value;
+            else if (feature == 6)
+                F6 = value;
+            else if (feature == 7)
+                F7 = value;
+            else if (feature == 8)
+                F8 = value;
+
+        }
 
 
     }
