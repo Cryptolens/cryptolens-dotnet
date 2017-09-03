@@ -122,19 +122,20 @@ namespace SKM.V3
         /// <a href="https://serialkeymanager.com/docs/api/v3/IncrementIntValue">https://serialkeymanager.com/docs/api/v3/IncrementIntValue</a> <br/>
         /// </remarks>
         /// <returns>Returns true if successful or false otherwise.</returns>
-        public bool RemoveDataObject(string token)
+        public bool RemoveDataObject(string token, int dataObjectId)
         {
             var parameters = new RemoveDataObjectToKeyModel
             {
                 ProductId = this.ProductId,
                 Key = this.Key,
-         
+                Id = dataObjectId
             };
 
             var result = Data.RemoveDataObject(token, parameters);
 
             if (result != null && result.Result == ResultType.Success)
             {
+                DataObjects.Remove(DataObjects.FirstOrDefault(x => x.Id == dataObjectId));
                 return true;
             }
             return false;
@@ -226,7 +227,7 @@ namespace SKM.V3
                 
             };
 
-            if(feature < 1 ||feature >8)
+            if(feature < 1 ||feature > 8)
                 throw new ArgumentException("Feature is out of scope (should be between 1 and 8, inclusive).");
 
             var result = Methods.Key.AddFeature(token, parameters);
