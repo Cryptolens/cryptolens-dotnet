@@ -259,7 +259,7 @@ namespace SKM.V3.Methods
         /// to access the key in Web API 3, unless otherwise stated for a given Web API 3 method. 
         /// To do the reverse, please see <see cref="UnblockKey(string, KeyLockModel)"/>.
         /// </summary>
-        /// <param name="token">Details such as Token and Version.</param>
+        /// <param name="token">The access token (https://serialkeymanager.com/User/AccessToken#/) with Block key permission.</param>
         /// <param name="parameters">The parameters that the method needs.</param>
         /// <remarks>This method may, in rare cases, return null if an error has occurred.
         /// Null should be seen as an unsuccessful result.
@@ -275,7 +275,7 @@ namespace SKM.V3.Methods
         /// accessible by most of the methods in the Web API (activation, validation,
         /// optional field, and deactivation). To do the reverse, please see <see cref="BlockKey(string, KeyLockModel)"/>.
         /// </summary>
-        /// <param name="token">Details such as Token and Version.</param>
+        /// <param name="token">The access token (https://serialkeymanager.com/User/AccessToken#/) with Unblock key permission.</param>
         /// <param name="parameters">The parameters that the method needs.</param>
         /// <remarks>This method may, in rare cases, return null if an error has occurred.
         /// Null should be seen as an unsuccessful result.
@@ -299,6 +299,17 @@ namespace SKM.V3.Methods
         public static BasicResult MachineLockLimit(string token, MachineLockLimit parameters)
         {
             return HelperMethods.SendRequestToWebAPI3<KeyInfoResult>(parameters, "/key/machinelocklimit/", token);
+        }
+
+        /// <summary>
+        /// This method will change the content of the notes field of a given license key.
+        /// </summary>
+        /// <param name="token">The access token (https://serialkeymanager.com/User/AccessToken#/) with Change Notes permission.</param>
+        /// <param name="parameters">The parameters that the method needs.</param>
+        /// <returns>A BasicResult object or null.</returns>
+        public static BasicResult ChangeNotes(string token, ChangeNotesModel parameters)
+        {
+            return HelperMethods.SendRequestToWebAPI3<BasicResult>(parameters, "/key/changenotes/", token);
         }
     }
 }

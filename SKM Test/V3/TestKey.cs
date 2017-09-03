@@ -419,5 +419,16 @@ namespace SKM_Test
             Assert.IsTrue(license.DaysLeft() == 300);
         }
 
+        [TestMethod]
+        public void TestChangeNotes()
+        {
+            var result = Key.ChangeNotes(AccessToken.AccessToken.ChangeNotes, new ChangeNotesModel { Key = "LEPWV-FOTPG-MWBEO-FBFPS", Notes = "test", ProductId = 3349 });
+
+            if(result == null || result.Result == ResultType.Error)
+            {
+                Assert.Fail("Error on the server side.");
+            }
+        }
+
     }
 }

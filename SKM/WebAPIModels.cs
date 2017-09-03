@@ -155,6 +155,12 @@ namespace SKM.V3.Models
     }
 
 
+    public class ChangeNotesModel : KeyLockModel
+    {
+        public string Notes { get; set; }
+    }
+
+
 
     /// <summary>
     /// Input parameters to KeyLock method.
