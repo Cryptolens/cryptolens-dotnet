@@ -13,7 +13,7 @@ User login authentication allows you to use user accounts instead of license key
 
 #### Prior reading
 
-It is recommended that you read through this article first: [https://serialkeymanager.com/docs/api/v3/GetToken](https://serialkeymanager.com/docs/api/v3/GetToken). We plan to create a step-by-step video soon, which will appear here.
+It is recommended that you read through this article first: [https://serialkeymanager.com/docs/api/v3/GetToken](https://serialkeymanager.com/docs/api/v3/GetToken). A step-by-step video can be found [here](https://youtu.be/3GDwRUBgD4A).
 
 #### Installing
 We need to install two packages, **SKGLExtension** and **Cryptolens.SKM**. You can find them on NuGet. 
@@ -93,6 +93,6 @@ Finally, we can add the code below (for .NET Framework):
      }
  }
 ```
-You can also view this [as a part of a project](https://github.com/SerialKeyManager/SKGL-Extension-for-dot-NET/tree/master/SKM/User%20Login%20Auth%20Example).
+You can also view this [as a part of a project](https://github.com/SerialKeyManager/SKGL-Extension-for-dot-NET/tree/master/SKM/User%20Login%20Auth%20Example). You can also see a working application with prepared code snippets [here](https://github.com/SerialKeyManager/Examples/tree/master/Digital%20Tools%20Collection%20User%20Login%20Auth).
 
 For .NET Core applications, you don't need to add the last parameter, `RSACryptoServiceProvider(2048)`. We will keep updating this page with more information about .NET Core.
