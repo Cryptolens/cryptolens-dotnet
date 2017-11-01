@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Configuration;
 
-namespace SKM.V3.Internal
+namespace SKM.V3
 {
     /// <summary>
     /// Information about a customer. Each license key may be assigned a customer.

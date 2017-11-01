@@ -22,6 +22,19 @@ using SKM.V3;
 /// </summary>
 namespace SKGL
 {
+
+    /// <summary>
+    ///   <para>
+    ///     Methods that that are used to communicate with Web API 2. For newer projects, please avoid
+    ///     using this namespace. You can still use <see cref="SKGL.SKM.getMachineCode(Func{string, string}, bool)"/>,
+    ///     <see cref="SKM.TimeCheck"/> and <see cref="SKM.getSHA256(string)"/>.
+    ///   </para>
+    /// </summary>
+    internal class NamespaceDoc
+    {
+
+    }
+
     /// <summary>
     /// This class contains additional methods to ease serial key validation with Serial Key Manager. 
     /// Most of the methods will Web API 2, where "uid", "pid" and "hsum" are required in each request.

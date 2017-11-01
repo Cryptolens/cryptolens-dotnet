@@ -4,6 +4,18 @@ using System.ComponentModel;
 
 namespace SKM.V3.Models
 {
+
+    /// <summary>
+    ///   <para>
+    ///     All the classes that are either used as a paramter for an API method or represent the
+    ///     data that is being sent back.
+    ///   </para>
+    /// </summary>
+    internal class NamespaceDoc
+    {
+
+    }
+
     public class GetCustomerLicensesModel
     {
         public int CustomerId { get; set; }
