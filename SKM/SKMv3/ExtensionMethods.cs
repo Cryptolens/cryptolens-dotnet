@@ -9,6 +9,18 @@ using System.Security.Cryptography;
 
 namespace SKM.V3
 {
+
+    /// <summary>
+    /// <para>
+    /// This namespace should always be included since it contains the base classes and methods for Web API V3.
+    /// </para>
+    /// </summary>
+    internal class NamespaceDoc
+    {
+
+    }
+
+
     /// <summary>
     /// The extension methods are not thought to be used through this class, but instead
     /// through the relevant objects that they affect. Please see the examples below.
@@ -283,6 +295,8 @@ namespace SKM.V3
         /// Checks so that the machine code corresponds to the machine code of this computer.
         /// The default hash function is SHA1.
         /// </summary>
+        /// <remarks>Please use <see cref="SKM.V3.Methods.Helpers.IsOnRightMachine(LicenseKey)"/> instead of this method
+        /// since it uses SHA256 by default.</remarks>
         /// <returns></returns>
         public static LicenseKey IsOnRightMachine(this LicenseKey licenseKey)
         {

@@ -192,7 +192,7 @@ namespace SKM.V3.Models
         public string Key { get; set; }
     }
     /// <summary>
-    /// The result of <see cref="Key.KeyLock(AuthDetails, KeyLockModel)"/>
+    /// The result of <see cref="SKM.V3.Methods.Auth.KeyLock(string, KeyLockModel)/>
     /// </summary>
     public class KeyLockResult : BasicResult
     {

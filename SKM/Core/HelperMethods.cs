@@ -9,6 +9,16 @@ using System.Text;
 namespace SKM.V3.Internal
 {
     /// <summary>
+    /// <para>
+    /// This namespace contains methods that are used internally to communicate with the Web API. You will most likely not need to use them.
+    /// </para>
+    /// </summary>
+    internal class NamespaceDoc
+    {
+
+    }
+
+    /// <summary>
     /// The methods that are being used under the hood.
     /// </summary>
     public class HelperMethods

@@ -8,6 +8,14 @@ using System.Security.Cryptography;
 
 namespace SKM.V3
 {
+    /// <summary>
+    /// This class describes a License Key object. You can use it to verify a license, 
+    /// store it in a file, or use some of its methods to update it.
+    /// </summary>
+    /// <remarks>You can use the <br>feature lock</br> to choose which fields should be masked.
+    /// On the <a href="https://serialkeymanager.com/docs/api/v3/activate#LicenseKey">activation</a> method page,
+    /// you can use the interactive table to choose which fields should be masked. FieldsToReturn will then get a new value,
+    /// and this value should then be used in the <br>feature lock</br>.</remarks>
     public class LicenseKey
     {
         public int ProductId { get; set; }
