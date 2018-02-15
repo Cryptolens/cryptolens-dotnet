@@ -137,6 +137,15 @@ namespace SKM.V3.Models
         /// Page parameter.
         /// </summary>
         public int Total { get; set; }
+
+        /// <summary>
+        /// Since not all keys will be returned if the number of them is
+        /// more than 99, you can increment the Page parameter to list
+        /// the remaining ones. This value is the limit of the number of
+        /// pages available (this makes it easier to iterate through all
+        /// the keys).
+        /// </summary>
+        public int PageCount { get; set; }
     }
 
     public class ActivateModel 
