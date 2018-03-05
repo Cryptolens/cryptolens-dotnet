@@ -45,7 +45,6 @@ namespace SKM.V3.Internal
                                                           .Invoke(inputParameters, null) == null ? "" : x.GetGetMethod()
                                                           .Invoke(inputParameters, null).ToString()));
 
-
             using (WebClient client = new WebClient())
             {
                 NameValueCollection reqparm = new NameValueCollection();
@@ -54,11 +53,6 @@ namespace SKM.V3.Internal
                 {
                     reqparm.Add(input.Key, input.Value);
                 }
-
-#if DEBUG
-                // ignore certificate errors only in debug mode.
-                ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;
-#endif
 
                 reqparm.Add("token", token);
                 reqparm.Add("v", "1");

@@ -770,7 +770,7 @@ namespace SKGL
         /// </code>
         /// </example>
         /// <returns>A dictionary of the JSON elements returned for that particular request.</returns>
-        public static Dictionary<string, string> GetParameters(Dictionary<string, string> inputParameters, string typeOfAction, WebProxy proxy = null)
+        public static Dictionary<string, string> GetParameters(Dictionary<string, string> inputParameters, string typeOfAction)
         {
             using (WebClient client = new WebClient())
             {
@@ -781,11 +781,7 @@ namespace SKGL
                     reqparm.Add(input.Key, input.Value);
                 }
 
-                //client.Credentials = System.Net.CredentialCache.DefaultCredentials;
-
-                // in case we have a proxy server. if not, we set it to null to avoid unnecessary time delays.
-                // based on http://stackoverflow.com/a/4420429/1275924 and http://stackoverflow.com/a/6990291/1275924. 
-                client.Proxy = proxy;
+                client.Proxy = WebRequest.DefaultWebProxy;
 
                 byte[] responsebytes = client.UploadValues("https://serialkeymanager.com/Ext/" + typeOfAction, "POST", reqparm);
                 string responsebody = Encoding.UTF8.GetString(responsebytes);
