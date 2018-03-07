@@ -781,7 +781,7 @@ namespace SKGL
                     reqparm.Add(input.Key, input.Value);
                 }
 
-                client.Proxy = WebRequest.DefaultWebProxy;
+                client.Proxy = WebRequest.GetSystemWebProxy();//WebRequest.DefaultWebProxy;
 
                 byte[] responsebytes = client.UploadValues("https://serialkeymanager.com/Ext/" + typeOfAction, "POST", reqparm);
                 string responsebody = Encoding.UTF8.GetString(responsebytes);
