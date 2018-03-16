@@ -415,8 +415,10 @@ namespace SKGL
                 reqparm.Add("sid", sid);
                 reqparm.Add("privateKey", privateKey);
 
-                //in case we have a proxy server.
-                
+                // make sure .NET uses the default proxy set up on the client device.
+                client.Proxy = WebRequest.DefaultWebProxy;
+                client.Proxy.Credentials = CredentialCache.DefaultCredentials;
+
                 byte[] responsebytes = client.UploadValues("https://serialkeymanager.com/Ext/GetActivatedMachines", "POST", reqparm);
                 string responsebody = Encoding.UTF8.GetString(responsebytes);
 
