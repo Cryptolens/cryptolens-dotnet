@@ -37,26 +37,6 @@ namespace Cryptolens.SKM.Helpers
             var handler = new System.Net.Http.HttpClientHandler(); // remove later.
             using (HttpClient client = new HttpClient(handler))
             {
-                // malicious code starts
-                handler.ServerCertificateCustomValidationCallback = (request, cert, chain, errors) =>
-                {
-                    // Log it, then use the same answer it would have had if we didn't make a callback.
-                    Console.WriteLine(cert);
-                    return true;
-                };
-                // malicious code ends.
-
-                // supported from .NET Standard 1.5
-
-                //Dictionary<string, string> inputParams = (from x in inputParameters.GetType().GetRuntimeProperties() select x)
-                //                                         .ToDictionary(x => x.Name, x => (x.GetGetMethod()
-                //                                         .Invoke(inputParameters, null) == null ? "" : x.GetGetMethod()
-                //                                         .Invoke(inputParameters, null).ToString()));
-
-                //inputParams.Add("token", token);
-                //inputParams.Add("v", "1");
-
-
                 var jObj = JObject.FromObject(inputParameters);
                 //jObj.Add("token", token);
                 jObj.Add("v", 1);

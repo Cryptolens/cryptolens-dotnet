@@ -146,7 +146,7 @@ namespace SKGL
                            ((x & 0x00ff0000) >> 8) +
                            ((x & 0xff000000) >> 24));
         }
-        
+
         /// <summary>
         /// Returns the number of days left for a given license (time left). This method is particularly useful 
         /// when KeyInfo is not updated regularly, because TimeLeft will not be affected (stay constant).
@@ -154,6 +154,7 @@ namespace SKGL
         /// </summary>
         /// <param name="keyInfo"></param>
         /// <returns></returns>
+        [Obsolete]
         public static int DaysLeft (KeyInformation keyInfo)
         {
             return DaysLeft(keyInfo, false);
@@ -168,6 +169,7 @@ namespace SKGL
         /// <param name="keyInfo"></param>
         /// <param name="zeroIfExpired">If true, when a license has expired, zero will be returned.</param>
         /// <returns></returns>
+        [Obsolete]
         public static int DaysLeft(KeyInformation keyInfo, bool zeroIfExpired = false)
         {
             var days = keyInfo.ExpirationDate - DateTime.Today;
@@ -223,6 +225,7 @@ namespace SKGL
         /// </code>
         /// </example>
         /// <returns>KeyInformation or null.</returns>
+        [Obsolete]
         public static KeyInformation KeyValidation(string pid, string uid, string hsum, string sid, bool secure=false, bool signPid=false, bool signUid=false, bool signDate = false)
         {
 
@@ -301,6 +304,7 @@ namespace SKGL
         /// </code>
         /// </example>
         /// <returns>Returns a KeyInformation object if all rules were satisfied and null if an error occured.</returns>
+        [Obsolete("Please use Key.Activate in SKM.V3.Methods.")]
         public static KeyInformation KeyActivation(string pid, string uid, string hsum, string sid, string mid, bool secure = false, bool signMid = false, bool signPid=false, bool signUid=false, bool signDate = false )
         {
             Dictionary<string, string> input = new Dictionary<string, string>();
@@ -372,6 +376,8 @@ namespace SKGL
         /// </code>
         /// </example>
         /// <returns>Returns a KeyInformation object (with a key and machine code only) or null.</returns>
+
+        [Obsolete("Please use Key.Deactivate in SKM.V3.Methods.")]
         public static KeyInformation KeyDeactivation(string pid, string uid, string hsum, string sid, string mid)
         {
             Dictionary<string, string> input = new Dictionary<string, string>();
@@ -403,6 +409,7 @@ namespace SKGL
         /// <param name="sid">Serial Key that is to be validated</param>
         /// <param name="privateKey">The private key of the user.</param>
         /// <returns>A list of ActivatedData or null.</returns>
+        [Obsolete]
         public static List<ActivationData> GetActivatedMachines(ProductVariables productVariables,string privateKey, string sid)
         {
             using (WebClient client = new WebClient())
@@ -415,8 +422,10 @@ namespace SKGL
                 reqparm.Add("sid", sid);
                 reqparm.Add("privateKey", privateKey);
 
-                //in case we have a proxy server.
-                
+                // make sure .NET uses the default proxy set up on the client device.
+                client.Proxy = WebRequest.DefaultWebProxy;
+                client.Proxy.Credentials = CredentialCache.DefaultCredentials;
+
                 byte[] responsebytes = client.UploadValues("https://serialkeymanager.com/Ext/GetActivatedMachines", "POST", reqparm);
                 string responsebody = Encoding.UTF8.GetString(responsebytes);
 
@@ -781,7 +790,9 @@ namespace SKGL
                     reqparm.Add(input.Key, input.Value);
                 }
 
-                client.Proxy = WebRequest.GetSystemWebProxy();//WebRequest.DefaultWebProxy;
+                // make sure .NET uses the default proxy set up on the client device.
+                client.Proxy = WebRequest.DefaultWebProxy;
+                client.Proxy.Credentials = CredentialCache.DefaultCredentials;
 
                 byte[] responsebytes = client.UploadValues("https://serialkeymanager.com/Ext/" + typeOfAction, "POST", reqparm);
                 string responsebody = Encoding.UTF8.GetString(responsebytes);
@@ -867,7 +878,7 @@ namespace SKGL
         /// <param name="password">Your password</param>
         /// <param name="proxy">(Optional) The proxy settings.</param>
         /// <returns>All products as a dictionary. The "key" is the product name and the "value" is the product id.</returns>
-        public static Dictionary<string, string> ListUserProducts(string username, string password, WebProxy proxy = null)
+        public static Dictionary<string, string> ListUserProducts(string username, string password)
         {
             using (WebClient client = new WebClient())
             {
@@ -877,8 +888,9 @@ namespace SKGL
 
                 //client.Credentials = System.Net.CredentialCache.DefaultCredentials;
 
-                //in case we have a proxy server. (see the comment in the GetParameter method)
-                client.Proxy = proxy;
+                // make sure .NET uses the default proxy set up on the client device.
+                client.Proxy = WebRequest.DefaultWebProxy;
+                client.Proxy.Credentials = CredentialCache.DefaultCredentials;
 
                 byte[] responsebytes = client.UploadValues("https://serialkeymanager.com/Ext/ListProducts", "POST", reqparm);
                 string responsebody = Encoding.UTF8.GetString(responsebytes);
@@ -911,7 +923,7 @@ namespace SKGL
         /// </code>
         /// </example>
         /// <returns>The "uid","pid", and "hsum" variables</returns>
-        public static ProductVariables GetProductVariables(string username, string password, string productID, WebProxy proxy = null)
+        public static ProductVariables GetProductVariables(string username, string password, string productID)
         {
             using (WebClient client = new WebClient())
             {
@@ -922,8 +934,9 @@ namespace SKGL
 
                 //client.Credentials = System.Net.CredentialCache.DefaultCredentials;
 
-                //in case we have a proxy server. (see the comment in GetParameters)                
-                client.Proxy = proxy;
+                // make sure .NET uses the default proxy set up on the client device.
+                client.Proxy = WebRequest.DefaultWebProxy;
+                client.Proxy.Credentials = CredentialCache.DefaultCredentials;
 
                 byte[] responsebytes = client.UploadValues("https://serialkeymanager.com/Ext/GetProductVariables", "POST", reqparm);
                 string responsebody = Encoding.UTF8.GetString(responsebytes);
