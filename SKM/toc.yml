@@ -1,5 +1,9 @@
 - name: Help
   href: https://help.cryptolens.io
+
+- name: Release Notes
+  href: articles/
+  
 - name: API Documentation
   href: obj/api/
   homepage: api/index.md

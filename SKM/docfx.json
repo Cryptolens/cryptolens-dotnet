@@ -14,7 +14,7 @@
           ]
         }
       ],
-      "dest": "obj/api",
+      "dest": "obj/api"
     }
   ],
   "build": {
@@ -29,6 +29,7 @@
         "files": [
           "api/*.md",
           "articles/**.md",
+          "articles/**/toc.yml",
           "toc.yml",
           "*.md"
         ],

@@ -1,3 +1,7 @@
+---
+title: Changes since v401 (in v402)
+---
+
 ## Changes since the previous release
 
 * Support for VPN and proxy added by default.
