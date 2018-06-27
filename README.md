@@ -2,11 +2,11 @@
 
 This API serves as a layer that simplifies communication with Serial Key Manager Web API 2 and 3 (https://app.cryptolens.io/docs/api).
 
+> You can access the documentation of the library at https://help.cryptolens.io/api/dotnet/.
+
 ### Web API versions
 
 In Web API 2, authentication usually contains variables such as "pid", "uid" and "hsum". In Web API 3, authentication is performed using access tokens (https://app.cryptolens.io/docs/api/v3/Auth). Please always use Web API 3 for newer projects.
-
-You can access the documentation of the library at https://help.cryptolens.io/api/dotnet/.
 
 ### Examples
 
