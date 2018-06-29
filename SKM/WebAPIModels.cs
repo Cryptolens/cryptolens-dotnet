@@ -59,6 +59,8 @@ namespace SKM.V3.Models
 
         public bool Sign { get; set; }
         public int FieldsToReturn { get; set; }
+
+        public bool Metadata { get; set; }
     }
 
     public class CreateKeyModel
@@ -161,6 +163,8 @@ namespace SKM.V3.Models
 
         public int FieldsToReturn { get; set; }
 
+        public bool Metadata { get; set; }
+
     }
     /// <summary>
     /// 
@@ -168,6 +172,14 @@ namespace SKM.V3.Models
     public class KeyInfoResult : BasicResult
     {
         public LicenseKey LicenseKey { get; set; }
+
+        public KeyMetadata Metadata { get; set; }
+    }
+
+    public class KeyMetadata
+    {
+        public int ActivatedMachines { get; set; }
+        public LicenseStatus LicenseStatus { get; set; }
     }
 
     public class MachineLockLimit : KeyLockModel

@@ -390,6 +390,12 @@ namespace SKM.V3
             return null;
         }
 
+        public static LicenseKey UseServerDefinitions(this LicenseKey license)
+        {
+            license._UseServerDefinitions = true;
+            return license;
+        }
+
 
         internal static bool GetFeatureByNumber(this LicenseKey licenseKey, int i)
         {

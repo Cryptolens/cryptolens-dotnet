@@ -430,5 +430,16 @@ namespace SKM_Test
             }
         }
 
+
+        [TestMethod]
+        public void TestLicenseStatus()
+        {
+            var test = new LicenseKey();
+
+            var res = Newtonsoft.Json.JsonConvert.SerializeObject(test);
+
+
+
+        }
     }
 }
