@@ -204,13 +204,20 @@ namespace SKM.V3
         {
             if (licenseKey != null)
             {
-                TimeSpan ts = licenseKey.Expires - DateTime.Today;
-
-                if (ts.Days >= 0)
+                if (licenseKey._UseServerDefinitions)
                 {
-                    if (checkWithInternetTime && SKGL.SKM.TimeCheck())
-                        return null;
-                    return licenseKey;
+                    //TODO:
+                }
+                else
+                {
+                    TimeSpan ts = licenseKey.Expires - DateTime.Today;
+
+                    if (ts.Days >= 0)
+                    {
+                        if (checkWithInternetTime && SKGL.SKM.TimeCheck())
+                            return null;
+                        return licenseKey;
+                    }
                 }
             }
             return null;
@@ -389,13 +396,6 @@ namespace SKM.V3
             }
             return null;
         }
-
-        public static LicenseKey UseServerDefinitions(this LicenseKey license)
-        {
-            license._UseServerDefinitions = true;
-            return license;
-        }
-
 
         internal static bool GetFeatureByNumber(this LicenseKey licenseKey, int i)
         {

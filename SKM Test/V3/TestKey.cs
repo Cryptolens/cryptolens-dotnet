@@ -438,8 +438,18 @@ namespace SKM_Test
 
             var res = Newtonsoft.Json.JsonConvert.SerializeObject(test);
 
+            var activateToken = activateDeactivate;
+            var featureToken = "WyI2Iiwib3lFQjFGYk5pTHYrelhIK2pveWdReDdEMXd4ZDlQUFB3aGpCdTRxZiJd";
 
+            var result = Key.Activate(token: activateToken, parameters: new ActivateModel() { Key = "GEBNC-WZZJD-VJIHG-GCMVD", ProductId = 3349, Sign = true, MachineCode = "foo" , Metadata=true});
+
+            var license = result.LicenseKey;
+
+            Assert.IsTrue(license.IsValid());
+            Assert.IsTrue(result.Metadata.LicenseStatus.IsValid);
 
         }
+
+
     }
 }

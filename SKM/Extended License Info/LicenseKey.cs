@@ -61,17 +61,6 @@ namespace SKM.V3
 
         public string Signature { get; set; }
 
-        [NonSerialized]
-        internal bool _UseServerDefinitions;
-
-        [NonSerialized]
-        private LicenseStatus _Status;
-
-        public LicenseStatus Status()
-        {
-            return _Status;
-        }
-
         /// <summary>
         /// Returns the number of days left for a given license (time left). This method is particularly useful 
         /// when KeyInfo is not updated regularly, because TimeLeft will not be affected (stay constant).
