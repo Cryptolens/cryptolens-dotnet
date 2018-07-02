@@ -173,12 +173,35 @@ namespace SKM.V3.Models
     {
         public LicenseKey LicenseKey { get; set; }
 
+        /// <summary>
+        /// Metadata related to the license key. Note, this will not always contain value.
+        /// Please see remarks for more information.
+        /// </summary>
+        /// <remarks>
+        /// In order to access this variable, you need to set 
+        /// <see cref="ActivateModel.Metadata"/> or <see cref="KeyInfoModel.Metadata"/> to true.
+        /// Keep in mind that if your access token is restricted using the 'feature lock' field
+        /// or if <see cref="ActivateModel.FieldsToReturn"/> or <see cref="KeyInfoModel.FieldsToReturn"/>
+        /// (depending on if you activated or validated the license) have a certain value, metadata may still be null.
+        /// </remarks>
         public KeyMetadata Metadata { get; set; }
     }
 
+    /// <summary>
+    /// Metadata related to the license key. Note, this will not always contain value.
+    /// </summary>
     public class KeyMetadata
     {
+        /// <summary>
+        /// The number of activated machines for this license key.
+        /// </summary>
         public int ActivatedMachines { get; set; }
+
+        /// <summary>
+        /// Additional information about the license key. This variable will use the
+        /// 'feature definitions' (that you can define in the dashboard for a given product)
+        /// and the license properties to determine if the license is valid or not (eg. if it has expired).
+        /// </summary>
         public LicenseStatus LicenseStatus { get; set; }
     }
 
