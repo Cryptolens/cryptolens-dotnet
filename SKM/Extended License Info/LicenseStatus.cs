@@ -44,6 +44,20 @@ namespace SKM.V3
         /// </summary>
         public int TimeLeft { get; set; }
 
+
+        public override bool Equals(object obj)
+        {
+            LicenseStatus ls = obj as LicenseStatus;
+
+            if (ls == null)
+                return false;
+
+            return ls.IsValid == IsValid &&
+                   ls.ReasonForInvalidity == ReasonForInvalidity &&
+                   ls.TimeLeft == TimeLeft &&
+                   ls.TimeLimited == TimeLimited &&
+                   ls.Trial == Trial;
+        }
     }
 
     public enum InvalidityReason

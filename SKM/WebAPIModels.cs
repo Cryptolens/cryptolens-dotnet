@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 
+using System.Security.Cryptography;
+
 namespace SKM.V3.Models
 {
 
@@ -203,6 +205,35 @@ namespace SKM.V3.Models
         /// and the license properties to determine if the license is valid or not (eg. if it has expired).
         /// </summary>
         public LicenseStatus LicenseStatus { get; set; }
+
+        /// <summary>
+        /// The Signature of the metadata object.
+        /// </summary>
+        public string Signature { get; set; }
+
+        /// <summary>
+        /// Verifies the integrity of the object (eg. it has not been since it was generated on the server).
+        /// </summary>
+        /// <param name="RSAPublicKey">Your public key (see this page https://app.cryptolens.io/docs/api/v3/QuickStart)</param>
+        /// <returns>True if the signature is correct and false otherwise.</returns>
+        public bool VerifySignature(string RSAPublicKey)
+        {
+            var rsa = RSA.Create();
+            rsa.FromXmlString(RSAPublicKey);
+
+            var res = Internal.SecurityMethods.VerifyObject(Signature, rsa);
+            if (res == null)
+                return false;
+
+            var obj = Newtonsoft.Json.JsonConvert.DeserializeObject<KeyMetadata>(res.Object);
+
+            if (obj.ActivatedMachines != ActivatedMachines ||
+                !obj.LicenseStatus.Equals(LicenseStatus))
+                return false;
+
+            return true;
+        }
+
     }
 
     public class MachineLockLimit : KeyLockModel

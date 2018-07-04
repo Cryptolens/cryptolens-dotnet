@@ -135,9 +135,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\SKM Experimental\SKM Experimental.csproj">
+    <ProjectReference Include="..\..\SKM Experimental\Cryptolens.Client.csproj">
       <Project>{d6bfa335-bc1c-459d-848f-49066595f46c}</Project>
-      <Name>SKM Experimental</Name>
+      <Name>Cryptolens.Client</Name>
     </ProjectReference>
     <ProjectReference Include="..\SKM.csproj">
       <Project>{9c8e33e5-7833-4eb2-9d3d-a16200b14390}</Project>

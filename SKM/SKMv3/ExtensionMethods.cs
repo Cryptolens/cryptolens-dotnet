@@ -204,21 +204,15 @@ namespace SKM.V3
         {
             if (licenseKey != null)
             {
-                if (licenseKey._UseServerDefinitions)
-                {
-                    //TODO:
-                }
-                else
-                {
-                    TimeSpan ts = licenseKey.Expires - DateTime.Today;
+                TimeSpan ts = licenseKey.Expires - DateTime.Today;
 
-                    if (ts.Days >= 0)
-                    {
-                        if (checkWithInternetTime && SKGL.SKM.TimeCheck())
-                            return null;
-                        return licenseKey;
-                    }
+                if (ts.Days >= 0)
+                {
+                    if (checkWithInternetTime && SKGL.SKM.TimeCheck())
+                        return null;
+                    return licenseKey;
                 }
+
             }
             return null;
         }

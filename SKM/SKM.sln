@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SKM", "SKM.csproj", "{9C8E3
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SKM Test", "..\SKM Test\SKM Test.csproj", "{53AF54EF-7047-41F8-8876-856589A87503}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SKM Experimental", "..\SKM Experimental\SKM Experimental.csproj", "{D6BFA335-BC1C-459D-848F-49066595F46C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cryptolens.Client", "..\SKM Experimental\Cryptolens.Client.csproj", "{D6BFA335-BC1C-459D-848F-49066595F46C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "User Login Auth Example", "User Login Auth Example\User Login Auth Example.csproj", "{B88624C5-0ABC-48A6-810F-BB3EABDF7574}"
 EndProject
@@ -42,6 +42,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {94082A7A-F981-4372-8B22-4D13756ED42C}
 	EndGlobalSection
 	GlobalSection(NDepend) = preSolution
 		Project = ".\SKM1.ndproj"
