@@ -45,9 +45,8 @@
     <Reference Include="Microsoft.Win32.Primitives, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\SKM\packages\Microsoft.Win32.Primitives.4.3.0\lib\net46\Microsoft.Win32.Primitives.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\SKM\packages\Newtonsoft.Json.6.0.8\lib\net40\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\SKM\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.AppContext, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -166,13 +165,13 @@
     <Content Include="bin\Debug\Samples\crypto.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SKM Experimental\SKM Experimental.csproj">
-      <Project>{d6bfa335-bc1c-459d-848f-49066595f46c}</Project>
-      <Name>SKM Experimental</Name>
+    <ProjectReference Include="..\Cryptolens.Licensing\Cryptolens.Licensing.csproj">
+      <Project>{16196f27-81be-4248-aaa8-ff19399bdb98}</Project>
+      <Name>Cryptolens.Licensing</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SKM\SKM.csproj">
-      <Project>{9c8e33e5-7833-4eb2-9d3d-a16200b14390}</Project>
-      <Name>SKM</Name>
+    <ProjectReference Include="..\SKM Experimental\Cryptolens.Client.csproj">
+      <Project>{d6bfa335-bc1c-459d-848f-49066595f46c}</Project>
+      <Name>Cryptolens.Client</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

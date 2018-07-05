@@ -292,6 +292,7 @@ namespace SKM.V3
             return null;
         }
 
+#if (NET46 || NET40)
         /// <summary>
         /// Checks so that the machine code corresponds to the machine code of this computer.
         /// The default hash function is SHA1.
@@ -323,6 +324,7 @@ namespace SKM.V3
             }
             return null;
         }
+#endif
 
         /// <summary>
         /// Checks so that a they key is blocked.

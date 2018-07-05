@@ -146,9 +146,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SKM Experimental\SKM Experimental.csproj">
+    <ProjectReference Include="..\SKM Experimental\Cryptolens.Client.csproj">
       <Project>{d6bfa335-bc1c-459d-848f-49066595f46c}</Project>
-      <Name>SKM Experimental</Name>
+      <Name>Cryptolens.Client</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

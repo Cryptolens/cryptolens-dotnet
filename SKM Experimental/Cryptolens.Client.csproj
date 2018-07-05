@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard1.4</TargetFramework>
-    <RootNamespace>Cryptolens.SKM</RootNamespace>
+    <RootNamespace>Cryptolens.Client</RootNamespace>
     <Company>Cryptolens AB</Company>
     <Description>This is an extension to https://www.nuget.org/packages/SKGLExtension/ that aims to be platform independent. At the moment, it contains an implementation for User Login Auth and Payment Forms. Right now, it is thought to be used together with https://www.nuget.org/packages/SKGLExtension/.</Description>
     <Copyright>Cryptolens AB</Copyright>
