@@ -13,3 +13,9 @@
   items:
     - name: Release notes
       href: v.402-changes.md
+
+- name: v4.0.4
+  href: #
+  items:
+    - name: Release notes
+      href: v404.md
