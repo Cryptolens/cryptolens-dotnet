@@ -19,6 +19,9 @@ NB: There is also one for C++ (https://github.com/Cryptolens/cryptolens-cpp)</De
     <PackageProjectUrl>https://github.com/Cryptolens/cryptolens-dotnet/</PackageProjectUrl>
     <PackageIconUrl>https://avatars0.githubusercontent.com/u/29428539?s=200&amp;v=4</PackageIconUrl>
     <RepositoryUrl>https://github.com/Cryptolens/cryptolens-dotnet/</RepositoryUrl>
+    <SignAssembly>true</SignAssembly>
+    <DelaySign>false</DelaySign>
+    <AssemblyOriginatorKeyFile>certifikat.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -28,5 +31,5 @@ NB: There is also one for C++ (https://github.com/Cryptolens/cryptolens-cpp)</De
   <ItemGroup>
     <Reference Include="System.Management" />
   </ItemGroup>
-
+  
 </Project>

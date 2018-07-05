@@ -1,0 +1,110 @@
+{
+  "metadata": [
+    {
+      "src": "*.csproj",
+      "dest": "temp/api/netstandard2.0",
+      "properties": {
+          "TargetFramework": "netstandard2.0"
+      }
+    },
+      {
+        "src": "*.csproj",
+        "dest": "temp/api/net40",
+        "properties": {
+            "TargetFramework": "net40"
+        }
+    },
+      {
+        "src": "*.csproj",
+        "dest": "temp/api/net46",
+        "properties": {
+            "TargetFramework": "net46"
+        }
+    }
+  ],
+  "merge": {
+    "content": [
+        {
+            "files": "*.yml",
+            "src": "temp/api/net40"
+        },
+        {
+            "files": "*.yml",
+            "src": "temp/api/net46"
+        },
+        {
+          "files": "*.yml",
+          "src": "temp/api/netstandard2.0"
+      }
+    ],
+    "fileMetadata": {
+        "platform": {
+            "temp/api/net40/*.yml": [
+                "net40"
+            ],
+            "temp/api/net46/*.yml": [
+                "net46"
+            ],
+            "temp/api/netstandard2.0/*.yml": [
+              "netstandard2.0"
+          ]
+        }
+    },
+    "dest": "api"
+},
+  "build": {
+    "content": [
+      {
+        "files": [
+          "api/**.yml"
+        ],
+        "cwd": "obj"
+      },
+      {
+        "files": [
+          "api/*.md",
+          "articles/**.md",
+          "articles/**/toc.yml",
+          "toc.yml",
+          "*.md"
+        ],
+        "exclude": [
+          "obj/**",
+          "_site/**"
+        ]
+      }
+    ],
+    "postProcessors": ["ExtractSearchIndex"],
+    "globalMetadata":{
+      "_appTitle": "Cryptolens API Reference",
+      "_enableSearch": "true",
+      "_appFooter": "Copyright &copy; 2018 Cryptolens AB"
+    },
+    "resource": [
+      {
+        "files": [
+          "images/**"
+        ],
+        "exclude": [
+          "obj/**",
+          "_site/**"
+        ]
+      }
+    ],
+    "overwrite": [
+      {
+        "files": [
+          "apidoc/**.md"
+        ],
+        "exclude": [
+          "obj/**",
+          "_site/**"
+        ]
+      }
+    ],
+    "dest": "_site",
+    "template": [
+      "default"
+    ]
+  }
+}

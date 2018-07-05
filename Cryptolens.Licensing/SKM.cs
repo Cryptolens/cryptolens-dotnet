@@ -1179,6 +1179,7 @@ namespace SKGL
         #region NewMachineCode
 
 #if (NET46 || NET40)
+
         /// <summary>
         /// This method will calculate a machine code
         /// </summary>
@@ -1404,7 +1405,7 @@ namespace SKGL
         /// <summary>
         /// This method will generate a SHA256 hash.
         /// </summary>
-        /// <param name="s">The string value of the infromation that is to be hashed.</param>
+        /// <param name="s">The string value of the information that is to be hashed.</param>
         /// <returns>A string with the hash value</returns>
         /// <remarks>Please see <see cref="getMachineCode"/> for a code example of how this method can be used.</remarks>
         public static string getSHA256(string s)
