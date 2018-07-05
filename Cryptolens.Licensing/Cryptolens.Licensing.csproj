@@ -11,7 +11,7 @@
     <FileVersion>4.0.4.1</FileVersion>
     <Description>An API documentation can be found at https://help.cryptolens.io/api/dotnet/.
 
-This is a client API that serves as an interface to SKM Web API (app.cryptolens.io/docs/api/).
+This is a client API that serves as an interface to Cryptolens Web API (app.cryptolens.io/docs/api/).
 
 NB: There is also one for C++ (https://github.com/Cryptolens/cryptolens-cpp)</Description>
     <Copyright>Cryptolens AB</Copyright>
