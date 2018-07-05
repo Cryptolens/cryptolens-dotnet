@@ -3,7 +3,7 @@
 namespace SKM.V3.Methods
 {
     /// <summary>
-    /// Helper methods to ease interaction with Web API 3.
+    /// Helper methods to ease interaction with Web API 3. These methods require .NET Framework 4.6 or .NET Standard.
     /// </summary>
     public static class Helpers
     {

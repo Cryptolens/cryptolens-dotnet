@@ -9,7 +9,7 @@ using System.Text;
 namespace SKM.V3.Internal
 {
     /// <summary>
-    /// These methods require .NET Framework 4.6
+    /// These methods require .NET Framework 4.6 or .NET Standard.
     /// </summary>
     public class SecurityMethods
     {
