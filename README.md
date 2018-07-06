@@ -10,13 +10,8 @@ In Web API 2, authentication usually contains variables such as "pid", "uid" and
 
 ### Examples
 
-* [Most common examples](https://github.com/SerialKeyManager/SKGL-Extension-for-dot-NET/blob/master/Tutorials/v401.md) - this contains our core licensing methods.
-* [Experimental features](https://github.com/SerialKeyManager/SKGL-Extension-for-dot-NET/blob/master/Tutorials/v.101-beta.md) - this includes user login auth and other experimental features.
-
-
-The original repository of this project was: https://skgl.codeplex.com/.
-NB: This is only SKGL.SKM, not the entire SKGL API.
-
+* [Most common examples](https://help.cryptolens.io/api/dotnet/articles/v401.html) - this contains our core licensing methods.
+* [Experimental features](https://github.com/Cryptolens/cryptolens-dotnet/blob/master/Tutorials/v.101-beta.md) - this includes user login auth and other experimental features.
 
 ## Old examples
 
