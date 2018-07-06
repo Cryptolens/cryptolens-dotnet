@@ -4,18 +4,31 @@ This API serves as a layer that simplifies communication with Serial Key Manager
 
 > You can access the documentation of the library at https://help.cryptolens.io/api/dotnet/.
 
-### Web API versions
+## Getting started
 
-In Web API 2, authentication usually contains variables such as "pid", "uid" and "hsum". In Web API 3, authentication is performed using access tokens (https://app.cryptolens.io/docs/api/v3/Auth). Please always use Web API 3 for newer projects.
+### Install Nuget package
 
-### Examples
+In Visual Studio package manager
+```
+PM> Install-Package Cryptolens.Licensing
+```
 
-* [Most common examples](https://github.com/SerialKeyManager/SKGL-Extension-for-dot-NET/blob/master/Tutorials/v401.md) - this contains our core licensing methods.
-* [Experimental features](https://github.com/SerialKeyManager/SKGL-Extension-for-dot-NET/blob/master/Tutorials/v.101-beta.md) - this includes user login auth and other experimental features.
+Using dotnet CLI
+```
+dotnet add package Cryptolens.Licensing
+```
 
+### Example code
+* [Key verification](https://help.cryptolens.io/examples/key-verification)
+* [Offline verification](https://help.cryptolens.io/examples/offline-verification)
 
-The original repository of this project was: https://skgl.codeplex.com/.
-NB: This is only SKGL.SKM, not the entire SKGL API.
+## Compatibility
+
+To get access to all of the featues in the library, .NET Framework 4.6 or above has to be used. We have summarized the functionality that is included in each framework. Note, .NET Standard means the library can run on multiple platforms (eg. .NET Core), based on the following [document](https://docs.microsoft.com/en-us/dotnet/standard/net-standard).
+
+* **.NET Framework 4.0** - Verifying metadata signatures is not supported.
+* **.NET Framework 4.6** - All features supported.
+* **.NET Standard 2.0** - Computing machine codes is not supported. You can still use the available hash functions to compute a machine code, assuming you can collect machine specific information.
 
 
 ## Old examples
