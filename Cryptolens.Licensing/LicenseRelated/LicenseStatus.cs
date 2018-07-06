@@ -11,11 +11,6 @@ namespace SKM.V3
     /// This field is obtained when you either call <see cref="Key.Activate(string, Models.ActivateModel)"/>
     /// or <see cref="Key.GetKey(string, Models.KeyInfoModel)"/> with the Metadata parameter set to true.
     /// </summary>
-    /// <remarks>Please note that all the data in this object is not signed by the server. It means that you should
-    /// not cache this locally on the client machine. Also, please note that until there is support in the Web API to get
-    /// a signed copy of this object, you should use this object on systems where you have full control (eg. not on end
-    /// user systems).
-    /// </remarks>
     public class LicenseStatus
     {
         /// <summary>
