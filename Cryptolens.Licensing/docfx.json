@@ -16,42 +16,12 @@
     },
       {
         "src": "*.csproj",
-        "dest": "temp/api/net46",
+        "dest": "obj/api",
         "properties": {
             "TargetFramework": "net46"
         }
     }
   ],
-  "merge": {
-    "content": [
-        {
-            "files": "*.yml",
-            "src": "temp/api/net40"
-        },
-        {
-            "files": "*.yml",
-            "src": "temp/api/net46"
-        },
-        {
-          "files": "*.yml",
-          "src": "temp/api/netstandard2.0"
-      }
-    ],
-    "fileMetadata": {
-        "platform": {
-            "temp/api/net40/*.yml": [
-                "net40"
-            ],
-            "temp/api/net46/*.yml": [
-                "net46"
-            ],
-            "temp/api/netstandard2.0/*.yml": [
-              "netstandard2.0"
-          ]
-        }
-    },
-    "dest": "api"
-},
   "build": {
     "content": [
       {
