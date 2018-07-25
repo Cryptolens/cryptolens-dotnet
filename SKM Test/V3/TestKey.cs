@@ -449,10 +449,22 @@ namespace SKM_Test
             Assert.IsTrue(result.Metadata.LicenseStatus.IsValid);
 
             Assert.IsTrue(result.Metadata.VerifySignature("<RSAKeyValue><Modulus>sGbvxwdlDbqFXOMlVUnAF5ew0t0WpPW7rFpI5jHQOFkht/326dvh7t74RYeMpjy357NljouhpTLA3a6idnn4j6c3jmPWBkjZndGsPL4Bqm+fwE48nKpGPjkj4q/yzT4tHXBTyvaBjA8bVoCTnu+LiC4XEaLZRThGzIn5KQXKCigg6tQRy0GXE13XYFVz/x1mjFbT9/7dS8p85n8BuwlY5JvuBIQkKhuCNFfrUxBWyu87CFnXWjIupCD2VO/GbxaCvzrRjLZjAngLCMtZbYBALksqGPgTUN7ZM24XbPWyLtKPaXF2i4XRR9u6eTj5BfnLbKAU5PIVfjIS+vNYYogteQ==</Modulus><Exponent>AQAB</Exponent></RSAKeyValue>"));
+        }
+
+        [TestMethod]
+        public void TestFloatingLicensing()
+        {
+            var activateToken = activateDeactivate;
+            Assert.IsTrue(Key.Activate(token: activateToken, parameters: new ActivateModel() { Key = "GEBNC-WZZJD-VJIHG-GCMVD", ProductId = 3349, Sign = true, MachineCode = Helpers.GetMachineCode(), Metadata = true, FloatingTimeInterval = 100 }).Result == ResultType.Success);
+            Assert.IsTrue(Key.Activate(token: activateToken, parameters: new ActivateModel() { Key = "GEBNC-WZZJD-VJIHG-GCMVD", ProductId = 3349, Sign = true, MachineCode = "foo2", Metadata = true, FloatingTimeInterval = 100 }).Result == ResultType.Error);
+
+            var result = Key.Activate(token: activateToken, parameters: new ActivateModel() { Key = "GEBNC-WZZJD-VJIHG-GCMVD", ProductId = 3349, Sign = true, MachineCode = Helpers.GetMachineCode(), Metadata = true, FloatingTimeInterval = 100 });
+
+            Assert.IsTrue(result.LicenseKey.ActivatedMachines[0].Mid.StartsWith("floating:"));
+
+            Assert.IsTrue(Helpers.IsOnRightMachine(result.LicenseKey, isFloatingLicense: true));
 
 
         }
-
-
     }
 }
