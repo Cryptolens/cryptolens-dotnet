@@ -155,10 +155,12 @@ namespace SKM.V3.Models
     public class ActivateModel 
     {
         public int ProductId { get; set; }
+
         /// <summary>
         /// The Key Id, eg. 12345.
         /// </summary>
         public string Key { get; set; }
+
         public bool Sign { get; set; }
 
         public string MachineCode { get; set; }
@@ -166,6 +168,14 @@ namespace SKM.V3.Models
         public int FieldsToReturn { get; set; }
 
         public bool Metadata { get; set; }
+
+        /// <summary>
+        /// When set to something greater than zero, floating licensing will be enabled.
+        /// The time interval is then used to check that no more than the allowed number
+        /// of machine codes (specified in maximumNumberOfMachines) have been activated
+        /// in that time period (in milliseconds).
+        /// </summary>
+        public int FloatingTimeInterval { get; set; }
 
     }
     /// <summary>

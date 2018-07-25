@@ -21,8 +21,10 @@ namespace SKM.V3.Methods
         /// Checks if the current license key is on the correct device.
         /// </summary>
         /// <param name="licenseKey">The license key object.</param>
+        /// <param name="isFloatingLicense">If this is a floating license, this parameter has to be set to true.
+        /// You can specify ... </param>
         /// <returns></returns>
-        public static bool IsOnRightMachine(LicenseKey licenseKey)
+        public static bool IsOnRightMachine(LicenseKey licenseKey, bool isFloatingLicense = false)
         {
             return licenseKey.IsOnRightMachine(SKGL.SKM.getSHA256).IsValid();
         }
