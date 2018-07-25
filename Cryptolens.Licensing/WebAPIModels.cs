@@ -154,19 +154,36 @@ namespace SKM.V3.Models
 
     public class ActivateModel 
     {
+        /// <summary>
+        /// The product id, which can be found on the product page.
+        /// </summary>
         public int ProductId { get; set; }
 
         /// <summary>
-        /// The Key Id, eg. 12345.
+        /// The Key string, eg. AAAA-BBBB-CCCC-DDDD.
         /// </summary>
         public string Key { get; set; }
 
+        /// <summary>
+        /// If true, the information inside the LiceseKey object will be signed. Note,
+        /// in almost all cases, you should set this to True.
+        /// </summary>
         public bool Sign { get; set; }
 
+        /// <summary>
+        /// The machine code (a string that identifies a device) for activation.	
+        /// </summary>
         public string MachineCode { get; set; }
 
+        /// <summary>
+        /// An integer that allows you to restrict the information returned in the license key data object.
+        /// Please read https://app.cryptolens.io/docs/api/v3/Activate#remarks for more details.
+        /// </summary>
         public int FieldsToReturn { get; set; }
 
+        /// <summary>
+        /// Includes additional information about the license key, such as number of activated devices, etc.
+        /// </summary>
         public bool Metadata { get; set; }
 
         /// <summary>
