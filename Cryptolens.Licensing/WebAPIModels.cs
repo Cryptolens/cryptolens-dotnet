@@ -190,7 +190,7 @@ namespace SKM.V3.Models
         /// When set to something greater than zero, floating licensing will be enabled.
         /// The time interval is then used to check that no more than the allowed number
         /// of machine codes (specified in maximumNumberOfMachines) have been activated
-        /// in that time period (in milliseconds).
+        /// in that time period (in seconds).
         /// </summary>
         public int FloatingTimeInterval { get; set; }
 

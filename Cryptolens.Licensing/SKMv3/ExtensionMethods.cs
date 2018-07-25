@@ -309,7 +309,9 @@ namespace SKM.V3
         /// Checks so that the machine code corresponds to the machine code of this computer.
         /// </summary>
         /// <param name="hashFunction">A hash function used to hash the current computer's parameters.</param>
-        /// <param name="isFloatingLicense"></param>
+        /// <param name="isFloatingLicense">If this is a floating license, this parameter has to be set to true.
+        /// You can enable floating licenses by setting <see cref="V3.Models.ActivateModel.FloatingTimeInterval"/>
+        /// to a value greater than 0.</param>
         /// <returns></returns>
         public static LicenseKey IsOnRightMachine(this LicenseKey licenseKey, Func<string, string> hashFunction, bool isFloatingLicense = false)
         {

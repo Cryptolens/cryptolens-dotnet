@@ -22,7 +22,8 @@ namespace SKM.V3.Methods
         /// </summary>
         /// <param name="licenseKey">The license key object.</param>
         /// <param name="isFloatingLicense">If this is a floating license, this parameter has to be set to true.
-        /// You can specify ... </param>
+        /// You can enable floating licenses by setting <see cref="V3.Models.ActivateModel.FloatingTimeInterval"/>
+        /// to a value greater than 0.</param>
         /// <returns></returns>
         public static bool IsOnRightMachine(LicenseKey licenseKey, bool isFloatingLicense = false)
         {
