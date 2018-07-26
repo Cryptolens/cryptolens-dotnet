@@ -3,7 +3,7 @@
 namespace SKM.V3.Methods
 {
     /// <summary>
-    /// Helper methods to ease interaction with Web API 3. These methods require .NET Framework 4.6 or .NET Standard.
+    /// Helper methods to ease interaction with Web API 3. These methods require .NET Framework 4.0 or 4.6.
     /// </summary>
     public static class Helpers
     {
@@ -18,13 +18,16 @@ namespace SKM.V3.Methods
         }
 
         /// <summary>
-        /// Checks if the current license key is on the correct device.
+        /// Checks if the current license key is on the correct device with SHA-256 as the hash function.
         /// </summary>
         /// <param name="licenseKey">The license key object.</param>
+        /// <param name="isFloatingLicense">If this is a floating license, this parameter has to be set to true.
+        /// You can enable floating licenses by setting <see cref="V3.Models.ActivateModel.FloatingTimeInterval"/>
+        /// to a value greater than 0.</param>
         /// <returns></returns>
-        public static bool IsOnRightMachine(LicenseKey licenseKey)
+        public static bool IsOnRightMachine(LicenseKey licenseKey, bool isFloatingLicense = false)
         {
-            return licenseKey.IsOnRightMachine(SKGL.SKM.getSHA256).IsValid();
+            return licenseKey.IsOnRightMachine(SKGL.SKM.getSHA256, isFloatingLicense).IsValid();
         }
 
 #endif

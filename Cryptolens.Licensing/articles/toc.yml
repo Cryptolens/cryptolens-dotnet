@@ -1,21 +1,16 @@
 - name: Introduction
   href: intro.md
 
-- name: v4.0.1
+- name: Release notes
   href: #
   items:
-    - name: Release notes
-      href: v401.md
-    - name: Pitfalls
-      href: v.401-Pitfalls.md
-- name: v4.0.2
-  href: #
-  items:
-    - name: Release notes
-      href: v.402-changes.md
-
-- name: v4.0.4
-  href: #
-  items:
-    - name: Release notes
-      href: v404.md
+  - name: Pitfalls (all versions)
+    href: v.401-Pitfalls.md
+  - name: v401
+    href: v401.md
+  - name: v402
+    href: v.402-changes.md
+  - name: v404
+    href: v404.md
+  - name: v405
+    href: v405.md
