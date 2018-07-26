@@ -2,7 +2,7 @@
 title: Changes since v401 (in v402)
 ---
 
-## Changes since the previous release
+## Release notes v402
 
 * Support for VPN and proxy added by default.
 * SHA-256 support for machine codes has been added with `getSHA256` method. 
