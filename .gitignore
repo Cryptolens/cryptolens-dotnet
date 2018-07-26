@@ -186,5 +186,6 @@ FakesAssemblies/
 /config.json
 /SKM/.vs/SKM/v15/sqlite3
 /SKM/.vs/SKM/v15/Server/sqlite3
-.vs/SKM/v15/Server/sqlite3/storage.ide-wal
-.vs/SKM/v15/Server/sqlite3/storage.ide
+/.vs/SKM/v15/Server/sqlite3/storage.ide-wal
+/.vs/SKM/v15/Server/sqlite3/storage.ide
+/.vs/SKM/v15/Server/sqlite3
