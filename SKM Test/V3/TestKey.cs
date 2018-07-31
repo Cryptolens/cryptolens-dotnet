@@ -408,7 +408,7 @@ namespace SKM_Test
         }
 
         [TestMethod]
-        public void TestKeyDate()
+        public void KeyDateTest()
         {
             var license = new LicenseKey()
             {
@@ -420,7 +420,7 @@ namespace SKM_Test
         }
 
         [TestMethod]
-        public void TestChangeNotes()
+        public void ChangeNotesTest()
         {
             var result = Key.ChangeNotes(AccessToken.AccessToken.ChangeNotes, new ChangeNotesModel { Key = "LEPWV-FOTPG-MWBEO-FBFPS", Notes = "test", ProductId = 3349 });
 
@@ -432,7 +432,7 @@ namespace SKM_Test
 
 
         [TestMethod]
-        public void TestLicenseStatus()
+        public void LicenseStatusTest()
         {
             var test = new LicenseKey();
 
@@ -452,7 +452,7 @@ namespace SKM_Test
         }
 
         [TestMethod]
-        public void TestFloatingLicensing()
+        public void FloatingLicensingTest()
         {
             var activateToken = activateDeactivate;
             Assert.IsTrue(Key.Activate(token: activateToken, parameters: new ActivateModel() { Key = "GEBNC-WZZJD-VJIHG-GCMVD", ProductId = 3349, Sign = true, MachineCode = Helpers.GetMachineCode(), Metadata = true, FloatingTimeInterval = 100 }).Result == ResultType.Success);
@@ -463,8 +463,12 @@ namespace SKM_Test
             Assert.IsTrue(result.LicenseKey.ActivatedMachines[0].Mid.StartsWith("floating:"));
 
             Assert.IsTrue(Helpers.IsOnRightMachine(result.LicenseKey, isFloatingLicense: true));
+        }
 
-
+        [TestMethod]
+        public void CreateTrialKeyTest()
+        {
+            var res = Key.CreateTrialKey("", new CreateTrialKeyModel { });
         }
     }
 }

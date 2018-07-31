@@ -247,7 +247,7 @@ namespace SKM.V3.Methods
         /// </remarks>
         /// <returns>A BasicResult object or null.</returns>
 
-        public static CreateKeyResult CreateTrialKey(string token, CreateTrialKey parameters)
+        public static CreateKeyResult CreateTrialKey(string token, CreateTrialKeyModel parameters)
         {
             return HelperMethods.SendRequestToWebAPI3<CreateKeyResult>(parameters, "/key/createtrialkey/", token);
         }
