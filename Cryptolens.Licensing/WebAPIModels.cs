@@ -65,6 +65,11 @@ namespace SKM.V3.Models
         public bool Metadata { get; set; }
     }
 
+    public class CreateTrialKey : KeyLockModel
+    {
+        public string MachineCode { get; set; }
+
+    }
     public class CreateKeyModel
     {
         public int ProductId { get; set; }

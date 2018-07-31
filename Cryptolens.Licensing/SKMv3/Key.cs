@@ -235,6 +235,24 @@ namespace SKM.V3.Methods
         }
 
         /// <summary>
+        /// This method creates a license key that is time-limited, node-locked and with the "Time-Limited"
+        /// and "Trial" features set to true (which can be set by editing the feature definitions on the product page).
+        /// Note, by default, the trial will work for 15 days. To change this limit, you can set the Feature Lock
+        /// to the desired value, when creating the access token.
+        /// </summary>
+        /// <param name="token">Details such as Token and Version.</param>
+        /// <param name="parameters">The parameters that the method needs.</param>
+        /// <remarks>This method may, in rare cases, return null if an error has occurred.
+        /// Null should be seen as an unsuccessful result.
+        /// </remarks>
+        /// <returns>A BasicResult object or null.</returns>
+
+        public static CreateKeyResult CreateTrialKey(string token, CreateTrialKey parameters)
+        {
+            return HelperMethods.SendRequestToWebAPI3<CreateKeyResult>(parameters, "/key/createtrialkey/", token);
+        }
+
+        /// <summary>
         /// This method will return information about a license key, similar to 
         /// Validate [Web API 2]. In contrast to activation, this method (aka Key Validation)
         /// will be in read only mode. That is, it will not add a device to the license nor 
