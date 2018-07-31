@@ -383,7 +383,7 @@ namespace SKM_Test
         }
 
         [TestMethod]
-        public void TestKeyBlock()
+        public void KeyBlockTest()
         {
             string token = "WyIxNzIiLCJhak9OT1g3NW90YlQyRFFVUzBWdnlGSHJYdUpMdDA0REMxNzNOa2duIl0=";
             string key = "LEPWV-FOTPG-MWBEO-FBFPS";
