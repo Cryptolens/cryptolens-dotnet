@@ -34,7 +34,7 @@ namespace SKM_Test
         public void GetCustomerLicensesTest()
         {
             var result = CustomerMethods.GetCustomerLicenses(AccessToken.AccessToken.GetCustomerLicenses, 
-                new GetCustomerLicensesModel {  CustomerId = 3});
+                new GetCustomerLicensesModel {  CustomerId = 2296 });
 
             if(result.Result == ResultType.Error)
             {
