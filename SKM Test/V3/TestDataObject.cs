@@ -195,6 +195,5 @@ namespace SKM_Test
 
             Assert.IsTrue(result3 != null && result3.Result == ResultType.Success);
         }
-
     }
 }

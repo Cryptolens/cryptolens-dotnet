@@ -334,23 +334,15 @@ namespace SKM_Test
         }
 
         [TestMethod]
-        public void CreateKeyTest()
-        {
-            var newKey = Key.CreateKey("access token", 
-                                       new CreateKeyModel {ProductId = 3349 });
-            System.Diagnostics.Debug.WriteLine(newKey?.Key);
-        }
-
-        [TestMethod]
         public void AddDataObjectKeyTest()
         {
             var keydata = new AddDataObjectModel() { };
-            var auth = "WyIxMSIsInRFLzRQSzJkT2V0Y1pyN3Y3a1I2Rm9YdmczNUw0SzJTRHJwUERhRFMiXQ==";
+            var auth = AccessToken.AccessToken.DataObjectaAll;
 
             var auth2 = activateDeactivate;
             var license = Key.Activate(token: auth2, parameters: new ActivateModel() { Key = "GEBNC-WZZJD-VJIHG-GCMVD", ProductId = 3349, Sign = true, MachineCode = "foo" });
 
-            long id = license.LicenseKey.AddDataObject(auth, new DataObject { });
+            long id = license.LicenseKey.AddDataObject(auth, new DataObject {  });
 
             if (id > 0)
             {
@@ -383,7 +375,7 @@ namespace SKM_Test
         }
 
         [TestMethod]
-        public void TestKeyBlock()
+        public void KeyBlockTest()
         {
             string token = "WyIxNzIiLCJhak9OT1g3NW90YlQyRFFVUzBWdnlGSHJYdUpMdDA0REMxNzNOa2duIl0=";
             string key = "LEPWV-FOTPG-MWBEO-FBFPS";
@@ -408,7 +400,7 @@ namespace SKM_Test
         }
 
         [TestMethod]
-        public void TestKeyDate()
+        public void KeyDateTest()
         {
             var license = new LicenseKey()
             {
@@ -420,7 +412,7 @@ namespace SKM_Test
         }
 
         [TestMethod]
-        public void TestChangeNotes()
+        public void ChangeNotesTest()
         {
             var result = Key.ChangeNotes(AccessToken.AccessToken.ChangeNotes, new ChangeNotesModel { Key = "LEPWV-FOTPG-MWBEO-FBFPS", Notes = "test", ProductId = 3349 });
 
@@ -432,7 +424,7 @@ namespace SKM_Test
 
 
         [TestMethod]
-        public void TestLicenseStatus()
+        public void LicenseStatusTest()
         {
             var test = new LicenseKey();
 
@@ -452,7 +444,7 @@ namespace SKM_Test
         }
 
         [TestMethod]
-        public void TestFloatingLicensing()
+        public void FloatingLicensingTest()
         {
             var activateToken = activateDeactivate;
             Assert.IsTrue(Key.Activate(token: activateToken, parameters: new ActivateModel() { Key = "GEBNC-WZZJD-VJIHG-GCMVD", ProductId = 3349, Sign = true, MachineCode = Helpers.GetMachineCode(), Metadata = true, FloatingTimeInterval = 100 }).Result == ResultType.Success);
@@ -463,8 +455,53 @@ namespace SKM_Test
             Assert.IsTrue(result.LicenseKey.ActivatedMachines[0].Mid.StartsWith("floating:"));
 
             Assert.IsTrue(Helpers.IsOnRightMachine(result.LicenseKey, isFloatingLicense: true));
+        }
 
+        [TestMethod]
+        public void CreateTrialKeyTest()
+        {
+            var newTrialKey = Key.CreateTrialKey(AccessToken.AccessToken.CreateTrialKey, new CreateTrialKeyModel { ProductId= 3941, MachineCode = Helpers.GetMachineCode() });
 
+            if(newTrialKey == null || newTrialKey.Result == ResultType.Error)
+            {
+                Assert.Fail("Something went wrong when creating the trial key");
+            }
+
+            var activate = Key.Activate(AccessToken.AccessToken.ActivateAllProducts, 
+                new ActivateModel {
+                    ProductId = 3941,
+                    Sign = true,
+                    MachineCode = Helpers.GetMachineCode(),
+                    Key = newTrialKey.Key, Metadata = true
+                });
+
+            if(activate == null || activate.Result == ResultType.Error)
+            {
+                Assert.Fail("Something went wrong when verifying the trial key");
+            }
+
+            // now we can verify some basic properties
+
+            if (Helpers.IsOnRightMachine(activate.LicenseKey) && activate.Metadata.LicenseStatus.IsValid)
+            {
+                // license verification successful.
+
+                return;
+            }
+
+            Assert.Fail();
+
+        }
+
+        [TestMethod]
+        public void CreateKeyTest()
+        {
+            var res = Key.CreateKey(AccessToken.AccessToken.CreateKeyTestProd, new CreateKeyModel { ProductId = 3941, F1 = true, Notes = "Test Create Key" });
+
+            if(res == null || res.Result == ResultType.Error)
+            {
+                Assert.Fail();
+            }
         }
     }
 }

@@ -189,3 +189,7 @@ FakesAssemblies/
 /.vs/SKM/v15/Server/sqlite3/storage.ide-wal
 /.vs/SKM/v15/Server/sqlite3/storage.ide
 /.vs/SKM/v15/Server/sqlite3
+.vs/SKM/DesignTimeBuild/.dtbcache
+.vs/SKM/v15/Server/sqlite3/storage.ide
+.vs/SKM/v15/Server/sqlite3/storage.ide-shm
+.vs/SKM/v15/Server/sqlite3/storage.ide-wal
