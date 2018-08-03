@@ -239,6 +239,10 @@ namespace SKM.V3.Methods
         /// and "Trial" features set to true (which can be set by editing the feature definitions on the product page).
         /// Note, by default, the trial will work for 15 days. To change this limit, you can set the Feature Lock
         /// to the desired value, when creating the access token.
+        /// <br>
+        /// If a trial key was already created for a certain machine code, this method will try to find the license key
+        /// and return it instead. However, this will only occur if the license key is still a trial key (based on feature
+        /// definitions) and is not blocked.
         /// </summary>
         /// <param name="token">Details such as Token and Version.</param>
         /// <param name="parameters">The parameters that the method needs.</param>
