@@ -324,7 +324,7 @@ namespace SKM.V3
                 Bound = lowerBound
             };
 
-            var result = Data.IncrementIntValue(token, parameters);
+            var result = Data.DecrementIntValue(token, parameters);
 
             if (result != null && result.Result == ResultType.Success)
             {
@@ -363,7 +363,7 @@ namespace SKM.V3
                 Bound = lowerBound
             };
 
-            var result = Data.IncrementIntValue(token, parameters);
+            var result = Data.DecrementIntValue(token, parameters);
 
             if (result != null && result.Result == ResultType.Success)
             {
