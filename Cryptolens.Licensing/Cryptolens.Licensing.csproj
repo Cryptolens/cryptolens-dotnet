@@ -23,7 +23,7 @@ NB: There is also one for C++ (https://github.com/Cryptolens/cryptolens-cpp)</De
     <DelaySign>false</DelaySign>
     <AssemblyOriginatorKeyFile>certifikat.pfx</AssemblyOriginatorKeyFile>
     <PackageTags>licensing system, SKGL, serial key management, http://app.cryptolens.io/ , skgl extension, SKM Client API, cryptolens</PackageTags>
-    <PackageReleaseNotes>Please see https://help.cryptolens.io/api/dotnet/articles/v405.html.</PackageReleaseNotes>
+    <PackageReleaseNotes>Please see https://help.cryptolens.io/api/dotnet/articles/v406.html.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
