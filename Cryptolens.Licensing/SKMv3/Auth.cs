@@ -11,7 +11,7 @@ namespace SKM.V3.Methods
     /// <summary>
     /// <para>
     /// Methods that are used to call the Web API 3. A detailed list is available at
-    /// <a href="https://serialkeymanager.com/docs/api/v3">https://serialkeymanager.com/docs/api/v3</a>.
+    /// <a href="https://app.cryptolens.io/docs/api/v3">https://app.cryptolens.io/docs/api/v3</a>.
     /// Each class contains a list of related methods that perform an action on a certain object. For example, the 
     /// <see cref="Key"/> class contains the methods <see cref="Key.Activate(string, ActivateModel)"/>
     /// and <see cref="Key.CreateKey(string, CreateKeyModel)"/>, and they are related since the affect a
@@ -28,7 +28,7 @@ namespace SKM.V3.Methods
 
     /// <summary>
     /// Methods that related to authentication. A complete list
-    /// can be found here: https://serialkeymanager.com/docs/api/v3/Auth
+    /// can be found here: https://app.cryptolens.io/docs/api/v3/Auth
     /// </summary>
     public class Auth
     {
@@ -42,10 +42,10 @@ namespace SKM.V3.Methods
         /// the access token used to access this method has to have key lock set
         /// to -1. All of these details are described in Remarks.
         /// </summary>
-        /// <param name="token">The access token. Read more at https://serialkeymanager.com/docs/api/v3/Auth </param>
+        /// <param name="token">The access token. Read more at https://app.cryptolens.io/docs/api/v3/Auth </param>
         /// <param name="parameters">The parameters that the method needs</param>
         /// <remarks>Note: for more details, please see 
-        /// <a href="https://serialkeymanager.com/docs/api/v3/KeyLock">https://serialkeymanager.com/docs/api/v3/KeyLock</a> <br/>
+        /// <a href="https://app.cryptolens.io/docs/api/v3/KeyLock">https://app.cryptolens.io/docs/api/v3/KeyLock</a> <br/>
         /// </remarks>
         /// <returns>Returns <see cref="KeyLockResult"/> or null.</returns>
         public static KeyLockResult KeyLock(string token, KeyLockModel parameters)
