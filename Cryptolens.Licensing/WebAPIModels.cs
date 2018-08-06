@@ -20,9 +20,19 @@ namespace SKM.V3.Models
 
     public class GetCustomerLicensesModel
     {
+        /// <summary>
+        /// The id of the customer whose licenses we want to access.
+        /// </summary>
         public int CustomerId { get; set; }
 
+        /// <summary>
+        /// Specifies the amount of parameters that should be included with each license key in the LiceseKeys. 
+        /// If true, License Key will be used. By default, Basic License Key will be used (where for instance data objects and activated devices are omitted.)
+        /// Please read more here: https://app.cryptolens.io/docs/api/v3/GetCustomerLicenses
+        /// </summary>
         public bool Detailed { get; set; }
+
+
     }
 
     public class GetCustomerLicensesResult : BasicResult
