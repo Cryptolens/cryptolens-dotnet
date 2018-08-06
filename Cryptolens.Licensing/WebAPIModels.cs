@@ -36,14 +36,38 @@ namespace SKM.V3.Models
     }
     public class AddCustomerModel
     {
+        /// <summary>
+        /// The name of the customer (at most 100 chars)
+        /// </summary>
         public string Name { get; set; }
+
+        /// <summary>
+        /// The email of the customer (at most 100 chars)
+        /// </summary>
         public string Email { get; set; }
+
+        /// <summary>
+        /// The company name of the company the customer belongs to (at most 100 chars)
+        /// </summary>
         public string CompanyName { get; set; }
+
+        /// <summary>
+        /// If set to true, a portal link will be returned where the customer will be able to view their licenses.
+        /// </summary>
+        public bool EnableCustomerAssociation { get; set; }
     }
 
     public class AddCustomerResult : BasicResult
     {
+        /// <summary>
+        /// A unique integer identifier associated with this customer.
+        /// </summary>
         public int CustomerId { get; set; }
+
+        /// <summary>
+        /// A link that allows the customer to create an account where they will see their licenses (in the customer dashboard).
+        /// </summary>
+        public string PortalLink { get; set; }
     }
     public class DeactivateModel : KeyLockModel
     {
