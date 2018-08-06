@@ -12,7 +12,7 @@ namespace SKM.V3.Methods
 {
     /// <summary>
     /// Methods that perform operations on a product. A complete list
-    /// can be found here: https://serialkeymanager.com/docs/api/v3/Product
+    /// can be found here: https://app.cryptolens.io/docs/api/v3/Product
     /// </summary>
     public static class Product
     {
@@ -24,7 +24,7 @@ namespace SKM.V3.Methods
         /// signed license key (for example, to achieve offline key activation), 
         /// please use the <see cref="Key.Activate(string, ActivateModel)"/> instead.
         /// </summary>
-        /// <param name="token">The access token. Read more at https://serialkeymanager.com/docs/api/v3/Auth </param>
+        /// <param name="token">The access token. Read more at https://app.cryptolens.io/docs/api/v3/Auth </param>
         /// <param name="parameters">The parameters that the method needs.</param>
         /// <returns>A <see cref="BasicResult"/> or null.</returns>
         /// <remarks>

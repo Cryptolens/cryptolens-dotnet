@@ -13,7 +13,7 @@ namespace SKM.V3
     /// store it in a file, or use some of its methods to update it.
     /// </summary>
     /// <remarks>You can use the <br>feature lock</br> to choose which fields should be masked.
-    /// On the <a href="https://serialkeymanager.com/docs/api/v3/activate#LicenseKey">activation</a> method page,
+    /// On the <a href="https://app.cryptolens.io/docs/api/v3/activate#LicenseKey">activation</a> method page,
     /// you can use the interactive table to choose which fields should be masked. FieldsToReturn will then get a new value,
     /// and this value should then be used in the <br>feature lock</br>.</remarks>
     public class LicenseKey
@@ -94,10 +94,10 @@ namespace SKM.V3
         /// <summary>
         /// Creates a new <see cref="DataObject"/>.
         /// </summary>
-        /// <param name="token">The access token. Read more at https://serialkeymanager.com/docs/api/v3/Auth </param>
+        /// <param name="token">The access token. Read more at https://app.cryptolens.io/docs/api/v3/Auth </param>
         /// <param name="dataObject">The data object to add to the license key.</param>
         /// <remarks>Note: for more details, please see 
-        /// <a href="https://serialkeymanager.com/docs/api/v3/AddDataObject">https://serialkeymanager.com/docs/api/v3/AddDataObject</a> </remarks>
+        /// <a href="https://app.cryptolens.io/docs/api/v3/AddDataObject">https://app.cryptolens.io/docs/api/v3/AddDataObject</a> </remarks>
         /// <returns>Returns the id of the data object (and updates the <see cref="DataObjects"/>) if successful, or -1 otherwise.</returns>
         public long AddDataObject(string token, DataObject dataObject)
         {
@@ -124,9 +124,9 @@ namespace SKM.V3
         /// <summary>
         /// This method will remove an existing data object.
         /// </summary>
-        /// <param name="token">The access token. Read more at https://serialkeymanager.com/docs/api/v3/Auth </param>
+        /// <param name="token">The access token. Read more at https://app.cryptolens.io/docs/api/v3/Auth </param>
         /// <remarks>Note: for more details, please see 
-        /// <a href="https://serialkeymanager.com/docs/api/v3/IncrementIntValue">https://serialkeymanager.com/docs/api/v3/IncrementIntValue</a> <br/>
+        /// <a href="https://app.cryptolens.io/docs/api/v3/IncrementIntValue">https://app.cryptolens.io/docs/api/v3/IncrementIntValue</a> <br/>
         /// </remarks>
         /// <returns>Returns true if successful or false otherwise.</returns>
         public bool RemoveDataObject(string token, int dataObjectId)
@@ -153,7 +153,7 @@ namespace SKM.V3
         /// ís not null and not empty, SKM will sign the new data too. You can also require this explicitly
         /// by calling <see cref="Refresh(string, bool)"/>, and setting the second parameter to 'true'.
         /// </summary>
-        /// <param name="token">The access token. Read more at https://serialkeymanager.com/docs/api/v3/Auth </param>
+        /// <param name="token">The access token. Read more at https://app.cryptolens.io/docs/api/v3/Auth </param>
         /// <remarks>This method uses <see cref="GetKeysModel"/></remarks>
         /// <returns>Returns true if successful or false otherwise.</returns>
         public bool Refresh(string token)
@@ -168,7 +168,7 @@ namespace SKM.V3
         /// <summary>
         /// Gets the new version of this license from SKM.
         /// </summary>
-        /// <param name="token">The access token. Read more at https://serialkeymanager.com/docs/api/v3/Auth </param>
+        /// <param name="token">The access token. Read more at https://app.cryptolens.io/docs/api/v3/Auth </param>
         /// <param name="sign">If true, SKM will sign the current license key object.</param>
         /// <remarks>This method uses <see cref="GetKeysModel"/></remarks>
         /// <returns>Returns true if successful or false otherwise.</returns>
@@ -220,7 +220,7 @@ namespace SKM.V3
         /// Gets the new version of this license from SKM. Note, you need to manually assign the new value to this object, eg,
         /// by license = license.Refresh("token");
         /// </summary>
-        /// <param name="token">The access token. Read more at https://serialkeymanager.com/docs/api/v3/Auth </param>
+        /// <param name="token">The access token. Read more at https://app.cryptolens.io/docs/api/v3/Auth </param>
         /// <param name="feature">The feature number, eg. 1,2,...,8. </param>
         /// <returns>Returns a true if successful and false otherwise.</returns>
         /// <exception cref="ArgumentException">If the feature value is incorrect.</exception>

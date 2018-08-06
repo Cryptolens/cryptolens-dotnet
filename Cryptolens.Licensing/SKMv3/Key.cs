@@ -11,7 +11,7 @@ namespace SKM.V3.Methods
 {
     /// <summary>
     /// Methods that perform operations on a license key. A complete list
-    /// can be found here: https://serialkeymanager.com/docs/api/v3/Key
+    /// can be found here: https://app.cryptolens.io/docs/api/v3/Key
     /// </summary>
     public static class Key
     {
@@ -24,9 +24,9 @@ namespace SKM.V3.Methods
         /// without Internet connection. Please keep in mind that the Feature lock can 
         /// be used to restrict the fields that can be shown in the result (fieldsToReturn). 
         /// More about this in Remarks. 
-        /// https://serialkeymanager.com/docs/api/v3/Activate
+        /// https://app.cryptolens.io/docs/api/v3/Activate
         /// </summary>
-        /// <param name="token">The access token. Read more at https://serialkeymanager.com/docs/api/v3/Auth </param>
+        /// <param name="token">The access token. Read more at https://app.cryptolens.io/docs/api/v3/Auth </param>
         /// <param name="parameters">The parameters that the method needs.</param>
         /// <returns>A <see cref="BasicResult"/> or null.</returns>
         /// <remarks>
@@ -62,9 +62,9 @@ namespace SKM.V3.Methods
         /// <summary>
         ///This method will 'undo' a key activation with a certain machine code. 
         ///The key should not be blocked, since otherwise this method will throw an error.
-        /// https://serialkeymanager.com/docs/api/v3/Deactivate
+        /// https://app.cryptolens.io/docs/api/v3/Deactivate
         /// </summary>
-        /// <param name="token">The access token. Read more at https://serialkeymanager.com/docs/api/v3/Auth </param>
+        /// <param name="token">The access token. Read more at https://app.cryptolens.io/docs/api/v3/Auth </param>
         /// <param name="parameters">The parameters that the method needs.</param>
         /// <returns>A <see cref="BasicResult"/> or null.</returns>
         /// <example>
@@ -98,7 +98,7 @@ namespace SKM.V3.Methods
         /// the key will stay the same.
         /// If the key is changed, the new key will be stored in the message.
         /// </summary>
-        /// <param name="token">The access token. Read more at https://serialkeymanager.com/docs/api/v3/Auth </param>
+        /// <param name="token">The access token. Read more at https://app.cryptolens.io/docs/api/v3/Auth </param>
         /// <param name="parameters">The parameters that the method needs.</param>
         /// <example>
         /// Here is an example that demonstrates the use of the method.
@@ -281,7 +281,7 @@ namespace SKM.V3.Methods
         /// to access the key in Web API 3, unless otherwise stated for a given Web API 3 method. 
         /// To do the reverse, please see <see cref="UnblockKey(string, KeyLockModel)"/>.
         /// </summary>
-        /// <param name="token">The access token (https://serialkeymanager.com/User/AccessToken#/) with Block key permission.</param>
+        /// <param name="token">The access token (https://app.cryptolens.io/User/AccessToken#/) with Block key permission.</param>
         /// <param name="parameters">The parameters that the method needs.</param>
         /// <remarks>This method may, in rare cases, return null if an error has occurred.
         /// Null should be seen as an unsuccessful result.
@@ -297,7 +297,7 @@ namespace SKM.V3.Methods
         /// accessible by most of the methods in the Web API (activation, validation,
         /// optional field, and deactivation). To do the reverse, please see <see cref="BlockKey(string, KeyLockModel)"/>.
         /// </summary>
-        /// <param name="token">The access token (https://serialkeymanager.com/User/AccessToken#/) with Unblock key permission.</param>
+        /// <param name="token">The access token (https://app.cryptolens.io/User/AccessToken#/) with Unblock key permission.</param>
         /// <param name="parameters">The parameters that the method needs.</param>
         /// <remarks>This method may, in rare cases, return null if an error has occurred.
         /// Null should be seen as an unsuccessful result.
@@ -326,7 +326,7 @@ namespace SKM.V3.Methods
         /// <summary>
         /// This method will change the content of the notes field of a given license key.
         /// </summary>
-        /// <param name="token">The access token (https://serialkeymanager.com/User/AccessToken#/) with Change Notes permission.</param>
+        /// <param name="token">The access token (https://app.cryptolens.io/User/AccessToken#/) with Change Notes permission.</param>
         /// <param name="parameters">The parameters that the method needs.</param>
         /// <returns>A BasicResult object or null.</returns>
         public static BasicResult ChangeNotes(string token, ChangeNotesModel parameters)

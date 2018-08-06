@@ -20,9 +20,19 @@ namespace SKM.V3.Models
 
     public class GetCustomerLicensesModel
     {
+        /// <summary>
+        /// The id of the customer whose licenses we want to access.
+        /// </summary>
         public int CustomerId { get; set; }
 
+        /// <summary>
+        /// Specifies the amount of parameters that should be included with each license key in the LiceseKeys. 
+        /// If true, License Key will be used. By default, Basic License Key will be used (where for instance data objects and activated devices are omitted.)
+        /// Please read more here: https://app.cryptolens.io/docs/api/v3/GetCustomerLicenses
+        /// </summary>
         public bool Detailed { get; set; }
+
+
     }
 
     public class GetCustomerLicensesResult : BasicResult
@@ -36,14 +46,38 @@ namespace SKM.V3.Models
     }
     public class AddCustomerModel
     {
+        /// <summary>
+        /// The name of the customer (at most 100 chars)
+        /// </summary>
         public string Name { get; set; }
+
+        /// <summary>
+        /// The email of the customer (at most 100 chars)
+        /// </summary>
         public string Email { get; set; }
+
+        /// <summary>
+        /// The company name of the company the customer belongs to (at most 100 chars)
+        /// </summary>
         public string CompanyName { get; set; }
+
+        /// <summary>
+        /// If set to true, a portal link will be returned where the customer will be able to view their licenses.
+        /// </summary>
+        public bool EnableCustomerAssociation { get; set; }
     }
 
     public class AddCustomerResult : BasicResult
     {
+        /// <summary>
+        /// A unique integer identifier associated with this customer.
+        /// </summary>
         public int CustomerId { get; set; }
+
+        /// <summary>
+        /// A link that allows the customer to create an account where they will see their licenses (in the customer dashboard).
+        /// </summary>
+        public string PortalLink { get; set; }
     }
     public class DeactivateModel : KeyLockModel
     {
@@ -65,8 +99,18 @@ namespace SKM.V3.Models
         public bool Metadata { get; set; }
     }
 
-    public class CreateTrialKeyModel : KeyLockModel
+    public class CreateTrialKeyModel
     {
+        /// <summary>
+        /// The id of the product you want to access. You can find it
+        /// when you are logged in on https://app.cryptolens.io/docs/api/v3/KeyLock
+        /// and select the product in the drop down list.
+        /// </summary>
+        public int ProductId { get; set; }
+
+        /// <summary>
+        /// The machine code (a string that identifies a device) that this trial key will be locked to.
+        /// </summary>
         public string MachineCode { get; set; }
 
     }
@@ -289,7 +333,7 @@ namespace SKM.V3.Models
     {
         /// <summary>
         /// The id of the product you want to access. You can find it
-        /// when you are logged in on https://serialkeymanager.com/docs/api/v3/KeyLock
+        /// when you are logged in on https://app.cryptolens.io/docs/api/v3/KeyLock
         /// and select the product in the drop down list.
         /// </summary>
         public int ProductId { get; set; }
@@ -311,8 +355,19 @@ namespace SKM.V3.Models
 
     public class AddDataObjectToKeyModel : KeyLockModel
     {
+        /// <summary>
+        /// The name of the data object. Max 10 characters.
+        /// </summary>
         public string Name { get; set; }
+
+        /// <summary>
+        /// A string value (text) to store. Max 10000 characters.
+        /// </summary>
         public string StringValue { get; set; }
+
+        /// <summary>
+        /// An int value (int32) to store.
+        /// </summary>
         public int IntValue { get; set; }
     }
 
@@ -341,13 +396,39 @@ namespace SKM.V3.Models
     /// </summary>
     public class ChangeIntValueToKeyModel : KeyLockModel, IChangeValueModel
     {
+        /// <summary>
+        /// The unique object id for the data object.	
+        /// </summary>
         public long Id { get; set; }
 
+        /// <summary>
+        /// This is either the new int value that should be assigned to the Data Object
+        /// when using <see cref="Data.SetIntValue(AuthDetails, ChangeIntValueModel)"/>
+        /// in which case it can be a signed int32, eg. 10, and -10 OR it is a the value that
+        /// should be added to the current IntValue of an existing Data Object, in which case
+        /// this value will be treated as an unsigned value, eg. 10 = -10. The latter case is
+        /// relevant for <see cref="Data.IncrementIntValue(AuthDetails, ChangeIntValueModel)"/>
+        /// and <see cref="Data.DecrementIntValue(AuthDetails, ChangeIntValueModel)"/>.
+        /// </summary>
         public int IntValue { get; set; }
 
-        public int Bound { get; set; }
-
+        /// <summary>
+        /// If set to true, it will be possible to specify an upper/lower bound. 
+        /// (for Increment Int Value) For example, if you set the Bound parameter (below) to 10, you
+        /// will be able to increment the int value until you reach ten (inclusive).
+        /// Once the upper bound is reached, an error will be thrown.
+        /// (for Decrement Int Value) For example, if you set the Bound parameter (below) to 0, 
+        /// you will be able to decrement the int value until you reach zero (inclusive).
+        /// Once the lower bound is reached, an error will be thrown.
+        /// </summary>
         public bool EnableBound { get; set; }
+
+        /// <summary>
+        /// This is the upper/lower bound that will be enforced on the increment or
+        /// decrement operation. It will only be enforced if EnableBound
+        /// is set to true. Please read the description above.
+        /// </summary>
+        public int Bound { get; set; }
     }
 
 
@@ -356,6 +437,9 @@ namespace SKM.V3.Models
     /// </summary>
     public class RemoveDataObjectToKeyModel : KeyLockModel, IChangeValueModel
     {
+        /// <summary>
+        /// The unique object id for the data object.
+        /// </summary>
         public long Id { get; set; }
     }
 
