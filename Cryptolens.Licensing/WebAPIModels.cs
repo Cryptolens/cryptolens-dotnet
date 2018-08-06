@@ -89,8 +89,18 @@ namespace SKM.V3.Models
         public bool Metadata { get; set; }
     }
 
-    public class CreateTrialKeyModel : KeyLockModel
+    public class CreateTrialKeyModel
     {
+        /// <summary>
+        /// The id of the product you want to access. You can find it
+        /// when you are logged in on https://app.cryptolens.io/docs/api/v3/KeyLock
+        /// and select the product in the drop down list.
+        /// </summary>
+        public int ProductId { get; set; }
+
+        /// <summary>
+        /// The machine code (a string that identifies a device) that this trial key will be locked to.
+        /// </summary>
         public string MachineCode { get; set; }
 
     }
@@ -313,7 +323,7 @@ namespace SKM.V3.Models
     {
         /// <summary>
         /// The id of the product you want to access. You can find it
-        /// when you are logged in on https://serialkeymanager.com/docs/api/v3/KeyLock
+        /// when you are logged in on https://app.cryptolens.io/docs/api/v3/KeyLock
         /// and select the product in the drop down list.
         /// </summary>
         public int ProductId { get; set; }
@@ -335,8 +345,19 @@ namespace SKM.V3.Models
 
     public class AddDataObjectToKeyModel : KeyLockModel
     {
+        /// <summary>
+        /// The name of the data object. Max 10 characters.
+        /// </summary>
         public string Name { get; set; }
+
+        /// <summary>
+        /// A string value (text) to store. Max 10000 characters.
+        /// </summary>
         public string StringValue { get; set; }
+
+        /// <summary>
+        /// An int value (int32) to store.
+        /// </summary>
         public int IntValue { get; set; }
     }
 
@@ -365,6 +386,9 @@ namespace SKM.V3.Models
     /// </summary>
     public class ChangeIntValueToKeyModel : KeyLockModel, IChangeValueModel
     {
+        /// <summary>
+        /// The unique object id for the data object.	
+        /// </summary>
         public long Id { get; set; }
 
         public int IntValue { get; set; }

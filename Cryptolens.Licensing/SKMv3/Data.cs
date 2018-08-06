@@ -10,7 +10,7 @@ namespace SKM.V3.Methods
 {
     /// <summary>
     /// Methods that perform operations on a data object. A complete list
-    /// can be found here: https://serialkeymanager.com/docs/api/v3/Data
+    /// can be found here: https://app.cryptolens.io/docs/api/v3/Data
     /// </summary>
     /// <example>
     /// <code language="csharp" title="Usage quota for a feature">
@@ -47,10 +47,10 @@ namespace SKM.V3.Methods
         /// <summary>
         /// Creates a new <see cref="DataObject"/>.
         /// </summary>
-        /// <param name="token">The access token. Read more at https://serialkeymanager.com/docs/api/v3/Auth </param>
+        /// <param name="token">The access token. Read more at https://app.cryptolens.io/docs/api/v3/Auth </param>
         /// <param name="parameters">The parameters that the method needs</param>
         /// <remarks>Note: for more details, please see 
-        /// <a href="https://serialkeymanager.com/docs/api/v3/AddDataObject">https://serialkeymanager.com/docs/api/v3/AddDataObject</a> </remarks>
+        /// <a href="https://app.cryptolens.io/docs/api/v3/AddDataObject">https://app.cryptolens.io/docs/api/v3/AddDataObject</a> </remarks>
         /// <returns>Returns <see cref="DataObjectIdResult"/> or null.</returns>
         public static DataObjectIdResult AddDataObject(string token, AddDataObjectModel parameters)
         {
@@ -60,10 +60,10 @@ namespace SKM.V3.Methods
         /// <summary>
         /// Creates a new <see cref="DataObject"/> for a key.
         /// </summary>
-        /// <param name="token">The access token. Read more at https://serialkeymanager.com/docs/api/v3/Auth </param>
+        /// <param name="token">The access token. Read more at https://app.cryptolens.io/docs/api/v3/Auth </param>
         /// <param name="parameters">The parameters that the method needs</param>
         /// <remarks>Note: for more details, please see 
-        /// <a href="https://serialkeymanager.com/docs/api/v3/AddDataObject">https://serialkeymanager.com/docs/api/v3/AddDataObject</a> </remarks>
+        /// <a href="https://app.cryptolens.io/docs/api/v3/AddDataObject">https://app.cryptolens.io/docs/api/v3/AddDataObject</a> </remarks>
         /// <returns>Returns <see cref="DataObjectIdResult"/> or null.</returns>
         public static DataObjectIdResult AddDataObject(string token, AddDataObjectToKeyModel parameters)
         {
@@ -74,10 +74,10 @@ namespace SKM.V3.Methods
         /// This method lists either all Data Object associated with a
         /// license key, a product or your entire account, or all of them at once.
         /// </summary>
-        /// <param name="token">The access token. Read more at https://serialkeymanager.com/docs/api/v3/Auth </param>
+        /// <param name="token">The access token. Read more at https://app.cryptolens.io/docs/api/v3/Auth </param>
         /// <param name="parameters">The parameters that the method needs</param>
         /// <remarks>Note: for more details, please see 
-        /// <a href="https://serialkeymanager.com/docs/api/v3/ListDataObjects">https://serialkeymanager.com/docs/api/v3/ListDataObjects</a> </remarks>
+        /// <a href="https://app.cryptolens.io/docs/api/v3/ListDataObjects">https://app.cryptolens.io/docs/api/v3/ListDataObjects</a> </remarks>
         /// <returns>Returns <see cref="ListOfDataObjectsResult"/> or null.</returns>
         public static ListOfDataObjectsResult ListDataObjects(string token, ListDataObjectsModel parameters)
         {
@@ -99,10 +99,10 @@ namespace SKM.V3.Methods
         /// <summary>
         /// This method lists all data objects associated with a license key only.
         /// </summary>
-        /// <param name="token">The access token. Read more at https://serialkeymanager.com/docs/api/v3/Auth </param>
+        /// <param name="token">The access token. Read more at https://app.cryptolens.io/docs/api/v3/Auth </param>
         /// <param name="parameters">The parameters that the method needs</param>
         /// <remarks>Note: for more details, please see 
-        /// <a href="https://serialkeymanager.com/docs/api/v3/ListDataObjects">https://serialkeymanager.com/docs/api/v3/ListDataObjects</a> </remarks>
+        /// <a href="https://app.cryptolens.io/docs/api/v3/ListDataObjects">https://app.cryptolens.io/docs/api/v3/ListDataObjects</a> </remarks>
         /// <returns>Returns <see cref="ListOfDataObjectsResult"/> or null.</returns>
         public static ListOfDataObjectsResult ListDataObjects(string token, ListDataObjectsToKeyModel parameters)
         {
@@ -113,10 +113,10 @@ namespace SKM.V3.Methods
         /// <summary>
         /// This method will set the int value to a new one.
         /// </summary>
-        /// <param name="token">The access token. Read more at https://serialkeymanager.com/docs/api/v3/Auth </param>
+        /// <param name="token">The access token. Read more at https://app.cryptolens.io/docs/api/v3/Auth </param>
         /// <param name="parameters">The parameters that the method needs</param>
         /// <remarks>Note: for more details, please see 
-        /// <a href="https://serialkeymanager.com/docs/api/v3/SetIntValue">https://serialkeymanager.com/docs/api/v3/SetIntValue</a> <br/>
+        /// <a href="https://app.cryptolens.io/docs/api/v3/SetIntValue">https://app.cryptolens.io/docs/api/v3/SetIntValue</a> <br/>
         /// Note also: Integer overflows are not allowed. If you attempt to assign an int value that is beyond the limits of an int32, zero will be assigned to the data object's IntValue.</remarks>
         /// <returns>Returns <see cref="ListOfDataObjectsResult"/> or null.</returns>
         public static BasicResult SetIntValue(string token, ChangeIntValueModel parameters)
@@ -127,10 +127,10 @@ namespace SKM.V3.Methods
         /// <summary>
         /// This method will set the int value to a new one.
         /// </summary>
-        /// <param name="token">The access token. Read more at https://serialkeymanager.com/docs/api/v3/Auth </param>
+        /// <param name="token">The access token. Read more at https://app.cryptolens.io/docs/api/v3/Auth </param>
         /// <param name="parameters">The parameters that the method needs</param>
         /// <remarks>Note: for more details, please see 
-        /// <a href="https://serialkeymanager.com/docs/api/v3/SetIntValue">https://serialkeymanager.com/docs/api/v3/SetIntValue</a> <br/>
+        /// <a href="https://app.cryptolens.io/docs/api/v3/SetIntValue">https://app.cryptolens.io/docs/api/v3/SetIntValue</a> <br/>
         /// Note also: Integer overflows are not allowed. If you attempt to assign an int value that is beyond the limits of an int32, zero will be assigned to the data object's IntValue.</remarks>
         /// <returns>Returns <see cref="ListOfDataObjectsResult"/> or null.</returns>
         public static BasicResult SetIntValue(string token, ChangeIntValueToKeyModel parameters)
@@ -141,10 +141,10 @@ namespace SKM.V3.Methods
         /// <summary>
         /// This method will set the string value to a new one.
         /// </summary>
-        /// <param name="token">The access token. Read more at https://serialkeymanager.com/docs/api/v3/Auth </param>
+        /// <param name="token">The access token. Read more at https://app.cryptolens.io/docs/api/v3/Auth </param>
         /// <param name="parameters">The parameters that the method needs</param>
         /// <remarks>Note: for more details, please see 
-        /// <a href="https://serialkeymanager.com/docs/api/v3/SetStringValue">https://serialkeymanager.com/docs/api/v3/SetStringValue</a> <br/>
+        /// <a href="https://app.cryptolens.io/docs/api/v3/SetStringValue">https://app.cryptolens.io/docs/api/v3/SetStringValue</a> <br/>
         /// </remarks>
         /// <returns>Returns <see cref="ListOfDataObjectsResult"/> or null.</returns>
         public static BasicResult SetStringValue(string token, ChangeStringValueModel parameters)
@@ -155,10 +155,10 @@ namespace SKM.V3.Methods
         /// <summary>
         /// This method will set the string value to a new one.
         /// </summary>
-        /// <param name="token">The access token. Read more at https://serialkeymanager.com/docs/api/v3/Auth </param>
+        /// <param name="token">The access token. Read more at https://app.cryptolens.io/docs/api/v3/Auth </param>
         /// <param name="parameters">The parameters that the method needs</param>
         /// <remarks>Note: for more details, please see 
-        /// <a href="https://serialkeymanager.com/docs/api/v3/SetStringValue">https://serialkeymanager.com/docs/api/v3/SetStringValue</a> <br/>
+        /// <a href="https://app.cryptolens.io/docs/api/v3/SetStringValue">https://app.cryptolens.io/docs/api/v3/SetStringValue</a> <br/>
         /// </remarks>
         /// <returns>Returns <see cref="ListOfDataObjectsResult"/> or null.</returns>
         public static BasicResult SetStringValue(string token, ChangeStringValueToKeyModel parameters)
@@ -170,10 +170,10 @@ namespace SKM.V3.Methods
         /// This method will increment the current int value by the one specified as an input parameter,
         /// i.e. <see cref="ChangeIntValueModel.IntValue"/>.
         /// </summary>
-        /// <param name="token">The access token. Read more at https://serialkeymanager.com/docs/api/v3/Auth </param>
+        /// <param name="token">The access token. Read more at https://app.cryptolens.io/docs/api/v3/Auth </param>
         /// <param name="parameters">The parameters that the method needs</param>
         /// <remarks>Note: for more details, please see 
-        /// <a href="https://serialkeymanager.com/docs/api/v3/IncrementIntValue">https://serialkeymanager.com/docs/api/v3/IncrementIntValue</a> <br/>
+        /// <a href="https://app.cryptolens.io/docs/api/v3/IncrementIntValue">https://app.cryptolens.io/docs/api/v3/IncrementIntValue</a> <br/>
         /// </remarks>
         /// <returns>Returns <see cref="ListOfDataObjectsResult"/> or null.</returns>
         public static BasicResult IncrementIntValue(string token, ChangeIntValueModel parameters)
@@ -186,10 +186,10 @@ namespace SKM.V3.Methods
         /// This method will increment the current int value by the one specified as an input parameter,
         /// i.e. <see cref="ChangeIntValueModel.IntValue"/>.
         /// </summary>
-        /// <param name="token">The access token. Read more at https://serialkeymanager.com/docs/api/v3/Auth </param>
+        /// <param name="token">The access token. Read more at https://app.cryptolens.io/docs/api/v3/Auth </param>
         /// <param name="parameters">The parameters that the method needs</param>
         /// <remarks>Note: for more details, please see 
-        /// <a href="https://serialkeymanager.com/docs/api/v3/IncrementIntValue">https://serialkeymanager.com/docs/api/v3/IncrementIntValue</a> <br/>
+        /// <a href="https://app.cryptolens.io/docs/api/v3/IncrementIntValue">https://app.cryptolens.io/docs/api/v3/IncrementIntValue</a> <br/>
         /// </remarks>
         /// <returns>Returns <see cref="ListOfDataObjectsResult"/> or null.</returns>
         public static BasicResult IncrementIntValue(string token, ChangeIntValueToKeyModel parameters)
@@ -202,10 +202,10 @@ namespace SKM.V3.Methods
         /// This method will decrement the current int value by the one specified as an input parameter,
         /// i.e. <see cref="ChangeIntValueModel.IntValue"/>.
         /// </summary>
-        /// <param name="token">The access token. Read more at https://serialkeymanager.com/docs/api/v3/Auth </param>
+        /// <param name="token">The access token. Read more at https://app.cryptolens.io/docs/api/v3/Auth </param>
         /// <param name="parameters">The parameters that the method needs</param>
         /// <remarks>Note: for more details, please see 
-        /// <a href="https://serialkeymanager.com/docs/api/v3/DecrementIntValue">https://serialkeymanager.com/docs/api/v3/DecrementIntValue</a> <br/>
+        /// <a href="https://app.cryptolens.io/docs/api/v3/DecrementIntValue">https://app.cryptolens.io/docs/api/v3/DecrementIntValue</a> <br/>
         /// </remarks>
         /// <returns>Returns <see cref="ListOfDataObjectsResult"/> or null.</returns>
         public static BasicResult DecrementIntValue(string token, ChangeIntValueModel parameters)
@@ -218,10 +218,10 @@ namespace SKM.V3.Methods
         /// This method will decrement the current int value by the one specified as an input parameter,
         /// i.e. <see cref="ChangeIntValueModel.IntValue"/>.
         /// </summary>
-        /// <param name="token">The access token. Read more at https://serialkeymanager.com/docs/api/v3/Auth </param>
+        /// <param name="token">The access token. Read more at https://app.cryptolens.io/docs/api/v3/Auth </param>
         /// <param name="parameters">The parameters that the method needs</param>
         /// <remarks>Note: for more details, please see 
-        /// <a href="https://serialkeymanager.com/docs/api/v3/DecrementIntValue">https://serialkeymanager.com/docs/api/v3/DecrementIntValue</a> <br/>
+        /// <a href="https://app.cryptolens.io/docs/api/v3/DecrementIntValue">https://app.cryptolens.io/docs/api/v3/DecrementIntValue</a> <br/>
         /// </remarks>
         /// <returns>Returns <see cref="ListOfDataObjectsResult"/> or null.</returns>
         public static BasicResult DecrementIntValue(string token, ChangeIntValueToKeyModel parameters)
@@ -232,10 +232,10 @@ namespace SKM.V3.Methods
         /// <summary>
         /// This method will remove an existing data object.
         /// </summary>
-        /// <param name="token">The access token. Read more at https://serialkeymanager.com/docs/api/v3/Auth </param>
+        /// <param name="token">The access token. Read more at https://app.cryptolens.io/docs/api/v3/Auth </param>
         /// <param name="parameters">The parameters that the method needs</param>
         /// <remarks>Note: for more details, please see 
-        /// <a href="https://serialkeymanager.com/docs/api/v3/RemoveDataObject">https://serialkeymanager.com/docs/api/v3/RemoveDataObject</a> <br/>
+        /// <a href="https://app.cryptolens.io/docs/api/v3/RemoveDataObject">https://app.cryptolens.io/docs/api/v3/RemoveDataObject</a> <br/>
         /// </remarks>
         /// <returns>Returns <see cref="ListOfDataObjectsResult"/> or null.</returns>
         public static BasicResult RemoveDataObject(string token, RemoveDataObjectModel parameters)
@@ -246,10 +246,10 @@ namespace SKM.V3.Methods
         /// <summary>
         /// This method will remove an existing data object.
         /// </summary>
-        /// <param name="token">The access token. Read more at https://serialkeymanager.com/docs/api/v3/Auth </param>
+        /// <param name="token">The access token. Read more at https://app.cryptolens.io/docs/api/v3/Auth </param>
         /// <param name="parameters">The parameters that the method needs</param>
         /// <remarks>Note: for more details, please see 
-        /// <a href="https://serialkeymanager.com/docs/api/v3/RemoveDataObject">https://serialkeymanager.com/docs/api/v3/RemoveDataObject</a> <br/>
+        /// <a href="https://app.cryptolens.io/docs/api/v3/RemoveDataObject">https://app.cryptolens.io/docs/api/v3/RemoveDataObject</a> <br/>
         /// </remarks>
         /// <returns>Returns <see cref="ListOfDataObjectsResult"/> or null.</returns>
         public static BasicResult RemoveDataObject(string token, RemoveDataObjectToKeyModel parameters)
