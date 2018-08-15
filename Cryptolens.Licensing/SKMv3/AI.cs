@@ -33,19 +33,13 @@ namespace SKM.V3.Methods
     public class AI
     {
         /// <summary>
-        /// This method will, given a license key, generate a new access token
-        /// that is locked to that particular key and return the Id of that key.
-        /// The scope of the access token is preserved (i.e. all methods that were
-        /// enabled in the access token used to access this method will be copied
-        /// to the new access token) except for the key lock, which is going to be
-        /// changed to the id of the license key. Note, for this method to work,
-        /// the access token used to access this method has to have key lock set
-        /// to -1. All of these details are described in Remarks.
+        /// This method will register an event that has occured in either the client app (eg. start of a certain feature or interaction within a feature) or in a third party provider (eg. a payment has occured, etc).
+        /// Note: You can either use this method standalone(eg.by only providing a machine code/device identifier) or together with Cryptolens Licensing module(which requires productId and optionally keyid to be set). The more information that is provided, the better insights can be provided.
         /// </summary>
         /// <param name="token">The access token. Read more at https://app.cryptolens.io/docs/api/v3/Auth </param>
         /// <param name="parameters">The parameters that the method needs</param>
         /// <remarks>Note: for more details, please see 
-        /// <a href="https://app.cryptolens.io/docs/api/v3/KeyLock">https://app.cryptolens.io/docs/api/v3/KeyLock</a> <br/>
+        /// <a href="https://app.cryptolens.io/docs/api/v3/RegisterEvent">https://app.cryptolens.io/docs/api/v3/RegisterEvent</a> <br/>
         /// </remarks>
         /// <returns>Returns <see cref="KeyLockResult"/> or null.</returns>
         public static KeyLockResult RegisterEvent(string token, KeyLockModel parameters)
@@ -54,19 +48,13 @@ namespace SKM.V3.Methods
         }
 
         /// <summary>
-        /// This method will, given a license key, generate a new access token
-        /// that is locked to that particular key and return the Id of that key.
-        /// The scope of the access token is preserved (i.e. all methods that were
-        /// enabled in the access token used to access this method will be copied
-        /// to the new access token) except for the key lock, which is going to be
-        /// changed to the id of the license key. Note, for this method to work,
-        /// the access token used to access this method has to have key lock set
-        /// to -1. All of these details are described in Remarks.
+        /// This method will register an event that has occured in either the client app (eg. start of a certain feature or interaction within a feature) or in a third party provider (eg. a payment has occured, etc).
+        /// Note: You can either use this method standalone(eg.by only providing a machine code/device identifier) or together with Cryptolens Licensing module(which requires productId and optionally keyid to be set). The more information that is provided, the better insights can be provided.
         /// </summary>
         /// <param name="token">The access token. Read more at https://app.cryptolens.io/docs/api/v3/Auth </param>
         /// <param name="parameters">The parameters that the method needs</param>
         /// <remarks>Note: for more details, please see 
-        /// <a href="https://app.cryptolens.io/docs/api/v3/KeyLock">https://app.cryptolens.io/docs/api/v3/KeyLock</a> <br/>
+        /// <a href="https://app.cryptolens.io/docs/api/v3/RegisterEvent">https://app.cryptolens.io/docs/api/v3/RegisterEvent</a> <br/>
         /// </remarks>
         /// <returns>Returns <see cref="KeyLockResult"/> or null.</returns>
         public static KeyLockResult RegisterEvents(string token, KeyLockModel parameters)
