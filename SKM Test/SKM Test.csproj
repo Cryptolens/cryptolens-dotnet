@@ -157,6 +157,7 @@
     <Compile Include="V3\TestKey.cs" />
     <Compile Include="V3\TestCustomer.cs" />
     <Compile Include="V3\TestHelpers.cs" />
+    <Compile Include="V3\TestAI.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Samples\" />

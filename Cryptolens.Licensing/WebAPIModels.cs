@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 
@@ -18,6 +19,55 @@ namespace SKM.V3.Models
 
     }
 
+    public class RegisterEventModel
+    {
+        [DefaultValue(-1)]
+        public int ProductId { get; set; }
+        [DefaultValue("")]
+        public string Key { get; set; }
+        [DefaultValue("")]
+        public string MachineCode { get; set; }
+        [DefaultValue("")]
+        public string FeatureName { get; set; }
+        [DefaultValue("")]
+        public string EventName { get; set; }
+
+        [DefaultValue(0)]
+        public int Value { get; set; }
+
+        [DefaultValue("")]
+        public string Currency { get; set; }
+
+    }
+
+    public class RegisterEventsModel
+    {
+        [DefaultValue(-1)]
+        public int ProductId { get; set; }
+        [DefaultValue("")]
+        public string Key { get; set; }
+        [DefaultValue("")]
+        public string MachineCode { get; set; }
+        [DefaultValue("")]
+        public List<Event> Events { get; set; }
+    }
+
+    public class Event
+    {
+        [DefaultValue("")]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Populate)]
+        public string FeatureName { get; set; }
+        [DefaultValue("")]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Populate)]
+        public string EventName { get; set; }
+        [DefaultValue(0)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Populate)]
+        public int Value { get; set; }
+        [DefaultValue("")]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Populate)]
+        public string Currency { get; set; }
+        public long Time { get; set; }
+    }
     public class GetCustomerLicensesModel
     {
         /// <summary>
