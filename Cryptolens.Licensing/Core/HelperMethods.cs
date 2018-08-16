@@ -28,7 +28,7 @@ namespace SKM.V3.Internal
         private static bool notSet = false;
 
 
-        private static string SERVER = "https://serialkeymanager.com/api/";
+        private static string SERVER = "https://app.cryptolens.io/api/";
 
 
         /// <summary>
