@@ -292,7 +292,38 @@ namespace SKM.V3
             return null;
         }
 
+        /// <summary>
+        /// Registers an event related to this license key. Note, this methods only works on the .NET Framework.
+        /// The machine code will be generated using <see cref="Methods.Helpers.GetMachineCode()"/>
+        /// </summary>
+        /// <param name="licenseKey"></param>
+        /// <param name="token">An access token with RegisterEvent permission is required.</param>
+        public static void RegisterEvent(this LicenseKey licenseKey, string token, Event eventObj, string machineCode)
+        {
+            Methods.AI.RegisterEvent(token,
+                new RegisterEventModel {
+                    ProductId = licenseKey.ProductId,
+                    Key = licenseKey.Key,
+                    MachineCode = machineCode,
+                    EventName = eventObj.EventName,
+                    FeatureName = eventObj.FeatureName,
+                    Currency = eventObj.Currency,
+                    Value = eventObj.Value
+                });
+        }
+
+
 #if (NET46 || NET40)
+
+        /// <summary>
+        /// Registers an event related to this license key. Note, this methods only works on the .NET Framework.
+        /// </summary>
+        /// <param name="token">An access token with RegisterEvent permission is required.</param>
+        public static void RegisterEvent(this LicenseKey licenseKey, string token, Event eventObj)
+        {
+            licenseKey.RegisterEvent(token, eventObj, Methods.Helpers.GetMachineCode());
+        }
+
         /// <summary>
         /// Checks so that the machine code corresponds to the machine code of this computer.
         /// The default hash function is SHA1.
