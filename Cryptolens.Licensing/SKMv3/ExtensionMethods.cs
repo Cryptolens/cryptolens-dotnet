@@ -204,7 +204,7 @@ namespace SKM.V3
         {
             if (licenseKey != null)
             {
-                TimeSpan ts = licenseKey.Expires - DateTime.Today;
+                TimeSpan ts = licenseKey.Expires - DateTime.UtcNow;
 
                 if (ts.Days >= 0)
                 {
@@ -246,7 +246,7 @@ namespace SKM.V3
                 {
                     if (signatureExpirationInterval.HasValue)
                     {
-                        TimeSpan ts = DateTime.Today - licenseKey.SignDate;
+                        TimeSpan ts = DateTime.UtcNow - licenseKey.SignDate;
                         if (ts.Days >= signatureExpirationInterval.Value)
                         {
                             return null;
