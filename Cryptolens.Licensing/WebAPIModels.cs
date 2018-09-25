@@ -19,6 +19,19 @@ namespace SKM.V3.Models
 
     }
 
+    public class GetMessagesResult : BasicResult
+    {
+        public List<MessageObject> Messages { get; set; }
+    }
+
+    public class GetMessagesModel
+    {
+        [DefaultValue("")]
+        public string Channel { get; set; }
+        [DefaultValue(0)]
+        public long Time { get; set; }
+    }
+
     public class RegisterEventModel
     {
         [DefaultValue(-1)]
