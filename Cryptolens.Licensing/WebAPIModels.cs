@@ -26,8 +26,15 @@ namespace SKM.V3.Models
 
     public class GetMessagesModel
     {
+        /// <summary>
+        /// Specifies the channel, whose messages you would like to retrieve. If not set, messages from all channels will be returned.
+        /// </summary>
         [DefaultValue("")]
         public string Channel { get; set; }
+
+        /// <summary>
+        /// Allows you to retrieve only those messages that were created after a certain Time (strictly greater than), eg. the last time you contacted the server. The format is unix timestamp. If no time is specified, all messages will be returned.
+        /// </summary>
         [DefaultValue(0)]
         public long Time { get; set; }
     }
