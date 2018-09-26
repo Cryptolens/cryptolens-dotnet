@@ -59,7 +59,7 @@ namespace SKGL
         {
             if (keyInformation != null)
             {
-                TimeSpan ts = keyInformation.ExpirationDate - DateTime.Today;
+                TimeSpan ts = keyInformation.ExpirationDate - DateTime.UtcNow;
 
                 if (ts.Days >= 0)
                 {
@@ -102,7 +102,7 @@ namespace SKGL
                 {
                     if(signatureExpirationInterval.HasValue && keyInformation.Date.HasValue)
                     {
-                        TimeSpan ts = DateTime.Today -  keyInformation.Date.Value;
+                        TimeSpan ts = DateTime.UtcNow -  keyInformation.Date.Value;
                         if(ts.Days >= signatureExpirationInterval.Value)
                         {
                             return null;
