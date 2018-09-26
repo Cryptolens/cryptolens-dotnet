@@ -7,6 +7,10 @@ using System.Text;
 
 namespace SKM.V3.Methods
 {
+    /// <summary>
+    /// Methods related to the Message API (https://app.cryptolens.io/docs/api/v3/Message).
+    /// You can broadcast new messages by visiting https://app.cryptolens.io/Message.
+    /// </summary>
     public class Message
     {
         /// <summary>
