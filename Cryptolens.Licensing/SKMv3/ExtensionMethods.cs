@@ -135,15 +135,24 @@ namespace SKM.V3
                 {
                     licenseKey.Signature = "";
                     var rawResult = licenseKey.AsDictionary();
+
+#if NET40 || NET46
                     RSACryptoServiceProvider rsa = new RSACryptoServiceProvider(2048);
-
                     rsa.FromXmlString(rsaPublicKey);
-
+#else
+                    RSA rsa = RSA.Create();
+                    rsa.ImportParameters(SecurityMethods.FromXMLString(rsaPublicKey));  
+#endif
+                    
                     byte[] signature = Convert.FromBase64String(prevSignature);
 
                     // the signature should not be included into the signature :)
-                    System.Diagnostics.Debug.WriteLine(String.Join(",", rawResult.Select(x => x.Value)));
+
+#if NET40 || NET46
                     return rsa.VerifyData(HelperMethods.GetBytes(String.Join(",", rawResult.Select(x => x.Value))), "SHA256", signature);
+#else
+                    return rsa.VerifyData(HelperMethods.GetBytes(String.Join(",", rawResult.Select(x => x.Value))), signature, HashAlgorithmName.SHA256, RSASignaturePadding.Pkcs1);
+#endif
                 }
                 catch { }
                 finally
