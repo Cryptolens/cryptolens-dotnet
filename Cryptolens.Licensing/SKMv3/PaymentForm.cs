@@ -18,8 +18,8 @@ namespace SKM.V3.Methods
         /// You should only create new sessions from a server side (i.e. never directly from your application). 
         /// Note, session will only work once and it will eventually expire depending on Expires parameter.
         /// </summary>
-        /// <param name="token"></param>
-        /// <param name="parameters"></param>
+        /// <param name="token">The access token. Read more at https://app.cryptolens.io/docs/api/v3/Auth </param>
+        /// <param name="parameters">The parameters that the method needs</param>
         /// <returns></returns>
         public static CreateSessionResult CreateSession(string token, CreateSessionModel parameters)
         {
