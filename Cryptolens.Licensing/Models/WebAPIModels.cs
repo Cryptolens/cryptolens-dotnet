@@ -33,10 +33,10 @@ namespace SKM.V3.Models
 
         public string ProductName { get; set; }
 
-        [MaxLength(1000)]
+        //[MaxLength(1000)]
         public string CustomField { get; set; }
 
-        [MaxLength(1000)]
+        //[MaxLength(1000)]
         public string Metadata { get; set; }
 
         public long Expires { get; set; }

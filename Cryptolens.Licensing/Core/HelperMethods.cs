@@ -28,7 +28,7 @@ namespace SKM.V3.Internal
         private static bool notSet = false;
 
 
-        private static string SERVER = "https://app.cryptolens.io/api/";
+        internal static string SERVER = "https://app.cryptolens.io/api/";
 
 
         /// <summary>
@@ -100,6 +100,13 @@ namespace SKM.V3.Internal
             char[] chars = new char[bytes.Length / sizeof(char)];
             System.Buffer.BlockCopy(bytes, 0, chars, 0, bytes.Length);
             return new string(chars);
+        }
+
+        public static string DecodeFrom64(string encodedData)
+        {
+            byte[] encodedDataAsBytes = System.Convert.FromBase64String(encodedData);
+            string returnValue = System.Text.ASCIIEncoding.ASCII.GetString(encodedDataAsBytes);
+            return returnValue;
         }
 
 
