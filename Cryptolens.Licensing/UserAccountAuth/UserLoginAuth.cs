@@ -42,13 +42,13 @@ namespace SKM.V3.Accounts
         /// if you target .NET Framework. Otherwise, eg. when targeting .NET Core, it should be null.
         /// </param>
         /// <returns>A tuple containing (jsonResult, error, licenseKeyToken)</returns>
-        public static (string jsonResult, string error, string licenseKeyToken) GetLicenseKeys(string machineCode, string token, string appName, int tokenExpires, RSAParameters RSAPublicKey, string existingToken = null, RSA rsa = null)
+        public static (string jsonResult, string error, string licenseKeyToken) GetLicenseKeys(string machineCode, string token, string appName, int tokenExpires, RSAParameters RSAPublicKey, string existingToken = null)
         {
             string tokenNew = existingToken;
 
             if (existingToken == null)
             {
-                var auth = AuthMethods.CreateAuthRequest(new Scope { GetLicenseKeys = true }, appName, machineCode,  AuthMethods.GetTokenId(token), tokenExpires, rsa);
+                var auth = AuthMethods.CreateAuthRequest(new Scope { GetLicenseKeys = true }, appName, machineCode,  AuthMethods.GetTokenId(token), tokenExpires);
 
                 for (int i = 0; i < 100; i++)
                 {

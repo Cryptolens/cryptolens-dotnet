@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.Security.Cryptography;
 
 namespace SKM.V3.Models
@@ -9,6 +10,13 @@ namespace SKM.V3.Models
         public byte[] AuthorizationToken { get; set; }
         public RSAParameters Parameters { get; set; }
 
+    }
+
+    public class GetLicenseKeysResult
+    {
+        public List<LicenseKey> Licenses { get; set; }
+        public string Error { get; set; }
+        public string LicenseKeyToken { get; set; }
     }
 
     internal class GetLicenseKeysModel
