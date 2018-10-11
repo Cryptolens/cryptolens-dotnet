@@ -38,6 +38,30 @@ namespace SKM_Test
         }
 
         [TestMethod]
+        public void AddDataObjectToKeyTest()
+        {
+            var keydata = new AddDataObjectToKeyModel() { ProductId = 3941, Key = "FRQHQ-FSOSD-BWOPU-KJOWF" };
+            var result = Data.AddDataObject(auth, keydata);
+
+            if (result != null && result.Result == ResultType.Success)
+            {
+                if (result.Id == 0)
+                    Assert.Fail();
+
+                var removeObj = Data.RemoveDataObject(auth, new RemoveDataObjectModel { Id = result.Id });
+
+                if (removeObj == null || removeObj.Result == ResultType.Error)
+                {
+                    Assert.Fail();
+                }
+            }
+            else
+            {
+                Assert.Fail();
+            }
+        }
+
+        [TestMethod]
         public void ListDataObjectsTest()
         {
             var keydata = new ListDataObjectsModel { ShowAll = true };

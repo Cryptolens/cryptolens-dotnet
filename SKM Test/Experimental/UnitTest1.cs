@@ -3,7 +3,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SKM.V3.Models;
 using SKM.V3;
 using System.Collections.Generic;
-using Cryptolens.SKM.Auth;
 using System.Security.Cryptography;
 using Newtonsoft.Json;
 
