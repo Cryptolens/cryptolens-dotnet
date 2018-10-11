@@ -28,7 +28,9 @@ namespace SKM.V3.Internal
         private static bool notSet = false;
 
 
-        internal static string SERVER = "https://app.cryptolens.io/api/";
+        internal static string DOMAIN = "https://app.cryptolens.io/";
+
+        internal static string SERVER = DOMAIN + "api/";
 
 
         /// <summary>

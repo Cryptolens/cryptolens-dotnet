@@ -43,7 +43,7 @@ namespace SKM.V3.Accounts
         /// if you target .NET Framework. Otherwise, eg. when targeting .NET Core, it should be null.
         /// </param>
         /// <returns>A tuple containing (jsonResult, error, licenseKeyToken)</returns>
-        public static GetLicenseKeysResult GetLicenseKeys(string machineCode, string token, string appName, int tokenExpires, RSAParameters RSAPublicKey, string existingToken = null)
+        public static GetLicenseKeysResult GetLicenseKeys(string machineCode, string token, string appName, int tokenExpires, string RSAPublicKey, string existingToken = null)
         {
             string tokenNew = existingToken;
 
@@ -100,10 +100,10 @@ namespace SKM.V3.Accounts
             var toSign = licenseKeys.Concat(activatedMachines.Concat(date)).ToArray();
 
             // only if sign enabled.
-#if NET40
+#if NET40 || NET46
             using (var rsaVal = new RSACryptoServiceProvider())
             {
-                rsaVal.ImportParameters(RSAPublicKey);
+                rsaVal.FromXmlString(RSAPublicKey);
 
                 if (!rsaVal.VerifyData(toSign, "SHA256", Convert.FromBase64String(result.Signature)))
                 {
@@ -114,7 +114,7 @@ namespace SKM.V3.Accounts
 #else
             using (var rsaVal = RSA.Create())
             {
-                rsaVal.ImportParameters(RSAPublicKey);
+                rsaVal.ImportParameters(SecurityMethods.FromXMLString(RSAPublicKey));
 
                 if (!rsaVal.VerifyData(toSign, Convert.FromBase64String(result.Signature),
                     HashAlgorithmName.SHA256, RSASignaturePadding.Pkcs1))

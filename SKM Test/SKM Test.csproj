@@ -159,6 +159,7 @@
     <Compile Include="V3\TestHelpers.cs" />
     <Compile Include="V3\TestAI.cs" />
     <Compile Include="V3\UnitTest1.cs" />
+    <Compile Include="V3\TestAccount.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Samples\" />
