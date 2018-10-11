@@ -39,10 +39,6 @@ namespace SKM.V3.Accounts
         /// <param name="existingToken">If you have already called this method once
         /// and received a token as a result (despite an error), you can enter it here
         /// to avoid duplicate authorization by the user.</param>
-        /// <param name="rsa">This value should either be set to "new RSACryptoServiceProvider(2048);"
-        /// if you target .NET Framework. Otherwise, eg. when targeting .NET Core, it should be null.
-        /// </param>
-        /// <returns>A tuple containing (jsonResult, error, licenseKeyToken)</returns>
         public static GetLicenseKeysResult GetLicenseKeys(string machineCode, string token, string appName, int tokenExpires, string RSAPublicKey, string existingToken = null)
         {
             string tokenNew = existingToken;

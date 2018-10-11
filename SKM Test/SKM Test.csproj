@@ -172,10 +172,6 @@
       <Project>{16196f27-81be-4248-aaa8-ff19399bdb98}</Project>
       <Name>Cryptolens.Licensing</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SKM Experimental\Cryptolens.Client.csproj">
-      <Project>{d6bfa335-bc1c-459d-848f-49066595f46c}</Project>
-      <Name>Cryptolens.Client</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="AccessToken.resx">
