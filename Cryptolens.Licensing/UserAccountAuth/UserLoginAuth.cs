@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Text;
 
-using Cryptolens.SKM.Models;
 using System.Threading;
 
 using System.Security.Cryptography;
@@ -10,6 +9,8 @@ using Newtonsoft.Json;
 using System.Linq;
 
 using SKM.V3.Models;
+using SKM.V3.Methods;
+using SKM.V3.Internal;
 
 namespace SKM.V3.Accounts
 {
@@ -34,7 +35,7 @@ namespace SKM.V3.Accounts
         /// <param name="appName">A user friendly name of your application.</param>
         /// <param name="tokenExpires">Sets the number of days the token should be valid.</param>
         /// <param name="RSAPublicKey">The RSA public key can be found here:
-        /// https://serialkeymanager.com/User/Security </param>
+        /// https://app.cryptolens.io/User/Security </param>
         /// <param name="existingToken">If you have already called this method once
         /// and received a token as a result (despite an error), you can enter it here
         /// to avoid duplicate authorization by the user.</param>
@@ -42,7 +43,7 @@ namespace SKM.V3.Accounts
         /// if you target .NET Framework. Otherwise, eg. when targeting .NET Core, it should be null.
         /// </param>
         /// <returns>A tuple containing (jsonResult, error, licenseKeyToken)</returns>
-        public static (string jsonResult, string error, string licenseKeyToken) GetLicenseKeys(string machineCode, string token, string appName, int tokenExpires, RSAParameters RSAPublicKey, string existingToken = null)
+        public static GetLicenseKeysResult GetLicenseKeys(string machineCode, string token, string appName, int tokenExpires, RSAParameters RSAPublicKey, string existingToken = null)
         {
             string tokenNew = existingToken;
 
@@ -66,7 +67,7 @@ namespace SKM.V3.Accounts
 
                 if (tokenNew == null)
                 {
-                    return (null, "Timeout reached. The user took too long time to authorize this request.", null);
+                    return new GetLicenseKeysResult { Error = "Timeout reached. The user took too long time to authorize this request." };
                 }
             }
 
@@ -74,14 +75,17 @@ namespace SKM.V3.Accounts
 
             try
             {
-                result = Helpers.HelperMethods.SendRequestToWebAPI3<GetLicenseKeysResultLinqSign>(new GetLicenseKeysModel { Sign = true, MachineCode = machineCode }, "/User/GetLicenseKeys", tokenNew);
+                result = HelperMethods.SendRequestToWebAPI3<GetLicenseKeysResultLinqSign>(new GetLicenseKeysModel { Sign = true, MachineCode = machineCode }, "/User/GetLicenseKeys", tokenNew);
             }
-            catch (Exception ex) { return (null, "Could not contact SKM: " + ex.InnerException, tokenNew); }
+            catch (Exception ex)
+            {
+                return new GetLicenseKeysResult { LicenseKeyToken=tokenNew, Error = "Could not contact SKM: " + ex.InnerException };
+            }
 
 
             if (result == null || result.Result == ResultType.Error)
             {
-                return (null, "An error occurred in the method: " + result?.Message, tokenNew);
+                return new GetLicenseKeysResult { LicenseKeyToken = tokenNew, Error = "An error occurred in the method: " + result?.Message };
             }
 
 
@@ -96,6 +100,18 @@ namespace SKM.V3.Accounts
             var toSign = licenseKeys.Concat(activatedMachines.Concat(date)).ToArray();
 
             // only if sign enabled.
+#if NET40
+            using (var rsaVal = new RSACryptoServiceProvider())
+            {
+                rsaVal.ImportParameters(RSAPublicKey);
+
+                if (!rsaVal.VerifyData(toSign, "SHA256", Convert.FromBase64String(result.Signature)))
+                {
+                    // verification failed.
+                    return new GetLicenseKeysResult { LicenseKeyToken = tokenNew, Error = "Verification of the signature failed." };
+                }
+            }
+#else
             using (var rsaVal = RSA.Create())
             {
                 rsaVal.ImportParameters(RSAPublicKey);
@@ -104,19 +120,24 @@ namespace SKM.V3.Accounts
                     HashAlgorithmName.SHA256, RSASignaturePadding.Pkcs1))
                 {
                     // verification failed.
-                    return (null, "Verification of the signature failed.", tokenNew);
+                    return new GetLicenseKeysResult { LicenseKeyToken = tokenNew, Error = "Verification of the signature failed." };
                 }
-
             }
+#endif
 
             var machineCodes = JsonConvert.DeserializeObject<List<String>>(System.Text.UTF8Encoding.UTF8.GetString(activatedMachines));
             if (machineCodes?.Count != 0 && !machineCodes.Contains(machineCode))
             {
-                return (null, "This machine code has not been authorized.", tokenNew);
+                return new GetLicenseKeysResult { LicenseKeyToken = tokenNew, Error = "This machine code has not been authorized." };
             }
 
 
-            return (JsonConvert.SerializeObject(result), null, tokenNew);
+            return new GetLicenseKeysResult
+            {
+                Licenses = JsonConvert.DeserializeObject<List<KeyInfoResult>>(System.Text.UTF8Encoding.UTF8.GetString((licenseKeys))).Select(x=> x.LicenseKey).ToList(),
+                LicenseKeyToken = tokenNew
+            };
+
         }
       
     }

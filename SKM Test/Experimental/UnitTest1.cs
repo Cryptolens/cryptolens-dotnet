@@ -6,8 +6,9 @@ using System.Collections.Generic;
 using Cryptolens.SKM.Auth;
 using System.Security.Cryptography;
 using Newtonsoft.Json;
-using Cryptolens.SKM.PaymentForms;
-using Cryptolens.SKM.Models;
+
+using SKM.V3;
+using SKM.V3.Methods;
 
 namespace SKM_Test.Experimental
 {
@@ -17,8 +18,8 @@ namespace SKM_Test.Experimental
         [TestMethod]
         public void PaymentFormCreateSessionTest()
         {
-            var result = PaymentForm.CreateSession(new CreateSessionModel { Expires = 80000, PaymentFormId = 3, Price = 100, Currency = "SEK", Heading = "Artem", ProductName = "product name" },
-                "WyI0NzgiLCJtSEdCQUtqTDhIWjdZVGNlcHN4OUlaRDRmaG40QzQvNDM3MGorUGpYIl0=");
+            var result = PaymentForm.CreateSession("WyI0NzgiLCJtSEdCQUtqTDhIWjdZVGNlcHN4OUlaRDRmaG40QzQvNDM3MGorUGpYIl0=",
+                new CreateSessionModel { Expires = 80000, PaymentFormId = 3, Price = 100, Currency = "SEK", Heading = "Artem", ProductName = "product name" });
 
 
         }
