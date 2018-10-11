@@ -54,7 +54,7 @@ namespace SKM.V3.Accounts
             };
 
 
-            OpenBrowser(HelperMethods.DOMAIN + "/User/AuthorizeApp/?" + GetQueryString(model));
+            OpenBrowser(HelperMethods.DOMAIN + "User/AuthorizeApp/?" + GetQueryString(model));
 
             return new CreateAuthRequestResult
             {

@@ -6,9 +6,9 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Company>Cryptolens AB</Company>
     <Authors>Cryptolens AB</Authors>
-    <Version>4.0.9.2</Version>
-    <AssemblyVersion>4.0.9.2</AssemblyVersion>
-    <FileVersion>4.0.9.2</FileVersion>
+    <Version>4.0.10.1</Version>
+    <AssemblyVersion>4.0.10.1</AssemblyVersion>
+    <FileVersion>4.0.10.1</FileVersion>
     <Description>An API documentation can be found at https://help.cryptolens.io/api/dotnet/.
 
 This is a client API that serves as an interface to Cryptolens Web API (app.cryptolens.io/docs/api/).
