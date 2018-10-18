@@ -15,11 +15,11 @@ using SKM.V3.Internal;
 namespace SKM.V3.Accounts
 {
     /// <summary>
-    /// User Login Authentication class takes care of all the steps necessary to retrieve
+    /// User Account Authentication class takes care of all the steps necessary to retrieve
     /// customer licenses. Note, you need to make sure that the customer has an existing
     /// SKM account that has been associated with the customer object in your account.
     /// </summary>
-    public class UserLoginAuth
+    public class UserAccount
     {
 
         /// <summary>

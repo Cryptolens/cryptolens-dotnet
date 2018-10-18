@@ -8,9 +8,8 @@ using System.Linq;
 using System.Net;
 
 using SKM.V3.Models;
-using SKM.V3.Internal;
 
-namespace SKM.V3.Accounts
+namespace SKM.V3.Internal
 {
     /// <summary>
     /// Methods that are used to be able to receive an access token that can list all
