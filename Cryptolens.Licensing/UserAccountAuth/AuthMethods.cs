@@ -18,8 +18,6 @@ namespace SKM.V3.Internal
     {
         public static CreateAuthRequestResult CreateAuthRequest(Scope scope, string appName, string machineCode, int tokenId, int expires)
         {
-            // TODO: we need to determine framework automatically and only ask for the public key in the method signature.
-
             var authToken = new byte[30];
             using (RandomNumberGenerator rnd = RandomNumberGenerator.Create())
             {
