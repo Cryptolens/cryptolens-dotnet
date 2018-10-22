@@ -102,7 +102,8 @@ namespace SKM.V3.Internal
 
 #if NET40
             RSACryptoServiceProvider rsa = new RSACryptoServiceProvider(2048);
-            response = rsa.SignData(toSign, "SHA256");
+            rsa.ImportParameters(authInfo.Parameters);
+            response = rsa.SignData(toSign, "SHA512");
 #else
             using (RSA rsa = RSA.Create())
             {

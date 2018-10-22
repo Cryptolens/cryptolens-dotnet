@@ -43,7 +43,7 @@ namespace SKM.V3.Accounts
         {
             string tokenNew = existingToken;
 
-            if (existingToken == null)
+            if (string.IsNullOrEmpty(existingToken))
             {
                 var auth = AuthMethods.CreateAuthRequest(new Scope { GetLicenseKeys = true }, appName, machineCode,  AuthMethods.GetTokenId(token), tokenExpires);
 
