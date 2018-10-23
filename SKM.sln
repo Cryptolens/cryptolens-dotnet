@@ -5,10 +5,6 @@ VisualStudioVersion = 15.0.26430.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SKM Test", "SKM Test\SKM Test.csproj", "{53AF54EF-7047-41F8-8876-856589A87503}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cryptolens.Client", "SKM Experimental\Cryptolens.Client.csproj", "{D6BFA335-BC1C-459D-848F-49066595F46C}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SKM Net Core Test", "SKM Net Core Test\SKM Net Core Test.csproj", "{6A9B765A-D919-42E3-8015-7684D81B1D89}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cryptolens.Licensing", "Cryptolens.Licensing\Cryptolens.Licensing.csproj", "{16196F27-81BE-4248-AAA8-FF19399BDB98}"
 EndProject
 Global
@@ -21,14 +17,6 @@ Global
 		{53AF54EF-7047-41F8-8876-856589A87503}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{53AF54EF-7047-41F8-8876-856589A87503}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{53AF54EF-7047-41F8-8876-856589A87503}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D6BFA335-BC1C-459D-848F-49066595F46C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D6BFA335-BC1C-459D-848F-49066595F46C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D6BFA335-BC1C-459D-848F-49066595F46C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D6BFA335-BC1C-459D-848F-49066595F46C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6A9B765A-D919-42E3-8015-7684D81B1D89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6A9B765A-D919-42E3-8015-7684D81B1D89}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6A9B765A-D919-42E3-8015-7684D81B1D89}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6A9B765A-D919-42E3-8015-7684D81B1D89}.Release|Any CPU.Build.0 = Release|Any CPU
 		{16196F27-81BE-4248-AAA8-FF19399BDB98}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{16196F27-81BE-4248-AAA8-FF19399BDB98}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{16196F27-81BE-4248-AAA8-FF19399BDB98}.Release|Any CPU.ActiveCfg = Release|Any CPU

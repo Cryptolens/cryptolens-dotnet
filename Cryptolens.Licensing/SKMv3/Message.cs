@@ -20,7 +20,7 @@ namespace SKM.V3.Methods
         /// <param name="token">The access token. Read more at https://app.cryptolens.io/docs/api/v3/Auth </param>
         /// <param name="parameters">The parameters that the method needs</param>
         /// <returns>Returns <see cref="GetMessagesResult"/> or null.</returns>
-        public static BasicResult GetMessages(string token, GetMessagesModel parameters)
+        public static GetMessagesResult GetMessages(string token, GetMessagesModel parameters)
         {
             return HelperMethods.SendRequestToWebAPI3<GetMessagesResult>(parameters, "/message/getmessages/", token);
         }

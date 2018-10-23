@@ -38,6 +38,30 @@ namespace SKM_Test
         }
 
         [TestMethod]
+        public void AddDataObjectToKeyTest()
+        {
+            var keydata = new AddDataObjectToKeyModel() { ProductId = 3941, Key = "FRQHQ-FSOSD-BWOPU-KJOWF" };
+            var result = Data.AddDataObject(auth, keydata);
+
+            if (result != null && result.Result == ResultType.Success)
+            {
+                if (result.Id == 0)
+                    Assert.Fail();
+
+                var removeObj = Data.RemoveDataObject(auth, new RemoveDataObjectModel { Id = result.Id });
+
+                if (removeObj == null || removeObj.Result == ResultType.Error)
+                {
+                    Assert.Fail();
+                }
+            }
+            else
+            {
+                Assert.Fail();
+            }
+        }
+
+        [TestMethod]
         public void ListDataObjectsTest()
         {
             var keydata = new ListDataObjectsModel { ShowAll = true };
@@ -194,6 +218,85 @@ namespace SKM_Test
             var result3 = Data.RemoveDataObject(auth, new RemoveDataObjectToKeyModel { Key = "LEPWV-FOTPG-MWBEO-FBFPS", ProductId = 3349, Id = id });
 
             Assert.IsTrue(result3 != null && result3.Result == ResultType.Success);
+        }
+
+
+        [TestMethod]
+        public void VerifyKeyAndCheckDataObjectTest()
+        {
+            //var licenseKey = "LZKZU-MPJEW-TARNP-UHDBQ";
+            //var RSAPubKey = "<RSAKeyValue><Modulus>sGbvxwdlDbqFXOMlVUnAF5ew0t0WpPW7rFpI5jHQOFkht/326dvh7t74RYeMpjy357NljouhpTLA3a6idnn4j6c3jmPWBkjZndGsPL4Bqm+fwE48nKpGPjkj4q/yzT4tHXBTyvaBjA8bVoCTnu+LiC4XEaLZRThGzIn5KQXKCigg6tQRy0GXE13XYFVz/x1mjFbT9/7dS8p85n8BuwlY5JvuBIQkKhuCNFfrUxBWyu87CFnXWjIupCD2VO/GbxaCvzrRjLZjAngLCMtZbYBALksqGPgTUN7ZM24XbPWyLtKPaXF2i4XRR9u6eTj5BfnLbKAU5PIVfjIS+vNYYogteQ==</Modulus><Exponent>AQAB</Exponent></RSAKeyValue>";
+
+            //var auth = AccessToken.AccessToken.Activate;
+            //var result = Key.Activate(token: auth, parameters: new ActivateModel()
+            //{
+            //    Key = licenseKey,
+            //    ProductId = 3349,
+            //    Sign = true,
+            //    MachineCode = Helpers.GetMachineCode()
+            //});
+
+            //if (result == null || result.Result == ResultType.Error ||
+            //    !result.LicenseKey.HasValidSignature(RSAPubKey).IsValid())
+            //{
+            //    // an error occurred or the key is invalid or it cannot be activated
+            //    // (eg. the limit of activated devices was achieved)
+            //    Console.WriteLine("The license does not work.");
+            //}
+            //else
+            //{
+            //    // everything went fine if we are here!
+            //    Console.WriteLine("The license is valid!");
+
+            //}
+
+            //var obj = result.LicenseKey.DataObjects.Get("usagecount");
+
+            //if (obj == null)
+            //{
+            //    // if it does not exist, add a new one.
+            //    result.LicenseKey.AddDataObject(auth, new DataObject { Name = "usagecount", IntValue = 0 });
+            //}
+
+            //var res = obj.IncrementIntValue(auth, incrementValue: 1, licenseKey: result.LicenseKey);
+
+            //Console.WriteLine(res ? "Success when updating the data object" : "Failure when updating the data object");
+
+            //var result = Data.ListDataObjects(auth, new ListDataObjectsToKeyModel { Contains = "usagecount", Key = "LZKZU-MPJEW-TARNP-UHDBQ", ProductId = 3349 });
+            //var obj = result.DataObjects.Get("usagecount");
+
+            //if (obj == null)
+            //{
+            //    Data.AddDataObject(auth, new AddDataObjectToKeyModel { Key = "LZKZU-MPJEW-TARNP-UHDBQ", ProductId = 3349, Name = "usagecount", IntValue = 0 });
+            //}
+            //else
+            //{
+            //    var res = obj.IncrementIntValue("WyIxODY3IiwiT3RHbFlXcjBZNEVkT2JXUmVQekx2ZE1sZUNIVmdaL3VkQzRMc00zQiJd", incrementValue: 1, licenseKey: new LicenseKey { Key = "LZKZU-MPJEW-TARNP-UHDBQ", ProductId = 3349 });
+            //}
+
+
+var result = Data.ListDataObjects("WyIxODY3IiwiT3RHbFlXcjBZNEVkT2JXUmVQekx2ZE1sZUNIVmdaL3VkQzRMc00zQiJd", new ListDataObjectsToKeyModel { Contains = "usagecoun", Key = "LZKZU-MPJEW-TARNP-UHDBQ", ProductId = 3349 });
+var obj = result.DataObjects.Get("usagecoun");
+
+if (obj == null)
+{
+    var res = Data.AddDataObject("WyIxODY3IiwiT3RHbFlXcjBZNEVkT2JXUmVQekx2ZE1sZUNIVmdaL3VkQzRMc00zQiJd", new AddDataObjectToKeyModel { Key = "LZKZU-MPJEW-TARNP-UHDBQ", ProductId = 3349, Name = "usagecoun", IntValue = 5 });
+
+    if(res == null || res.Result == ResultType.Error)
+    {
+        Console.WriteLine("Could not create new data object." + res.Message);
+    }
+}
+else
+{
+    var res = obj.DecrementIntValue("WyIxODY3IiwiT3RHbFlXcjBZNEVkT2JXUmVQekx2ZE1sZUNIVmdaL3VkQzRMc00zQiJd", decrementValue: 1, enableBound:true, lowerBound: 0, licenseKey: new LicenseKey { Key = "LZKZU-MPJEW-TARNP-UHDBQ", ProductId = 3349 });
+
+    if (!res)
+    {
+        Console.WriteLine("Could not decrement the data object. The limit was reached.");
+    }
+}
+
         }
     }
 }

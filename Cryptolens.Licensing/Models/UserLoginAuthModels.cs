@@ -1,11 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
+using System.Security.Cryptography;
 
-namespace Cryptolens.SKM.Models
+namespace SKM.V3.Models
 {
+    public class CreateAuthRequestResult
+    {
+        //(byte[] authorizationToken, RSAParameters parameters)
+        public byte[] AuthorizationToken { get; set; }
+        public RSAParameters Parameters { get; set; }
+
+    }
+
+    public class GetLicenseKeysResult
+    {
+        public List<LicenseKey> Licenses { get; set; }
+        public string Error { get; set; }
+        public string LicenseKeyToken { get; set; }
+    }
+
     internal class GetLicenseKeysModel
     {
         public bool Sign { get; set; }

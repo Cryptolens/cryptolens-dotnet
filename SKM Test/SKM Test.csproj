@@ -159,6 +159,7 @@
     <Compile Include="V3\TestHelpers.cs" />
     <Compile Include="V3\TestAI.cs" />
     <Compile Include="V3\UnitTest1.cs" />
+    <Compile Include="V3\TestAccount.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Samples\" />
@@ -170,10 +171,6 @@
     <ProjectReference Include="..\Cryptolens.Licensing\Cryptolens.Licensing.csproj">
       <Project>{16196f27-81be-4248-aaa8-ff19399bdb98}</Project>
       <Name>Cryptolens.Licensing</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SKM Experimental\Cryptolens.Client.csproj">
-      <Project>{d6bfa335-bc1c-459d-848f-49066595f46c}</Project>
-      <Name>Cryptolens.Client</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
