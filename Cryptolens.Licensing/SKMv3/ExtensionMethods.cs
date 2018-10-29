@@ -346,6 +346,37 @@ namespace SKM.V3
         /// <summary>
         /// Checks so that the machine code corresponds to the machine code of this computer.
         /// </summary>
+        /// <param name="machineCode">a unique machine identifier</param>
+        /// <param name="isFloatingLicense">If this is a floating license, this parameter has to be set to true.
+        /// You can enable floating licenses by setting <see cref="V3.Models.ActivateModel.FloatingTimeInterval"/>
+        /// to a value greater than 0.</param>
+        /// <returns></returns>
+        public static LicenseKey IsOnRightMachine(this LicenseKey licenseKey, string machineCode, bool isFloatingLicense = false)
+        {
+            if (licenseKey != null && licenseKey.ActivatedMachines != null)
+            {
+                var mc = machineCode;
+
+                if (isFloatingLicense)
+                {
+                    if (licenseKey.ActivatedMachines.Count() == 1 &&
+                        licenseKey.ActivatedMachines[0].Mid.Substring(9).Equals(mc)) return licenseKey;
+                }
+                else
+                {
+                    foreach (var machine in licenseKey.ActivatedMachines.Where(x => x.Mid != null))
+                    {
+                        // if we find a machine code that corresponds to that of this machine -> success.
+                        if (machine.Mid.Equals(mc)) return licenseKey;
+                    }
+                }
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Checks so that the machine code corresponds to the machine code of this computer.
+        /// </summary>
         /// <param name="hashFunction">A hash function used to hash the current computer's parameters.</param>
         /// <param name="isFloatingLicense">If this is a floating license, this parameter has to be set to true.
         /// You can enable floating licenses by setting <see cref="V3.Models.ActivateModel.FloatingTimeInterval"/>
