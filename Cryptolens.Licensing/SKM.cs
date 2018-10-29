@@ -6,9 +6,8 @@ using System.Net;
 using System.Security;
 using System.Text;
 
-#if (NET46 || NET40)
 using System.Management;
-#endif
+
 using System.Text.RegularExpressions;
 using System.Security.Cryptography;
 using System.Net.NetworkInformation;
@@ -1178,13 +1177,38 @@ namespace SKGL
 
         #region NewMachineCode
 
-#if (NET46 || NET40)
+
 
         /// <summary>
         /// This method will calculate a machine code
         /// </summary>
         /// <param name="hashFunction">The hash function that is to be used. getEightDigitLongHash or SHA1 can be used as a default hash function.</param>
-        /// <param name="includeUserName">If set to TRUE, the user name of the current user will be added into the </param>
+        /// <code language="VB.NET">
+        /// 'eg. "61843235" (getEightDigitsLongHash)
+        /// 'eg. "D38F13CAB8938AC3C393BC111E1A85BB4BA2CCC9" (getSHA1)
+        /// Dim machineCode = SKGL.SKM.getMachineCode(AddressOf SKGL.SKM.getEightDigitsLongHash)
+        /// Dim machineCode = SKGL.SKM.getMachineCode(AddressOf SKGL.SKM.getSHA1)
+        /// </code>
+        /// <code language="cs" title="C#">
+        /// //eg. "61843235" (getEightDigitsLongHash)
+        /// //eg. "D38F13CAB8938AC3C393BC111E1A85BB4BA2CCC9" (getSHA1)
+        /// string machineID1 = SKGL.SKM.getMachineCode(SKGL.SKM.getEightDigitsLongHash);
+        /// string machineID2 = SKGL.SKM.getMachineCode(SKGL.SKM.getSHA1);
+        /// </code>
+        /// </example>
+        /// <returns>A machine code</returns>
+        /// <remarks>On platforms other than .NET Framework 4.0 and 4.6, includeUserName value will be false.</remarks>
+        [SecuritySafeCritical]
+        public static string getMachineCode(Func<string, string> hashFunction)
+        {
+            return getMachineCode(hashFunction, false);
+        }
+
+        /// <summary>
+        /// This method will calculate a machine code
+        /// </summary>
+        /// <param name="hashFunction">The hash function that is to be used. getEightDigitLongHash or SHA1 can be used as a default hash function.</param>
+        /// <param name="includeUserName">If set to TRUE, the user name of the current user will be be taken into account int he signature (.NET Framework only).</param>
         /// <example>
         /// Machine code can be calculated with the function below. Any other hash algorithm will do, as long as it only contains letters and digits only.
         /// 
@@ -1202,6 +1226,7 @@ namespace SKGL
         /// </code>
         /// </example>
         /// <returns>A machine code</returns>
+        /// <remarks>On platforms other than .NET Framework 4.0 and 4.6, includeUserName value will be false.</remarks>
         [SecuritySafeCritical]
         public static string getMachineCode(Func<string,string> hashFunction, bool includeUserName = false)
         {
@@ -1246,8 +1271,10 @@ namespace SKGL
                 collectedInfo += nic;
             }
 
+#if (NET40 || NET46)
             if(includeUserName)
                 collectedInfo += System.Security.Principal.WindowsIdentity.GetCurrent().Name;
+#endif
 
             return hashFunction(collectedInfo);//m.getEightByteHash(collectedInfo, 100000);
         
@@ -1325,7 +1352,6 @@ namespace SKGL
             return serial;
 
         }
-#endif
 
         /// <summary>
         /// This method will generate an 8 digit long hash which can be stored as an Int32.
@@ -1426,7 +1452,7 @@ namespace SKGL
             }
         }
 
-        #endregion
+#endregion
 
     }
 }

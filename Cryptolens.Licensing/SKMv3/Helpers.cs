@@ -7,7 +7,6 @@ namespace SKM.V3.Methods
     /// </summary>
     public static class Helpers
     {
-#if (NET46 || NET40)
 
         /// <summary>
         /// Returns the machine code of the current device with SHA-256 as the hash function.
@@ -30,6 +29,5 @@ namespace SKM.V3.Methods
             return licenseKey.IsOnRightMachine(SKGL.SKM.getSHA256, isFloatingLicense).IsValid();
         }
 
-#endif
     }
 }
