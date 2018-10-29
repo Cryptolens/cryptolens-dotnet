@@ -33,6 +33,7 @@ NB: There is also one for C++ (https://github.com/Cryptolens/cryptolens-cpp)</De
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+    <PackageReference Include="System.Management" Version="4.5.0"/>
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net40' or '$(TargetFramework)' == 'net46'">
