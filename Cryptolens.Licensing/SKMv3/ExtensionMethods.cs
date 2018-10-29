@@ -322,8 +322,6 @@ namespace SKM.V3
         }
 
 
-#if (NET46 || NET40)
-
         /// <summary>
         /// Registers an event related to this license key. Note, this methods only works on the .NET Framework.
         /// </summary>
@@ -375,7 +373,6 @@ namespace SKM.V3
             }
             return null;
         }
-#endif
 
         /// <summary>
         /// Checks so that a they key is blocked.

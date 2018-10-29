@@ -209,7 +209,6 @@ namespace SKGL
             return null;
         }
 
-#if (NET46 || NET40)
         /// <summary>
         /// Checks so that the machine code corresponds to the machine code of this computer.
         /// The default hash function is SHA1.
@@ -237,6 +236,5 @@ namespace SKGL
             }
             return null;
         }
-#endif
     }
 }
