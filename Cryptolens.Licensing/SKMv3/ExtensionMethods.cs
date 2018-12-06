@@ -337,10 +337,13 @@ namespace SKM.V3
         /// </summary>
         /// <remarks>Please use <see cref="SKM.V3.Methods.Helpers.IsOnRightMachine(LicenseKey)"/> instead of this method
         /// since it uses SHA256 by default.</remarks>
+        /// <param name="allowOverdraft">If floating licensing is enabled with overdraft, this parameter should be set to true.
+        /// You can enable overdraft by setting <see cref="ActivateModel.MaxOverdraft"/> to a value greater than 0.
+        ///</param>
         /// <returns></returns>
-        public static LicenseKey IsOnRightMachine(this LicenseKey licenseKey, bool isFloatingLicense = false)
+        public static LicenseKey IsOnRightMachine(this LicenseKey licenseKey, bool isFloatingLicense = false, bool allowOverdraft = false)
         {
-            return IsOnRightMachine(licenseKey, SKGL.SKM.getSHA1, isFloatingLicense);
+            return IsOnRightMachine(licenseKey, SKGL.SKM.getSHA1, isFloatingLicense, allowOverdraft);
         }
 
         /// <summary>
@@ -350,8 +353,11 @@ namespace SKM.V3
         /// <param name="isFloatingLicense">If this is a floating license, this parameter has to be set to true.
         /// You can enable floating licenses by setting <see cref="V3.Models.ActivateModel.FloatingTimeInterval"/>
         /// to a value greater than 0.</param>
+        /// <param name="allowOverdraft">If floating licensing is enabled with overdraft, this parameter should be set to true.
+        /// You can enable overdraft by setting <see cref="ActivateModel.MaxOverdraft"/> to a value greater than 0.
+        ///</param>
         /// <returns></returns>
-        public static LicenseKey IsOnRightMachine(this LicenseKey licenseKey, string machineCode, bool isFloatingLicense = false)
+        public static LicenseKey IsOnRightMachine(this LicenseKey licenseKey, string machineCode, bool isFloatingLicense = false, bool allowOverdraft = false)
         {
             if (licenseKey != null && licenseKey.ActivatedMachines != null)
             {
@@ -360,7 +366,8 @@ namespace SKM.V3
                 if (isFloatingLicense)
                 {
                     if (licenseKey.ActivatedMachines.Count() == 1 &&
-                        licenseKey.ActivatedMachines[0].Mid.Substring(9).Equals(mc)) return licenseKey;
+                        (licenseKey.ActivatedMachines[0].Mid.Substring(9).Equals(mc) ||
+                         allowOverdraft && licenseKey.ActivatedMachines[0].Mid.Substring(19).Equals(mc))) return licenseKey;
                 }
                 else
                 {
@@ -381,8 +388,11 @@ namespace SKM.V3
         /// <param name="isFloatingLicense">If this is a floating license, this parameter has to be set to true.
         /// You can enable floating licenses by setting <see cref="V3.Models.ActivateModel.FloatingTimeInterval"/>
         /// to a value greater than 0.</param>
+        /// <param name="allowOverdraft">If floating licensing is enabled with overdraft, this parameter should be set to true.
+        /// You can enable overdraft by setting <see cref="ActivateModel.MaxOverdraft"/> to a value greater than 0.
+        ///</param>
         /// <returns></returns>
-        public static LicenseKey IsOnRightMachine(this LicenseKey licenseKey, Func<string, string> hashFunction, bool isFloatingLicense = false)
+        public static LicenseKey IsOnRightMachine(this LicenseKey licenseKey, Func<string, string> hashFunction, bool isFloatingLicense = false, bool allowOverdraft = false)
         {
             if (licenseKey != null && licenseKey.ActivatedMachines != null)
             {
@@ -391,7 +401,8 @@ namespace SKM.V3
                 if (isFloatingLicense)
                 {
                     if (licenseKey.ActivatedMachines.Count() == 1 &&
-                        licenseKey.ActivatedMachines[0].Mid.Substring(9).Equals(mc)) return licenseKey;
+                        (licenseKey.ActivatedMachines[0].Mid.Substring(9).Equals(mc) ||
+                         allowOverdraft && licenseKey.ActivatedMachines[0].Mid.Substring(19).Equals(mc))) return licenseKey;
                 }
                 else
                 {
