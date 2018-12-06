@@ -46,7 +46,7 @@ namespace SKM.V3.Methods
         /// <returns></returns>
         public static bool IsOnRightMachine(LicenseKey licenseKey, string machineCode, bool isFloatingLicense = false, bool allowOverdraft = false)
         {
-            return licenseKey.IsOnRightMachine(machineCode, isFloatingLicense).IsValid();
+            return licenseKey.IsOnRightMachine(machineCode, isFloatingLicense, allowOverdraft).IsValid();
         }
 
 
