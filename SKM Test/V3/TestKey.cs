@@ -447,14 +447,17 @@ namespace SKM_Test
         public void FloatingLicensingTest()
         {
             var activateToken = activateDeactivate;
-            Assert.IsTrue(Key.Activate(token: activateToken, parameters: new ActivateModel() { Key = "GEBNC-WZZJD-VJIHG-GCMVD", ProductId = 3349, Sign = true, MachineCode = Helpers.GetMachineCode(), Metadata = true, FloatingTimeInterval = 100 }).Result == ResultType.Success);
-            Assert.IsTrue(Key.Activate(token: activateToken, parameters: new ActivateModel() { Key = "GEBNC-WZZJD-VJIHG-GCMVD", ProductId = 3349, Sign = true, MachineCode = "foo2", Metadata = true, FloatingTimeInterval = 100 }).Result == ResultType.Error);
+            var res1 = Key.Activate(token: activateToken, parameters: new ActivateModel() { Key = "GEBNC-WZZJD-VJIHG-GCMVD", ProductId = 3349, Sign = true, MachineCode = "test", Metadata = true, FloatingTimeInterval = 10 });
+            var res2= Key.Activate(token: activateToken, parameters: new ActivateModel() { Key = "GEBNC-WZZJD-VJIHG-GCMVD", ProductId = 3349, Sign = true, MachineCode = Helpers.GetMachineCode(), Metadata = true, FloatingTimeInterval = 10, MaxOverdraft=1 });
 
-            var result = Key.Activate(token: activateToken, parameters: new ActivateModel() { Key = "GEBNC-WZZJD-VJIHG-GCMVD", ProductId = 3349, Sign = true, MachineCode = Helpers.GetMachineCode(), Metadata = true, FloatingTimeInterval = 100 });
 
-            Assert.IsTrue(result.LicenseKey.ActivatedMachines[0].Mid.StartsWith("floating:"));
+            Assert.IsTrue(Helpers.IsOnRightMachine(res2.LicenseKey, isFloatingLicense: true, allowOverdraft: true));
 
-            Assert.IsTrue(Helpers.IsOnRightMachine(result.LicenseKey, isFloatingLicense: true));
+            //var result = Key.Activate(token: activateToken, parameters: new ActivateModel() { Key = "GEBNC-WZZJD-VJIHG-GCMVD", ProductId = 3349, Sign = true, MachineCode = Helpers.GetMachineCode(), Metadata = true, FloatingTimeInterval = 100 });
+
+            //Assert.IsTrue(result.LicenseKey.ActivatedMachines[0].Mid.StartsWith("floating:"));
+
+            //Assert.IsTrue(Helpers.IsOnRightMachine(result.LicenseKey, isFloatingLicense: true));
         }
 
         [TestMethod]

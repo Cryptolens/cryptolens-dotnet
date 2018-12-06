@@ -336,6 +336,17 @@ namespace SKM.V3.Models
         /// </summary>
         public int FloatingTimeInterval { get; set; }
 
+        /// <summary>
+        /// When set to something greater than zero (and assuming FloatingTimeInterval is set too)
+        /// floating licensing will permit a license overdraft (eg. activation will succeed even if 
+        /// maximumNumberOfMachines is reached). MaxOverdraft value specifies how much we can exceed
+        /// the maximumNumberOfMachines value.
+        /// </summary>
+        public int MaxOverdraft { get; set; }
+
+
+
+
     }
     /// <summary>
     /// 
