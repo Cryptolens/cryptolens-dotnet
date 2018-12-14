@@ -176,6 +176,12 @@ namespace SKM.V3.Models
     {
         [DefaultValue("")]
         public string MachineCode { get; set; }
+
+        /// <summary>
+        /// When true, this will release the floating license 
+        /// (without removing it from the list of node-locked licenses)
+        /// </summary>
+        public bool Floating { get; set; }
     }
 
     public class KeyInfoModel
