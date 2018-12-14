@@ -387,13 +387,20 @@ namespace SKM.V3.Models
         public LicenseStatus LicenseStatus { get; set; }
 
         /// <summary>
+        /// The number of active floating machine codes for a specific FloatingTimeInterval.
+        /// Tip: If you want to find the number of unused machines, subtract this value from maxNumberOfMachines. 
+        /// If overdraft is used, you need to add the maxOverdraft value to maxNumberOfMachines.
+        /// </summary>
+        public int UsedFloatingMachines { get; set; }
+
+        /// <summary>
         /// The Signature of the metadata object.
         /// </summary>
         public string Signature { get; set; }
 
 #if (NET46 || NETSTANDARD2_0)
         /// <summary>
-        /// Verifies the integrity of the object (eg. it has not been since it was generated on the server).
+        /// Verifies the integrity of the object (eg. it has not been changed since it was generated on the server).
         /// </summary>
         /// <param name="RSAPublicKey">Your public key (see this page https://app.cryptolens.io/docs/api/v3/QuickStart)</param>
         /// <returns>True if the signature is correct and false otherwise.</returns>

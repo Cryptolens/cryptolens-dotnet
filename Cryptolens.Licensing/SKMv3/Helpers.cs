@@ -1,5 +1,7 @@
 ﻿using SKM.V3;
 
+using SKM.V3.Models;
+
 namespace SKM.V3.Methods
 {
     /// <summary>
@@ -49,6 +51,44 @@ namespace SKM.V3.Methods
             return licenseKey.IsOnRightMachine(machineCode, isFloatingLicense, allowOverdraft).IsValid();
         }
 
+        /// <summary>
+        /// Returns floating license related information.
+        /// </summary>
+        public static FloatingLicenseInformation GetFloatingLicenseInformation(ActivateModel activationModel, KeyInfoResult activationResult)
+        {
+            return GetFloatingLicenseInformation(activationModel.MaxOverdraft,
+                activationResult.LicenseKey.MaxNoOfMachines,
+                activationResult.Metadata.UsedFloatingMachines);
+        }
+
+        /// <summary>
+        /// Returns floating license related information.
+        /// </summary>
+        public static FloatingLicenseInformation GetFloatingLicenseInformation(int MaxOverdraft, int MaxNoOfMachines, int UsedFloatingMachines)
+        {
+            return new FloatingLicenseInformation
+            {
+                AvailableDevices = MaxNoOfMachines + MaxOverdraft - UsedFloatingMachines,
+                UsedDevices = UsedFloatingMachines,
+                OverdraftDevices = System.Math.Max(0, UsedFloatingMachines - MaxNoOfMachines)
+            };
+        }
+    }
+
+    public class FloatingLicenseInformation
+    {
+        /// <summary>
+        /// The total number of floating devices.
+        /// </summary>
+        public int UsedDevices { get; set; }
+        /// <summary>
+        /// The number of available floating devices (taking into account potential overdraft).
+        /// </summary>
+        public int AvailableDevices { get; set; }
+        /// <summary>
+        /// The number of devices that exceed the MaxNoOfMachines.
+        /// </summary>
+        public int OverdraftDevices { get; set; }
 
     }
 }
