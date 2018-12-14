@@ -448,6 +448,10 @@ namespace SKM_Test
         {
             var activateToken = activateDeactivate;
             var res1 = Key.Activate(token: activateToken, parameters: new ActivateModel() { Key = "GEBNC-WZZJD-VJIHG-GCMVD", ProductId = 3349, Sign = true, MachineCode = "test", Metadata = true, FloatingTimeInterval = 10 });
+
+
+            Key.Deactivate(activateToken, new DeactivateModel { Key = "GEBNC-WZZJD-VJIHG-GCMVD", ProductId = 3349, MachineCode = "test", Floating = true });
+
             var res2= Key.Activate(token: activateToken, parameters: new ActivateModel() { Key = "GEBNC-WZZJD-VJIHG-GCMVD", ProductId = 3349, Sign = true, MachineCode = Helpers.GetMachineCode(), Metadata = true, FloatingTimeInterval = 10, MaxOverdraft=1 });
 
             Assert.IsTrue(Helpers.IsOnRightMachine(res2.LicenseKey, isFloatingLicense: true, allowOverdraft: true));
