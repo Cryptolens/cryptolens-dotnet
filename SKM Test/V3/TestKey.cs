@@ -450,8 +450,25 @@ namespace SKM_Test
             var res1 = Key.Activate(token: activateToken, parameters: new ActivateModel() { Key = "GEBNC-WZZJD-VJIHG-GCMVD", ProductId = 3349, Sign = true, MachineCode = "test", Metadata = true, FloatingTimeInterval = 10 });
             var res2= Key.Activate(token: activateToken, parameters: new ActivateModel() { Key = "GEBNC-WZZJD-VJIHG-GCMVD", ProductId = 3349, Sign = true, MachineCode = Helpers.GetMachineCode(), Metadata = true, FloatingTimeInterval = 10, MaxOverdraft=1 });
 
-
             Assert.IsTrue(Helpers.IsOnRightMachine(res2.LicenseKey, isFloatingLicense: true, allowOverdraft: true));
+
+            var activateModel = new ActivateModel() { Key = "GEBNC-WZZJD-VJIHG-GCMVD", ProductId = 3349, Sign = true, MachineCode = Helpers.GetMachineCode(), Metadata = true, FloatingTimeInterval = 10, MaxOverdraft = 1 };
+            var activateResult = Key.Activate(token: activateToken, parameters: activateModel);
+
+            if (activateResult != null && activateResult.Result == ResultType.Success)
+            {
+                var info = Helpers.GetFloatingLicenseInformation(activateModel, activateResult);
+
+                System.Diagnostics.Debug.WriteLine(info.AvailableDevices);
+                System.Diagnostics.Debug.WriteLine(info.UsedDevices);
+                System.Diagnostics.Debug.WriteLine(info.OverdraftDevices);
+
+                var a = info.AvailableDevices;
+            }
+            else
+            {
+                Assert.Fail();
+            }
 
             //var result = Key.Activate(token: activateToken, parameters: new ActivateModel() { Key = "GEBNC-WZZJD-VJIHG-GCMVD", ProductId = 3349, Sign = true, MachineCode = Helpers.GetMachineCode(), Metadata = true, FloatingTimeInterval = 100 });
 
