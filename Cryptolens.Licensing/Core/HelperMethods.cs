@@ -48,6 +48,7 @@ namespace SKM.V3.Internal
                                                           .ToDictionary(x => x.Name, x => (x.GetGetMethod()
                                                           .Invoke(inputParameters, null) == null ? "" : x.GetGetMethod()
                                                           .Invoke(inputParameters, null).ToString()));
+            string server = SERVER;
 
             using (WebClient client = new WebClient())
             {
@@ -56,7 +57,13 @@ namespace SKM.V3.Internal
                 foreach (var input in inputParams)
                 {
                     if (input.Key == "LicenseServerUrl")
+                    {
+                        if (!string.IsNullOrEmpty(input.Value))
+                        {
+                            server = input.Value + "/api/";
+                        }
                         continue;
+                    }
 
                     reqparm.Add(input.Key, input.Value);
                 }
@@ -70,7 +77,7 @@ namespace SKM.V3.Internal
 
                 try
                 {
-                    byte[] responsebytes = client.UploadValues(SERVER + typeOfAction, "POST", reqparm);
+                    byte[] responsebytes = client.UploadValues(server + typeOfAction, "POST", reqparm);
                     string responsebody = Encoding.UTF8.GetString(responsebytes);
 
                     return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(responsebody);
