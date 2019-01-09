@@ -6,6 +6,8 @@ using System.Net;
 using System.Reflection;
 using System.Text;
 
+using SKM.V3.Models;
+
 namespace SKM.V3.Internal
 {
     /// <summary>
@@ -36,7 +38,7 @@ namespace SKM.V3.Internal
         /// <summary>
         /// Used to send requests to Web API 3.
         /// </summary>
-        public static T SendRequestToWebAPI3<T>(object inputParameters, 
+        public static T SendRequestToWebAPI3<T>(RequestModel inputParameters, 
                                                 string typeOfAction,
                                                 string token,
                                                 int version = 1 )                                                    
@@ -53,6 +55,9 @@ namespace SKM.V3.Internal
 
                 foreach (var input in inputParams)
                 {
+                    if (input.Key == "LicenseServerUrl")
+                        continue;
+
                     reqparm.Add(input.Key, input.Value);
                 }
 

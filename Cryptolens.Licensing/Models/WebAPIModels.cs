@@ -19,11 +19,21 @@ namespace SKM.V3.Models
 
     }
 
+    public class RequestModel
+    {
+        /// <summary>
+        /// This field is optional and is only required if you re-route your requests
+        /// through a license server (https://github.com/cryptolens/license-server).
+        /// </summary>
+        public string LicenseServerUrl { get; set; }
+    }
+
+
     public class CreateSessionResult : BasicResult
     {
         public string SessionId { get; set; }
     }
-    public class CreateSessionModel
+    public class CreateSessionModel :RequestModel
     {
         public int PaymentFormId { get; set; }
         public double Price { get; set; }
@@ -47,7 +57,7 @@ namespace SKM.V3.Models
         public List<MessageObject> Messages { get; set; }
     }
 
-    public class GetMessagesModel
+    public class GetMessagesModel : RequestModel
     {
         /// <summary>
         /// Specifies the channel, whose messages you would like to retrieve. If not set, messages from all channels will be returned.
@@ -62,7 +72,7 @@ namespace SKM.V3.Models
         public long Time { get; set; }
     }
 
-    public class RegisterEventModel
+    public class RegisterEventModel : RequestModel
     {
         [DefaultValue(-1)]
         public int ProductId { get; set; }
@@ -83,7 +93,7 @@ namespace SKM.V3.Models
 
     }
 
-    public class RegisterEventsModel
+    public class RegisterEventsModel : RequestModel
     {
         [DefaultValue(-1)]
         public int ProductId { get; set; }
@@ -111,7 +121,7 @@ namespace SKM.V3.Models
         public string Currency { get; set; }
         public long Time { get; set; }
     }
-    public class GetCustomerLicensesModel
+    public class GetCustomerLicensesModel : RequestModel
     {
         /// <summary>
         /// The id of the customer whose licenses we want to access.
@@ -133,11 +143,11 @@ namespace SKM.V3.Models
         public List<LicenseKey> LicenseKeys { get; set; }
     }
 
-    public class RemoveCustomerModel
+    public class RemoveCustomerModel : RequestModel
     {
         public int CustomerId { get; set; }
     }
-    public class AddCustomerModel
+    public class AddCustomerModel : RequestModel
     {
         /// <summary>
         /// The name of the customer (at most 100 chars)
@@ -184,7 +194,7 @@ namespace SKM.V3.Models
         public bool Floating { get; set; }
     }
 
-    public class KeyInfoModel
+    public class KeyInfoModel : RequestModel
     {
         public int ProductId { get; set; }
         /// <summary>
@@ -198,7 +208,7 @@ namespace SKM.V3.Models
         public bool Metadata { get; set; }
     }
 
-    public class CreateTrialKeyModel
+    public class CreateTrialKeyModel : RequestModel
     {
         /// <summary>
         /// The id of the product you want to access. You can find it
@@ -213,7 +223,7 @@ namespace SKM.V3.Models
         public string MachineCode { get; set; }
 
     }
-    public class CreateKeyModel
+    public class CreateKeyModel : RequestModel
     {
         public int ProductId { get; set; }
         public int Period { get; set; }
@@ -238,7 +248,7 @@ namespace SKM.V3.Models
     {
         public string Key { get; set; }
     }
-    public class GetKeysModel
+    public class GetKeysModel : RequestModel
     {
         /// <summary>
         /// The product id
@@ -300,7 +310,7 @@ namespace SKM.V3.Models
         public int PageCount { get; set; }
     }
 
-    public class ActivateModel 
+    public class ActivateModel : RequestModel
     {
         /// <summary>
         /// The product id, which can be found on the product page.
@@ -446,7 +456,7 @@ namespace SKM.V3.Models
     /// <summary>
     /// Input parameters to KeyLock method.
     /// </summary>
-    public class KeyLockModel
+    public class KeyLockModel : RequestModel
     {
         /// <summary>
         /// The id of the product you want to access. You can find it
@@ -582,7 +592,7 @@ namespace SKM.V3.Models
     /// <summary>
     /// Used to add a new Data Object.
     /// </summary>
-    public class AddDataObjectModel : IAddOrListDataObjectsModel
+    public class AddDataObjectModel : RequestModel, IAddOrListDataObjectsModel
     {
         /// <summary>
         /// The name of the data object. Max 10 characters.
@@ -616,7 +626,7 @@ namespace SKM.V3.Models
     /// <summary>
     /// Used to list Data Objects.
     /// </summary>
-    public class ListDataObjectsModel : IAddOrListDataObjectsModel
+    public class ListDataObjectsModel : RequestModel, IAddOrListDataObjectsModel
     {
 
         /// <summary>
@@ -665,7 +675,7 @@ namespace SKM.V3.Models
     /// <summary>
     /// Used to identify a data object.
     /// </summary>
-    public class ChangeStringValueModel : IChangeValueModel
+    public class ChangeStringValueModel : RequestModel, IChangeValueModel
     {
         /// <summary>
         /// The unique object id for the data object.
@@ -681,7 +691,7 @@ namespace SKM.V3.Models
     /// <summary>
     /// Used to identify a data object.
     /// </summary>
-    public class ChangeIntValueModel : IChangeValueModel
+    public class ChangeIntValueModel : RequestModel, IChangeValueModel
     {
         /// <summary>
         /// The unique object id for the data object.
@@ -722,7 +732,7 @@ namespace SKM.V3.Models
     /// <summary>
     /// Used to remove a data object.
     /// </summary>
-    public class RemoveDataObjectModel : IChangeValueModel
+    public class RemoveDataObjectModel : RequestModel, IChangeValueModel
     {
         /// <summary>
         /// The unique object id for the data object.
@@ -735,7 +745,7 @@ namespace SKM.V3.Models
     /// <summary>
     /// Stores the parameters that are required by the Extend License method.
     /// </summary>
-    public class ExtendLicenseModel
+    public class ExtendLicenseModel : RequestModel
     {
         /// <summary>
         /// The id of the product you want to access. You can find it
@@ -758,7 +768,7 @@ namespace SKM.V3.Models
     /// <summary>
     /// Stores the parameters required by AddFeature and RemoveFeature methods.
     /// </summary>
-    public class FeatureModel
+    public class FeatureModel : RequestModel
     {
         public int ProductId { get; set; }
         /// <summary>
