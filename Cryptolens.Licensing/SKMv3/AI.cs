@@ -51,13 +51,14 @@ namespace SKM.V3.Methods
                 ProductId = parameters.ProductId,
                 Events = Newtonsoft.Json.JsonConvert.SerializeObject(parameters.Events),
                 Key = parameters.Key,
-                MachineCode = parameters.MachineCode
+                MachineCode = parameters.MachineCode,
+                LicenseServerUrl = parameters.LicenseServerUrl
             };
 
             return HelperMethods.SendRequestToWebAPI3<KeyLockResult>(internalModel, "/ai/registerevents/", token);
         }
 
-        private class RegisterEventsModelServer
+        private class RegisterEventsModelServer: RequestModel
         {
             public int ProductId { get; set; }
             public string Key { get; set; }

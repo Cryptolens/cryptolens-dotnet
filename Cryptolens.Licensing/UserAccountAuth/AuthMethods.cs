@@ -67,12 +67,12 @@ namespace SKM.V3.Internal
         /// <param name="authInfo"></param>
         /// <param name="token">A token with GetChallenge and GetToken permissions.</param>
         /// <returns></returns>
-        public static string GetToken(CreateAuthRequestResult authInfo, string token)
+        public static string GetToken(CreateAuthRequestResult authInfo, string token, RequestModel optionalParams = null)
         {
             // 1. Get the challenge
             var initResponse = HelperMethods.SendRequestToWebAPI3<GetChallengeResult>(
                             new GetChallengeModel {
-                                AuthorizationToken = Convert.ToBase64String(authInfo.AuthorizationToken) }, 
+                                AuthorizationToken = Convert.ToBase64String(authInfo.AuthorizationToken), LicenseServerUrl = optionalParams?.LicenseServerUrl }, 
                                 "/auth/GetChallenge", 
                                 token);
 
@@ -118,7 +118,8 @@ namespace SKM.V3.Internal
                          new GetTokenModel {
                              AuthorizationToken = Convert.ToBase64String(authInfo.AuthorizationToken),
                              Date = BitConverter.ToInt64(date, 0),
-                             SignedChallenge = Convert.ToBase64String(response)
+                             SignedChallenge = Convert.ToBase64String(response),
+                             LicenseServerUrl = optionalParams?.LicenseServerUrl
                          }, 
                             "/auth/GetToken/", 
                             token);

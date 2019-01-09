@@ -6,6 +6,8 @@ using System.Net;
 using System.Reflection;
 using System.Text;
 
+using SKM.V3.Models;
+
 namespace SKM.V3.Internal
 {
     /// <summary>
@@ -36,7 +38,7 @@ namespace SKM.V3.Internal
         /// <summary>
         /// Used to send requests to Web API 3.
         /// </summary>
-        public static T SendRequestToWebAPI3<T>(object inputParameters, 
+        public static T SendRequestToWebAPI3<T>(RequestModel inputParameters, 
                                                 string typeOfAction,
                                                 string token,
                                                 int version = 1 )                                                    
@@ -46,6 +48,7 @@ namespace SKM.V3.Internal
                                                           .ToDictionary(x => x.Name, x => (x.GetGetMethod()
                                                           .Invoke(inputParameters, null) == null ? "" : x.GetGetMethod()
                                                           .Invoke(inputParameters, null).ToString()));
+            string server = SERVER;
 
             using (WebClient client = new WebClient())
             {
@@ -53,6 +56,15 @@ namespace SKM.V3.Internal
 
                 foreach (var input in inputParams)
                 {
+                    if (input.Key == "LicenseServerUrl")
+                    {
+                        if (!string.IsNullOrEmpty(input.Value))
+                        {
+                            server = input.Value + "/api/";
+                        }
+                        continue;
+                    }
+
                     reqparm.Add(input.Key, input.Value);
                 }
 
@@ -65,7 +77,7 @@ namespace SKM.V3.Internal
 
                 try
                 {
-                    byte[] responsebytes = client.UploadValues(SERVER + typeOfAction, "POST", reqparm);
+                    byte[] responsebytes = client.UploadValues(server + typeOfAction, "POST", reqparm);
                     string responsebody = Encoding.UTF8.GetString(responsebytes);
 
                     return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(responsebody);

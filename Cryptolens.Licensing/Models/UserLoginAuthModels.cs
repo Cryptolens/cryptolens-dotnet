@@ -19,7 +19,7 @@ namespace SKM.V3.Models
         public string LicenseKeyToken { get; set; }
     }
 
-    internal class GetLicenseKeysModel
+    internal class GetLicenseKeysModel : RequestModel
     {
         public bool Sign { get; set; }
 
@@ -78,7 +78,7 @@ namespace SKM.V3.Models
     }
 
 
-    public class GetChallengeModel
+    public class GetChallengeModel: RequestModel
     {
         public string AuthorizationToken { get; set; }
     }
