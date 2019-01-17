@@ -6,7 +6,9 @@ using System.Net;
 using System.Security;
 using System.Text;
 
+#if SYSTEM_MANAGEMENT
 using System.Management;
+#endif
 
 using System.Text.RegularExpressions;
 using System.Security.Cryptography;
@@ -50,7 +52,7 @@ namespace SKGL
     /// </remarks>
     public static class SKM
     {
-        #region TimeCheck
+#region TimeCheck
         /// <summary>
         /// This method checks whether the network time is different from the local time (client computer). This helps to prevent date changes caused by a client.
         /// </summary>
@@ -182,9 +184,9 @@ namespace SKGL
 
         }
 
-        #endregion
+#endregion
 
-        #region KeyValidation
+#region KeyValidation
         /// <summary>
         /// This method will check whether the key is valid or invalid against the Serial Key Manager database
         /// The method will return an object (KeyInformation) only if:<br/>
@@ -672,9 +674,9 @@ namespace SKGL
             }
         }
 
-        #endregion
+#endregion
 
-        #region OtherAPIRequests
+#region OtherAPIRequests
 
         public static string GenerateKey()
         {
@@ -972,9 +974,9 @@ namespace SKGL
             return new ProductVariables() { ProductName = obj.ContainsKey("productName") ? obj["productName"] : "", UID = obj["uid"], PID = obj["pid"], HSUM = obj["hsum"] };
         }
 
-        #endregion
+#endregion
 
-        #region WebAPI3
+#region WebAPI3
 
         ///// <summary>
         ///// This method will extend a license by a certain amount of days. 
@@ -1172,10 +1174,10 @@ namespace SKGL
         //    return HelperMethods.SendRequestToWebAPI3<KeyLockResult>(parameters, "/auth/keylock/", auth.Token);
         //}
 
-        #endregion
+#endregion
 
 
-        #region NewMachineCode
+#region NewMachineCode
 
 
 
@@ -1232,6 +1234,8 @@ namespace SKGL
         {
             // please see https://skgl.codeplex.com/workitem/2246 for a list of developers of this code.
 
+#if SYSTEM_MANAGEMENT
+
             ManagementObjectSearcher searcher = new ManagementObjectSearcher("select * from Win32_Processor");
             string collectedInfo = "";
             // here we will put the informa
@@ -1277,7 +1281,10 @@ namespace SKGL
 #endif
 
             return hashFunction(collectedInfo);//m.getEightByteHash(collectedInfo, 100000);
-        
+#else
+            throw new NotImplementedException("System.Management (required to collect device info) is not included in this build).");
+#endif
+
         }
 
         /// <summary>
@@ -1302,6 +1309,8 @@ namespace SKGL
         [SecuritySafeCritical]
         private static string getHddSerialNumber()
         {
+#if SYSTEM_MANAGEMENT
+
             // --- Win32 Disk 
             ManagementObjectSearcher searcher = new ManagementObjectSearcher("\\root\\cimv2", "select * from Win32_DiskPartition WHERE BootPartition=True");
 
@@ -1350,6 +1359,9 @@ namespace SKGL
             }
 
             return serial;
+#else
+            throw new NotImplementedException("System.Management (required to collect device info) is not included in this build).");
+#endif
 
         }
 
