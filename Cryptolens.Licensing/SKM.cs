@@ -1271,11 +1271,11 @@ namespace SKGL
             {
               var nic = GetNicInfo();
 
-              if (!string.IsNullOrWhiteSpace(nic))
+              if (!IsNullOrWhiteSpace(nic))
                 collectedInfo += nic;
             }
 
-#if (NET40 || NET46)
+#if (NET40 || NET46 || NET35)
             if(includeUserName)
                 collectedInfo += System.Security.Principal.WindowsIdentity.GetCurrent().Name;
 #endif
@@ -1286,6 +1286,16 @@ namespace SKGL
 #endif
 
         }
+
+        private static bool IsNullOrWhiteSpace(string str)
+        {
+#if NET35
+            return string.IsNullOrEmpty(str) || str.Trim().Length == 0;
+#else
+            return string.IsNullOrWhiteSpace(str);
+#endif
+        }
+
 
         /// <summary>
         /// Enumerate all Nic adapters, take first one, who has MAC address and return it.
@@ -1300,7 +1310,7 @@ namespace SKGL
             var nics = NetworkInterface.GetAllNetworkInterfaces();
             var mac = string.Empty;
 
-            foreach (var adapter in nics.Where(adapter => string.IsNullOrWhiteSpace(mac)))
+            foreach (var adapter in nics.Where(adapter => IsNullOrWhiteSpace(mac)))
                 mac = adapter.GetPhysicalAddress().ToString();
 
             return mac;
