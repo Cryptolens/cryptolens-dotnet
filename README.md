@@ -35,17 +35,17 @@ Cryptolens.Licensing library should also work on Mono. However, in some cases (e
 ## Running without System.Management (Linux)
 If you plan to use Cryptolens.Licensing on Linux, you need to use a version of the library that does not include `System.Management`. By excluding `System.Management`, calculating device fingerprints will not work (i.e. any method that depends on `SKM.getMachineCode`). You can still use the available hash functions and helper methods, as long as `SKM.getMachineCode` is not invoked.
 
-To compile without System.Management, open `Cryptolens.Licensing.csproj` and add `<DefineConstants>SYSTEM_MANAGEMENT</DefineConstants>` below inside the `<PropertyGroup>` tag, i.e.
+To compile without System.Management, open `Cryptolens.Licensing.csproj` and remove the `<DefineConstants>SYSTEM_MANAGEMENT</DefineConstants>` below inside the `<PropertyGroup>` tag, i.e.
 
 ```
 <PropertyGroup>
     ...
 
-    <DefineConstants>SYSTEM_MANAGEMENT</DefineConstants>
+    <DefineConstants>SYSTEM_MANAGEMENT</DefineConstants>   <-- remove this
 </PropertyGroup>
 ```
 
-> Make sure there are no other `DefineConstants` definitions later in the file, as these will override the value. If you are editing the file using VS, they may easily be added but can be removed in most cases.
+> Make sure there are no other `DefineConstants` definitions later in the file, as these will override the value.
 
 ## Old examples
 
