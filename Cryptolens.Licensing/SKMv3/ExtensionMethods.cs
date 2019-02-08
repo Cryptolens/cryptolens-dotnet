@@ -136,7 +136,7 @@ namespace SKM.V3
                     licenseKey.Signature = "";
                     var rawResult = licenseKey.AsDictionary();
 
-#if NET40 || NET46
+#if NET40 || NET46 || NET35
                     RSACryptoServiceProvider rsa = new RSACryptoServiceProvider(2048);
                     rsa.FromXmlString(rsaPublicKey);
 #else
@@ -148,7 +148,7 @@ namespace SKM.V3
 
                     // the signature should not be included into the signature :)
 
-#if NET40 || NET46
+#if NET40 || NET46 || NET35
                     return rsa.VerifyData(HelperMethods.GetBytes(String.Join(",", rawResult.Select(x => x.Value))), "SHA256", signature);
 #else
                     return rsa.VerifyData(HelperMethods.GetBytes(String.Join(",", rawResult.Select(x => x.Value))), signature, HashAlgorithmName.SHA256, RSASignaturePadding.Pkcs1);
