@@ -83,7 +83,7 @@ namespace SKM.V3.Internal
 
             var challenge = Convert.FromBase64String(initResponse.Challenge);
 
-#if NET40
+#if NET40 || NET35
             long unixTimestamp = (long)(DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)).TotalSeconds;
 #else
             long unixTimestamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
@@ -98,7 +98,7 @@ namespace SKM.V3.Internal
 
             var response = new byte[] { };
 
-#if NET40
+#if NET40 || NET35
             RSACryptoServiceProvider rsa = new RSACryptoServiceProvider(2048);
             rsa.ImportParameters(authInfo.Parameters);
             response = rsa.SignData(toSign, "SHA512");
