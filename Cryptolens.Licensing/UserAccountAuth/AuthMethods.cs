@@ -19,15 +19,21 @@ namespace SKM.V3.Internal
         public static CreateAuthRequestResult CreateAuthRequest(Scope scope, string appName, string machineCode, int tokenId, int expires)
         {
             var authToken = new byte[30];
+#if NET35
+            var rnd = RandomNumberGenerator.Create();
+            rnd.GetBytes(authToken);
+#else
             using (RandomNumberGenerator rnd = RandomNumberGenerator.Create())
             {
                 rnd.GetBytes(authToken);
             }
+#endif
+
 
             RSAParameters RSAParamsPrivate;
             string RSAParamsPublic = "";
 
-#if NET40 || NET46
+#if NET40 || NET46 || NET35
             var rsa = new RSACryptoServiceProvider(2048);
 #else
             var rsa = RSA.Create();
