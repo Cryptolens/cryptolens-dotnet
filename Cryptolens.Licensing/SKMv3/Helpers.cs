@@ -1,6 +1,10 @@
 ﻿using SKM.V3;
 
 using SKM.V3.Models;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Text;
 
 namespace SKM.V3.Methods
 {
@@ -9,13 +13,210 @@ namespace SKM.V3.Methods
     /// </summary>
     public static class Helpers
     {
+        public enum OSType {
+            Undefined = 0,
+            Windows = 1,
+            Unix = 2,
+            Linux = 3,
+            Mac = 4
+            
+        }
+
+        public static OSType GetPlatform()
+        {
+#if NETSTANDARD2_0
+            if (System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Linux))
+            {
+                return OSType.Linux;
+            }
+            else if (System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.OSX))
+            {
+                return OSType.Mac;
+            }
+            else if (System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Windows))
+            {
+                return OSType.Windows;
+            }
+            else
+            {
+                return OSType.Undefined;
+            }
+
+#else
+            int p = (int)Environment.OSVersion.Platform;
+            if ((p == 4) || (p == 6) || (p == 128))
+            {
+                return OSType.Unix;
+            }
+            else
+            {
+                return OSType.Windows;
+            }
+#endif
+            return OSType.Undefined;
+        }
+
 
         /// <summary>
         /// Returns the machine code of the current device with SHA-256 as the hash function.
         /// </summary>
-        public static string GetMachineCode()
+        public static string GetMachineCode(bool platformIndependent = false, HashSet<OSType> supportedPlatforms = null)
         {
-            return SKGL.SKM.getMachineCode(SKGL.SKM.getSHA256);
+
+            int p = (int)Environment.OSVersion.Platform;
+            OSType os = GetPlatform();
+
+            if (os == OSType.Unix)
+            {
+                //unix
+
+                if (os == OSType.Mac)
+                {
+                    var proc = new Process
+                    {
+                        StartInfo = new ProcessStartInfo
+                        {
+                            FileName = "/bin/bash",
+                            Arguments = "system_profiler SPHardwareDataType | awk '/UUID/ { print $3; }'",
+                            UseShellExecute = false,
+                            RedirectStandardOutput = true,
+                            CreateNoWindow = true
+                        }
+                    };
+
+                    proc.Start();
+
+                    StringBuilder sb = new StringBuilder();
+                    while (!proc.StandardOutput.EndOfStream)
+                    {
+                        string line = proc.StandardOutput.ReadLine();
+                        sb.Append(line);
+                    }
+
+                    return SKGL.SKM.getSHA256(sb.ToString());
+                }
+                else if (os == OSType.Linux)
+                {
+                    // requires sudo
+                    var proc = new Process
+                    {
+                        StartInfo = new ProcessStartInfo
+                        {
+                            FileName = "/bin/bash",
+                            Arguments = "dmidecode -s system-uuid",
+                            UseShellExecute = false,
+                            RedirectStandardOutput = true,
+                            CreateNoWindow = true
+                        }
+                    };
+
+                    proc.Start();
+
+                    StringBuilder sb = new StringBuilder();
+                    while (!proc.StandardOutput.EndOfStream)
+                    {
+                        string line = proc.StandardOutput.ReadLine();
+                        sb.Append(line);
+                    }
+
+                    return SKGL.SKM.getSHA256(sb.ToString());
+                }
+
+                if(supportedPlatforms!= null && !supportedPlatforms.Contains(OSType.Linux))
+                {
+                    // must be mac
+                    var proc = new Process
+                    {
+                        StartInfo = new ProcessStartInfo
+                        {
+                            FileName = "/bin/bash",
+                            Arguments = "system_profiler SPHardwareDataType | awk '/UUID/ { print $3; }'",
+                            UseShellExecute = false,
+                            RedirectStandardOutput = true,
+                            CreateNoWindow = true
+                        }
+                    };
+
+                    proc.Start();
+
+                    StringBuilder sb = new StringBuilder();
+                    while (!proc.StandardOutput.EndOfStream)
+                    {
+                        string line = proc.StandardOutput.ReadLine();
+                        sb.Append(line);
+                    }
+
+                    return SKGL.SKM.getSHA256(sb.ToString());
+                }
+                else if(supportedPlatforms != null && !supportedPlatforms.Contains(OSType.Mac))
+                {
+                    // must be linux
+                    var proc = new Process
+                    {
+                        StartInfo = new ProcessStartInfo
+                        {
+                            FileName = "/bin/bash",
+                            Arguments = "dmidecode -s system-uuid",
+                            UseShellExecute = false,
+                            RedirectStandardOutput = true,
+                            CreateNoWindow = true
+                        }
+                    };
+
+                    proc.Start();
+
+                    StringBuilder sb = new StringBuilder();
+                    while (!proc.StandardOutput.EndOfStream)
+                    {
+                        string line = proc.StandardOutput.ReadLine();
+                        sb.Append(line);
+                    }
+
+                    return SKGL.SKM.getSHA256(sb.ToString());
+                }
+
+                // undetermined, use MAC?
+
+                // ls /dev/disk/by-uuid
+
+                // use MAC
+                return null;
+            }
+            else
+            {
+                // not unix --> windows
+
+                if (platformIndependent)
+                {
+                    var proc = new Process
+                    {
+                        StartInfo = new ProcessStartInfo
+                        {
+                            FileName = "cmd",
+                            Arguments = "/C wmic csproduct get uuid",
+                            UseShellExecute = false,
+                            RedirectStandardOutput = true,
+                            CreateNoWindow = true
+                        }
+                    };
+
+                    proc.Start();
+
+                    StringBuilder sb = new StringBuilder();
+                    while (!proc.StandardOutput.EndOfStream)
+                    {
+                        string line = proc.StandardOutput.ReadLine();
+                        sb.Append(line);
+                    }
+
+                    return SKGL.SKM.getSHA256(sb.ToString());
+                }
+                else
+                {
+                    return SKGL.SKM.getMachineCode(SKGL.SKM.getSHA256);
+                }
+
+            }
         }
 
         /// <summary>
