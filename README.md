@@ -32,7 +32,7 @@ To get access to all of the featues in the library, .NET Framework 4.6 or above 
 
 Cryptolens.Licensing library should also work on Mono. However, in some cases (eg. when running on Linux), you need to use the version of the library that is compiled without System.Management. You can find pre-compiled binaries [here](https://github.com/Cryptolens/cryptolens-dotnet/releases) or compile it yourself by following the instructions below.
 
-## Running without System.Management (Linux)
+## Running without System.Management (Linux, Unity, Mono)
 If you plan to use Cryptolens.Licensing on Linux, you need to use a version of the library that does not include `System.Management`. By excluding `System.Management`, calculating device fingerprints will not work (i.e. any method that depends on `SKM.getMachineCode`). You can still use the available hash functions and helper methods, as long as `SKM.getMachineCode` is not invoked.
 
 To compile without System.Management, open `Cryptolens.Licensing.csproj` and remove the `<DefineConstants>SYSTEM_MANAGEMENT</DefineConstants>` below inside the `<PropertyGroup>` tag, i.e.
