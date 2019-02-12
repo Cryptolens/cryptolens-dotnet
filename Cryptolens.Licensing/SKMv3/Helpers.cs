@@ -66,6 +66,10 @@ namespace SKM.V3.Methods
             int p = (int)Environment.OSVersion.Platform;
             OSType os = GetPlatform();
 
+#if !SYSTEM_MANAGEMENT
+            platformIndependent = true;       
+#endif
+
             if (os == OSType.Unix)
             {
                 //unix
