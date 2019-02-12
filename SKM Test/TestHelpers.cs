@@ -13,7 +13,8 @@ namespace SKM_Test
         [TestMethod]
         public void TestMethod1()
         {
-            System.Diagnostics.Debug.WriteLine(Helpers.GetMachineCode(true));
+            var a=Helpers.GetMachineCode(true);
+            System.Diagnostics.Debug.WriteLine(a);
         }
     }
 }
