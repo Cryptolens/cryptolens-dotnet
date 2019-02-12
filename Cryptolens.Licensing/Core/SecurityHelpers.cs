@@ -15,7 +15,7 @@ namespace SKM.V3.Internal
     public class SecurityMethods
     {
 
-#if (NET46 || NETSTANDARD2_0)
+#if (NET46 || NETSTANDARD2_0 || NET47 || NET471)
         public static VerificationResult VerifyObject(string signature, RSA rsa)
         {
             if (string.IsNullOrEmpty(signature))
@@ -35,7 +35,7 @@ namespace SKM.V3.Internal
         }
 #endif
 
-#if NETSTANDARD2_0
+#if (NETSTANDARD2_0 || NET47 || NET471)
 
         /// <summary>
         /// Retrieves the public key parameters from XML string. Used for compatibility with .NET Framework ToXMLString.

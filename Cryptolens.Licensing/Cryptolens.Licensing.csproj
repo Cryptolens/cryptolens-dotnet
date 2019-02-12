@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net35;net40;net46;netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>net35;net40;net46;net47;net471;netstandard2.0</TargetFrameworks>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Company>Cryptolens AB</Company>
@@ -31,7 +31,12 @@ NB: There is also one for C++ (https://github.com/Cryptolens/cryptolens-cpp)</De
   <ItemGroup Condition="'$(TargetFramework)' == 'net40' or '$(TargetFramework)' == 'net46' or '$(TargetFramework)' == 'net35'">
     <PackageReference Include="Newtonsoft.Json" Version="6.0.8" />
   </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net46' or '$(TargetFramework)' == 'net47'">
+    <PackageReference Include="System.Runtime.InteropServices.RuntimeInformation" Version="4.3.0" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0' or '$(TargetFramework)' == 'net47' or '$(TargetFramework)' == 'net471'">
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
   </ItemGroup>
 
@@ -40,7 +45,7 @@ NB: There is also one for C++ (https://github.com/Cryptolens/cryptolens-cpp)</De
   </ItemGroup>
 
 
-  <ItemGroup Condition="('$(TargetFramework)' == 'net40' or '$(TargetFramework)' == 'net46' or '$(TargetFramework)' == 'net35') and $(DefineConstants.Contains('SYSTEM_MANAGEMENT'))">
+  <ItemGroup Condition="('$(TargetFramework)' == 'net40' or '$(TargetFramework)' == 'net46' or '$(TargetFramework)' == 'net35' or '$(TargetFramework)' == 'net47' or '$(TargetFramework)' == 'net471') and $(DefineConstants.Contains('SYSTEM_MANAGEMENT'))">
     <Reference Include="System.Management" />
   </ItemGroup>
   

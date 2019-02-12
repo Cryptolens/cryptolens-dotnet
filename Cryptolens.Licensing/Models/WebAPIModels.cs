@@ -414,7 +414,7 @@ namespace SKM.V3.Models
         /// </summary>
         public string Signature { get; set; }
 
-#if (NET46 || NETSTANDARD2_0)
+#if (NET46 || NETSTANDARD2_0 || NET47 || NET471)
         /// <summary>
         /// Verifies the integrity of the object (eg. it has not been changed since it was generated on the server).
         /// </summary>
