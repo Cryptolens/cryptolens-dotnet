@@ -83,9 +83,33 @@ namespace SKM.V3.Methods
         }
 
         /// <summary>
-        /// Returns the machine code of the current device with SHA-256 as the hash function.
+        /// Computes a platform independent machine code that works on
+        /// Windows, Linux and Mac and does not require System.Management.
+        /// 
+        /// Note: On Linux, sudo access is necessary.
         /// </summary>
-        public static string GetMachineCode(bool platformIndependent = false, HashSet<OSType> supportedPlatforms = null)
+        public static string GetMachineCodePI()
+        {
+            return GetMachineCode(platformIndependent: true);
+        }
+
+
+        /// <summary>
+        /// Returns the machine code of the current device with SHA-256 as the hash function.
+        /// This method works differently depending on the binaries that you use. By default,
+        /// machine code is computed using COM, which requires System.Management. This is only
+        /// supported on Windows, it's better to set platformIndependent=true. If you use a version
+        /// of library without System.Management, the platform independent machine code will be
+        /// computed by default.
+        /// 
+        /// The supported platforms are Windows, Mac and Linux. Note, sudo access is required if
+        /// Linux is used.
+        /// 
+        /// In newer projects, we recommend to always set platformIndependent=true or use 
+        /// <see cref="GetMachineCodePI"/>.
+        /// </summary>
+        [Obsolete]
+        public static string GetMachineCode(bool platformIndependent = false)
         {
 
             int p = (int)Environment.OSVersion.Platform;
@@ -109,23 +133,16 @@ namespace SKM.V3.Methods
                     return SKGL.SKM.getSHA256(ExecCommand("/bin/bash", "dmidecode -s system-uuid"));
                 }
 
-                if(supportedPlatforms!= null && !supportedPlatforms.Contains(OSType.Linux))
+                try
                 {
-                    // must be mac
+                    // always assume it's MAC if it's unix
                     return SKGL.SKM.getSHA256(ExecCommand("/bin/bash", "system_profiler SPHardwareDataType | awk '/UUID/ { print $3; }'"));
                 }
-                else if(supportedPlatforms != null && !supportedPlatforms.Contains(OSType.Mac))
+                catch (Exception ex)
                 {
-                    // must be linux
+                    // but if we get an error, it must be Linux:
                     return SKGL.SKM.getSHA256(ExecCommand("/bin/bash", "dmidecode -s system-uuid"));
                 }
-
-                // undetermined, use MAC?
-
-                // ls /dev/disk/by-uuid
-
-                // use MAC
-                return null;
             }
             else
             {
@@ -153,10 +170,20 @@ namespace SKM.V3.Methods
         /// <param name="allowOverdraft">If floating licensing is enabled with overdraft, this parameter should be set to true.
         /// You can enable overdraft by setting <see cref="ActivateModel.MaxOverdraft"/> to a value greater than 0.
         ///</param>
+        /// <param name="platformIndependent">Allows you to specify if you want to use the old machine code method that is based on COM and requires
+        /// System.Management or use the new platform independent method, i.e. <see cref="GetMachineCodePI"/>.
+        /// </param>
         /// <returns></returns>
-        public static bool IsOnRightMachine(LicenseKey licenseKey, bool isFloatingLicense = false, bool allowOverdraft = false)
+        public static bool IsOnRightMachine(LicenseKey licenseKey, bool isFloatingLicense = false, bool allowOverdraft = false, bool platformIndependent = false)
         {
-            return licenseKey.IsOnRightMachine(SKGL.SKM.getSHA256, isFloatingLicense, allowOverdraft).IsValid();
+            if (platformIndependent)
+            {
+                return licenseKey.IsOnRightMachine(GetMachineCodePI(), isFloatingLicense, allowOverdraft).IsValid();
+            }
+            else
+            {
+                return licenseKey.IsOnRightMachine(SKGL.SKM.getSHA256, isFloatingLicense, allowOverdraft).IsValid();
+            }
         }
 
         /// <summary>
