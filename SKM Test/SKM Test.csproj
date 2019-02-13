@@ -8,7 +8,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SKM_Test</RootNamespace>
     <AssemblyName>SKM Test</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -42,11 +42,16 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Cryptolens.Licensing, Version=4.0.15.1, Culture=neutral, PublicKeyToken=30182975912ff1ef, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Cryptolens.Licensing\bin\Release\net471\Cryptolens.Licensing.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Win32.Primitives, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\SKM\packages\Microsoft.Win32.Primitives.4.3.0\lib\net46\Microsoft.Win32.Primitives.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Cryptolens.Licensing\bin\Release\net471\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.AppContext, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -150,6 +155,7 @@
     <Compile Include="TestExtensionMethods.cs" />
     <Compile Include="TestSaveAndLoadFile.cs" />
     <Compile Include="TestHelperMethods.cs" />
+    <Compile Include="TestHelpers.cs" />
     <Compile Include="V3\TestDataObject.cs" />
     <Compile Include="TestMachineCode.cs" />
     <Compile Include="TestSKMTimeMethods.cs" />
@@ -166,12 +172,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="bin\Debug\Samples\crypto.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Cryptolens.Licensing\Cryptolens.Licensing.csproj">
-      <Project>{16196f27-81be-4248-aaa8-ff19399bdb98}</Project>
-      <Name>Cryptolens.Licensing</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="AccessToken.resx">
