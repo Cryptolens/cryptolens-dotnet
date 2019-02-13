@@ -56,6 +56,31 @@ namespace SKM.V3.Methods
             return OSType.Undefined;
         }
 
+        private static string ExecCommand(string fileName, string args)
+        {
+            var proc = new Process
+            {
+                StartInfo = new ProcessStartInfo
+                {
+                    FileName = fileName,
+                    Arguments = args,
+                    UseShellExecute = false,
+                    RedirectStandardOutput = true,
+                    CreateNoWindow = true
+                }
+            };
+
+            proc.Start();
+
+            StringBuilder sb = new StringBuilder();
+            while (!proc.StandardOutput.EndOfStream)
+            {
+                string line = proc.StandardOutput.ReadLine();
+                sb.Append(line);
+            }
+
+            return sb.ToString();
+        }
 
         /// <summary>
         /// Returns the machine code of the current device with SHA-256 as the hash function.
@@ -76,107 +101,23 @@ namespace SKM.V3.Methods
 
                 if (os == OSType.Mac)
                 {
-                    var proc = new Process
-                    {
-                        StartInfo = new ProcessStartInfo
-                        {
-                            FileName = "/bin/bash",
-                            Arguments = "system_profiler SPHardwareDataType | awk '/UUID/ { print $3; }'",
-                            UseShellExecute = false,
-                            RedirectStandardOutput = true,
-                            CreateNoWindow = true
-                        }
-                    };
-
-                    proc.Start();
-
-                    StringBuilder sb = new StringBuilder();
-                    while (!proc.StandardOutput.EndOfStream)
-                    {
-                        string line = proc.StandardOutput.ReadLine();
-                        sb.Append(line);
-                    }
-
-                    return SKGL.SKM.getSHA256(sb.ToString());
+                    return SKGL.SKM.getSHA256(ExecCommand("/bin/bash", "system_profiler SPHardwareDataType | awk '/UUID/ { print $3; }'"));
                 }
                 else if (os == OSType.Linux)
                 {
                     // requires sudo
-                    var proc = new Process
-                    {
-                        StartInfo = new ProcessStartInfo
-                        {
-                            FileName = "/bin/bash",
-                            Arguments = "dmidecode -s system-uuid",
-                            UseShellExecute = false,
-                            RedirectStandardOutput = true,
-                            CreateNoWindow = true
-                        }
-                    };
-
-                    proc.Start();
-
-                    StringBuilder sb = new StringBuilder();
-                    while (!proc.StandardOutput.EndOfStream)
-                    {
-                        string line = proc.StandardOutput.ReadLine();
-                        sb.Append(line);
-                    }
-
-                    return SKGL.SKM.getSHA256(sb.ToString());
+                    return SKGL.SKM.getSHA256(ExecCommand("/bin/bash", "dmidecode -s system-uuid"));
                 }
 
                 if(supportedPlatforms!= null && !supportedPlatforms.Contains(OSType.Linux))
                 {
                     // must be mac
-                    var proc = new Process
-                    {
-                        StartInfo = new ProcessStartInfo
-                        {
-                            FileName = "/bin/bash",
-                            Arguments = "system_profiler SPHardwareDataType | awk '/UUID/ { print $3; }'",
-                            UseShellExecute = false,
-                            RedirectStandardOutput = true,
-                            CreateNoWindow = true
-                        }
-                    };
-
-                    proc.Start();
-
-                    StringBuilder sb = new StringBuilder();
-                    while (!proc.StandardOutput.EndOfStream)
-                    {
-                        string line = proc.StandardOutput.ReadLine();
-                        sb.Append(line);
-                    }
-
-                    return SKGL.SKM.getSHA256(sb.ToString());
+                    return SKGL.SKM.getSHA256(ExecCommand("/bin/bash", "system_profiler SPHardwareDataType | awk '/UUID/ { print $3; }'"));
                 }
                 else if(supportedPlatforms != null && !supportedPlatforms.Contains(OSType.Mac))
                 {
                     // must be linux
-                    var proc = new Process
-                    {
-                        StartInfo = new ProcessStartInfo
-                        {
-                            FileName = "/bin/bash",
-                            Arguments = "dmidecode -s system-uuid",
-                            UseShellExecute = false,
-                            RedirectStandardOutput = true,
-                            CreateNoWindow = true
-                        }
-                    };
-
-                    proc.Start();
-
-                    StringBuilder sb = new StringBuilder();
-                    while (!proc.StandardOutput.EndOfStream)
-                    {
-                        string line = proc.StandardOutput.ReadLine();
-                        sb.Append(line);
-                    }
-
-                    return SKGL.SKM.getSHA256(sb.ToString());
+                    return SKGL.SKM.getSHA256(ExecCommand("/bin/bash", "dmidecode -s system-uuid"));
                 }
 
                 // undetermined, use MAC?
@@ -192,28 +133,7 @@ namespace SKM.V3.Methods
 
                 if (platformIndependent)
                 {
-                    var proc = new Process
-                    {
-                        StartInfo = new ProcessStartInfo
-                        {
-                            FileName = "cmd",
-                            Arguments = "/C wmic csproduct get uuid",
-                            UseShellExecute = false,
-                            RedirectStandardOutput = true,
-                            CreateNoWindow = true
-                        }
-                    };
-
-                    proc.Start();
-
-                    StringBuilder sb = new StringBuilder();
-                    while (!proc.StandardOutput.EndOfStream)
-                    {
-                        string line = proc.StandardOutput.ReadLine();
-                        sb.Append(line);
-                    }
-
-                    return SKGL.SKM.getSHA256(sb.ToString());
+                    return SKGL.SKM.getSHA256(ExecCommand("cmd.exe", "/C wmic csproduct get uuid"));
                 }
                 else
                 {
