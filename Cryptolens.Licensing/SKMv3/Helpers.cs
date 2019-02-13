@@ -53,7 +53,6 @@ namespace SKM.V3.Methods
                 return OSType.Windows;
             }
 #endif
-            return OSType.Undefined;
         }
 
         private static string ExecCommand(string fileName, string args)
