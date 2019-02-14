@@ -19,6 +19,19 @@ namespace SKM.V3.Methods
             return HelperMethods.SendRequestToWebAPI3<AddCustomerResult>(parameters, "/customer/addcustomer/", token);
         }
 
+
+        /// <summary>
+        /// This method will return the list of customers, with the newest customers shown first.
+        /// </summary>
+        /// <param name="token">An access token with AddCustomer permission. More info: https://app.cryptolens.io/docs/api/v3/Auth </param>
+        /// <param name="parameters">Parameters of the method.</param>
+        /// <returns></returns>
+        public static GetCustomersResult GetCustomers(string token, GetCustomersModel parameters)
+        {
+            return HelperMethods.SendRequestToWebAPI3<GetCustomersResult>(parameters, "/customer/getcustomers/", token);
+        }
+
+
         /// <summary>
         /// This method will remove an existing customer given the customerId. To add a new customer, please see <see cref="RemoveCustomer(string, RemoveCustomerModel)"/>
         /// </summary>

@@ -42,6 +42,19 @@ namespace SKM_Test
             }
 
         }
+
+        [TestMethod]
+        public void GetCustomersTest()
+        {
+            var result = CustomerMethods.GetCustomers(AccessToken.AccessToken.GetCustomers, new GetCustomersModel { Limit=5 });
+
+            if(result == null || result.Result == ResultType.Error)
+            {
+                Assert.Fail("API error");
+            }
+
+            Assert.IsTrue(result.Customers.Count == 5);
+        }
     }
 }
     
