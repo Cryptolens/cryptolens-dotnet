@@ -24,36 +24,25 @@ namespace SKM.V3.Methods
 
         public static OSType GetPlatform()
         {
-//#if NETSTANDARD2_0 || NET46 || NET47 || NET471
-//            if (System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Linux))
-//            {
-//                return OSType.Linux;
-//            }
-//            else if (System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.OSX))
-//            {
-//                return OSType.Mac;
-//            }
-//            else if (System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Windows))
-//            {
-//                return OSType.Windows;
-//            }
-//            else
-//            {
-//                return OSType.Undefined;
-//            }
+#if (NETSTANDARD2_0 || NET46 || NET47 || NET471) && SYSTEM_MANAGEMENT
+            if (System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Linux))
+            {
+                return OSType.Linux;
+            }
+            else if (System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.OSX))
+            {
+                return OSType.Mac;
+            }
+            else if (System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Windows))
+            {
+                return OSType.Windows;
+            }
+            else
+            {
+                return OSType.Undefined;
+            }
 
-//#else
-//            int p = (int)Environment.OSVersion.Platform;
-//            if ((p == 4) || (p == 6) || (p == 128))
-//            {
-//                return OSType.Unix;
-//            }
-//            else
-//            {
-//                return OSType.Windows;
-//            }
-//#endif
-
+#else
             int p = (int)Environment.OSVersion.Platform;
             if ((p == 4) || (p == 6) || (p == 128))
             {
@@ -63,6 +52,7 @@ namespace SKM.V3.Methods
             {
                 return OSType.Windows;
             }
+#endif
         }
 
         private static string ExecCommand(string fileName, string args)
