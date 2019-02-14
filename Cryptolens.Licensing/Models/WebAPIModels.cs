@@ -147,6 +147,24 @@ namespace SKM.V3.Models
     {
         public int CustomerId { get; set; }
     }
+
+    public class GetCustomersModel : RequestModel
+    {
+        /// <summary>
+        /// If either the Name, Company or Email contains the search string, it will be returned.
+        /// </summary>
+        public string Search { get; set; }
+        /// <summary>
+        /// Specifies how many customers will be returned. If not set, all customers will be returned.	
+        /// </summary>
+        public int Limit { get; set; }
+
+    }
+    public class GetCustomersResult : BasicResult
+    {
+        public List<Customer> Customers { get; set; }
+    }
+
     public class AddCustomerModel : RequestModel
     {
         /// <summary>
