@@ -107,7 +107,9 @@ namespace SKM.V3.Methods
         /// In newer projects, we recommend to always set platformIndependent=true or use 
         /// <see cref="GetMachineCodePI"/>.
         /// </summary>
+        #if SYSTEM_MANAGEMENT
         [Obsolete]
+        #endif
         public static string GetMachineCode(bool platformIndependent = false)
         {
 
