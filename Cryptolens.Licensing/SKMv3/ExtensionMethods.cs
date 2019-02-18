@@ -396,8 +396,11 @@ namespace SKM.V3
         {
             if (licenseKey != null && licenseKey.ActivatedMachines != null)
             {
+#if !SYSTEM_MANAGEMENT
+                var mc = Methods.Helpers.GetMachineCodePI();
+#else
                 var mc = SKGL.SKM.getMachineCode(hashFunction);
-
+#endif
                 if (isFloatingLicense)
                 {
                     if (licenseKey.ActivatedMachines.Count() == 1 &&

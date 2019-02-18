@@ -192,6 +192,10 @@ namespace SKM.V3.Methods
         /// <returns></returns>
         public static bool IsOnRightMachine(LicenseKey licenseKey, bool isFloatingLicense = false, bool allowOverdraft = false, bool platformIndependent = false)
         {
+#if !SYSTEM_MANAGEMENT
+            platformIndependent = true;
+#endif
+
             if (platformIndependent)
             {
                 return licenseKey.IsOnRightMachine(GetMachineCodePI(), isFloatingLicense, allowOverdraft).IsValid();
