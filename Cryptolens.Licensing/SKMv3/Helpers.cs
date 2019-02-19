@@ -24,7 +24,7 @@ namespace SKM.V3.Methods
 
         public static OSType GetPlatform()
         {
-#if NETSTANDARD2_0 || NET46 || NET47 || NET471
+#if (NETSTANDARD2_0 || NET46 || NET47 || NET471) && SYSTEM_MANAGEMENT
             if (System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Linux))
             {
                 return OSType.Linux;
@@ -107,7 +107,9 @@ namespace SKM.V3.Methods
         /// In newer projects, we recommend to always set platformIndependent=true or use 
         /// <see cref="GetMachineCodePI"/>.
         /// </summary>
+        #if SYSTEM_MANAGEMENT
         [Obsolete]
+        #endif
         public static string GetMachineCode(bool platformIndependent = false)
         {
 
@@ -192,6 +194,10 @@ namespace SKM.V3.Methods
         /// <returns></returns>
         public static bool IsOnRightMachine(LicenseKey licenseKey, bool isFloatingLicense = false, bool allowOverdraft = false, bool platformIndependent = false)
         {
+#if !SYSTEM_MANAGEMENT
+            platformIndependent = true;
+#endif
+
             if (platformIndependent)
             {
                 return licenseKey.IsOnRightMachine(GetMachineCodePI(), isFloatingLicense, allowOverdraft).IsValid();
