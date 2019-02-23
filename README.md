@@ -31,7 +31,7 @@ To get access to all of the featues in the library, .NET Framework 4.6 or above 
 * **.NET Standard 2.0** - Computing machine codes is not supported. You can still use the available hash functions to compute a machine code, assuming you can collect machine specific information.
 * **Unity/Linux/Mac** - You need to use the packages in the "Without System.Management" folder on the release page. 
 
-Cryptolens.Licensing library should also work on Mono. However, in some cases (eg. when running on Linux), you need to use the version of the library that is compiled without System.Management. You can find pre-compiled binaries [here](https://github.com/Cryptolens/cryptolens-dotnet/releases) or compile it yourself by following the instructions below.
+Cryptolens.Licensing library does also work on Mono (eg. when running on Linux or Unity), however you need to use the version of the library that is compiled without System.Management. You can find pre-compiled binaries [here](https://github.com/Cryptolens/cryptolens-dotnet/releases) or compile it yourself by following the instructions below.
 
 ## Running without System.Management (Linux, Unity, Mono)
 If you plan to use Cryptolens.Licensing on Linux, you need to use a version of the library that does not include `System.Management`. By excluding `System.Management`, calculating device fingerprints will not work (i.e. any method that depends on `SKM.getMachineCode`). You can still use the available hash functions and helper methods, as long as `SKM.getMachineCode` is not invoked.
