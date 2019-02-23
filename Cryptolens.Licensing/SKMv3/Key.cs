@@ -287,9 +287,9 @@ namespace SKM.V3.Methods
         /// Null should be seen as an unsuccessful result.
         /// </remarks>
         /// <returns>A BasicResult object or null.</returns>
-        public static KeyInfoResult BlockKey(string token, KeyLockModel parameters)
+        public static BasicResult BlockKey(string token, KeyLockModel parameters)
         {
-            return HelperMethods.SendRequestToWebAPI3<KeyInfoResult>(parameters, "/key/blockkey/", token);
+            return HelperMethods.SendRequestToWebAPI3<BasicResult>(parameters, "/key/blockkey/", token);
         }
 
         /// <summary>
@@ -303,9 +303,9 @@ namespace SKM.V3.Methods
         /// Null should be seen as an unsuccessful result.
         /// </remarks>
         /// <returns>A BasicResult object or null.</returns>
-        public static KeyInfoResult UnblockKey(string token, KeyLockModel parameters)
+        public static BasicResult UnblockKey(string token, KeyLockModel parameters)
         {
-            return HelperMethods.SendRequestToWebAPI3<KeyInfoResult>(parameters, "/key/unblockkey/", token);
+            return HelperMethods.SendRequestToWebAPI3<BasicResult>(parameters, "/key/unblockkey/", token);
         }
 
 
