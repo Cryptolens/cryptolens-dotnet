@@ -405,6 +405,7 @@ namespace SKM.V3
     {
         User = 0,
         Product = 1,
-        Key = 2
+        Key = 2,
+        MachineCode = 3
     }
 }

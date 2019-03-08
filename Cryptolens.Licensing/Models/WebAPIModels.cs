@@ -840,6 +840,50 @@ namespace SKM.V3.Models
         public long Id { get; set; }
     }
 
+
+    public class ProdKeyMachineCode : KeyLockModel
+    {
+        public string MachineCode { get; set; }
+    }
+    public class AddDataObjectToMachineCodeModel : ProdKeyMachineCode
+    {
+        public string Name { get; set; }
+        public string StringValue { get; set; }
+        public int IntValue { get; set; }
+    }
+
+    public class ListDataObjectsToMachineCodeModel : ProdKeyMachineCode
+    {
+        /// <summary>
+        /// Lists the names that contain the desired string only.
+        /// </summary>
+        [DefaultValue("")]
+        public string Contains { get; set; }
+    }
+
+    public class ChangeIntValueToMachineCodeModel : ProdKeyMachineCode, IChangeValueModel
+    {
+        public long Id { get; set; }
+
+        public int IntValue { get; set; }
+
+        public int Bound { get; set; }
+
+        public bool EnableBound { get; set; }
+    }
+
+
+    public class ChangeStringValueToMachineCodeModel : ProdKeyMachineCode, IChangeValueModel
+    {
+        public long Id { get; set; }
+        public string StringValue { get; set; }
+    }
+    public class RemoveDataObjectToMachineCodeModel : ProdKeyMachineCode, IChangeValueModel
+    {
+        public long Id { get; set; }
+    }
+
+
     /// <summary>
     /// A simple result that tells if a request is successful,
     /// and optionally provides a message.

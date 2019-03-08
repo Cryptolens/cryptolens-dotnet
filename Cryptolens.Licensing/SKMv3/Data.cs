@@ -71,6 +71,20 @@ namespace SKM.V3.Methods
         }
 
         /// <summary>
+        /// Creates a new <see cref="DataObject"/> for a machine code.
+        /// </summary>
+        /// <param name="token">The access token. Read more at https://app.cryptolens.io/docs/api/v3/Auth </param>
+        /// <param name="parameters">The parameters that the method needs</param>
+        /// <remarks>Note: for more details, please see 
+        /// <a href="https://app.cryptolens.io/docs/api/v3/AddDataObject">https://app.cryptolens.io/docs/api/v3/AddDataObject</a> </remarks>
+        /// <returns>Returns <see cref="DataObjectIdResult"/> or null.</returns>
+        public static DataObjectIdResult AddDataObject(string token, AddDataObjectToMachineCodeModel parameters)
+        {
+            return HelperMethods.SendRequestToWebAPI3<DataObjectIdResult>(parameters, "/data/adddataobjecttomachinecode/", token);
+        }
+
+
+        /// <summary>
         /// This method lists either all Data Object associated with a
         /// license key, a product or your entire account, or all of them at once.
         /// </summary>
@@ -109,6 +123,19 @@ namespace SKM.V3.Methods
             return HelperMethods.SendRequestToWebAPI3<ListOfDataObjectsResult>(parameters, "/data/listdataobjectstokey/", token);
         }
 
+        /// <summary>
+        /// This method lists all data objects associated with a machine code only.
+        /// </summary>
+        /// <param name="token">The access token. Read more at https://app.cryptolens.io/docs/api/v3/Auth </param>
+        /// <param name="parameters">The parameters that the method needs</param>
+        /// <remarks>Note: for more details, please see 
+        /// <a href="https://app.cryptolens.io/docs/api/v3/ListDataObjects">https://app.cryptolens.io/docs/api/v3/ListDataObjects</a> </remarks>
+        /// <returns>Returns <see cref="ListOfDataObjectsResult"/> or null.</returns>
+        public static ListOfDataObjectsResult ListDataObjects(string token, ListDataObjectsToMachineCodeModel parameters)
+        {
+            return HelperMethods.SendRequestToWebAPI3<ListOfDataObjectsResult>(parameters, "/data/listdataobjectstomachinecode/", token);
+        }
+
 
         /// <summary>
         /// This method will set the int value to a new one.
@@ -139,6 +166,20 @@ namespace SKM.V3.Methods
         }
 
         /// <summary>
+        /// This method will set the int value to a new one.
+        /// </summary>
+        /// <param name="token">The access token. Read more at https://app.cryptolens.io/docs/api/v3/Auth </param>
+        /// <param name="parameters">The parameters that the method needs</param>
+        /// <remarks>Note: for more details, please see 
+        /// <a href="https://app.cryptolens.io/docs/api/v3/SetIntValue">https://app.cryptolens.io/docs/api/v3/SetIntValue</a> <br/>
+        /// Note also: Integer overflows are not allowed. If you attempt to assign an int value that is beyond the limits of an int32, zero will be assigned to the data object's IntValue.</remarks>
+        /// <returns>Returns <see cref="ListOfDataObjectsResult"/> or null.</returns>
+        public static BasicResult SetIntValue(string token, ChangeIntValueToMachineCodeModel parameters)
+        {
+            return HelperMethods.SendRequestToWebAPI3<BasicResult>(parameters, "/data/setintvaluetomachinecode/", token);
+        }
+
+        /// <summary>
         /// This method will set the string value to a new one.
         /// </summary>
         /// <param name="token">The access token. Read more at https://app.cryptolens.io/docs/api/v3/Auth </param>
@@ -164,6 +205,20 @@ namespace SKM.V3.Methods
         public static BasicResult SetStringValue(string token, ChangeStringValueToKeyModel parameters)
         {
             return HelperMethods.SendRequestToWebAPI3<BasicResult>(parameters, "/data/setstringvaluetokey/", token);
+        }
+
+        /// <summary>
+        /// This method will set the string value to a new one.
+        /// </summary>
+        /// <param name="token">The access token. Read more at https://app.cryptolens.io/docs/api/v3/Auth </param>
+        /// <param name="parameters">The parameters that the method needs</param>
+        /// <remarks>Note: for more details, please see 
+        /// <a href="https://app.cryptolens.io/docs/api/v3/SetStringValue">https://app.cryptolens.io/docs/api/v3/SetStringValue</a> <br/>
+        /// </remarks>
+        /// <returns>Returns <see cref="ListOfDataObjectsResult"/> or null.</returns>
+        public static BasicResult SetStringValue(string token, ChangeStringValueToMachineCodeModel parameters)
+        {
+            return HelperMethods.SendRequestToWebAPI3<BasicResult>(parameters, "/data/setstringvaluetomachinecode/", token);
         }
 
         /// <summary>
@@ -197,6 +252,20 @@ namespace SKM.V3.Methods
             return HelperMethods.SendRequestToWebAPI3<BasicResult>(parameters, "/data/incrementintvaluetokey/", token);
         }
 
+        /// <summary>
+        /// This method will increment the current int value by the one specified as an input parameter,
+        /// i.e. <see cref="ChangeIntValueModel.IntValue"/>.
+        /// </summary>
+        /// <param name="token">The access token. Read more at https://app.cryptolens.io/docs/api/v3/Auth </param>
+        /// <param name="parameters">The parameters that the method needs</param>
+        /// <remarks>Note: for more details, please see 
+        /// <a href="https://app.cryptolens.io/docs/api/v3/IncrementIntValue">https://app.cryptolens.io/docs/api/v3/IncrementIntValue</a> <br/>
+        /// </remarks>
+        /// <returns>Returns <see cref="ListOfDataObjectsResult"/> or null.</returns>
+        public static BasicResult IncrementIntValue(string token, ChangeIntValueToMachineCodeModel parameters)
+        {
+            return HelperMethods.SendRequestToWebAPI3<BasicResult>(parameters, "/data/incrementintvaluetomachinecode/", token);
+        }
 
         /// <summary>
         /// This method will decrement the current int value by the one specified as an input parameter,
@@ -230,6 +299,21 @@ namespace SKM.V3.Methods
         }
 
         /// <summary>
+        /// This method will decrement the current int value by the one specified as an input parameter,
+        /// i.e. <see cref="ChangeIntValueModel.IntValue"/>.
+        /// </summary>
+        /// <param name="token">The access token. Read more at https://app.cryptolens.io/docs/api/v3/Auth </param>
+        /// <param name="parameters">The parameters that the method needs</param>
+        /// <remarks>Note: for more details, please see 
+        /// <a href="https://app.cryptolens.io/docs/api/v3/DecrementIntValue">https://app.cryptolens.io/docs/api/v3/DecrementIntValue</a> <br/>
+        /// </remarks>
+        /// <returns>Returns <see cref="ListOfDataObjectsResult"/> or null.</returns>
+        public static BasicResult DecrementIntValue(string token, ChangeIntValueToMachineCodeModel parameters)
+        {
+            return HelperMethods.SendRequestToWebAPI3<BasicResult>(parameters, "/data/decrementintvaluetomachinecode/", token);
+        }
+
+        /// <summary>
         /// This method will remove an existing data object.
         /// </summary>
         /// <param name="token">The access token. Read more at https://app.cryptolens.io/docs/api/v3/Auth </param>
@@ -255,6 +339,20 @@ namespace SKM.V3.Methods
         public static BasicResult RemoveDataObject(string token, RemoveDataObjectToKeyModel parameters)
         {
             return HelperMethods.SendRequestToWebAPI3<BasicResult>(parameters, "/data/removedataobjecttokey/", token);
+        }
+
+        /// <summary>
+        /// This method will remove an existing data object.
+        /// </summary>
+        /// <param name="token">The access token. Read more at https://app.cryptolens.io/docs/api/v3/Auth </param>
+        /// <param name="parameters">The parameters that the method needs</param>
+        /// <remarks>Note: for more details, please see 
+        /// <a href="https://app.cryptolens.io/docs/api/v3/RemoveDataObject">https://app.cryptolens.io/docs/api/v3/RemoveDataObject</a> <br/>
+        /// </remarks>
+        /// <returns>Returns <see cref="ListOfDataObjectsResult"/> or null.</returns>
+        public static BasicResult RemoveDataObject(string token, RemoveDataObjectToMachineCodeModel parameters)
+        {
+            return HelperMethods.SendRequestToWebAPI3<BasicResult>(parameters, "/data/removedataobjecttomachinecode/", token);
         }
     }
 }
