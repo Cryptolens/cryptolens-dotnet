@@ -13,7 +13,7 @@ namespace SKM.V3
     /// Platform independent version of <see cref="BasicCustomer"/>
     /// that uses Unix time (seconds).
     /// </summary>
-    public class CustomerPI
+    internal class CustomerPI
     {
         public int Id { get; set; }
 
@@ -26,7 +26,7 @@ namespace SKM.V3
         public long Created { get; set; }
     }
 
-    public class ActivationDataPI
+    internal class ActivationDataPI
     {
         public string Mid { get; set; }
         public string IP { get; set; }
@@ -38,7 +38,7 @@ namespace SKM.V3
     /// that uses Unix Time (seconds) in all DateTime fields.
     /// </summary>
     [Serializable]
-    public class LicenseKeyPI
+    internal class LicenseKeyPI
     {
         public LicenseKeyPI()
         {
@@ -195,19 +195,24 @@ namespace SKM.V3
 
             bool verificationResult = false;
 
+            try
+            {
+
 #if NET40 || NET46 || NET35 || NET47 || NET471
-            RSACryptoServiceProvider rsa = new RSACryptoServiceProvider(2048);
-            rsa.FromXmlString(RSAPubKey);
+                RSACryptoServiceProvider rsa = new RSACryptoServiceProvider(2048);
+                rsa.FromXmlString(RSAPubKey);
 #else
             RSA rsa = RSA.Create();
             rsa.ImportParameters(SecurityMethods.FromXMLString(RSAPubKey));
 #endif
 
 #if NET40 || NET46 || NET35 || NET47 || NET471
-            verificationResult = rsa.VerifyData(licenseBytes, "SHA256", signatureBytes);
+                verificationResult = rsa.VerifyData(licenseBytes, "SHA256", signatureBytes);
 #else
             verificationResult = rsa.VerifyData(licenseBytes, signatureBytes, HashAlgorithmName.SHA256, RSASignaturePadding.Pkcs1);
 #endif
+            }
+            catch (Exception ex) { }
 
             if(!verificationResult)
             {
