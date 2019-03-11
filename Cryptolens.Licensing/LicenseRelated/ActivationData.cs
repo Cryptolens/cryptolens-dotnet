@@ -28,5 +28,21 @@ namespace SKM.V3
                 return Mid + "," + IP + "," + (Time.HasValue ? Time.Value.ToString(ConfigValues.DEFAULT_TIME_REPSENTATION) : "");
             return base.ToString();
         }
+
+        public override bool Equals(object obj)
+        {
+            if ((obj == null) || !this.GetType().Equals(obj.GetType()))
+            {
+                return false;
+            }
+
+            ActivationData data = (ActivationData)obj;
+
+            if (data.IP != IP ||
+                data.Mid != Mid ||
+                data.Time != Time)
+                return false;
+            return true;
+        }
     }
 }

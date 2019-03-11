@@ -262,6 +262,10 @@ namespace SKM_Test
 
             Assert.IsTrue(LicenseKey.FromResponse(TestCases.TestData.pubkey, result) != null);
 
+            var license = LicenseKey.FromResponse(TestCases.TestData.pubkey, result);
+
+            Assert.IsTrue(license.HasValidSignature(TestCases.TestData.pubkey).IsValid());
+
             //result.LicenseKey.Signature = "test";
 
             //Assert.IsFalse(result.LicenseKey.IsValid(TestCases.TestData.pubkey));

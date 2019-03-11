@@ -1,11 +1,11 @@
-﻿using SKM.V3.Internal;
+﻿using Newtonsoft.Json;
+using SKM.V3.Internal;
 using SKM.V3.Methods;
 using SKM.V3.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
-using Newtonsoft.Json;
 
 namespace SKM.V3
 {
@@ -224,6 +224,69 @@ namespace SKM.V3
             license.RawResponse = response;
 
             return license;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if ((obj == null) || !this.GetType().Equals(obj.GetType()))
+            {
+                return false;
+            }
+
+            var license = (LicenseKey)obj;
+
+            if (license.AllowedMachines != AllowedMachines ||
+                license.Block != Block ||
+                license.Created != Created ||
+                license.Expires != Expires ||
+                license.F1 != F1 ||
+                license.F2 != F2 ||
+                license.F3 != F3 ||
+                license.F4 != F4 ||
+                license.F5 != F5 ||
+                license.F6 != F6 ||
+                license.F7 != F7 ||
+                license.F8 != F8 ||
+                license.Key != Key ||
+                license.MaxNoOfMachines != MaxNoOfMachines ||
+                license.Notes != Notes ||
+                license.ProductId != ProductId ||
+                license.Period != Period ||
+                license.TrialActivation != TrialActivation ||
+                license.SignDate != SignDate ||
+                license.Signature != Signature
+                )
+                return false;
+
+            if (license.ActivatedMachines?.Count != ActivatedMachines?.Count)
+                return false;
+
+            if (license.DataObjects?.Count != DataObjects?.Count)
+                return false;
+
+            if (DataObjects != null)
+            {
+                for (int i = 0; i < DataObjects.Count; i++)
+                {
+                    if ((DataObjects[i] == null && license.DataObjects[i] != null) || (DataObjects[i] != null && !DataObjects[i].Equals(license.DataObjects[i])))
+                        return false;
+                }
+            }
+
+            if (ActivatedMachines != null)
+            {
+                for (int i = 0; i < ActivatedMachines.Count; i++)
+                {
+                    if ((ActivatedMachines[i] == null && license.ActivatedMachines[i] != null) || (ActivatedMachines[i] != null &&  !ActivatedMachines[i].Equals(license.ActivatedMachines[i])))
+                        return false;
+                }
+            }
+
+            if ((Customer == null && license.Customer != null) || (Customer!= null && !Customer.Equals(license.Customer)))
+                return false;
+
+            //check other dobjs, customer and activations.
+            return true;
         }
 
         /// <summary>

@@ -23,5 +23,25 @@ namespace SKM.V3
                 return Name + "," + Email + "," + CompanyName + "," + Created.ToString(ConfigValues.DEFAULT_TIME_REPSENTATION);
             return base.ToString();
         }
+
+        public override bool Equals(object obj)
+        {
+            if ((obj == null) || !this.GetType().Equals(obj.GetType()))
+            {
+                return false;
+            }
+
+            var customer = (Customer)obj;
+
+            if (customer.CompanyName != CompanyName ||
+                customer.Created != Created ||
+                customer.Email != Email ||
+                customer.Id != Id ||
+                customer.Name != Name)
+                return false;
+
+            return true;
+
+        }
     }
 }

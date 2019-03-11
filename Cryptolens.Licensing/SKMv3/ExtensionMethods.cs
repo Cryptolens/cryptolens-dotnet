@@ -127,6 +127,19 @@ namespace SKM.V3
         /// <returns>Returns true if the signature is valid. False otherwise.</returns>
         private static bool IsLicenceseKeyGenuine(this LicenseKey licenseKey, string rsaPublicKey)
         {
+
+            if(licenseKey?.RawResponse != null)
+            {
+                var license = LicenseKey.FromResponse(rsaPublicKey, licenseKey.RawResponse);
+
+                if(license == null)
+                {
+                    return false;
+                }
+
+                return license.Equals(licenseKey);
+            }
+
             if (licenseKey?.Signature != "")
             {
                 var prevSignature = licenseKey.Signature;

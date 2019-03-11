@@ -46,6 +46,23 @@ namespace SKM.V3
             }
         }
 
+        public override bool Equals(object obj)
+        {
+            if ((obj == null) || !this.GetType().Equals(obj.GetType()))
+            {
+                return false;
+            }
+
+            var dobj = (DataObject)obj;
+
+            if (dobj.Id != Id ||
+                dobj.IntValue != IntValue ||
+                dobj.StringValue != StringValue ||
+                dobj.Name != Name)
+                return false;
+            return true;
+        }
+
         /// <summary>
         /// Sets the <see cref="IntValue"/> to a new value (in SKM Platform).
         /// </summary>
