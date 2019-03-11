@@ -378,10 +378,30 @@ namespace SKM.V3.Models
         /// </summary>
         public int MaxOverdraft { get; set; }
 
-
-
+        public SignMethod SignMethod { get; set; }
 
     }
+
+
+    public class RawResponse : BasicResult
+    {
+        public string LicenseKey { get; set; }
+        public string Signature { get; set; }
+
+        /// <summary>
+        /// Metadata related to the license key. Note, this will not always contain value.
+        /// Please see remarks for more information.
+        /// </summary>
+        /// <remarks>
+        /// In order to access this variable, you need to set 
+        /// <see cref="ActivateModel.Metadata"/> or <see cref="KeyInfoModel.Metadata"/> to true.
+        /// Keep in mind that if your access token is restricted using the 'feature lock' field
+        /// or if <see cref="ActivateModel.FieldsToReturn"/> or <see cref="KeyInfoModel.FieldsToReturn"/>
+        /// (depending on if you activated or validated the license) have a certain value, metadata may still be null.
+        /// </remarks>
+        public KeyMetadata Metadata { get; set; }
+    }
+
     /// <summary>
     /// 
     /// </summary>

@@ -229,7 +229,7 @@ namespace SKM_Test
             var result = Key.Activate(token: auth, parameters: new ActivateModel() { Key = "GEBNC-WZZJD-VJIHG-GCMVD", ProductId = 3349, Sign = true, MachineCode = "foo" });
             System.Diagnostics.Debug.WriteLine(result);
 
-
+            //Assert.IsTrue(result.LicenseKey.HasValidSignature("<RSAKeyValue><Modulus>sGbvxwdlDbqFXOMlVUnAF5ew0t0WpPW7rFpI5jHQOFkht/326dvh7t74RYeMpjy357NljouhpTLA3a6idnn4j6c3jmPWBkjZndGsPL4Bqm+fwE48nKpGPjkj4q/yzT4tHXBTyvaBjA8bVoCTnu+LiC4XEaLZRThGzIn5KQXKCigg6tQRy0GXE13XYFVz/x1mjFbT9/7dS8p85n8BuwlY5JvuBIQkKhuCNFfrUxBWyu87CFnXWjIupCD2VO/GbxaCvzrRjLZjAngLCMtZbYBALksqGPgTUN7ZM24XbPWyLtKPaXF2i4XRR9u6eTj5BfnLbKAU5PIVfjIS+vNYYogteQ==</Modulus><Exponent>AQAB</Exponent></RSAKeyValue>").IsValid());
             Assert.IsNotNull(result);
             Assert.IsTrue(result.Result == ResultType.Success);
 
@@ -247,7 +247,32 @@ namespace SKM_Test
                 Assert.Fail("The deactivation did not work");
             }
 
+        }
 
+        [TestMethod]
+        public void ActivateAndDeactivateNewProtocolTest()
+        {
+            var auth = activateDeactivate;
+            var result = Key.Activate(token: auth, productId: 3349, key: "GEBNC-WZZJD-VJIHG-GCMVD", machineCode: "foo");
+        
+            System.Diagnostics.Debug.WriteLine(result);
+
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result.Result == ResultType.Success);
+
+            Assert.IsTrue(LicenseKey.FromResponse(TestCases.TestData.pubkey, result) != null);
+
+            //result.LicenseKey.Signature = "test";
+
+            //Assert.IsFalse(result.LicenseKey.IsValid(TestCases.TestData.pubkey));
+
+
+            var result2 = Key.Deactivate(auth, new DeactivateModel { Key = "GEBNC-WZZJD-VJIHG-GCMVD", ProductId = 3349, MachineCode = "foo" });
+
+            if (result2 == null || result2.Result == ResultType.Error)
+            {
+                Assert.Fail("The deactivation did not work");
+            }
 
         }
 

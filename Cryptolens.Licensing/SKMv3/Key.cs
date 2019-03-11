@@ -59,6 +59,25 @@ namespace SKM.V3.Methods
             return HelperMethods.SendRequestToWebAPI3<KeyInfoResult>(parameters, "/key/activate/", token);
         }
 
+        public static RawResponse Activate(string token, int productId, string key, string machineCode = "", bool metadata=false, int floatingTimeInterval = 0, int maxOverdraft = 0)
+        {
+
+            var parameters = new ActivateModel()
+            {
+                ProductId = productId,
+                Key = key,
+                MachineCode = machineCode,
+                Metadata = metadata,
+                FloatingTimeInterval = floatingTimeInterval,
+                MaxOverdraft = maxOverdraft,
+                Sign = true,
+                SignMethod = SignMethod.StringSign
+            };
+
+            var res =  HelperMethods.SendRequestToWebAPI3<RawResponse>(parameters, "/key/activate/", token);
+            return res;
+        }
+
         /// <summary>
         ///This method will 'undo' a key activation with a certain machine code. 
         ///The key should not be blocked, since otherwise this method will throw an error.

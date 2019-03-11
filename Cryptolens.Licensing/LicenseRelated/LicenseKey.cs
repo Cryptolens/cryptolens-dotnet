@@ -5,9 +5,129 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
+using Newtonsoft.Json;
 
 namespace SKM.V3
 {
+    /// <summary>
+    /// Platform independent version of <see cref="BasicCustomer"/>
+    /// that uses Unix time (seconds).
+    /// </summary>
+    public class CustomerPI
+    {
+        public int Id { get; set; }
+
+        public string Name { get; set; }
+
+        public string Email { get; set; }
+
+        public string CompanyName { get; set; }
+
+        public long Created { get; set; }
+    }
+
+    public class ActivationDataPI
+    {
+        public string Mid { get; set; }
+        public string IP { get; set; }
+        public long Time { get; set; }
+    }
+
+    /// <summary>
+    /// A platform independent version of <see cref="LicenseKey"/> 
+    /// that uses Unix Time (seconds) in all DateTime fields.
+    /// </summary>
+    [Serializable]
+    public class LicenseKeyPI
+    {
+        public LicenseKeyPI()
+        {
+            Notes = "";
+        }
+        public int ProductId { get; set; }
+
+        public int ID { get; set; }
+
+        public string Key { get; set; }
+
+        public long Created { get; set; }
+
+        public long Expires { get; set; }
+
+        public int Period { get; set; }
+
+        public bool F1 { get; set; }
+        public bool F2 { get; set; }
+        public bool F3 { get; set; }
+        public bool F4 { get; set; }
+        public bool F5 { get; set; }
+        public bool F6 { get; set; }
+        public bool F7 { get; set; }
+        public bool F8 { get; set; }
+
+        public string Notes { get; set; }
+
+        public bool Block { get; set; }
+
+        public long GlobalId { get; set; }
+
+        public CustomerPI Customer { get; set; }
+
+        public List<ActivationDataPI> ActivatedMachines { get; set; }
+
+        public bool TrialActivation { get; set; }
+
+        public int MaxNoOfMachines { get; set; }
+
+        public string AllowedMachines { get; set; }
+
+        public List<DataObject> DataObjects { get; set; }
+
+        public long SignDate { get; set; }
+
+        public LicenseKey ToLicenseKey()
+        {
+            DateTime epoch = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
+
+            List<ActivationData> activationData = new List<ActivationData>();
+
+            foreach(var item in ActivatedMachines)
+            {
+                activationData.Add(new ActivationData() { IP = item.IP, Mid = item.Mid, Time = epoch.AddSeconds(item.Time)});
+            }
+
+            return new LicenseKey
+            {
+                ProductId = ProductId,
+                AllowedMachines = AllowedMachines,
+                Block = Block,
+                Created = epoch.AddSeconds(Created),
+                DataObjects = DataObjects,
+                F1 = F1,
+                F2 = F2,
+                F3 = F3,
+                F4 = F4,
+                F5 = F5,
+                F6 = F6,
+                F7 = F7,
+                F8 = F8,
+                GlobalId = GlobalId,
+                ID = ID,
+                Expires = epoch.AddSeconds(Expires),
+                Key = Key,
+                MaxNoOfMachines = MaxNoOfMachines,
+                Notes = Notes,
+                Period = Period,
+                SignDate = epoch.AddSeconds(SignDate),
+                Signature = "",
+                TrialActivation = TrialActivation,
+                Customer = Customer != null ?  new Customer() { CompanyName = Customer.CompanyName, Created = epoch.AddSeconds(Customer.Created), Email = Customer.Email, Id = Customer.Id, Name = Customer.Name }: null,
+                ActivatedMachines = activationData
+            };
+        }
+
+    }
+
     /// <summary>
     /// This class describes a License Key object. You can use it to verify a license, 
     /// store it in a file, or use some of its methods to update it.
@@ -61,6 +181,46 @@ namespace SKM.V3
 
         public string Signature { get; set; }
 
+        public RawResponse RawResponse { get; set; }
+
+        public static LicenseKey FromResponse(string RSAPubKey, RawResponse response)
+        {
+            if (response == null || response.Result == ResultType.Error)
+            {
+                return null;
+            }
+
+            var licenseBytes = Convert.FromBase64String(response.LicenseKey);
+            var signatureBytes = Convert.FromBase64String(response.Signature);
+
+            bool verificationResult = false;
+
+#if NET40 || NET46 || NET35 || NET47 || NET471
+            RSACryptoServiceProvider rsa = new RSACryptoServiceProvider(2048);
+            rsa.FromXmlString(RSAPubKey);
+#else
+            RSA rsa = RSA.Create();
+            rsa.ImportParameters(SecurityMethods.FromXMLString(RSAPubKey));
+#endif
+
+#if NET40 || NET46 || NET35 || NET47 || NET471
+            verificationResult = rsa.VerifyData(licenseBytes, "SHA256", signatureBytes);
+#else
+            verificationResult = rsa.VerifyData(licenseBytes, signatureBytes, HashAlgorithmName.SHA256, RSASignaturePadding.Pkcs1);
+#endif
+
+            if(!verificationResult)
+            {
+                return null;
+            }
+
+
+            var license = JsonConvert.DeserializeObject<LicenseKeyPI>(System.Text.UTF8Encoding.UTF8.GetString(licenseBytes)).ToLicenseKey();
+            license.RawResponse = response;
+
+            return license;
+        }
+
         /// <summary>
         /// Returns the number of days left for a given license (time left). This method is particularly useful 
         /// when KeyInfo is not updated regularly, because TimeLeft will not be affected (stay constant).
@@ -112,7 +272,7 @@ namespace SKM.V3
 
             var result = Data.AddDataObject(token, parameters);
 
-            if(result != null && result.Result == ResultType.Success)
+            if (result != null && result.Result == ResultType.Success)
             {
                 dataObject.Id = result.Id;
                 DataObjects.Add(dataObject);
@@ -183,7 +343,7 @@ namespace SKM.V3
 
             var result = SKM.V3.Methods.Key.GetKey(token, parameters);
 
-            if(result != null && result.Result == ResultType.Success)
+            if (result != null && result.Result == ResultType.Success)
             {
                 this.ActivatedMachines = result.LicenseKey.ActivatedMachines;
                 this.AllowedMachines = result.LicenseKey.AllowedMachines;
@@ -213,7 +373,7 @@ namespace SKM.V3
                 return true;
             }
             return false;
-        
+
         }
 
         /// <summary>
@@ -231,10 +391,10 @@ namespace SKM.V3
                 ProductId = ProductId,
                 Key = Key,
                 Feature = feature
-                
+
             };
 
-            if(feature < 1 ||feature > 8)
+            if (feature < 1 || feature > 8)
                 throw new ArgumentException("Feature is out of scope (should be between 1 and 8, inclusive).");
 
             var result = Methods.Key.AddFeature(token, parameters);

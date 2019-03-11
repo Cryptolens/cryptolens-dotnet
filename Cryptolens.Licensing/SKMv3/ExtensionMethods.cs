@@ -149,7 +149,7 @@ namespace SKM.V3
                     // the signature should not be included into the signature :)
 
 #if NET40 || NET46 || NET35 || NET47 || NET471
-                    return rsa.VerifyData(HelperMethods.GetBytes(String.Join(",", rawResult.Select(x => x.Value).ToArray())), "SHA256", signature);
+                    return rsa.VerifyData(HelperMethods.GetBytes(String.Join(",", rawResult.Where(x=> x.Key != "RawResponse").Select(x => x.Value).ToArray())), "SHA256", signature);
 #else
                     return rsa.VerifyData(HelperMethods.GetBytes(String.Join(",", rawResult.Select(x => x.Value))), signature, HashAlgorithmName.SHA256, RSASignaturePadding.Pkcs1);
 #endif
