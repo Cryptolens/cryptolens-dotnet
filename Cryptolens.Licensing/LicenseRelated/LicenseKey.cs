@@ -183,6 +183,10 @@ namespace SKM.V3
 
         public RawResponse RawResponse { get; set; }
 
+        /// <summary>
+        /// Creates a license key from a <see cref="RawResponse"/> object that can be obtained when calling
+        /// <see cref="Key.Activate(string, int, string, string, bool, int, int)"/>.
+        /// </summary>
         public static LicenseKey FromResponse(string RSAPubKey, RawResponse response)
         {
             if (response == null || response.Result == ResultType.Error)

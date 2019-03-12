@@ -57,19 +57,19 @@ namespace SKM_Test
                 Assert.Fail();
         }
 
-        [TestMethod]
-        public void SaveLoadFile()
-        {
-            var key = new LicenseKey() { Key = "hello", Expires = DateTime.Today };
+        //[TestMethod]
+        //public void SaveLoadFile()
+        //{
+        //    var key = new LicenseKey() { Key = "hello", Expires = DateTime.Today };
 
-            if (key.SaveToFile() == null)
-                Assert.Fail();
+        //    if (key.SaveToFile() == null)
+        //        Assert.Fail();
 
-            var load = new LicenseKey().LoadFromFile();
+        //    var load = new LicenseKey().LoadFromFile();
 
-            Assert.IsTrue(key.Key == load.Key);
+        //    Assert.IsTrue(key.Key == load.Key);
 
-        }
+        //}
 
         [TestMethod]
         public void IsOnRightMachineTest()

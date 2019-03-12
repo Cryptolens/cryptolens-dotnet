@@ -59,6 +59,12 @@ namespace SKM.V3.Methods
             return HelperMethods.SendRequestToWebAPI3<KeyInfoResult>(parameters, "/key/activate/", token);
         }
 
+
+        /// <summary>
+        /// This method is similar to <see cref="Key.Activate(string, ActivateModel)"/> with the only exception that it will return a license key signed with the new protocol.
+        /// <b>Note:</b> it's better to use this method, especially if you target Mono/Unity.<br/>
+        /// In order to get the license key, you can call <see cref="LicenseKey.FromResponse(string, RawResponse)"/>.
+        /// </summary>
         public static RawResponse Activate(string token, int productId, string key, string machineCode = "", bool metadata=false, int floatingTimeInterval = 0, int maxOverdraft = 0)
         {
 

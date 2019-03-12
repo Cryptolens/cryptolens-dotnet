@@ -38,6 +38,30 @@ namespace SKM_Test
         }
 
         [TestMethod]
+        public void AddDataObjectToMachineCodeTest()
+        {
+            var keydata = new AddDataObjectToMachineCodeModel() { Key = "GEBNC-WZZJD-VJIHG-GCMVD", ProductId = 3349, MachineCode = "B796305240AC09547E6FC7AED62093EEF0D76D7C89E3C6070A8C9EB404AA7CAC",  };
+            var result = Data.AddDataObject(auth, keydata);
+
+            if (result != null && result.Result == ResultType.Success)
+            {
+                if (result.Id == 0)
+                    Assert.Fail();
+
+                var removeObj = Data.RemoveDataObject(auth, new RemoveDataObjectToMachineCodeModel { Id = result.Id });
+
+                if (removeObj == null || removeObj.Result == ResultType.Error)
+                {
+                    Assert.Fail();
+                }
+            }
+            else
+            {
+                Assert.Fail();
+            }
+        }
+
+        [TestMethod]
         public void AddDataObjectToKeyTest()
         {
             var keydata = new AddDataObjectToKeyModel() { ProductId = 3941, Key = "FRQHQ-FSOSD-BWOPU-KJOWF" };
@@ -200,7 +224,7 @@ namespace SKM_Test
 
             int id = (int)result.Id; // the new id.
 
-            var result2 = Data.ListDataObjects(auth, new ListDataObjectsToKeyModel { Key = "LEPWV-FOTPG-MWBEO-FBFPS", ProductId = 3349, Contains= "test123" });
+            var result2 = Data.ListDataObjects(auth, new ListDataObjectsToKeyModel { Key = "LEPWV-FOTPG-MWBEO-FBFPS", ProductId = 3349, Contains = "test123" });
 
             Assert.IsTrue(result2 != null && result2.Result == ResultType.Success);
 
@@ -275,27 +299,27 @@ namespace SKM_Test
             //}
 
 
-var result = Data.ListDataObjects("WyIxODY3IiwiT3RHbFlXcjBZNEVkT2JXUmVQekx2ZE1sZUNIVmdaL3VkQzRMc00zQiJd", new ListDataObjectsToKeyModel { Contains = "usagecoun", Key = "LZKZU-MPJEW-TARNP-UHDBQ", ProductId = 3349 });
-var obj = result.DataObjects.Get("usagecoun");
+            var result = Data.ListDataObjects("WyIxODY3IiwiT3RHbFlXcjBZNEVkT2JXUmVQekx2ZE1sZUNIVmdaL3VkQzRMc00zQiJd", new ListDataObjectsToKeyModel { Contains = "usagecoun", Key = "LZKZU-MPJEW-TARNP-UHDBQ", ProductId = 3349 });
+            var obj = result.DataObjects.Get("usagecoun");
 
-if (obj == null)
-{
-    var res = Data.AddDataObject("WyIxODY3IiwiT3RHbFlXcjBZNEVkT2JXUmVQekx2ZE1sZUNIVmdaL3VkQzRMc00zQiJd", new AddDataObjectToKeyModel { Key = "LZKZU-MPJEW-TARNP-UHDBQ", ProductId = 3349, Name = "usagecoun", IntValue = 5 });
+            if (obj == null)
+            {
+                var res = Data.AddDataObject("WyIxODY3IiwiT3RHbFlXcjBZNEVkT2JXUmVQekx2ZE1sZUNIVmdaL3VkQzRMc00zQiJd", new AddDataObjectToKeyModel { Key = "LZKZU-MPJEW-TARNP-UHDBQ", ProductId = 3349, Name = "usagecoun", IntValue = 5 });
 
-    if(res == null || res.Result == ResultType.Error)
-    {
-        Console.WriteLine("Could not create new data object." + res.Message);
-    }
-}
-else
-{
-    var res = obj.DecrementIntValue("WyIxODY3IiwiT3RHbFlXcjBZNEVkT2JXUmVQekx2ZE1sZUNIVmdaL3VkQzRMc00zQiJd", decrementValue: 1, enableBound:true, lowerBound: 0, licenseKey: new LicenseKey { Key = "LZKZU-MPJEW-TARNP-UHDBQ", ProductId = 3349 });
+                if (res == null || res.Result == ResultType.Error)
+                {
+                    Console.WriteLine("Could not create new data object." + res.Message);
+                }
+            }
+            else
+            {
+                var res = obj.DecrementIntValue("WyIxODY3IiwiT3RHbFlXcjBZNEVkT2JXUmVQekx2ZE1sZUNIVmdaL3VkQzRMc00zQiJd", decrementValue: 1, enableBound: true, lowerBound: 0, licenseKey: new LicenseKey { Key = "LZKZU-MPJEW-TARNP-UHDBQ", ProductId = 3349 });
 
-    if (!res)
-    {
-        Console.WriteLine("Could not decrement the data object. The limit was reached.");
-    }
-}
+                if (!res)
+                {
+                    Console.WriteLine("Could not decrement the data object. The limit was reached.");
+                }
+            }
 
         }
     }

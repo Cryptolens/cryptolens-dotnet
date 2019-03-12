@@ -6,6 +6,7 @@ using System.Text;
 using SKM.V3.Models;
 using SKM.V3.Internal;
 using System.Security.Cryptography;
+using Newtonsoft.Json.Linq;
 
 namespace SKM.V3
 {
@@ -63,7 +64,7 @@ namespace SKM.V3
             try
             {
                 sw = new System.IO.StreamWriter(file);
-                sw.Write(Newtonsoft.Json.JsonConvert.SerializeObject(licenseKey));
+                sw.Write(licenseKey.SaveAsString());
                 state = true;
             }
             catch
@@ -81,15 +82,55 @@ namespace SKM.V3
         }
 
         /// <summary>
+        /// Get the license object as a string.
+        /// </summary>
+        public static string SaveAsString(this LicenseKey licenseKey)
+        {
+            if(licenseKey?.RawResponse != null)
+            {
+                // new protocol
+                return Newtonsoft.Json.JsonConvert.SerializeObject(licenseKey.RawResponse);
+            }
+            return Newtonsoft.Json.JsonConvert.SerializeObject(licenseKey);
+        }
+
+        /// <summary>
+        /// Get the license object as a string. Signature verification will occur automatically.
+        /// </summary>
+        public static LicenseKey LoadFromString(this LicenseKey licenseKey, string RSAPubKey, string serializedLicenseObject)
+        {
+            try
+            {
+                dynamic obj = JObject.Parse(serializedLicenseObject);
+
+                var test = obj.licenseKey;
+                return LicenseKey.FromResponse(RSAPubKey, Newtonsoft.Json.JsonConvert.DeserializeObject<RawResponse>(serializedLicenseObject));
+            }
+            catch (Exception ex)
+            {
+                try
+                {
+                    return Newtonsoft.Json.JsonConvert.DeserializeObject<LicenseKey>(serializedLicenseObject).HasValidSignature(RSAPubKey);
+                }
+                catch (Exception ex2)
+                {
+
+                }
+            }
+
+            return null;
+        }
+
+        /// <summary>
         /// Loads the <see cref="LicenseKey"/> object from a file.
         /// </summary>
         /// <remarks>The current object will not be affected. Instead, 
         /// you need to assign it manually, eg. licenseKey = licenseKey.LoadFromFile().</remarks>
         /// <returns>Returns the original object if successful. Null otherwise.</returns>
-        public static LicenseKey LoadFromFile(this LicenseKey licenseKey)
+        public static LicenseKey LoadFromFile(this LicenseKey licenseKey, string RSAPubKey)
         {
             string name = "licensekey.skm";
-            return LoadFromFile(licenseKey, name);
+            return LoadFromFile(licenseKey, name, RSAPubKey);
         }
 
         /// <summary>
@@ -99,14 +140,14 @@ namespace SKM.V3
         /// <remarks>The current object will not be affected. Instead, 
         /// you need to assign it manually, eg. licenseKey = licenseKey.LoadFromFile().</remarks>
         /// <returns>Returns the original object if successful. Null otherwise.</returns>
-        public static LicenseKey LoadFromFile(this LicenseKey licenseKey, string file)
+        public static LicenseKey LoadFromFile(this LicenseKey licenseKey, string file, string RSAPubKey)
         {
             System.IO.StreamReader sr = null;
             LicenseKey ki = null;
             try
             {
                 sr = new System.IO.StreamReader(file);
-                ki = Newtonsoft.Json.JsonConvert.DeserializeObject<LicenseKey>(sr.ReadToEnd());
+                ki = ki.LoadFromString(RSAPubKey, sr.ReadToEnd());
             }
             catch { }
             finally

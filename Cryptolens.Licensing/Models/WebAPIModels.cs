@@ -383,6 +383,9 @@ namespace SKM.V3.Models
     }
 
 
+    /// <summary>
+    /// Result of <see cref="SKM.V3.Methods.Key.Activate(string, int, string, string, bool, int, int)"/> (new protocol).
+    /// </summary>
     public class RawResponse : BasicResult
     {
         public string LicenseKey { get; set; }
