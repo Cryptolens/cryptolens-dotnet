@@ -13,6 +13,14 @@ namespace SKM.V3.Methods
     /// </summary>
     public static class Helpers
     {
+        /// <summary>
+        /// Checks if the result obtained from an API call is successful.
+        /// </summary>
+        public static bool IsSuccessful(BasicResult result)
+        {
+            return result != null && result.Result == ResultType.Success;
+        }
+
         public enum OSType {
             Undefined = 0,
             Windows = 1,

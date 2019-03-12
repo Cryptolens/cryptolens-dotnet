@@ -101,21 +101,20 @@ namespace SKM.V3
         {
             try
             {
-                dynamic obj = JObject.Parse(serializedLicenseObject);
+                var response = Newtonsoft.Json.JsonConvert.DeserializeObject<RawResponse>(serializedLicenseObject);
 
-                var test = obj.licenseKey;
-                return LicenseKey.FromResponse(RSAPubKey, Newtonsoft.Json.JsonConvert.DeserializeObject<RawResponse>(serializedLicenseObject));
-            }
-            catch (Exception ex)
-            {
-                try
+                if(!string.IsNullOrEmpty(response.LicenseKey))
+                {
+                    return LicenseKey.FromResponse(RSAPubKey, response);
+                }
+                else
                 {
                     return Newtonsoft.Json.JsonConvert.DeserializeObject<LicenseKey>(serializedLicenseObject).HasValidSignature(RSAPubKey);
                 }
-                catch (Exception ex2)
-                {
-
-                }
+            }
+            catch (Exception ex)
+            {
+            
             }
 
             return null;

@@ -80,7 +80,7 @@ namespace SKM.V3.Methods
         /// <returns>Returns <see cref="DataObjectIdResult"/> or null.</returns>
         public static DataObjectIdResult AddDataObject(string token, AddDataObjectToMachineCodeModel parameters)
         {
-            return HelperMethods.SendRequestToWebAPI3<DataObjectIdResult>(parameters, "/data/adddataobjecttomachinecode/", token);
+            return HelperMethods.SendRequestToWebAPI3<DataObjectIdResult>(parameters, "/data/AddDataObjectToMachineCode/", token);
         }
 
 

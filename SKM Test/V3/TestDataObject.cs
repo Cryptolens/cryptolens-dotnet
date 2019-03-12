@@ -12,7 +12,7 @@ namespace SKM_Test
     [TestClass]
     public class TestWebAPI3
     {
-        string auth = "WyIxMSIsInRFLzRQSzJkT2V0Y1pyN3Y3a1I2Rm9YdmczNUw0SzJTRHJwUERhRFMiXQ==";
+        string auth = AccessToken.AccessToken.DataObjectaAll;
         [TestMethod]
         public void AddDataObjectTest()
         {
@@ -40,7 +40,15 @@ namespace SKM_Test
         [TestMethod]
         public void AddDataObjectToMachineCodeTest()
         {
-            var keydata = new AddDataObjectToMachineCodeModel() { Key = "GEBNC-WZZJD-VJIHG-GCMVD", ProductId = 3349, MachineCode = "B796305240AC09547E6FC7AED62093EEF0D76D7C89E3C6070A8C9EB404AA7CAC",  };
+            int counter = 0;
+
+            var list = Data.ListDataObjects(auth, new ListDataObjectsToMachineCodeModel() { Key = "GEBNC-WZZJD-VJIHG-GCMVD", ProductId = 3349, MachineCode = "B796305240AC09547E6FC7AED62093EEF0D76D7C89E3C6070A8C9EB404AA7CAC"});
+
+            Assert.IsTrue(Helpers.IsSuccessful(list), "listing data objects was not successful.");
+
+            counter = list.DataObjects.Count;
+
+            var keydata = new AddDataObjectToMachineCodeModel() { Key = "GEBNC-WZZJD-VJIHG-GCMVD", ProductId = 3349, MachineCode = "B796305240AC09547E6FC7AED62093EEF0D76D7C89E3C6070A8C9EB404AA7CAC", IntValue = 1 , Name = "test3" };
             var result = Data.AddDataObject(auth, keydata);
 
             if (result != null && result.Result == ResultType.Success)
@@ -48,12 +56,41 @@ namespace SKM_Test
                 if (result.Id == 0)
                     Assert.Fail();
 
-                var removeObj = Data.RemoveDataObject(auth, new RemoveDataObjectToMachineCodeModel { Id = result.Id });
+                list = Data.ListDataObjects(auth, new ListDataObjectsToMachineCodeModel() { Key = "GEBNC-WZZJD-VJIHG-GCMVD", ProductId = 3349, MachineCode = "B796305240AC09547E6FC7AED62093EEF0D76D7C89E3C6070A8C9EB404AA7CAC" });
+
+                Assert.IsTrue(list.DataObjects.Count == counter + 1, "Did not add new object.");
+
+                var incrementer = Data.IncrementIntValue(auth, new ChangeIntValueToMachineCodeModel { Key = "GEBNC-WZZJD-VJIHG-GCMVD", ProductId = 3349, MachineCode = "B796305240AC09547E6FC7AED62093EEF0D76D7C89E3C6070A8C9EB404AA7CAC", Id = result.Id, IntValue = 1 });
+                list = Data.ListDataObjects(auth, new ListDataObjectsToMachineCodeModel() { Key = "GEBNC-WZZJD-VJIHG-GCMVD", ProductId = 3349, MachineCode = "B796305240AC09547E6FC7AED62093EEF0D76D7C89E3C6070A8C9EB404AA7CAC", Contains = "test3" });
+
+                Assert.IsTrue(list.DataObjects[0].IntValue == 2, "increment failed");
+
+                var decrementer = Data.DecrementIntValue(auth, new ChangeIntValueToMachineCodeModel { Key = "GEBNC-WZZJD-VJIHG-GCMVD", ProductId = 3349, MachineCode = "B796305240AC09547E6FC7AED62093EEF0D76D7C89E3C6070A8C9EB404AA7CAC", Id = result.Id, IntValue = 1 });
+                list = Data.ListDataObjects(auth, new ListDataObjectsToMachineCodeModel() { Key = "GEBNC-WZZJD-VJIHG-GCMVD", ProductId = 3349, MachineCode = "B796305240AC09547E6FC7AED62093EEF0D76D7C89E3C6070A8C9EB404AA7CAC", Contains = "test3" });
+
+                Assert.IsTrue(list.DataObjects[0].IntValue == 1, "decrement failed");
+
+
+                var intchanger = Data.SetIntValue(auth, new ChangeIntValueToMachineCodeModel { Key = "GEBNC-WZZJD-VJIHG-GCMVD", ProductId = 3349, MachineCode = "B796305240AC09547E6FC7AED62093EEF0D76D7C89E3C6070A8C9EB404AA7CAC", Id = result.Id, IntValue = 5 });
+                list = Data.ListDataObjects(auth, new ListDataObjectsToMachineCodeModel() { Key = "GEBNC-WZZJD-VJIHG-GCMVD", ProductId = 3349, MachineCode = "B796305240AC09547E6FC7AED62093EEF0D76D7C89E3C6070A8C9EB404AA7CAC", Contains = "test3" });
+                Assert.IsTrue(list.DataObjects[0].IntValue == 5, "set int failed");
+
+                var stringchanger = Data.SetStringValue(auth, new ChangeStringValueToMachineCodeModel { Key = "GEBNC-WZZJD-VJIHG-GCMVD", ProductId = 3349, MachineCode = "B796305240AC09547E6FC7AED62093EEF0D76D7C89E3C6070A8C9EB404AA7CAC", Id = result.Id, StringValue = "test123" });
+                list = Data.ListDataObjects(auth, new ListDataObjectsToMachineCodeModel() { Key = "GEBNC-WZZJD-VJIHG-GCMVD", ProductId = 3349, MachineCode = "B796305240AC09547E6FC7AED62093EEF0D76D7C89E3C6070A8C9EB404AA7CAC", Contains = "test3" });
+                Assert.IsTrue(list.DataObjects[0].StringValue == "test123", "set string failed");
+
+
+                var removeObj = Data.RemoveDataObject(auth, new RemoveDataObjectToMachineCodeModel { Id = result.Id, MachineCode = "B796305240AC09547E6FC7AED62093EEF0D76D7C89E3C6070A8C9EB404AA7CAC", Key = "GEBNC-WZZJD-VJIHG-GCMVD", ProductId = 3349 });
 
                 if (removeObj == null || removeObj.Result == ResultType.Error)
                 {
                     Assert.Fail();
                 }
+
+                list = Data.ListDataObjects(auth, new ListDataObjectsToMachineCodeModel() { Key = "GEBNC-WZZJD-VJIHG-GCMVD", ProductId = 3349, MachineCode = "B796305240AC09547E6FC7AED62093EEF0D76D7C89E3C6070A8C9EB404AA7CAC" });
+
+                Assert.IsTrue(list.DataObjects.Count == counter, "Did not remove the object.");
+
             }
             else
             {
