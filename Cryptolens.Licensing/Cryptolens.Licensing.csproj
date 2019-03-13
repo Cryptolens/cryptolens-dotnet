@@ -6,7 +6,7 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Company>Cryptolens AB</Company>
     <Authors>Cryptolens AB</Authors>
-    <Version>4.0.17.1</Version>
+    <Version>4.0.17</Version>
     <AssemblyVersion>4.0.17.1</AssemblyVersion>
     <FileVersion>4.0.17.1</FileVersion>
     <Description>An API documentation can be found at https://help.cryptolens.io/api/dotnet/.
@@ -23,7 +23,7 @@ NB: There is also one for C++ (https://github.com/Cryptolens/cryptolens-cpp)</De
     <DelaySign>false</DelaySign>
     <AssemblyOriginatorKeyFile>certifikat.pfx</AssemblyOriginatorKeyFile>
     <PackageTags>licensing system, SKGL, serial key management, http://app.cryptolens.io/ , skgl extension, SKM Client API, cryptolens</PackageTags>
-    <PackageReleaseNotes>Release notes available at https://help.cryptolens.io/api/dotnet/articles/v4016.html</PackageReleaseNotes>
+    <PackageReleaseNotes>Release notes available at https://help.cryptolens.io/api/dotnet/articles/v4017.html</PackageReleaseNotes>
     
   </PropertyGroup>
 

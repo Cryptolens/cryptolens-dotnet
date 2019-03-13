@@ -254,7 +254,7 @@ namespace SKM_Test
         {
             var auth = activateDeactivate;
             var result = Key.Activate(token: auth, productId: 3349, key: "GEBNC-WZZJD-VJIHG-GCMVD", machineCode: "foo");
-        
+
             System.Diagnostics.Debug.WriteLine(result);
 
             Assert.IsNotNull(result);
@@ -264,7 +264,25 @@ namespace SKM_Test
 
             var license = LicenseKey.FromResponse(TestCases.TestData.pubkey, result);
 
+            license.SaveToFile("newprotocol.skm");
+
             Assert.IsTrue(license.HasValidSignature(TestCases.TestData.pubkey).IsValid());
+
+            license = new LicenseKey().LoadFromFile("newprotocol.skm", TestCases.TestData.pubkey);
+
+            Assert.IsTrue(license != null);
+            license = new LicenseKey().LoadFromFile("newprotocol.skm");
+
+            Assert.IsFalse(license != null);
+
+
+            var result3 = Key.Activate(auth, new ActivateModel() { ProductId =  3349,  Key= "GEBNC-WZZJD-VJIHG-GCMVD", MachineCode= "foo", Sign=true});
+
+            result3.LicenseKey.SaveToFile("oldprotocol.skm");
+
+            Assert.IsTrue(new LicenseKey().LoadFromFile("oldprotocol.skm") != null);
+            Assert.IsTrue(new LicenseKey().LoadFromFile("oldprotocol.skm", TestCases.TestData.pubkey) != null);
+
 
             //result.LicenseKey.Signature = "test";
 

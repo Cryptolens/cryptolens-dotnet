@@ -95,7 +95,7 @@ namespace SKM.V3
         }
 
         /// <summary>
-        /// Get the license object as a string. Signature verification will occur automatically.
+        /// Get the license object as a string. Signature verification will occur automatically. Returns a new license key object.
         /// </summary>
         public static LicenseKey LoadFromString(this LicenseKey licenseKey, string RSAPubKey, string serializedLicenseObject)
         {
@@ -103,13 +103,20 @@ namespace SKM.V3
             {
                 var response = Newtonsoft.Json.JsonConvert.DeserializeObject<RawResponse>(serializedLicenseObject);
 
-                if(!string.IsNullOrEmpty(response.LicenseKey))
+                if (!string.IsNullOrEmpty(response.LicenseKey))
                 {
                     return LicenseKey.FromResponse(RSAPubKey, response);
                 }
                 else
                 {
-                    return Newtonsoft.Json.JsonConvert.DeserializeObject<LicenseKey>(serializedLicenseObject).HasValidSignature(RSAPubKey);
+                    if (RSAPubKey == null)
+                    {
+                        return Newtonsoft.Json.JsonConvert.DeserializeObject<LicenseKey>(serializedLicenseObject);
+                    }
+                    else
+                    {
+                        return Newtonsoft.Json.JsonConvert.DeserializeObject<LicenseKey>(serializedLicenseObject).HasValidSignature(RSAPubKey);
+                    }
                 }
             }
             catch (Exception ex)
@@ -123,23 +130,11 @@ namespace SKM.V3
         /// <summary>
         /// Loads the <see cref="LicenseKey"/> object from a file.
         /// </summary>
-        /// <remarks>The current object will not be affected. Instead, 
-        /// you need to assign it manually, eg. licenseKey = licenseKey.LoadFromFile().</remarks>
-        /// <returns>Returns the original object if successful. Null otherwise.</returns>
-        public static LicenseKey LoadFromFile(this LicenseKey licenseKey, string RSAPubKey)
-        {
-            string name = "licensekey.skm";
-            return LoadFromFile(licenseKey, name, RSAPubKey);
-        }
-
-        /// <summary>
-        /// Loads the <see cref="LicenseKey"/> object from a file.
-        /// </summary>
         /// <param name="file">The entire path including file name, i.e. c:\folder\file.txt</param>
         /// <remarks>The current object will not be affected. Instead, 
         /// you need to assign it manually, eg. licenseKey = licenseKey.LoadFromFile().</remarks>
         /// <returns>Returns the original object if successful. Null otherwise.</returns>
-        public static LicenseKey LoadFromFile(this LicenseKey licenseKey, string file, string RSAPubKey)
+        public static LicenseKey LoadFromFile(this LicenseKey licenseKey, string file = "licensekey.skm", string RSAPubKey = null)
         {
             System.IO.StreamReader sr = null;
             LicenseKey ki = null;
