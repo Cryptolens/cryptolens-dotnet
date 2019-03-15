@@ -29,7 +29,7 @@ To get access to all of the featues in the library, .NET Framework 4.6 or above 
 * **.NET Framework 4.0** - Verifying metadata signatures is not supported.
 * **.NET Framework 4.6** - All features supported.
 * **.NET Standard 2.0** - Computing machine codes is not supported. You can still use the available hash functions to compute a machine code, assuming you can collect machine specific information.
-* **Unity/Linux/Mac** - You need to use the packages in the "Without System.Management" folder on the release page. 
+* **Unity/Linux/Mac** - You need to use the packages in the "Without System.Management" folder on the release page. You can find more info [here](https://help.cryptolens.io/getting-started/unity). 
 
 Cryptolens.Licensing library does also work on Mono (eg. when running on Linux or Unity), however you need to use the version of the library that is compiled without System.Management. You can find pre-compiled binaries [here](https://github.com/Cryptolens/cryptolens-dotnet/releases) or compile it yourself by following the instructions below.
 
