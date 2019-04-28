@@ -552,7 +552,7 @@ namespace SKM_Test
 
             // now we can verify some basic properties
 
-            if (Helpers.IsOnRightMachine(activate.LicenseKey) && activate.Metadata.LicenseStatus.IsValid)
+            if (Helpers.IsOnRightMachine(activate.LicenseKey))
             {
                 // license verification successful.
 
