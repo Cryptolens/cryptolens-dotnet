@@ -20,5 +20,14 @@ namespace SKM_Test
             System.Diagnostics.Debug.WriteLine(Helpers.GetMachineCodePI());
 
         }
+
+        [TestMethod]
+        public void MyTestMethod()
+        {
+            System.Diagnostics.Debug.WriteLine(Environment.OSVersion.Platform.ToString());
+
+            AI.RegisterEvent("", new RegisterEventModel { Metadata = Helpers.GetOSStats() });
+
+        }
     }
 }

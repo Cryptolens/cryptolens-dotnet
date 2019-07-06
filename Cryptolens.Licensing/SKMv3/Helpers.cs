@@ -13,6 +13,18 @@ namespace SKM.V3.Methods
     /// </summary>
     public static class Helpers
     {
+        public static string GetOSStats()
+        {
+            var machineInfo = new MachineInfo { OSVersion = Environment.OSVersion.Version.ToString(), OSName = GetPlatform().ToString() };
+
+#if !NET35
+            machineInfo.Is64Bit = Environment.Is64BitOperatingSystem;
+#endif
+
+            return Newtonsoft.Json.JsonConvert.SerializeObject(machineInfo);
+        }
+
+
         /// <summary>
         /// Checks if the result obtained from an API call is successful.
         /// </summary>

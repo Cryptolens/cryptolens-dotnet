@@ -19,6 +19,15 @@ namespace SKM.V3.Models
 
     }
 
+    public class MachineInfo
+    {
+        public string OSName { get; set; }
+
+        public string OSVersion { get; set; }
+
+        public bool Is64Bit { get; set; }
+    }
+
     public class RequestModel
     {
         /// <summary>
@@ -91,6 +100,9 @@ namespace SKM.V3.Models
         [DefaultValue("")]
         public string Currency { get; set; }
 
+        [DefaultValue("")]
+        public string Metadata { get; set; }
+
     }
 
     public class RegisterEventsModel : RequestModel
@@ -120,6 +132,7 @@ namespace SKM.V3.Models
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Populate)]
         public string Currency { get; set; }
         public long Time { get; set; }
+        public string Metadata { get; set; }
     }
     public class GetCustomerLicensesModel : RequestModel
     {
