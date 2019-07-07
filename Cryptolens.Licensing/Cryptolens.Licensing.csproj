@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFrameworks>net35;net40;net46;net47;net471;netstandard2.0</TargetFrameworks>
@@ -23,9 +23,7 @@ NB: There is also one for C++ (https://github.com/Cryptolens/cryptolens-cpp)</De
     <DelaySign>false</DelaySign>
     <AssemblyOriginatorKeyFile>certifikat.pfx</AssemblyOriginatorKeyFile>
     <PackageTags>licensing system, SKGL, serial key management, http://app.cryptolens.io/ , skgl extension, SKM Client API, cryptolens</PackageTags>
-    <PackageReleaseNotes>Fix to signature verification on .NET Standard (v4.0.17.2).
-
-Release notes available at https://help.cryptolens.io/api/dotnet/articles/v4017.html</PackageReleaseNotes>
+    <PackageReleaseNotes>Release notes available at https://help.cryptolens.io/api/dotnet/articles/v4018.html</PackageReleaseNotes>
     
   <DefineConstants>SYSTEM_MANAGEMENT</DefineConstants>
     
