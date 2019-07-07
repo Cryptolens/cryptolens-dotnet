@@ -14,6 +14,22 @@ namespace SKM.V3.Methods
     public static class Helpers
     {
         /// <summary>
+        /// Creates a JSON dictionary of the type <see cref="MachineInfo"/>, which contains OSVersion, OSName and Is64Bit (not available in NET 3.6).
+        /// </summary>
+        /// <returns>A string representation of the JSON dictionary.</returns>
+        public static string GetOSStats()
+        {
+            var machineInfo = new MachineInfo { OSVersion = Environment.OSVersion.Version.ToString(), OSName = GetPlatform().ToString() };
+
+#if !NET35
+            machineInfo.Is64Bit = Environment.Is64BitOperatingSystem;
+#endif
+
+            return Newtonsoft.Json.JsonConvert.SerializeObject(machineInfo);
+        }
+
+
+        /// <summary>
         /// Checks if the result obtained from an API call is successful.
         /// </summary>
         public static bool IsSuccessful(BasicResult result)
