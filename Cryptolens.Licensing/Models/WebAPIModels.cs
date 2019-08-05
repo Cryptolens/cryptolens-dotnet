@@ -223,6 +223,16 @@ namespace SKM.V3.Models
         /// (without removing it from the list of node-locked licenses)
         /// </summary>
         public bool Floating { get; set; }
+
+        /// <summary>
+        /// Additional OS information, which will be registered as an event. If this variable is not set or set to null, 
+        /// this variable will contain a JSON serialized version of <see cref="MachineInfo"/>, which is computed using
+        /// <see cref="V3.Methods.Helpers.GetOSStats"/>. If you do not want OS data to be registered, set this variable to
+        /// empty string. You can also send in other data by setting this variable to something else.
+        /// Be careful with personal identifiable information and do not send in more data than necessary. Please read more
+        /// at https://help.cryptolens.io/legal/DataPolicy#how-to-be-compliant-as-a-software-vendor.
+        /// </summary>
+        public string OSInfo { get; set; }
     }
 
     public class KeyInfoModel : RequestModel
@@ -392,6 +402,16 @@ namespace SKM.V3.Models
         public int MaxOverdraft { get; set; }
 
         public SignMethod SignMethod { get; set; }
+
+        /// <summary>
+        /// Additional OS information, which will be registered as an event. If this variable is not set or set to null, 
+        /// this variable will contain a JSON serialized version of <see cref="MachineInfo"/>, which is computed using
+        /// <see cref="V3.Methods.Helpers.GetOSStats"/>. If you do not want OS data to be registered, set this variable to
+        /// empty string. You can also send in other data by setting this variable to something else.
+        /// Be careful with personal identifiable information and do not send in more data than necessary. Please read more
+        /// at https://help.cryptolens.io/legal/DataPolicy#how-to-be-compliant-as-a-software-vendor.
+        /// </summary>
+        public string OSInfo { get; set; }
 
     }
 
