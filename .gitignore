@@ -193,3 +193,7 @@ FakesAssemblies/
 .vs/SKM/v15/Server/sqlite3/storage.ide
 .vs/SKM/v15/Server/sqlite3/storage.ide-shm
 .vs/SKM/v15/Server/sqlite3/storage.ide-wal
+*.lock
+*.ide
+*.ide-shm
+*.ide-wal

@@ -56,6 +56,21 @@ namespace SKM.V3.Methods
         /// </example>
         public static KeyInfoResult Activate(string token, ActivateModel parameters)
         {
+            if (parameters != null)
+            {
+                if (parameters.OSInfo == null)
+                {
+                    try
+                    {
+                        parameters.OSInfo = Helpers.GetOSStats();
+                    }
+                    catch { }
+                }
+                else if (parameters.OSInfo == "")
+                {
+                    parameters.OSInfo = null;
+                }
+            }
             return HelperMethods.SendRequestToWebAPI3<KeyInfoResult>(parameters, "/key/activate/", token);
         }
 
@@ -65,7 +80,8 @@ namespace SKM.V3.Methods
         /// <b>Note:</b> it's better to use this method, especially if you target Mono/Unity.<br/>
         /// In order to get the license key, you can call <see cref="LicenseKey.FromResponse(string, RawResponse)"/>.
         /// </summary>
-        public static RawResponse Activate(string token, int productId, string key, string machineCode = "", bool metadata=false, int floatingTimeInterval = 0, int maxOverdraft = 0)
+        public static RawResponse Activate(string token, int productId, string key, string machineCode = "", bool metadata = false,
+            int floatingTimeInterval = 0, int maxOverdraft = 0, string OSInfo = null)
         {
 
             var parameters = new ActivateModel()
@@ -77,10 +93,27 @@ namespace SKM.V3.Methods
                 FloatingTimeInterval = floatingTimeInterval,
                 MaxOverdraft = maxOverdraft,
                 Sign = true,
-                SignMethod = SignMethod.StringSign
+                SignMethod = SignMethod.StringSign,
+                OSInfo = OSInfo
             };
 
-            var res =  HelperMethods.SendRequestToWebAPI3<RawResponse>(parameters, "/key/activate/", token);
+            if (parameters != null)
+            {
+                if (parameters.OSInfo == null)
+                {
+                    try
+                    {
+                        parameters.OSInfo = Helpers.GetOSStats();
+                    }
+                    catch { }
+                }
+                else if (parameters.OSInfo == "")
+                {
+                    parameters.OSInfo = null;
+                }
+            }
+
+            var res = HelperMethods.SendRequestToWebAPI3<RawResponse>(parameters, "/key/activate/", token);
             return res;
         }
 
@@ -113,6 +146,21 @@ namespace SKM.V3.Methods
         /// </example>
         public static BasicResult Deactivate(string token, DeactivateModel parameters)
         {
+            if (parameters != null)
+            {
+                if (parameters.OSInfo == null)
+                {
+                    try
+                    {
+                        parameters.OSInfo = Helpers.GetOSStats();
+                    }
+                    catch { }
+                }
+                else if (parameters.OSInfo == "")
+                {
+                    parameters.OSInfo = null;
+                }
+            }
             return HelperMethods.SendRequestToWebAPI3<BasicResult>(parameters, "/key/deactivate/", token);
         }
 
