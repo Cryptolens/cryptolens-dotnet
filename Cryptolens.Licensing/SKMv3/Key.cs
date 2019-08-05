@@ -146,6 +146,21 @@ namespace SKM.V3.Methods
         /// </example>
         public static BasicResult Deactivate(string token, DeactivateModel parameters)
         {
+            if (parameters != null)
+            {
+                if (parameters.OSInfo == null)
+                {
+                    try
+                    {
+                        parameters.OSInfo = Helpers.GetOSStats();
+                    }
+                    catch { }
+                }
+                else if (parameters.OSInfo == "")
+                {
+                    parameters.OSInfo = null;
+                }
+            }
             return HelperMethods.SendRequestToWebAPI3<BasicResult>(parameters, "/key/deactivate/", token);
         }
 
