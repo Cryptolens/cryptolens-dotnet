@@ -14,7 +14,7 @@ namespace SKM.V3.Methods
     public static class Helpers
     {
         /// <summary>
-        /// Creates a JSON dictionary of the type <see cref="MachineInfo"/>, which contains OSVersion, OSName and Is64Bit (not available in NET 3.6).
+        /// Creates a JSON dictionary of the type <see cref="MachineInfo"/>, which contains OSVersion, OSName and Is64Bit (not available in NET 3.5).
         /// </summary>
         /// <returns>A string representation of the JSON dictionary.</returns>
         public static string GetOSStats()
