@@ -14,7 +14,7 @@ namespace SKM.V3.Methods
     /// Methods that perform operations on a product. A complete list
     /// can be found here: https://app.cryptolens.io/docs/api/v3/Product
     /// </summary>
-    public static class Product
+    public static class ProductMethods
     {
         /// <summary>
         /// This method will return a list of keys for a given product.
@@ -58,6 +58,18 @@ namespace SKM.V3.Methods
             return HelperMethods.SendRequestToWebAPI3<GetKeysResult>(parameters, "/product/getkeys/", token);
         }
 
+
+        /// <summary>
+        /// This method will return the list of products.
+        /// </summary>
+        /// <param name="token">The access token. Read more at https://app.cryptolens.io/docs/api/v3/Auth </param>
+        /// <param name="parameters">The parameters that the method needs.</param>
+        /// <returns>A <see cref="GetProductsResult"/> or null.</returns>
+        /// </example>
+        public static GetProductsResult GetProducts(string token, RequestModel parameters)
+        {
+            return HelperMethods.SendRequestToWebAPI3<GetProductsResult>(parameters, "/product/getproducts/", token);
+        }
 
     }
 }

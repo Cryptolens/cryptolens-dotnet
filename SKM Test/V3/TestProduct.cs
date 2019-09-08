@@ -18,8 +18,8 @@ namespace SKM_Test
         [TestMethod]
         public void GetKeysTest()
         {
-            var auth = "WyIxMjkiLCIxRVNxYStKRTloUGorQytSMndHclNBTno5dzA0Tjl1dGgvS2k5UkxHIl0=";
-            var result = Product.GetKeys(token: auth, parameters:  new GetKeysModel { ProductId= 3349 });
+            var auth = AccessToken.AccessToken.ProductMethods;
+            var result = ProductMethods.GetKeys(token: auth, parameters:  new GetKeysModel { ProductId= 3349 });
 
             Assert.IsNotNull(result);
             Assert.IsTrue(result.Result == ResultType.Success);
@@ -27,6 +27,14 @@ namespace SKM_Test
             
         }
 
+        [TestMethod]
+        public void TestGetProducts()
+        {
+            var auth = AccessToken.AccessToken.ProductMethods;
+            var result = ProductMethods.GetProducts(token: auth, parameters: new RequestModel());
 
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result.Result == ResultType.Success);
+        }
     }
 }

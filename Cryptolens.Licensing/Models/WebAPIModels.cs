@@ -37,6 +37,76 @@ namespace SKM.V3.Models
         public string LicenseServerUrl { get; set; }
     }
 
+    public class Product
+    {
+        public int Id { get; set; }
+
+        public string Name { get; set; }
+        public DateTime CreationDate { get; set; }
+
+        public string Description { get; set; }
+        public string Password { get; set; }
+
+        public bool IsPublic { get; set; }
+
+        [DefaultValue(AlgorithmTypes.SKGL)]
+        public AlgorithmTypes KeyAlgorithm { get; set; }
+
+        public FeatureDefinitions FeatureDefinitions { get; set; }
+
+        public List<DataObject> DataObjects { get; set; }
+    }
+
+    public class FeatureDefinitions
+    {
+        public FeatureDefinition F1 { get; set; }
+        public FeatureDefinition F2 { get; set; }
+        public FeatureDefinition F3 { get; set; }
+        public FeatureDefinition F4 { get; set; }
+        public FeatureDefinition F5 { get; set; }
+        public FeatureDefinition F6 { get; set; }
+        public FeatureDefinition F7 { get; set; }
+        public FeatureDefinition F8 { get; set; }
+    
+        public bool AllLicensesTimeLimited { get; set; }
+
+        public bool BlockExpiredLicenses { get; set; }
+    }
+
+    public class FeatureDefinition
+    {
+        public string Name { get; set; }
+        public FeatureType Type { get; set; }
+    }
+
+    public enum FeatureType
+    {
+        Default = 0,
+        TimeLimitedFeature = 1,
+        TrialFeature = 2
+    }
+
+    /// <summary>
+    /// Keeps track of different algorithms that are used to generate a serial key.
+    /// </summary>
+    public enum AlgorithmTypes
+    {
+        /// <summary>
+        /// The old one, legacy.
+        /// </summary>
+        SKGL,
+
+        /// <summary>
+        /// The new one, located in Key Algorithm (Helper Methods)
+        /// </summary>
+        SKM15
+    }
+
+    public class GetProductsResult : BasicResult
+    {
+        public List<Product> Products { get; set; }
+    }
+
 
     public class RecordUsageModel : RequestModel
     {
