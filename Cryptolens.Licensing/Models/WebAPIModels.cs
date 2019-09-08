@@ -38,6 +38,14 @@ namespace SKM.V3.Models
     }
 
 
+    public class RecordUsageModel : RequestModel
+    {
+        public int ProductId { get; set; }
+        public string Key { get; set; }
+        public int Amount { get; set; }
+    }
+
+
     public class CreateSessionResult : BasicResult
     {
         public string SessionId { get; set; }
