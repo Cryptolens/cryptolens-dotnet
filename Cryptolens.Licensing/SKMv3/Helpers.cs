@@ -95,7 +95,7 @@ namespace SKM.V3.Methods
         /// </summary>
         /// <param name="RSAPubKey">Your RSA Public Key, which can be found here:
         /// https://app.cryptolens.io/docs/api/v3/QuickStart</param>
-        /// <returns></returns
+        /// <returns></returns>
         public static bool VerifySDKLicenseCertificate(string RSAPubKey)
         {
             return VerifySDKLicenseCertificate(RSAPubKey, "certificate.json", null);
