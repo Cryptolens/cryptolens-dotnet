@@ -4,6 +4,9 @@ using SKM.V3.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
+using System.Reflection;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace SKM.V3.Methods
@@ -36,6 +39,116 @@ namespace SKM.V3.Methods
         {
             return result != null && result.Result == ResultType.Success;
         }
+
+        /// <summary>
+        /// Computes the method of the calling assembly. This method is intended to be
+        /// called from an SDK that you want to protect. The "Calling Assembly" is the
+        /// first assembly that leads to a method being called in your SDK. <br></br>
+        /// 
+        /// Normally, if a customer uses your SDK in an assembly A, this method will
+        /// compute the hash/fingerprint of that assembly. If they have developed two
+        /// assemblies, where the A uses B and B uses your SDK (which calls this method),
+        /// i.e. A -> B -> SDK, then the hash is computed of the first assembly, i.e. A.
+        /// </summary>
+        /// <returns></returns>
+        public static AssemblySignature GetAssemblyHash()
+        {
+            return GetAssemblyHash(null);
+        }
+
+        /// <summary>
+        /// Computes the method of the calling assembly. This method is intended to be
+        /// called from an SDK that you want to protect. The "Calling Assembly" is the
+        /// first assembly that leads to a method being called in your SDK. <br></br>
+        /// 
+        /// Normally, if a customer uses your SDK in an assembly A, this method will
+        /// compute the hash/fingerprint of that assembly. If they have developed two
+        /// assemblies, where the A uses B and B uses your SDK (which calls this method),
+        /// i.e. A -> B -> SDK, then the hash is computed of the first assembly, i.e. A.
+        /// </summary>
+        /// <param name="path">Allows you to specify a custom path of the assembly to sign.
+        /// If null, the default assembly will be signed, as described in the summary.</param>
+        /// <returns></returns>
+        public static AssemblySignature GetAssemblyHash(string path)
+        {
+            SHA512 sha = SHA512.Create();
+
+            var sig = "";
+
+            if (path == null)
+            {
+                var assembly = Assembly.GetCallingAssembly();
+
+                path = assembly.Location;
+            }
+
+            using (var stream = File.OpenRead(path))
+            {
+                sig = Convert.ToBase64String(sha.ComputeHash(stream));
+            }
+
+            return new AssemblySignature { Path = path, Signature = sig };
+        }
+
+        /// <summary>
+        /// Verifies that the certificate of the software using the SDK is valid.
+        /// </summary>
+        /// <param name="RSAPubKey">Your RSA Public Key, which can be found here:
+        /// https://app.cryptolens.io/docs/api/v3/QuickStart</param>
+        /// <returns></returns
+        public static bool VerifySDKLicenseCertificate(string RSAPubKey)
+        {
+            return VerifySDKLicenseCertificate(RSAPubKey, "certificate.json", null);
+        }
+
+        /// <summary>
+        /// Verifies that the certificate of the software using the SDK is valid.
+        /// </summary>
+        /// <param name="RSAPubKey">Your RSA Public Key, which can be found here:
+        /// https://app.cryptolens.io/docs/api/v3/QuickStart</param>
+        /// <param name="certificate">The name of the certificate.</param>
+        /// <param name="path">The path to the certificate and the assembly, whose hash is signed.
+        /// Note, they need to be in the same folder.</param>
+        /// <returns></returns>
+        public static bool VerifySDKLicenseCertificate(string RSAPubKey, string certificate, string path)
+        {
+            if (path == null)
+            {
+                var assembly = Assembly.GetCallingAssembly();
+
+                path = assembly.Location;
+            }
+
+            var dir = Path.GetDirectoryName(path);
+
+            var certpath = Path.Combine(dir, certificate);
+
+            var license = new LicenseKey().LoadFromFile(certpath, RSAPubKey);
+
+            if (license == null)
+                return false;
+
+            if (license.DataObjects == null || license.DataObjects.Count == 0)
+                return false;
+
+            string assemblyHash = "";
+            foreach (var dObj in license.DataObjects)
+            {
+                if (dObj.Name == "cryptolens_assemblyhash")
+                {
+                    assemblyHash = dObj.StringValue;
+                    break;
+                }
+            }
+
+            if(GetAssemblyHash(path).Signature != assemblyHash)
+            {
+                return false;
+            }
+
+            return true;
+
+        } 
 
         public enum OSType {
             Undefined = 0,
