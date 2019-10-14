@@ -6,7 +6,8 @@
 *.user
 *.sln.docstates
 
-*.vs/
+.vs/
+Tutorials/.vscode/
 
 # Build results
 [Dd]ebug/
