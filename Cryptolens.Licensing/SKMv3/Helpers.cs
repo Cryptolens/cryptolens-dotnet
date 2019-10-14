@@ -98,7 +98,7 @@ namespace SKM.V3.Methods
         /// <returns></returns>
         public static bool VerifySDKLicenseCertificate(string RSAPubKey)
         {
-            return VerifySDKLicenseCertificate(RSAPubKey, "certificate.json", null);
+            return VerifySDKLicenseCertificate(RSAPubKey, null, null);
         }
 
         /// <summary>
@@ -112,16 +112,20 @@ namespace SKM.V3.Methods
         /// <returns></returns>
         public static bool VerifySDKLicenseCertificate(string RSAPubKey, string certificate, string path)
         {
+            var assembly = Assembly.GetCallingAssembly();
             if (path == null)
             {
-                var assembly = Assembly.GetCallingAssembly();
-
                 path = assembly.Location;
             }
 
             var dir = Path.GetDirectoryName(path);
 
-            var certpath = Path.Combine(dir, certificate);
+            if(certificate == null)
+            {
+                certificate = Path.GetFileName(path);
+            }
+
+            var certpath = Path.Combine(Path.Combine(dir, certificate), ".json");
 
             var license = new LicenseKey().LoadFromFile(certpath, RSAPubKey);
 
