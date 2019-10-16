@@ -648,6 +648,11 @@ namespace SKM.V3.Models
         /// An int value (int32) to store.
         /// </summary>
         public int IntValue { get; set; }
+
+        /// <summary>
+        /// Make sure data objects with the same name are not added.
+        /// </summary>
+        public bool CheckForDuplicates { get; set; }
     }
 
 
@@ -772,6 +777,11 @@ namespace SKM.V3.Models
         /// to User, there is no need to set this value.
         /// </summary>
         public int ReferencerId { get; set; }
+
+        /// <summary>
+        /// Make sure data objects with the same name are not added.
+        /// </summary>
+        public bool CheckForDuplicates { get; set; }
 
     }
 
