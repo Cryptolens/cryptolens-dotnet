@@ -671,7 +671,14 @@ namespace SKM.V3.Models
     /// </summary>
     public class ChangeStringValueToKeyModel : KeyLockModel, IChangeValueModel
     {
+        /// <summary>
+        /// The unique object id for the data object.
+        /// </summary>
         public long Id { get; set; }
+
+        /// <summary>
+        /// A string value (text) to store. Max 10000 characters.
+        /// </summary>
         public string StringValue { get; set; }
     }
 
@@ -845,7 +852,7 @@ namespace SKM.V3.Models
         public long Id { get; set; }
 
         /// <summary>
-        /// A string value (text) to store. Max 100 characters.
+        /// A string value (text) to store. Max 10000 characters.
         /// </summary>
         public string StringValue { get; set; }
     }
@@ -991,9 +998,25 @@ namespace SKM.V3.Models
     }
     public class AddDataObjectToMachineCodeModel : ProdKeyMachineCode
     {
+        /// <summary>
+        /// The name of the data object. Max 10 characters.
+        /// </summary>
         public string Name { get; set; }
+
+        /// <summary>
+        /// A string value (text) to store. Max 10000 characters.
+        /// </summary>
         public string StringValue { get; set; }
+
+        /// <summary>
+        /// An int value (int32) to store.
+        /// </summary>
         public int IntValue { get; set; }
+
+        /// <summary>
+        /// Make sure data objects with the same name are not added.
+        /// </summary>
+        public bool CheckForDuplicates { get; set; }
     }
 
     public class ListDataObjectsToMachineCodeModel : ProdKeyMachineCode
@@ -1009,17 +1032,47 @@ namespace SKM.V3.Models
     {
         public long Id { get; set; }
 
+        /// <summary>
+        /// This is either the new int value that should be assigned to the Data Object
+        /// when using <see cref="Data.SetIntValue(AuthDetails, ChangeIntValueModel)"/>
+        /// in which case it can be a signed int32, eg. 10, and -10 OR it is a the value that
+        /// should be added to the current IntValue of an existing Data Object, in which case
+        /// this value will be treated as an unsigned value, eg. 10 = -10. The latter case is
+        /// relevant for <see cref="Data.IncrementIntValue(AuthDetails, ChangeIntValueModel)"/>
+        /// and <see cref="Data.DecrementIntValue(AuthDetails, ChangeIntValueModel)"/>.
+        /// </summary>
         public int IntValue { get; set; }
 
-        public int Bound { get; set; }
-
+        /// <summary>
+        /// If set to true, it will be possible to specify an upper/lower bound. 
+        /// (for Increment Int Value) For example, if you set the Bound parameter (below) to 10, you
+        /// will be able to increment the int value until you reach ten (inclusive).
+        /// Once the upper bound is reached, an error will be thrown.
+        /// (for Decrement Int Value) For example, if you set the Bound parameter (below) to 0, 
+        /// you will be able to decrement the int value until you reach zero (inclusive).
+        /// Once the lower bound is reached, an error will be thrown.
+        /// </summary>
         public bool EnableBound { get; set; }
+
+        /// <summary>
+        /// This is the upper/lower bound that will be enforced on the increment or
+        /// decrement operation. It will only be enforced if EnableBound
+        /// is set to true. Please read the description above.
+        /// </summary>
+        public int Bound { get; set; }
     }
 
 
     public class ChangeStringValueToMachineCodeModel : ProdKeyMachineCode, IChangeValueModel
     {
+        /// <summary>
+        /// The unique object id for the data object.
+        /// </summary>
         public long Id { get; set; }
+
+        /// <summary>
+        /// A string value (text) to store. Max 10000 characters.
+        /// </summary>
         public string StringValue { get; set; }
     }
     public class RemoveDataObjectToMachineCodeModel : ProdKeyMachineCode, IChangeValueModel
