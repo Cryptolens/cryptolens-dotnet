@@ -77,7 +77,7 @@ namespace SKM.V3.Methods
 
             if (path == null)
             {
-                var assembly = Assembly.GetCallingAssembly();
+                var assembly = Assembly.GetEntryAssembly();
 
                 path = assembly.Location;
             }
@@ -95,7 +95,7 @@ namespace SKM.V3.Methods
         /// </summary>
         /// <param name="RSAPubKey">Your RSA Public Key, which can be found here:
         /// https://app.cryptolens.io/docs/api/v3/QuickStart</param>
-        /// <returns></returns>
+        /// <returns>True if the certificate is valid and false otherwise.</returns>
         public static bool VerifySDKLicenseCertificate(string RSAPubKey)
         {
             return VerifySDKLicenseCertificate(RSAPubKey, null, null);
@@ -106,13 +106,13 @@ namespace SKM.V3.Methods
         /// </summary>
         /// <param name="RSAPubKey">Your RSA Public Key, which can be found here:
         /// https://app.cryptolens.io/docs/api/v3/QuickStart</param>
-        /// <param name="certificate">The name of the certificate.</param>
+        /// <param name="certificate">The name of the certificate. Do not add .skm extension, it will be added automatically.</param>
         /// <param name="path">The path to the certificate and the assembly, whose hash is signed.
         /// Note, they need to be in the same folder.</param>
-        /// <returns></returns>
+        /// <returns>True if the certificate is valid and false otherwise.</returns>
         public static bool VerifySDKLicenseCertificate(string RSAPubKey, string certificate, string path)
         {
-            var assembly = Assembly.GetCallingAssembly();
+            var assembly = Assembly.GetEntryAssembly();
             if (path == null)
             {
                 path = assembly.Location;
@@ -125,7 +125,7 @@ namespace SKM.V3.Methods
                 certificate = Path.GetFileName(path);
             }
 
-            var certpath = Path.Combine(Path.Combine(dir, certificate), ".json");
+            var certpath = Path.Combine(dir, certificate) + ".skm";
 
             var license = new LicenseKey().LoadFromFile(certpath, RSAPubKey);
 
@@ -151,7 +151,6 @@ namespace SKM.V3.Methods
             }
 
             return true;
-
         } 
 
         public enum OSType {
