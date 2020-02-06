@@ -19,6 +19,12 @@ namespace SKM.V3.Models
 
     }
 
+    public class GetEventsModel
+    {
+        public int Limit { get; set; }
+        public int StartingAfter { get; set; }
+    }
+
     public class GetWebAPILogResult : BasicResult
     {
         public List<WebAPILog> Logs { get; set; }
