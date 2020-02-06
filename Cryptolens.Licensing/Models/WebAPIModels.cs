@@ -19,6 +19,28 @@ namespace SKM.V3.Models
 
     }
 
+    public class GetWebAPILogResult : BasicResult
+    {
+        public List<WebAPILog> Logs { get; set; }
+    }
+
+    public class WebAPILog
+    {
+        public long Id { get; set; }
+
+        public int ProductId { get; set; } 
+
+        public string Key { get; set; }
+
+        public string IP { get; set; }
+
+        public long Time { get; set; }
+
+        public short State { get; set; }
+
+        public string MachineCode { get; set; }
+    }
+
     public class MachineInfo
     {
         public string OSName { get; set; }
