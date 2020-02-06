@@ -19,7 +19,7 @@ namespace SKM.V3.Models
 
     }
 
-    public class GetEventsModel
+    public class GetEventsModel : RequestModel
     {
         public int Limit { get; set; }
         public int StartingAfter { get; set; }
