@@ -23,6 +23,8 @@ namespace SKM.V3.Models
     {
         public int Limit { get; set; }
         public int StartingAfter { get; set; }
+        public int ProductId { get; set; }
+        public string Key { get; set; }
     }
 
     public class GetWebAPILogResult : BasicResult

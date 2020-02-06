@@ -58,6 +58,25 @@ namespace SKM.V3.Methods
             return HelperMethods.SendRequestToWebAPI3<KeyLockResult>(internalModel, "/ai/registerevents/", token);
         }
 
+        /// <summary>
+        /// This method will retrieve a list of Web API Logs. All events that get logged are related
+        /// to a change of a license key or data object, eg. when license key gets activated or when
+        /// a property of data object changes. More details about the method that was called are specified
+        /// in the State field. You can read more about it here. These logs contain minimal information
+        /// but are guaranteed to be preserved. To get more information, especially about changes not
+        /// tracked in this log, please check out the Object Log.
+        /// </summary>
+        /// <param name="token">The access token. Read more at https://app.cryptolens.io/docs/api/v3/Auth </param>
+        /// <param name="parameters">The parameters that the method needs</param>
+        /// <remarks>Note: for more details, please see 
+        /// <a href="https://app.cryptolens.io/docs/api/v3/GetWebAPILog">https://app.cryptolens.io/docs/api/v3/GetWebAPILog</a> <br/>
+        /// </remarks>
+        /// <returns>Returns <see cref="KeyLockResult"/> or null.</returns>
+        public static BasicResult GetWebAPILog(string token, GetEventsModel parameters)
+        {
+            return HelperMethods.SendRequestToWebAPI3<GetWebAPILogResult>(parameters, "/ai/getwebapilog/", token);
+        }
+
         private class RegisterEventsModelServer: RequestModel
         {
             public int ProductId { get; set; }
