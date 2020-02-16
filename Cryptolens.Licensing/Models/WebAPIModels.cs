@@ -19,6 +19,47 @@ namespace SKM.V3.Models
 
     }
 
+    public class GetEventsModel : RequestModel
+    {
+        public int Limit { get; set; }
+        public int StartingAfter { get; set; }
+        public int ProductId { get; set; }
+        public string Key { get; set; }
+    }
+
+    public class GetWebAPILogModel : RequestModel
+    {
+        public int Limit { get; set; }
+        public int StartingAfter { get; set; }
+        public int ProductId { get; set; }
+        public string Key { get; set; }
+        public string FriendlyName { get; set; }
+    }
+
+    public class GetWebAPILogResult : BasicResult
+    {
+        public List<WebAPILog> Logs { get; set; }
+    }
+
+    public class WebAPILog
+    {
+        public long Id { get; set; }
+
+        public int ProductId { get; set; } 
+
+        public string Key { get; set; }
+
+        public string IP { get; set; }
+
+        public long Time { get; set; }
+
+        public short State { get; set; }
+
+        public string MachineCode { get; set; }
+        public string FriendlyName { get; set; }
+
+    }
+
     public class MachineInfo
     {
         public string OSName { get; set; }
@@ -451,6 +492,14 @@ namespace SKM.V3.Models
         /// The machine code (a string that identifies a device) for activation.	
         /// </summary>
         public string MachineCode { get; set; }
+
+        /// <summary>
+        /// Allows you to specify a friendy name for the activated device, for example the
+        /// employee's email. Friendly name does not impact the number of active machine codes / seats,
+        /// but it offers an easy way of linking a machine/seat with a user. For added security,
+        /// you can HMAC hash this value.
+        /// </summary>
+        public string FriendlyName { get; set; }
 
         /// <summary>
         /// An integer that allows you to restrict the information returned in the license key data object.

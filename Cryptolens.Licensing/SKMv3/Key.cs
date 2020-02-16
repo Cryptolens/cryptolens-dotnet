@@ -71,7 +71,7 @@ namespace SKM.V3.Methods
                     parameters.OSInfo = null;
                 }
             }
-            return HelperMethods.SendRequestToWebAPI3<KeyInfoResult>(parameters, "/key/activate/", token);
+            return HelperMethods.SendRequestToWebAPI3<KeyInfoResult>(parameters, "/key/activate/", token, modelVersion: 2);
         }
 
 
@@ -81,7 +81,7 @@ namespace SKM.V3.Methods
         /// In order to get the license key, you can call <see cref="LicenseKey.FromResponse(string, RawResponse)"/>.
         /// </summary>
         public static RawResponse Activate(string token, int productId, string key, string machineCode = "", bool metadata = false,
-            int floatingTimeInterval = 0, int maxOverdraft = 0, string OSInfo = null)
+            int floatingTimeInterval = 0, int maxOverdraft = 0, string OSInfo = null, string friendlyName = "")
         {
 
             var parameters = new ActivateModel()
@@ -94,7 +94,8 @@ namespace SKM.V3.Methods
                 MaxOverdraft = maxOverdraft,
                 Sign = true,
                 SignMethod = SignMethod.StringSign,
-                OSInfo = OSInfo
+                OSInfo = OSInfo,
+                FriendlyName = friendlyName
             };
 
             if (parameters != null)
@@ -113,7 +114,7 @@ namespace SKM.V3.Methods
                 }
             }
 
-            var res = HelperMethods.SendRequestToWebAPI3<RawResponse>(parameters, "/key/activate/", token);
+            var res = HelperMethods.SendRequestToWebAPI3<RawResponse>(parameters, "/key/activate/", token, modelVersion: 2);
             return res;
         }
 
@@ -343,7 +344,7 @@ namespace SKM.V3.Methods
         /// <returns>A BasicResult object or null.</returns>
         public static KeyInfoResult GetKey(string token, KeyInfoModel parameters)
         {
-            return HelperMethods.SendRequestToWebAPI3<KeyInfoResult>(parameters, "/key/getkey/", token);
+            return HelperMethods.SendRequestToWebAPI3<KeyInfoResult>(parameters, "/key/getkey/", token, modelVersion: 2);
         }
 
 
