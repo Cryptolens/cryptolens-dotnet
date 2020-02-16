@@ -268,7 +268,7 @@ namespace SKM.V3.Methods
         #if SYSTEM_MANAGEMENT
         [Obsolete]
         #endif
-        public static string GetMachineCode(bool platformIndependent = false, bool includeProcessId = false)
+        public static string GetMachineCode(bool platformIndependent = false/*bool includeProcessId = false*/)
         {
 
             int p = (int)Environment.OSVersion.Platform;
