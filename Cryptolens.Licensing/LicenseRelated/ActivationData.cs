@@ -22,6 +22,8 @@ namespace SKM.V3
         /// </summary>
         public DateTime? Time { get; set; }
 
+        public string FriendlyName { get; set; }
+
         public override string ToString()
         {
             if (this != null)

@@ -31,6 +31,7 @@ namespace SKM.V3
         public string Mid { get; set; }
         public string IP { get; set; }
         public long Time { get; set; }
+        public string FriendlyName { get; set; }
     }
 
     /// <summary>
