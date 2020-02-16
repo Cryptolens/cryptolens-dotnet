@@ -57,6 +57,22 @@ namespace SKM_Test
                 Assert.Fail();
         }
 
+        [TestMethod]
+        public void SignatureTestNewMethod()
+        {
+            var result = Key.Activate(AccessToken.AccessToken.Activate, 3349, "MTMPW-VZERP-JZVNZ-SCPZM", "test");
+
+            if (result == null || result.Result == ResultType.Error)
+            {
+                Assert.Fail();
+            }
+
+            var license = LicenseKey.FromResponse("<RSAKeyValue><Modulus>sGbvxwdlDbqFXOMlVUnAF5ew0t0WpPW7rFpI5jHQOFkht/326dvh7t74RYeMpjy357NljouhpTLA3a6idnn4j6c3jmPWBkjZndGsPL4Bqm+fwE48nKpGPjkj4q/yzT4tHXBTyvaBjA8bVoCTnu+LiC4XEaLZRThGzIn5KQXKCigg6tQRy0GXE13XYFVz/x1mjFbT9/7dS8p85n8BuwlY5JvuBIQkKhuCNFfrUxBWyu87CFnXWjIupCD2VO/GbxaCvzrRjLZjAngLCMtZbYBALksqGPgTUN7ZM24XbPWyLtKPaXF2i4XRR9u6eTj5BfnLbKAU5PIVfjIS+vNYYogteQ==</Modulus><Exponent>AQAB</Exponent></RSAKeyValue>", result);
+
+            Assert.IsNotNull(license);
+      
+        }
+
         //[TestMethod]
         //public void SaveLoadFile()
         //{
@@ -226,7 +242,7 @@ namespace SKM_Test
         public void ActivateAndDeactivateTest()
         {
             var auth = activateDeactivate;
-            var result = Key.Activate(token: auth, parameters: new ActivateModel() { Key = "GEBNC-WZZJD-VJIHG-GCMVD", ProductId = 3349, Sign = true, MachineCode = "foo" });
+            var result = Key.Activate(token: auth, parameters: new ActivateModel() { Key = "GEBNC-WZZJD-VJIHG-GCMVD", ProductId = 3349, Sign = true, MachineCode = "foo", FriendlyName = "TEST-PC"  });
             System.Diagnostics.Debug.WriteLine(result);
 
             //Assert.IsTrue(result.LicenseKey.HasValidSignature("<RSAKeyValue><Modulus>sGbvxwdlDbqFXOMlVUnAF5ew0t0WpPW7rFpI5jHQOFkht/326dvh7t74RYeMpjy357NljouhpTLA3a6idnn4j6c3jmPWBkjZndGsPL4Bqm+fwE48nKpGPjkj4q/yzT4tHXBTyvaBjA8bVoCTnu+LiC4XEaLZRThGzIn5KQXKCigg6tQRy0GXE13XYFVz/x1mjFbT9/7dS8p85n8BuwlY5JvuBIQkKhuCNFfrUxBWyu87CFnXWjIupCD2VO/GbxaCvzrRjLZjAngLCMtZbYBALksqGPgTUN7ZM24XbPWyLtKPaXF2i4XRR9u6eTj5BfnLbKAU5PIVfjIS+vNYYogteQ==</Modulus><Exponent>AQAB</Exponent></RSAKeyValue>").IsValid());
