@@ -41,7 +41,8 @@ namespace SKM.V3.Internal
         public static T SendRequestToWebAPI3<T>(RequestModel inputParameters, 
                                                 string typeOfAction,
                                                 string token,
-                                                int version = 1 )                                                    
+                                                int version = 1,
+                                                int modelVersion = 1)                                                    
         {
             // converting the input
             Dictionary<string, string> inputParams = (from x in inputParameters.GetType().GetProperties() select x)
@@ -70,6 +71,7 @@ namespace SKM.V3.Internal
 
                 reqparm.Add("token", token);
                 reqparm.Add("v", "1");
+                reqparm.Add("modelversion", modelVersion.ToString());
 
                 // make sure .NET uses the default proxy set up on the client device.
                 client.Proxy = WebRequest.DefaultWebProxy;
