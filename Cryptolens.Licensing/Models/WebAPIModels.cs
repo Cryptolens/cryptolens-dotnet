@@ -25,6 +25,14 @@ namespace SKM.V3.Models
         public int StartingAfter { get; set; }
         public int ProductId { get; set; }
         public string Key { get; set; }
+    }
+
+    public class GetWebAPILogModel : RequestModel
+    {
+        public int Limit { get; set; }
+        public int StartingAfter { get; set; }
+        public int ProductId { get; set; }
+        public string Key { get; set; }
         public string FriendlyName { get; set; }
     }
 
@@ -48,6 +56,8 @@ namespace SKM.V3.Models
         public short State { get; set; }
 
         public string MachineCode { get; set; }
+        public string FriendlyName { get; set; }
+
     }
 
     public class MachineInfo

@@ -72,7 +72,7 @@ namespace SKM.V3.Methods
         /// <a href="https://app.cryptolens.io/docs/api/v3/GetWebAPILog">https://app.cryptolens.io/docs/api/v3/GetWebAPILog</a> <br/>
         /// </remarks>
         /// <returns>Returns <see cref="KeyLockResult"/> or null.</returns>
-        public static BasicResult GetWebAPILog(string token, GetEventsModel parameters)
+        public static BasicResult GetWebAPILog(string token, GetWebAPILogModel parameters)
         {
             return HelperMethods.SendRequestToWebAPI3<GetWebAPILogResult>(parameters, "/ai/getwebapilog/", token);
         }
