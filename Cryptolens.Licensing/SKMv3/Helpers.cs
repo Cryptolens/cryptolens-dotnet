@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
+using System.Security;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -211,6 +212,34 @@ namespace SKM.V3.Methods
                 return OSType.Windows;
             }
 #endif
+        }
+
+        [SecuritySafeCritical]
+        public static bool IsVM()
+        {
+#if SYSTEM_MANAGEMENT
+            var searcher = new System.Management.ManagementObjectSearcher("select * from Win32_Processor");
+
+            searcher.Query = new System.Management.ObjectQuery("select * from Win32_BaseBoard");
+            foreach (System.Management.ManagementObject share in searcher.Get())
+            {
+                // more info: https://docs.microsoft.com/en-us/windows/win32/cimwin32prov/win32-baseboard
+                var manufacturer = share.GetPropertyValue("Manufacturer").ToString().ToLower();
+                var product = share.GetPropertyValue("Product").ToString().ToLower();
+
+                if (manufacturer.Contains("microsoft corporation") || manufacturer.Contains("none") || manufacturer.Contains("virtual"))
+                {
+                    return true;
+                }
+
+                if(product.Contains("virtual"))
+                {
+                    return true;
+                }
+
+            }
+#endif
+            return false;
         }
 
         private static string ExecCommand(string fileName, string args)
