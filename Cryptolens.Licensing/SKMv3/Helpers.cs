@@ -227,7 +227,13 @@ namespace SKM.V3.Methods
                 var manufacturer = share.GetPropertyValue("Manufacturer").ToString().ToLower();
                 var product = share.GetPropertyValue("Product").ToString().ToLower();
 
-                if (manufacturer.Contains("microsoft corporation") || manufacturer.Contains("none") || manufacturer.Contains("virtual"))
+                if(manufacturer == null || product == null)
+                {
+                    return true;
+                }
+
+                if ((manufacturer.Contains("microsoft") && product.Contains("virtual")) || manufacturer.Contains("none") || manufacturer.Contains("virtual")
+                    || manufacturer.Contains("vmware"))
                 {
                     return true;
                 }
