@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
+using System.Security;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -212,6 +213,45 @@ namespace SKM.V3.Methods
             }
 #endif
         }
+
+#if SYSTEM_MANAGEMENT
+        /// <summary>
+        /// This method can help to detect if the application is running inside a virtual machine. It has been
+        /// tested in Microsoft Hyper-V. Support for other VM applications is coming soon.
+        /// </summary>
+        /// <returns></returns>
+        [SecuritySafeCritical]
+        public static bool IsVM()
+        {
+            var searcher = new System.Management.ManagementObjectSearcher("select * from Win32_Processor");
+
+            searcher.Query = new System.Management.ObjectQuery("select * from Win32_BaseBoard");
+            foreach (System.Management.ManagementObject share in searcher.Get())
+            {
+                // more info: https://docs.microsoft.com/en-us/windows/win32/cimwin32prov/win32-baseboard
+                var manufacturer = share.GetPropertyValue("Manufacturer").ToString().ToLower();
+                var product = share.GetPropertyValue("Product").ToString().ToLower();
+
+                if(manufacturer == null || product == null)
+                {
+                    return true;
+                }
+
+                if ((manufacturer.Contains("microsoft") && product.Contains("virtual")) || manufacturer.Contains("none") || manufacturer.Contains("virtual")
+                    || manufacturer.Contains("vmware"))
+                {
+                    return true;
+                }
+
+                if(product.Contains("virtual"))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+#endif
 
         private static string ExecCommand(string fileName, string args)
         {
