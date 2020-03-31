@@ -298,9 +298,9 @@ namespace SKM.V3.Methods
 
                 proc.WaitForExit();
 
-                var test = proc.StandardOutput.ReadToEnd().Replace("UUID", "").Trim();
-                Debug.WriteLine($"\"{test}\"");
-                return test;
+                var rawOutput = proc.StandardOutput.ReadToEnd();
+
+                return rawOutput.Substring(rawOutput.IndexOf("UUID")+4).Trim();
             }
             else
             {
