@@ -6,16 +6,16 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Company>Cryptolens AB</Company>
     <Authors>Cryptolens AB</Authors>
-    <Version>4.0.23</Version>
-    <AssemblyVersion>4.0.23.1</AssemblyVersion>
-    <FileVersion>4.0.23.1</FileVersion>
+    <Version>4.0.24</Version>
+    <AssemblyVersion>4.0.24.1</AssemblyVersion>
+    <FileVersion>4.0.24.1</FileVersion>
     <Description>An API documentation can be found at https://help.cryptolens.io/api/dotnet/.
 
 This is a client API that serves as an interface to Cryptolens Web API (app.cryptolens.io/docs/api/).
 
 NB: There is also one for C++ (https://github.com/Cryptolens/cryptolens-cpp)</Description>
     <Copyright>Cryptolens AB</Copyright>
-    <PackageLicenseUrl>https://github.com/Cryptolens/cryptolens-dotnet/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageLicenseUrl></PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/Cryptolens/cryptolens-dotnet/</PackageProjectUrl>
     <PackageIconUrl>https://avatars0.githubusercontent.com/u/29428539?s=200&amp;v=4</PackageIconUrl>
     <RepositoryUrl>https://github.com/Cryptolens/cryptolens-dotnet/</RepositoryUrl>
@@ -23,9 +23,13 @@ NB: There is also one for C++ (https://github.com/Cryptolens/cryptolens-cpp)</De
     <DelaySign>false</DelaySign>
     <AssemblyOriginatorKeyFile>certifikat.pfx</AssemblyOriginatorKeyFile>
     <PackageTags>licensing system, SKGL, serial key management, http://app.cryptolens.io/ , skgl extension, SKM Client API, cryptolens</PackageTags>
-    <PackageReleaseNotes>Release notes available at https://help.cryptolens.io/api/dotnet/articles/v4023.html</PackageReleaseNotes>
+    <PackageReleaseNotes>Release notes available at https://help.cryptolens.io/api/dotnet/articles/v4024.html</PackageReleaseNotes>
     
   <DefineConstants>SYSTEM_MANAGEMENT</DefineConstants>
+    
+  <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    
+  <PackageLicenseExpression></PackageLicenseExpression>
     
   </PropertyGroup>
 
@@ -48,6 +52,14 @@ NB: There is also one for C++ (https://github.com/Cryptolens/cryptolens-cpp)</De
 
   <ItemGroup Condition="('$(TargetFramework)' == 'net40' or '$(TargetFramework)' == 'net46' or '$(TargetFramework)' == 'net35' or '$(TargetFramework)' == 'net47' or '$(TargetFramework)' == 'net471') and $(DefineConstants.Contains('SYSTEM_MANAGEMENT'))">
     <Reference Include="System.Management" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <None Include="..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
   
 </Project>

@@ -1458,19 +1458,52 @@ namespace SKGL
         /// <remarks>Please see <see cref="getMachineCode"/> for a code example of how this method can be used.</remarks>
         public static string getSHA256(string s)
         {
+            return getSHA256(s, 1);
+        }
+
+
+        /// <summary>
+        /// This method will generate a SHA256 hash.
+        /// </summary>
+        /// <param name="s">The string value of the information that is to be hashed.</param>
+        /// <returns>A string with the hash value</returns>
+        /// <remarks>Please see <see cref="getMachineCode"/> for a code example of how this method can be used.</remarks>
+        public static string getSHA256(string s, int v = 1)
+        {
             using (SHA256 sha256 = new SHA256Managed())
             {
-                var hash = sha256.ComputeHash(System.Text.Encoding.Unicode.GetBytes(s));
+                byte[] hash;
+                if (v==1)
+                {
+                    hash = sha256.ComputeHash(System.Text.Encoding.Unicode.GetBytes(s));
+                    var sb = new StringBuilder(hash.Length * 2);
+                    foreach (byte b in hash)
+                    {
+                        // can be "x2" if you want lowercase
+                        sb.Append(b.ToString("X2"));
+                    }
+
+                    return sb.ToString();
+                }
+                else if (v== 2)
+                {
+                    hash = sha256.ComputeHash(System.Text.Encoding.UTF8.GetBytes(s));
+                    var sb = new StringBuilder(hash.Length * 2);
+                    foreach (byte b in hash)
+                    {
+                        // can be "x2" if you want lowercase
+                        sb.Append(b.ToString("x2"));
+                    }
+
+                    return sb.ToString();
+                }
+                else
+                {
+                    throw new ArgumentException("Version can either be 1 or 2.");
+                }
                 //return Convert.ToBase64String(hash);
 
-                var sb = new StringBuilder(hash.Length * 2);
-                foreach (byte b in hash)
-                {
-                    // can be "x2" if you want lowercase
-                    sb.Append(b.ToString("X2"));
-                }
 
-                return sb.ToString();
             }
         }
 

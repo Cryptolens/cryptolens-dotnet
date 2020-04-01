@@ -15,7 +15,7 @@ namespace SKM_Test
         [TestMethod]
         public void MyTestMethod()
         {
-
+            Debug.WriteLine(SKM.V3.Methods.Helpers.GetMachineCodePI(2));
         }
 
         //[TestMethod]

@@ -253,30 +253,60 @@ namespace SKM.V3.Methods
         }
 #endif
 
-        private static string ExecCommand(string fileName, string args)
+        private static string ExecCommand(string fileName, string args, int v = 1)
         {
-            var proc = new Process
+            if(v== 1)
             {
-                StartInfo = new ProcessStartInfo
+                var proc = new Process
                 {
-                    FileName = fileName,
-                    Arguments = args,
-                    UseShellExecute = false,
-                    RedirectStandardOutput = true,
-                    CreateNoWindow = true
+                    StartInfo = new ProcessStartInfo
+                    {
+                        FileName = fileName,
+                        Arguments = args,
+                        UseShellExecute = false,
+                        RedirectStandardOutput = true,
+                        CreateNoWindow = true,
+                    }
+                };
+                proc.Start();
+
+                StringBuilder sb = new StringBuilder();
+                while (!proc.StandardOutput.EndOfStream)
+                {
+                    string line = proc.StandardOutput.ReadLine();
+                    sb.Append(line);
                 }
-            };
 
-            proc.Start();
-
-            StringBuilder sb = new StringBuilder();
-            while (!proc.StandardOutput.EndOfStream)
-            {
-                string line = proc.StandardOutput.ReadLine();
-                sb.Append(line);
+                return sb.ToString();
             }
+            else if(v==2)
+            {
+                var proc = new Process
+                {
+                    StartInfo = new ProcessStartInfo
+                    {
+                        FileName = fileName,
+                        Arguments = args,
+                        UseShellExecute = false,
+                        RedirectStandardOutput = true,
+                        CreateNoWindow = true,
+                        StandardOutputEncoding = Encoding.UTF8
+                    }
+                };
 
-            return sb.ToString();
+                proc.Start();
+
+                proc.WaitForExit();
+
+                var rawOutput = proc.StandardOutput.ReadToEnd();
+
+                return rawOutput.Substring(rawOutput.IndexOf("UUID")+4).Trim();
+            }
+            else
+            {
+                throw new ArgumentException("Version can either be 1 or 2.");
+            }
+           
         }
 
         /// <summary>
@@ -288,6 +318,21 @@ namespace SKM.V3.Methods
         public static string GetMachineCodePI()
         {
             return GetMachineCode(platformIndependent: true);
+        }
+
+        /// <summary>
+        /// Computes a platform independent machine code that works on
+        /// Windows, Linux and Mac and does not require System.Management.
+        /// 
+        /// Note: On Linux, sudo access is necessary.
+        /// 
+        /// If version is set to 2, you can get the machine code as in the Python client,
+        /// assuming similar settings are used. You can read more about it here:
+        /// https://help.cryptolens.io/faq/index#machine-code-generation
+        /// </summary>
+        public static string GetMachineCodePI(int v=1)
+        {
+            return GetMachineCode(platformIndependent: true, v);
         }
 
 
@@ -304,11 +349,15 @@ namespace SKM.V3.Methods
         /// 
         /// In newer projects, we recommend to always set platformIndependent=true or use 
         /// <see cref="GetMachineCodePI"/>.
+        /// 
+        /// If version is set to 2, you can get the machine code as in the Python client,
+        /// assuming similar settings are used. You can read more about it here:
+        /// https://help.cryptolens.io/faq/index#machine-code-generation
         /// </summary>
-        #if SYSTEM_MANAGEMENT
+#if SYSTEM_MANAGEMENT
         [Obsolete]
         #endif
-        public static string GetMachineCode(bool platformIndependent = false/*bool includeProcessId = false*/)
+        public static string GetMachineCode(bool platformIndependent = false, int v = 1/*bool includeProcessId = false*/)
         {
 
             int p = (int)Environment.OSVersion.Platform;
@@ -350,7 +399,7 @@ namespace SKM.V3.Methods
 
                 if (platformIndependent)
                 {
-                    return SKGL.SKM.getSHA256(ExecCommand("cmd.exe", "/C wmic csproduct get uuid"));
+                    return SKGL.SKM.getSHA256(ExecCommand("cmd.exe", "/C wmic csproduct get uuid", v), v);
                 }
                 else
                 {
@@ -374,6 +423,25 @@ namespace SKM.V3.Methods
         public static bool IsOnRightMachinePI(LicenseKey licenseKey, bool isFloatingLicense = false, bool allowOverdraft = false)
         {
             return licenseKey.IsOnRightMachine(GetMachineCodePI(), isFloatingLicense, allowOverdraft).IsValid();
+        }
+
+        /// <summary>
+        /// Checks if the current license key is on the correct device with SHA-256 as the hash function.
+        /// </summary>
+        /// <param name="licenseKey">The license key object.</param>
+        /// <param name="isFloatingLicense">If this is a floating license, this parameter has to be set to true.
+        /// You can enable floating licenses by setting <see cref="V3.Models.ActivateModel.FloatingTimeInterval"/>
+        /// to a value greater than 0.</param>
+        /// <param name="allowOverdraft">If floating licensing is enabled with overdraft, this parameter should be set to true.
+        /// You can enable overdraft by setting <see cref="ActivateModel.MaxOverdraft"/> to a value greater than 0.
+        ///</param>
+        ///<param name="v">If version is set to 2, you can get the machine code as in the Python client,
+        ///assuming similar settings are used. You can read more about it here: 
+        ///https://help.cryptolens.io/faq/index#machine-code-generation</param>
+        /// <returns></returns>
+        public static bool IsOnRightMachinePI(LicenseKey licenseKey, bool isFloatingLicense = false, bool allowOverdraft = false, int v = 1)
+        {
+            return licenseKey.IsOnRightMachine(GetMachineCodePI(v), isFloatingLicense, allowOverdraft).IsValid();
         }
 
 
