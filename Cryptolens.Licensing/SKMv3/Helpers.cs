@@ -325,6 +325,10 @@ namespace SKM.V3.Methods
         /// Windows, Linux and Mac and does not require System.Management.
         /// 
         /// Note: On Linux, sudo access is necessary.
+        /// 
+        /// If version is set to 2, you can get the machine code as in the Python client,
+        /// assuming similar settings are used. You can read more about it here:
+        /// https://help.cryptolens.io/faq/index#machine-code-generation
         /// </summary>
         public static string GetMachineCodePI(int v=1)
         {
@@ -345,6 +349,10 @@ namespace SKM.V3.Methods
         /// 
         /// In newer projects, we recommend to always set platformIndependent=true or use 
         /// <see cref="GetMachineCodePI"/>.
+        /// 
+        /// If version is set to 2, you can get the machine code as in the Python client,
+        /// assuming similar settings are used. You can read more about it here:
+        /// https://help.cryptolens.io/faq/index#machine-code-generation
         /// </summary>
 #if SYSTEM_MANAGEMENT
         [Obsolete]
@@ -427,6 +435,9 @@ namespace SKM.V3.Methods
         /// <param name="allowOverdraft">If floating licensing is enabled with overdraft, this parameter should be set to true.
         /// You can enable overdraft by setting <see cref="ActivateModel.MaxOverdraft"/> to a value greater than 0.
         ///</param>
+        ///<param name="v">If version is set to 2, you can get the machine code as in the Python client,
+        ///assuming similar settings are used. You can read more about it here: 
+        ///https://help.cryptolens.io/faq/index#machine-code-generation</param>
         /// <returns></returns>
         public static bool IsOnRightMachinePI(LicenseKey licenseKey, bool isFloatingLicense = false, bool allowOverdraft = false, int v = 1)
         {
