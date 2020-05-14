@@ -356,7 +356,8 @@ namespace SKM.V3.Methods
         /// </summary>
 #if SYSTEM_MANAGEMENT
         [Obsolete]
-        #endif
+#endif
+        [SecuritySafeCritical]
         public static string GetMachineCode(bool platformIndependent = false, int v = 1/*bool includeProcessId = false*/)
         {
 
@@ -366,8 +367,6 @@ namespace SKM.V3.Methods
 #if !SYSTEM_MANAGEMENT
             platformIndependent = true;       
 #endif
-
-
             if (os == OSType.Unix)
             {
                 //unix
@@ -459,6 +458,8 @@ namespace SKM.V3.Methods
         /// System.Management or use the new platform independent method, i.e. <see cref="GetMachineCodePI"/>.
         /// </param>
         /// <returns></returns>
+
+        [SecuritySafeCritical]
         public static bool IsOnRightMachine(LicenseKey licenseKey, bool isFloatingLicense = false, bool allowOverdraft = false, bool platformIndependent = false)
         {
 #if !SYSTEM_MANAGEMENT
