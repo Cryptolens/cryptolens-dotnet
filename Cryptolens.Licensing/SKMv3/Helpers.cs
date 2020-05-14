@@ -361,8 +361,8 @@ namespace SKM.V3.Methods
         public static string GetMachineCode(bool platformIndependent = false, int v = 1/*bool includeProcessId = false*/)
         {
 
-            int p = (int)Environment.OSVersion.Platform;
-            OSType os = GetPlatform();
+            //int p = (int)Environment.OSVersion.Platform;
+            OSType os = OSType.Windows; //GetPlatform();
 
 #if !SYSTEM_MANAGEMENT
             platformIndependent = true;       
