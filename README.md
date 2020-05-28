@@ -1,8 +1,10 @@
 # Cryptolens Licensing for .NET
 
-This API serves as a layer that simplifies communication with Serial Key Manager Web API 2 and 3 (https://app.cryptolens.io/docs/api).
+This API serves as a layer that simplifies communication with Cryptolens Web API 2 and 3 (https://app.cryptolens.io/docs/api).
 
 > You can access the documentation of the library at https://help.cryptolens.io/api/dotnet/.
+
+Please check out our guide on common errors during integration: https://help.cryptolens.io/faq/index#troubleshooting-api-errors
 
 ## Getting started
 
