@@ -84,12 +84,12 @@ namespace SKM.V3.Internal
 
                     return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(responsebody);
                 }
-                catch(Exception ex)
+                catch(WebException ex)
                 {
-#if DEBUG
-                    System.Diagnostics.Debug.WriteLine("An error occurred when we tried to contact SKM. The following error was received: " + ex.Message);
-#endif
-                    return default(T);
+                    using (var sr = new System.IO.StreamReader(ex.Response.GetResponseStream()))
+                    {
+                        return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(sr.ReadToEnd());
+                    }
                 }
 
             }
