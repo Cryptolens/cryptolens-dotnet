@@ -91,6 +91,10 @@ namespace SKM.V3.Internal
                         return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(sr.ReadToEnd());
                     }
                 }
+                catch (Exception ex)
+                {
+                    return default(T);
+                }
 
             }
         }
