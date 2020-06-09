@@ -184,21 +184,37 @@ namespace SKM.V3.Methods
         public static OSType GetPlatform()
         {
 #if (NETSTANDARD2_0 || NET46 || NET47 || NET471) && SYSTEM_MANAGEMENT
-            if (System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Linux))
+
+            try
             {
-                return OSType.Linux;
+                if (System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Linux))
+                {
+                    return OSType.Linux;
+                }
+                else if (System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.OSX))
+                {
+                    return OSType.Mac;
+                }
+                else if (System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Windows))
+                {
+                    return OSType.Windows;
+                }
+                else
+                {
+                    return OSType.Undefined;
+                }
             }
-            else if (System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.OSX))
+            catch(Exception ex)
             {
-                return OSType.Mac;
-            }
-            else if (System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Windows))
-            {
-                return OSType.Windows;
-            }
-            else
-            {
-                return OSType.Undefined;
+                int p = (int)Environment.OSVersion.Platform;
+                if ((p == 4) || (p == 6) || (p == 128))
+                {
+                    return OSType.Unix;
+                }
+                else
+                {
+                    return OSType.Windows;
+                }
             }
 
 #else
@@ -361,7 +377,6 @@ namespace SKM.V3.Methods
         public static string GetMachineCode(bool platformIndependent = false, int v = 1/*bool includeProcessId = false*/)
         {
 
-            int p = (int)Environment.OSVersion.Platform;
             OSType os = GetPlatform();
 
 #if !SYSTEM_MANAGEMENT
