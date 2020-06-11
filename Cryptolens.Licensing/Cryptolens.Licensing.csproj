@@ -6,7 +6,7 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Company>Cryptolens AB</Company>
     <Authors>Cryptolens AB</Authors>
-    <Version>4.0.26</Version>
+    <Version>4.0.26-beta</Version>
     <AssemblyVersion>4.0.26.1</AssemblyVersion>
     <FileVersion>4.0.26.1</FileVersion>
     <Description>An API documentation can be found at https://help.cryptolens.io/api/dotnet/.
