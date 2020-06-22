@@ -2,13 +2,13 @@
 
   <PropertyGroup>
     <TargetFrameworks>net35;net40;net46;net47;net471;netstandard2.0</TargetFrameworks>
-    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Company>Cryptolens AB</Company>
     <Authors>Cryptolens AB</Authors>
-    <Version>4.0.25</Version>
-    <AssemblyVersion>4.0.25.1</AssemblyVersion>
-    <FileVersion>4.0.25.1</FileVersion>
+    <Version>4.0.26-rc</Version>
+    <AssemblyVersion>4.0.26.2</AssemblyVersion>
+    <FileVersion>4.0.26.2</FileVersion>
     <Description>An API documentation can be found at https://help.cryptolens.io/api/dotnet/.
 
 This is a client API that serves as an interface to Cryptolens Web API (app.cryptolens.io/docs/api/).

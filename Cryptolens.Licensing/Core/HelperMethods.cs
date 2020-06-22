@@ -29,6 +29,13 @@ namespace SKM.V3.Internal
         public static IWebProxy proxy;
         private static bool notSet = false;
 
+        /// <summary>
+        /// This should be true in most case for performance reasons.
+        /// In rare cases, please set this to true.
+        /// </summary>
+        public static bool KeepAlive = true;
+
+
 
         internal static string DOMAIN = "https://app.cryptolens.io/";
 
@@ -51,51 +58,103 @@ namespace SKM.V3.Internal
                                                           .Invoke(inputParameters, null).ToString()));
             string server = SERVER;
 
-            using (WebClient client = new WebClient())
+            if (KeepAlive)
             {
-                NameValueCollection reqparm = new NameValueCollection();
-
-                foreach (var input in inputParams)
+                using (WebClient client = new WebClient())
                 {
-                    if (input.Key == "LicenseServerUrl")
+                    NameValueCollection reqparm = new NameValueCollection();
+
+                    foreach (var input in inputParams)
                     {
-                        if (!string.IsNullOrEmpty(input.Value))
+                        if (input.Key == "LicenseServerUrl")
                         {
-                            server = input.Value + "/api/";
+                            if (!string.IsNullOrEmpty(input.Value))
+                            {
+                                server = input.Value + "/api/";
+                            }
+                            continue;
                         }
-                        continue;
+
+                        reqparm.Add(input.Key, input.Value);
                     }
 
-                    reqparm.Add(input.Key, input.Value);
-                }
+                    reqparm.Add("token", token);
+                    reqparm.Add("v", "1");
+                    reqparm.Add("modelversion", modelVersion.ToString());
 
-                reqparm.Add("token", token);
-                reqparm.Add("v", "1");
-                reqparm.Add("modelversion", modelVersion.ToString());
+                    // make sure .NET uses the default proxy set up on the client device.
+                    client.Proxy = WebRequest.DefaultWebProxy;
+                    client.Proxy.Credentials = CredentialCache.DefaultCredentials;
 
-                // make sure .NET uses the default proxy set up on the client device.
-                client.Proxy = WebRequest.DefaultWebProxy;
-                client.Proxy.Credentials = CredentialCache.DefaultCredentials; 
-
-                try
-                {
-                    byte[] responsebytes = client.UploadValues(server + typeOfAction, "POST", reqparm);
-                    string responsebody = Encoding.UTF8.GetString(responsebytes);
-
-                    return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(responsebody);
-                }
-                catch(WebException ex)
-                {
-                    using (var sr = new System.IO.StreamReader(ex.Response.GetResponseStream()))
+                    try
                     {
-                        return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(sr.ReadToEnd());
-                    }
-                }
-                catch (Exception ex)
-                {
-                    return default(T);
-                }
+                        byte[] responsebytes = client.UploadValues(server + typeOfAction, "POST", reqparm);
+                        string responsebody = Encoding.UTF8.GetString(responsebytes);
 
+                        return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(responsebody);
+                    }
+                    catch (WebException ex)
+                    {
+                        using (var sr = new System.IO.StreamReader(ex.Response.GetResponseStream()))
+                        {
+                            return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(sr.ReadToEnd());
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        return default(T);
+                    }
+
+                }
+            }
+            else
+            {
+                using (WebClient client = new CustomWebClient())
+                {
+                    NameValueCollection reqparm = new NameValueCollection();
+
+                    foreach (var input in inputParams)
+                    {
+                        if (input.Key == "LicenseServerUrl")
+                        {
+                            if (!string.IsNullOrEmpty(input.Value))
+                            {
+                                server = input.Value + "/api/";
+                            }
+                            continue;
+                        }
+
+                        reqparm.Add(input.Key, input.Value);
+                    }
+
+                    reqparm.Add("token", token);
+                    reqparm.Add("v", "1");
+                    reqparm.Add("modelversion", modelVersion.ToString());
+
+                    // make sure .NET uses the default proxy set up on the client device.
+                    client.Proxy = WebRequest.DefaultWebProxy;
+                    client.Proxy.Credentials = CredentialCache.DefaultCredentials;
+
+                    try
+                    {
+                        byte[] responsebytes = client.UploadValues(server + typeOfAction, "POST", reqparm);
+                        string responsebody = Encoding.UTF8.GetString(responsebytes);
+
+                        return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(responsebody);
+                    }
+                    catch (WebException ex)
+                    {
+                        using (var sr = new System.IO.StreamReader(ex.Response.GetResponseStream()))
+                        {
+                            return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(sr.ReadToEnd());
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        return default(T);
+                    }
+
+                }
             }
         }
 
@@ -130,5 +189,18 @@ namespace SKM.V3.Internal
         }
 
 
+    }
+
+    // from https://docs.microsoft.com/en-us/powerapps/developer/common-data-service/best-practices/business-logic/set-keepalive-false-interacting-external-hosts-plugin
+    internal class CustomWebClient : WebClient
+    {
+        // Overrides the GetWebRequest method and sets keep alive to false
+        protected override WebRequest GetWebRequest(Uri address)
+        {
+            HttpWebRequest req = (HttpWebRequest)base.GetWebRequest(address);
+            req.KeepAlive = false;
+
+            return req;
+        }
     }
 }
