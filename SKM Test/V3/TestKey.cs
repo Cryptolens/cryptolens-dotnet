@@ -239,6 +239,22 @@ namespace SKM_Test
         }
 
         [TestMethod]
+        public void GetKeyTest()
+        {
+            var res = Key.GetKey(AccessToken.AccessToken.GetKey, new KeyInfoModel { Metadata = true, ProductId = 3349, Key = "MTMPW-VZERP-JZVNZ-SCPZM" });
+
+            if(res.Result == ResultType.Error)
+            {
+                Assert.Fail();
+            }
+
+            if(res.Metadata == null)
+            {
+                Assert.Fail();
+            }
+        }
+
+        [TestMethod]
         public void ActivateAndDeactivateTest()
         {
             var auth = activateDeactivate;
