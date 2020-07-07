@@ -96,7 +96,7 @@ namespace SKM.V3.Accounts
             var toSign = licenseKeys.Concat(activatedMachines.Concat(date)).ToArray();
 
             // only if sign enabled.
-#if NET40 || NET46 || NET35
+#if NET40 || NET46 || NET35 || NET45
             using (var rsaVal = new RSACryptoServiceProvider())
             {
                 rsaVal.FromXmlString(RSAPublicKey);

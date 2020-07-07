@@ -203,7 +203,7 @@ namespace SKM.V3
             try
             {
 
-#if NET40 || NET46 || NET35 || NET47 || NET471
+#if NET40 || NET45 || NET46 || NET35 || NET47 || NET471
                 RSACryptoServiceProvider rsa = new RSACryptoServiceProvider(2048);
                 rsa.FromXmlString(RSAPubKey);
 #else
@@ -211,7 +211,7 @@ namespace SKM.V3
             rsa.ImportParameters(SecurityMethods.FromXMLString(RSAPubKey));
 #endif
 
-#if NET40 || NET46 || NET35 || NET47 || NET471
+#if NET40 || NET45 || NET46 || NET35 || NET47 || NET471
                 verificationResult = rsa.VerifyData(licenseBytes, "SHA256", signatureBytes);
 #else
             verificationResult = rsa.VerifyData(licenseBytes, signatureBytes, HashAlgorithmName.SHA256, RSASignaturePadding.Pkcs1);

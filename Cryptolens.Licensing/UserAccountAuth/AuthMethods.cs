@@ -33,7 +33,7 @@ namespace SKM.V3.Internal
             RSAParameters RSAParamsPrivate;
             string RSAParamsPublic = "";
 
-#if NET40 || NET46 || NET35
+#if NET40 || NET46 || NET35 || NET45
             var rsa = new RSACryptoServiceProvider(2048);
 #else
             var rsa = RSA.Create();
@@ -89,7 +89,7 @@ namespace SKM.V3.Internal
 
             var challenge = Convert.FromBase64String(initResponse.Challenge);
 
-#if NET40 || NET35
+#if NET40 || NET35 || NET45
             long unixTimestamp = (long)(DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)).TotalSeconds;
 #else
             long unixTimestamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
@@ -104,7 +104,7 @@ namespace SKM.V3.Internal
 
             var response = new byte[] { };
 
-#if NET40 || NET35
+#if NET40 || NET35 || NET45
             RSACryptoServiceProvider rsa = new RSACryptoServiceProvider(2048);
             rsa.ImportParameters(authInfo.Parameters);
             response = rsa.SignData(toSign, "SHA512");

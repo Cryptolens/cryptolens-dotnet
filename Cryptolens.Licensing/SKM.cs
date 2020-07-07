@@ -1275,8 +1275,8 @@ namespace SKGL
                 collectedInfo += nic;
             }
 
-#if (NET40 || NET46 || NET35 || NET47 || NET471)
-            if(includeUserName)
+#if (NET40 || NET46 || NET35 || NET47 || NET471 || NET45)
+            if (includeUserName)
                 collectedInfo += System.Security.Principal.WindowsIdentity.GetCurrent().Name;
 #endif
 
