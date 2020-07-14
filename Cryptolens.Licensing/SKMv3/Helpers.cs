@@ -18,6 +18,12 @@ namespace SKM.V3.Methods
     public static class Helpers
     {
         /// <summary>
+        /// Only set this setting if you plan to target Windows only. It's only necessary in rare cases.
+        /// If you have any questions, please contact support@cryptolens.io.
+        /// </summary>
+        public static bool WindowsOnly { get; set; }
+
+        /// <summary>
         /// Creates a JSON dictionary of the type <see cref="MachineInfo"/>, which contains OSVersion, OSName and Is64Bit (not available in NET 3.5).
         /// </summary>
         /// <returns>A string representation of the JSON dictionary.</returns>
@@ -360,9 +366,14 @@ namespace SKM.V3.Methods
         [SecuritySafeCritical]
         public static string GetMachineCode(bool platformIndependent = false, int v = 1/*bool includeProcessId = false*/)
         {
+            int p = 0;
+            OSType os = OSType.Windows;
 
-            int p = (int)Environment.OSVersion.Platform;
-            OSType os = GetPlatform();
+            if (!WindowsOnly)
+            {
+                p = (int)Environment.OSVersion.Platform;
+                os = GetPlatform();
+            }
 
 #if !SYSTEM_MANAGEMENT
             platformIndependent = true;       
