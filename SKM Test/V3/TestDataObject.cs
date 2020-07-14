@@ -158,6 +158,14 @@ namespace SKM_Test
         }
 
         [TestMethod]
+        public void ListDataObjectsMachineCode()
+        {
+            var result = Data.ListDataObjects(auth, new ListDataObjectsToMachineCodeModel { MachineCode = "DE7F9D0CDB1B68DAE79BAE2BAC478EBAB6828CB9F012503CEA30B58434C14080-", ProductId = 3349, Key = "ITVBC-GXXNU-GSMTK-NIJBT", Contains = "Counts" });
+
+            
+        }
+
+        [TestMethod]
         public void SetIntValueTest()
         {
             //first, let's obtain a random object. we record the old int value and the object id
