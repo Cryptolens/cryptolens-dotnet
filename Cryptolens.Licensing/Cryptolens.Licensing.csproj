@@ -25,7 +25,7 @@ NB: There is also one for C++ (https://github.com/Cryptolens/cryptolens-cpp)</De
     <PackageTags>licensing system, SKGL, serial key management, http://app.cryptolens.io/ , skgl extension, SKM Client API, cryptolens</PackageTags>
     <PackageReleaseNotes>Release notes available at https://help.cryptolens.io/api/dotnet/articles/v4025.html</PackageReleaseNotes>
     
-  <DefineConstants>SYSTEM_MANAGEMENT;KeepAliveDisabled</DefineConstants>
+  <DefineConstants>SYSTEM_MANAGEMENT</DefineConstants>
     
   <PackageLicenseFile>LICENSE</PackageLicenseFile>
     
