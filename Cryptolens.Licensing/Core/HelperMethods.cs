@@ -60,6 +60,7 @@ namespace SKM.V3.Internal
 
             if (KeepAlive)
             {
+#if !KeepAliveDisabled
                 using (WebClient client = new WebClient())
                 {
                     NameValueCollection reqparm = new NameValueCollection();
@@ -113,6 +114,9 @@ namespace SKM.V3.Internal
                     }
 
                 }
+#else
+                throw new ArgumentException("Please set Helpers.KeepAlive = false when calling the library with the 'KeepAliveDisabled' flag.");
+#endif
             }
             else
             {

@@ -52,7 +52,7 @@ namespace SKGL
     /// </remarks>
     public static class SKM
     {
-#region TimeCheck
+        #region TimeCheck
         /// <summary>
         /// This method checks whether the network time is different from the local time (client computer). This helps to prevent date changes caused by a client.
         /// </summary>
@@ -184,9 +184,11 @@ namespace SKGL
 
         }
 
-#endregion
+        #endregion
 
-#region KeyValidation
+#if !KeepAliveDisabled
+
+        #region KeyValidation
         /// <summary>
         /// This method will check whether the key is valid or invalid against the Serial Key Manager database
         /// The method will return an object (KeyInformation) only if:<br/>
@@ -674,9 +676,9 @@ namespace SKGL
             }
         }
 
-#endregion
+        #endregion
 
-#region OtherAPIRequests
+        #region OtherAPIRequests
 
         public static string GenerateKey()
         {
@@ -974,9 +976,11 @@ namespace SKGL
             return new ProductVariables() { ProductName = obj.ContainsKey("productName") ? obj["productName"] : "", UID = obj["uid"], PID = obj["pid"], HSUM = obj["hsum"] };
         }
 
-#endregion
+        #endregion
 
-#region NewMachineCode
+#endif
+
+        #region NewMachineCode
 
 
 

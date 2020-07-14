@@ -8,6 +8,9 @@ namespace SKGL
     /// <summary>
     /// Some extension methods that allow you to use SKGL Extension as a Fluent API.
     /// </summary>
+    /// 
+
+#if !KeepAliveDisabled
     public static class ExtensionMethods
     {
         /// <summary>
@@ -237,4 +240,7 @@ namespace SKGL
             return null;
         }
     }
+
+#endif
+
 }
