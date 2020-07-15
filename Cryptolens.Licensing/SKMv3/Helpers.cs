@@ -244,7 +244,7 @@ namespace SKM.V3.Methods
                 }
 
                 if ((manufacturer.Contains("microsoft") && product.Contains("virtual")) || manufacturer.Contains("none") || manufacturer.Contains("virtual")
-                    || manufacturer.Contains("vmware"))
+                    || manufacturer.Contains("vmware") || product.Contains("440BX Desktop Reference Platform".ToLower()))
                 {
                     return true;
                 }
