@@ -51,8 +51,13 @@ To compile without System.Management, open `Cryptolens.Licensing.csproj` and rem
 > Make sure there are no other `DefineConstants` definitions later in the file, as these will override the value.
 
 ## Other settings
-### Issues with 'System.MethodAccessException' when calling Helpers.GetMachineCode
+### 'System.MethodAccessException' when calling Helpers.GetMachineCode
 In some Windows environments (e.g. when developing Excel addins), it might not be feasible to call Helpers.GetMachineCode on .NET Framework 4.6. The reason for this is the call we make to `System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform`. To fix this, we have added a boolean flag in `Helpers` class. Before calling `Helpers.GetMachineCode` or `Helpers.IsOnRightMachine`, please set `Helpers.WindowsOnly=True`.
+
+```cs
+Helpers.WindowsOnly = true;
+var machineCode = Helpers.GetMachineCode();
+```
 
 ### Turn off KeepAlive
 In order to perform API calls with KeepAlive disabled, please set `HelperMethods.KeepAlive=False`. If you want to remove all references to code that uses KeepAlive that is true, you can compile the library with the `KeepAliveDisabled` flag, which is added the same way as `SYSTEM_MANAGEMENT` mentioned earlier. If you have multiple flags, they can be separated with a semicolon.
