@@ -47,6 +47,54 @@ namespace SKM.V3.Methods
             return result != null && result.Result == ResultType.Success;
         }
 
+
+        public static bool VerifyPassword(LicenseKey license, string username, string password)
+        {
+            if(license == null || license.ActivatedMachines == null || license.ActivatedMachines.Count == 0)
+            {
+                return false;
+            }
+
+            var activation = license.ActivatedMachines.Find(x => x.FriendlyName == username);
+
+            string[] passwordsalt;
+
+            try
+            {
+                passwordsalt = Newtonsoft.Json.JsonConvert.DeserializeObject<string[]>(new UTF8Encoding().GetString(Convert.FromBase64String(activation.Mid)));
+            } catch(Exception ex) { return false; }
+
+            byte[] decodedSalt = Convert.FromBase64String(passwordsalt[0]);
+            byte[] decodedPassword = Convert.FromBase64String(passwordsalt[1]);
+
+            return ComputePasswordHash(password, decodedSalt) == activation.Mid;
+        }
+
+        public static string ComputePasswordHash(string password)
+        {
+            return ComputePasswordHash(password, null);
+        }
+        public static string ComputePasswordHash(string password, byte[] salt = null)
+        {
+            // computes a 256 bit password hash with a salt of the same size using PBKDF2.
+            Rfc2898DeriveBytes rfc2898;
+
+            if(salt == null)
+            {
+                rfc2898 = new Rfc2898DeriveBytes(password, 32) { IterationCount = 0x4e20 };
+            }
+            else
+            {
+                rfc2898 = new Rfc2898DeriveBytes(password, salt) { IterationCount = 0x4e20 };
+            }
+
+            var saltUsed = Convert.ToBase64String(rfc2898.Salt);
+            var passwordHash = Convert.ToBase64String(rfc2898.GetBytes(32));
+
+            return Convert.ToBase64String(new UTF8Encoding().GetBytes(Newtonsoft.Json.JsonConvert.SerializeObject(new string[] { saltUsed, password })));
+        }
+
+
         /// <summary>
         /// Computes the method of the entry assembly. This method is intended to be
         /// called from an SDK that you want to protect. The "Entry Assembly" is the
