@@ -477,22 +477,6 @@ namespace SKM.V3.Methods
         /// <param name="allowOverdraft">If floating licensing is enabled with overdraft, this parameter should be set to true.
         /// You can enable overdraft by setting <see cref="ActivateModel.MaxOverdraft"/> to a value greater than 0.
         ///</param>
-        /// <returns></returns>
-        public static bool IsOnRightMachinePI(LicenseKey licenseKey, bool isFloatingLicense = false, bool allowOverdraft = false)
-        {
-            return licenseKey.IsOnRightMachine(GetMachineCodePI(), isFloatingLicense, allowOverdraft).IsValid();
-        }
-
-        /// <summary>
-        /// Checks if the current license key is on the correct device with SHA-256 as the hash function.
-        /// </summary>
-        /// <param name="licenseKey">The license key object.</param>
-        /// <param name="isFloatingLicense">If this is a floating license, this parameter has to be set to true.
-        /// You can enable floating licenses by setting <see cref="V3.Models.ActivateModel.FloatingTimeInterval"/>
-        /// to a value greater than 0.</param>
-        /// <param name="allowOverdraft">If floating licensing is enabled with overdraft, this parameter should be set to true.
-        /// You can enable overdraft by setting <see cref="ActivateModel.MaxOverdraft"/> to a value greater than 0.
-        ///</param>
         ///<param name="v">If version is set to 2, you can get the machine code as in the Python client,
         ///assuming similar settings are used. You can read more about it here: 
         ///https://help.cryptolens.io/faq/index#machine-code-generation</param>
