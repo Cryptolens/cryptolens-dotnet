@@ -17,6 +17,37 @@ namespace SKM_Test
 
 
         [TestMethod]
+        public void MyTestMethod()
+        {
+            var username = "testuser";
+            var password = Helpers.ComputePasswordHash("testpassword");
+
+            // Adding a user
+            var res = Key.Activate(AccessToken.AccessToken.Activate, new ActivateModel 
+            { 
+                Key = "KMZEW-SBRAE-VWCEK-CDLQE", 
+                ProductId = 3349,
+                MachineCode = password,
+                FriendlyName = username
+            });
+
+            Assert.IsTrue(Helpers.IsSuccessful(res));
+
+
+            //verifying password
+            var res2 = Key.GetKey(AccessToken.AccessToken.GetKey, new KeyInfoModel
+            {
+                Key = "KMZEW-SBRAE-VWCEK-CDLQE",
+                ProductId = 3349
+            });
+
+            Assert.IsTrue(Helpers.VerifyPassword(res2.LicenseKey, "testuser", "testpassword"));
+            Assert.IsFalse(Helpers.VerifyPassword(res2.LicenseKey, "testuser", "testpassword2"));
+
+        }
+
+
+        [TestMethod]
         public void MachineLockTest()
         {
             var key = "BIJGF-ZNULN-FVALJ-GQDTH";
