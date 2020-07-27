@@ -53,7 +53,7 @@ namespace SKM.V3.Methods
         /// It provides a way to activate a license on a per user rather than per machine basis. To compute the password,
         /// the <see cref="Helpers.ComputePasswordHash(string)"/> is used.
         /// A tutorial on how everything can be set up is available here:
-        /// https://help.cryptolens.io/licensing-models/user-account-activations
+        /// https://help.cryptolens.io/licensing-models/user-based-activations
         /// </summary>
         public static bool VerifyPassword(LicenseKey license, string username, string password)
         {
