@@ -48,6 +48,13 @@ namespace SKM.V3.Methods
         }
 
 
+        /// <summary>
+        /// This method verifies the username and password with the information in the LicenseKey object.
+        /// It provides a way to activate a license on a per user rather than per machine basis. To compute the password,
+        /// the <see cref="Helpers.ComputePasswordHash(string)"/> is used.
+        /// A tutorial on how everything can be set up is available here:
+        /// https://help.cryptolens.io/licensing-models/user-account-activations
+        /// </summary>
         public static bool VerifyPassword(LicenseKey license, string username, string password)
         {
             if(license == null || license.ActivatedMachines == null || license.ActivatedMachines.Count == 0)
@@ -70,10 +77,21 @@ namespace SKM.V3.Methods
             return ComputePasswordHash(password, decodedSalt) == activation.Mid;
         }
 
+        /// <summary>
+        /// Computes a string hash of a password using PBKDF2. Note, in comparison to using hash
+        /// algorithms such as SHA256, the algorithm used in this method slows down the computation on
+        /// purpose, to make sure it is harder to guess the original password.
+        /// </summary>
         public static string ComputePasswordHash(string password)
         {
             return ComputePasswordHash(password, null);
         }
+
+        /// <summary>
+        /// Computes a string hash of a password using PBKDF2. Note, in comparison to using hash
+        /// algorithms such as SHA256, the algorithm used in this method slows down the computation on
+        /// purpose, to make sure it is harder to guess the original password.
+        /// </summary>
         public static string ComputePasswordHash(string password, byte[] salt = null)
         {
             // computes a 256 bit password hash with a salt of the same size using PBKDF2.
@@ -81,11 +99,11 @@ namespace SKM.V3.Methods
 
             if(salt == null)
             {
-                rfc2898 = new Rfc2898DeriveBytes(password, 32) { IterationCount = 0x4e20 };
+                rfc2898 = new Rfc2898DeriveBytes(password, 32) { IterationCount = 0xc350 };
             }
             else
             {
-                rfc2898 = new Rfc2898DeriveBytes(password, salt) { IterationCount = 0x4e20 };
+                rfc2898 = new Rfc2898DeriveBytes(password, salt) { IterationCount = 0xc350 };
             }
 
             var saltUsed = Convert.ToBase64String(rfc2898.Salt);
