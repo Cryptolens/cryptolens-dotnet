@@ -29,5 +29,12 @@ namespace SKM_Test
             AI.RegisterEvent("", new RegisterEventModel { Metadata = Helpers.GetOSStats() });
 
         }
+
+
+        [TestMethod]
+        public void CheckVM()
+        {
+            Helpers.IsVM();
+        }
     }
 }

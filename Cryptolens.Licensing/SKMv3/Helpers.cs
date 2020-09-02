@@ -9,6 +9,7 @@ using System.Reflection;
 using System.Security;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading;
 
 namespace SKM.V3.Methods
 {
@@ -295,33 +296,50 @@ namespace SKM.V3.Methods
         [SecuritySafeCritical]
         public static bool IsVM()
         {
-            var searcher = new System.Management.ManagementObjectSearcher("select * from Win32_Processor");
+            bool result = false;
+            Thread thread = new Thread(() =>
+            {
+                result = vmCheckHelper();
+            });
 
-            searcher.Query = new System.Management.ObjectQuery("select * from Win32_BaseBoard");
+            thread.Start();
+            thread.Join();
+
+            return result;
+        }
+
+        [SecuritySafeCritical]
+        private static bool vmCheckHelper()
+        {
+            var result = false;
+
+            var searcher = new System.Management.ManagementObjectSearcher("select * from Win32_BaseBoard");
+
             foreach (System.Management.ManagementObject share in searcher.Get())
             {
                 // more info: https://docs.microsoft.com/en-us/windows/win32/cimwin32prov/win32-baseboard
                 var manufacturer = share.GetPropertyValue("Manufacturer").ToString().ToLower();
                 var product = share.GetPropertyValue("Product").ToString().ToLower();
 
-                if(manufacturer == null || product == null)
+                if (manufacturer == null || product == null)
                 {
-                    return true;
+                    //return true;
+                    result = true;
                 }
 
                 if ((manufacturer.Contains("microsoft") && product.Contains("virtual")) || manufacturer.Contains("none") || manufacturer.Contains("virtual")
                     || manufacturer.Contains("vmware") || product.Contains("440BX Desktop Reference Platform".ToLower()))
                 {
-                    return true;
+                    result = true;
                 }
 
-                if(product.Contains("virtual"))
+                if (product.Contains("virtual"))
                 {
-                    return true;
+                    result = true;
                 }
             }
 
-            return false;
+            return result;
         }
 #endif
 
