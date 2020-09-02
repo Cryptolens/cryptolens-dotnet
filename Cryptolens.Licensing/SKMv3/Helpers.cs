@@ -497,7 +497,17 @@ namespace SKM.V3.Methods
                 }
                 else
                 {
-                    return SKGL.SKM.getMachineCode(SKGL.SKM.getSHA256);
+                    string result = null;
+
+                    Thread thread = new Thread(() =>
+                    {
+                        result = SKGL.SKM.getMachineCode(SKGL.SKM.getSHA256);
+                    });
+
+                    thread.Start();
+                    thread.Join();
+
+                    return result;
                 }
 
             }

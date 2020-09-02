@@ -8,7 +8,7 @@ using SKM.V3.Models;
 namespace SKM_Test
 {
     [TestClass]
-    public class UnitTest2
+    public class MethodSpecificTests
     {
         [TestMethod]
         public void TestMethod1()
@@ -35,6 +35,12 @@ namespace SKM_Test
         public void CheckVM()
         {
             Helpers.IsVM();
+        }
+
+        [TestMethod]
+        public void CheckGetMachineCodeNormal()
+        {
+            Helpers.GetMachineCode(platformIndependent: false);
         }
     }
 }
