@@ -343,7 +343,7 @@ namespace SKM.V3.Methods
         }
 #endif
 
-        private static string ExecCommand(string fileName, string args, int v = 1)
+        private static string ExecCommand(string fileName, string args, out string error, int v = 1)
         {
             if(v== 1)
             {
@@ -356,6 +356,7 @@ namespace SKM.V3.Methods
                         UseShellExecute = false,
                         RedirectStandardOutput = true,
                         CreateNoWindow = true,
+                        RedirectStandardError = true,
                     }
                 };
                 proc.Start();
@@ -367,6 +368,7 @@ namespace SKM.V3.Methods
                     sb.Append(line);
                 }
 
+                error = proc.StandardError.ReadToEnd();
                 return sb.ToString();
             }
             else if(v==2)
@@ -380,7 +382,8 @@ namespace SKM.V3.Methods
                         UseShellExecute = false,
                         RedirectStandardOutput = true,
                         CreateNoWindow = true,
-                        StandardOutputEncoding = Encoding.UTF8
+                        StandardOutputEncoding = Encoding.UTF8,
+                        RedirectStandardError = true,
                     }
                 };
 
@@ -389,6 +392,7 @@ namespace SKM.V3.Methods
                 proc.WaitForExit();
 
                 var rawOutput = proc.StandardOutput.ReadToEnd();
+                error = proc.StandardError.ReadToEnd();
 
                 return rawOutput.Substring(rawOutput.IndexOf("UUID")+4).Trim();
             }
@@ -466,34 +470,41 @@ namespace SKM.V3.Methods
             {
                 //unix
 
+                string error = "";
+
                 if (os == OSType.Mac)
                 {
-                    return SKGL.SKM.getSHA256(ExecCommand("/bin/bash", "system_profiler SPHardwareDataType | awk '/UUID/ { print $3; }'"));
+                    return SKGL.SKM.getSHA256(ExecCommand("/bin/bash", "system_profiler SPHardwareDataType | awk '/UUID/ { print $3; }'", out error));
                 }
                 else if (os == OSType.Linux)
                 {
                     // requires sudo
-                    return SKGL.SKM.getSHA256(ExecCommand("/bin/bash", "dmidecode -s system-uuid"));
+                    return linuxMachineCodeHelper();
                 }
 
-                try
+                // we can't tell what it is yet.
+
+                var systemProfiler = ExecCommand("/bin/bash", "system_profiler SPHardwareDataType | awk '/UUID/ { print $3; }'", out error);
+
+                if(!string.IsNullOrEmpty(error))
                 {
-                    // always assume it's MAC if it's unix
-                    return SKGL.SKM.getSHA256(ExecCommand("/bin/bash", "system_profiler SPHardwareDataType | awk '/UUID/ { print $3; }'"));
+                    // system_profiler is Mac specific, so if cannot find it, it must be Linux.
+                    return linuxMachineCodeHelper();
                 }
-                catch (Exception ex)
+                else
                 {
-                    // but if we get an error, it must be Linux:
-                    return SKGL.SKM.getSHA256(ExecCommand("/bin/bash", "dmidecode -s system-uuid"));
+                    return SKGL.SKM.getSHA256(systemProfiler);
                 }
+
             }
             else
             {
                 // not unix --> windows
+                string error = "";
 
                 if (platformIndependent)
                 {
-                    return SKGL.SKM.getSHA256(ExecCommand("cmd.exe", "/C wmic csproduct get uuid", v), v);
+                    return SKGL.SKM.getSHA256(ExecCommand("cmd.exe", "/C wmic csproduct get uuid", out error, v), v);
                 }
                 else
                 {
@@ -510,6 +521,30 @@ namespace SKM.V3.Methods
                     return result;
                 }
 
+            }
+        }
+
+        private static string linuxMachineCodeHelper()
+        {
+            bool isRPI = false;
+
+            string error = "";
+
+            var piModel = ExecCommand("cat", "/proc/device-tree/model", out error);
+            isRPI = piModel.ToLower().Contains("raspberry pi");
+
+            if (isRPI)
+            {
+                var str = ExecCommand("cat", "/proc/cpuinfo", out error);
+
+                str = str.Trim().Replace(" ", "").Replace("\t", "");
+                var serial = str.Substring(str.IndexOf("Serial:") + 7, 16);
+
+                return $"RPI_{SKGL.SKM.getSHA256(serial)}";
+            }
+            else
+            {
+                return SKGL.SKM.getSHA256(ExecCommand("findmnt", "--output=UUID --noheadings --target=/boot", out error));
             }
         }
 
