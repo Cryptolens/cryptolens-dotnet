@@ -20,7 +20,7 @@ Using dotnet CLI
 dotnet add package Cryptolens.Licensing
 ```
 
-**If you are targeting Mac, Linux or Unity/Mono, we recommend to use the cross platform version of tha package.**
+**If you are targeting Mac, Linux or Unity/Mono, we recommend to use the cross platform version of that package.**
 
 In Visual Studio package manager
 ```
