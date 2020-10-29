@@ -20,6 +20,20 @@ Using dotnet CLI
 dotnet add package Cryptolens.Licensing
 ```
 
+**If you are targeting Mac, Linux or Unity/Mono, we recommend to use the cross platform version of tha package.**
+
+In Visual Studio package manager
+```
+PM> Install-Package Cryptolens.Licensing.CrossPlatform
+```
+
+Using dotnet CLI
+```
+dotnet add package Cryptolens.Licensing.CrossPlatform
+```
+
+
+
 ### Example code
 * [Key verification](https://help.cryptolens.io/examples/key-verification)
 * [Offline verification](https://help.cryptolens.io/examples/offline-verification)
