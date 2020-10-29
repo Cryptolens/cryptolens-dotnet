@@ -1,0 +1,70 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net35;net40;net45;net46;net47;net471;netstandard2.0</TargetFrameworks>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Company>Cryptolens AB</Company>
+    <Authors>Cryptolens AB</Authors>
+    <Version>4.0.29</Version>
+    <AssemblyVersion>4.0.29.1</AssemblyVersion>
+    <FileVersion>4.0.29.1</FileVersion>
+    <Description>An API documentation can be found at https://help.cryptolens.io/api/dotnet/.
+
+This is a client API that serves as an interface to Cryptolens Web API (app.cryptolens.io/docs/api/).
+
+This library is aimed at users who plan to target environments other than Windows. For example, for applications that will run on Mac, Linux, Unity/Mono, it is better to use this library instead.</Description>
+    <Copyright>Cryptolens AB</Copyright>
+    <PackageLicenseUrl></PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/Cryptolens/cryptolens-dotnet/</PackageProjectUrl>
+    <PackageIconUrl></PackageIconUrl>
+    <RepositoryUrl>https://github.com/Cryptolens/cryptolens-dotnet/</RepositoryUrl>
+    <SignAssembly>true</SignAssembly>
+    <DelaySign>false</DelaySign>
+    <AssemblyOriginatorKeyFile>certifikat.pfx</AssemblyOriginatorKeyFile>
+    <PackageTags>licensing system, SKGL, serial key management, http://app.cryptolens.io/ , skgl extension, SKM Client API, cryptolens</PackageTags>
+    <PackageReleaseNotes>Release notes available at https://help.cryptolens.io/api/dotnet/articles/v4029.html</PackageReleaseNotes>
+
+
+  <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    
+  <PackageLicenseExpression></PackageLicenseExpression>
+    
+  <PackageIcon>iconcryptolens.png</PackageIcon>
+    
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net40' or '$(TargetFramework)' == 'net46' or '$(TargetFramework)' == 'net35' or '$(TargetFramework)' == 'net45'">
+    <PackageReference Include="Newtonsoft.Json" Version="6.0.8" />
+  </ItemGroup>
+
+  <ItemGroup Condition="('$(TargetFramework)' == 'net46' or '$(TargetFramework)' == 'net47') and $(DefineConstants.Contains('SYSTEM_MANAGEMENT'))">
+    <PackageReference Include="System.Runtime.InteropServices.RuntimeInformation" Version="4.3.0" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0' or '$(TargetFramework)' == 'net47' or '$(TargetFramework)' == 'net471'">
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0' and $(DefineConstants.Contains('SYSTEM_MANAGEMENT'))">
+    <PackageReference Include="System.Management" Version="4.5.0" />
+  </ItemGroup>
+
+
+  <ItemGroup Condition="('$(TargetFramework)' == 'net40' or '$(TargetFramework)' == 'net46' or '$(TargetFramework)' == 'net35' or '$(TargetFramework)' == 'net47' or '$(TargetFramework)' == 'net471' or '$(TargetFramework)' == 'net45') and $(DefineConstants.Contains('SYSTEM_MANAGEMENT'))">
+    <Reference Include="System.Management" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <None Include="..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+    <None Include="iconcryptolens.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+  
+</Project>
