@@ -315,12 +315,12 @@ namespace SKM.V3
         /// <returns></returns>
         public int DaysLeft(bool zeroIfExpired = false)
         {
-            var days = Expires - DateTime.Today;
+            var remaining = Expires - DateTime.UtcNow;
 
             if (zeroIfExpired)
-                return days.Days < 0 ? 0 : days.Days;
+                return remaining.Days < 0 ? 0 : remaining.Days;
             else
-                return days.Days;
+                return remaining.Days;
 
         }
 
