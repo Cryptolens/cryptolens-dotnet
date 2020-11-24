@@ -32,11 +32,15 @@ Using dotnet CLI
 dotnet add package Cryptolens.Licensing.CrossPlatform
 ```
 
-
-
 ### Example code
 * [Key verification](https://help.cryptolens.io/examples/key-verification)
 * [Offline verification](https://help.cryptolens.io/examples/offline-verification)
+
+### Recommended articles
+
+* [Unity 3D / Mono](https://help.cryptolens.io/getting-started/unity)
+* [AutoCAD](https://cryptolens.io/2019/01/autocad-plugin-software-licensing/)
+* [Rhinoceros / Grasshoper](https://cryptolens.io/2019/01/protecting-rhinoceros-plugins-with-software-licensing/)
 
 ## Compatibility
 
