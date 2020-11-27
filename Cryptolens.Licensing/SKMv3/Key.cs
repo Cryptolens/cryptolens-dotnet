@@ -71,7 +71,7 @@ namespace SKM.V3.Methods
                     parameters.OSInfo = null;
                 }
             }
-            return HelperMethods.SendRequestToWebAPI3<KeyInfoResult>(parameters, "/key/activate/", token, modelVersion: 2);
+            return HelperMethods.SendRequestToWebAPI3<KeyInfoResult>(parameters, "/key/activate/", token, modelVersion: 3);
         }
 
 
@@ -114,7 +114,7 @@ namespace SKM.V3.Methods
                 }
             }
 
-            var res = HelperMethods.SendRequestToWebAPI3<RawResponse>(parameters, "/key/activate/", token, modelVersion: 2);
+            var res = HelperMethods.SendRequestToWebAPI3<RawResponse>(parameters, "/key/activate/", token, modelVersion: 3);
             return res;
         }
 
@@ -344,7 +344,7 @@ namespace SKM.V3.Methods
         /// <returns>A BasicResult object or null.</returns>
         public static KeyInfoResult GetKey(string token, KeyInfoModel parameters)
         {
-            return HelperMethods.SendRequestToWebAPI3<KeyInfoResult>(parameters, "/key/getkey/", token, modelVersion: 2);
+            return HelperMethods.SendRequestToWebAPI3<KeyInfoResult>(parameters, "/key/getkey/", token, modelVersion: 3);
         }
 
 
