@@ -177,6 +177,8 @@ namespace SKM.V3
         public string AllowedMachines { get; set; }
 
         public List<DataObject> DataObjects { get; set; }
+        
+        public Reseller Reseller { get; set; }
 
         public DateTime SignDate { get; set; }
 

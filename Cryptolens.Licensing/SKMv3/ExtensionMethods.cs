@@ -197,9 +197,9 @@ namespace SKM.V3
                     // the signature should not be included into the signature :)
 
 #if NET40 || NET46 || NET35 || NET47 || NET471 || NET45
-                    return rsa.VerifyData(HelperMethods.GetBytes(String.Join(",", rawResult.Where(x=> x.Key != "RawResponse").Select(x => x.Value).ToArray())), "SHA256", signature);
+                    return rsa.VerifyData(HelperMethods.GetBytes(String.Join(",", rawResult.Where(x=> x.Key != "RawResponse" && x.Key != "Reseller").Select(x => x.Value).ToArray())), "SHA256", signature);
 #else
-                    return rsa.VerifyData(HelperMethods.GetBytes(String.Join(",", rawResult.Where(x => x.Key != "RawResponse").Select(x => x.Value))), signature, HashAlgorithmName.SHA256, RSASignaturePadding.Pkcs1);
+                    return rsa.VerifyData(HelperMethods.GetBytes(String.Join(",", rawResult.Where(x => x.Key != "RawResponse" && x.Key != "Reseller").Select(x => x.Value))), signature, HashAlgorithmName.SHA256, RSASignaturePadding.Pkcs1);
 #endif
                 }
                 catch { }
@@ -451,9 +451,12 @@ namespace SKM.V3
 #endif
                 if (isFloatingLicense)
                 {
-                    if (licenseKey.ActivatedMachines.Count() == 1 &&
-                        (licenseKey.ActivatedMachines[0].Mid.Substring(9).Equals(mc) ||
-                         allowOverdraft && licenseKey.ActivatedMachines[0].Mid.Substring(19).Equals(mc))) return licenseKey;
+                    foreach (var machine in licenseKey.ActivatedMachines.Where(x => x.Mid != null))
+                    {
+                        // if we find a machine code that corresponds to that of this machine -> success.
+                        if (machine.Mid.Length >= 9 && machine.Mid.Substring(9).Equals(mc) ||
+                            allowOverdraft && machine.Mid.Length >= 19 && machine.Mid.Substring(19).Equals(mc)) return licenseKey;
+                    }
                 }
                 else
                 {

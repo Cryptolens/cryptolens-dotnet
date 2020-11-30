@@ -514,8 +514,8 @@ namespace SKM_Test
         {
             var license = new LicenseKey()
             {
-                Created = DateTime.Today,
-                Expires = DateTime.Today.AddDays(300)
+                Created = DateTime.UtcNow,
+                Expires = DateTime.UtcNow.AddDays(300)
             };
 
             Assert.IsTrue(license.DaysLeft() == 300);

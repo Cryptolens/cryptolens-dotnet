@@ -23,6 +23,9 @@ namespace SKM.V3
         public DateTime? Time { get; set; }
 
         public string FriendlyName { get; set; }
+        
+        public DateTime? FloatingExpires { get; set; }
+
 
         public override string ToString()
         {
