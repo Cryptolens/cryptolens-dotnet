@@ -185,6 +185,44 @@ namespace SKM.V3.Models
         public List<MessageObject> Messages { get; set; }
     }
 
+    public class CreateMessageResult : BasicResult
+    {
+        /// <summary>
+        /// The id of the message that was created.
+        /// </summary>
+        public int MessageId { get; set; }
+    }
+
+    public class RemoveMessageModel : RequestModel
+    {
+        /// <summary>
+        /// The id of the message to be removed.
+        /// </summary>
+        public int Id { get; set; }
+    }
+
+    public class CreateMessageModel : RequestModel
+    {
+        /// <summary>
+        /// The message content. For example, this can be a message about an update or a link to download the new version. Please check out this article for more ideas: https://help.cryptolens.io/messaging/index
+        /// </summary>
+        [DefaultValue("")]
+        public string Content { get; set; }
+
+        /// <summary>
+        /// Specifies the channel of the message.	
+        /// </summary>
+        [DefaultValue("")]
+        public string Channel { get; set; }
+
+        /// <summary>
+        /// The format is unix timestamp. If no time is specified, we will set it to the time when this message was sent.
+        /// </summary>
+        [DefaultValue(0)]
+        public long Time { get; set; }
+    }
+
+
     public class GetMessagesModel : RequestModel
     {
         /// <summary>

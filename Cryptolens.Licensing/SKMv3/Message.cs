@@ -24,5 +24,27 @@ namespace SKM.V3.Methods
         {
             return HelperMethods.SendRequestToWebAPI3<GetMessagesResult>(parameters, "/message/getmessages/", token);
         }
+
+        /// <summary>
+        /// This method will create a new message (which you can also manage here). This method requires Edit Messages permission.
+        /// </summary>
+        /// <param name="token">The access token. Read more at https://app.cryptolens.io/docs/api/v3/Auth </param>
+        /// <param name="parameters">The parameters that the method needs</param>
+        /// <returns>Returns <see cref="GetMessagesResult"/> or null.</returns>
+        public static CreateMessageResult CreateMessage(string token, CreateMessageModel parameters)
+        {
+            return HelperMethods.SendRequestToWebAPI3<CreateMessageResult>(parameters, "/message/createmessage/", token);
+        }
+
+        /// <summary>
+        /// This method will remove a message that was previously broadcasted (which you can also manage here). This method requires Edit Messages permission.
+        /// </summary>
+        /// <param name="token">The access token. Read more at https://app.cryptolens.io/docs/api/v3/Auth </param>
+        /// <param name="parameters">The parameters that the method needs</param>
+        /// <returns>Returns <see cref="GetMessagesResult"/> or null.</returns>
+        public static BasicResult RemoveMessage(string token, RemoveMessageModel parameters)
+        {
+            return HelperMethods.SendRequestToWebAPI3<BasicResult>(parameters, "/message/removemessage/", token);
+        }
     }
 }
