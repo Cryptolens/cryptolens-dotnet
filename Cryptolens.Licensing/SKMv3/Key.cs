@@ -407,5 +407,34 @@ namespace SKM.V3.Methods
         {
             return HelperMethods.SendRequestToWebAPI3<BasicResult>(parameters, "/key/changenotes/", token);
         }
+
+
+        /// <summary>
+        /// This method will change the reseller of a license.
+        /// If the reseller is not specified (for example, if ResellerId=0)
+        /// or the reseller with the provided ID does not exist, any reseller
+        /// that was previously associated with the license will be dissociated.
+        /// </summary>
+        /// <param name="token">The access token (https://app.cryptolens.io/User/AccessToken#/) with Change Reseller permission.</param>
+        /// <param name="parameters">The parameters that the method needs.</param>
+        /// <returns>A BasicResult object or null.</returns>
+        public static BasicResult ChangeReseller(string token, ChangeResellerModel parameters)
+        {
+            return HelperMethods.SendRequestToWebAPI3<BasicResult>(parameters, "/key/changereseller/", token);
+        }
+
+        /// <summary>
+        /// This method will change the customer associated with a license.
+        /// If the customer is not specified (for example, if CustomerId=0) or
+        /// the customer with the provided ID does not exist, any customer that
+        /// was previously associated with the license will be dissociated.
+        /// </summary>
+        /// <param name="token">The access token (https://app.cryptolens.io/User/AccessToken#/) with Change Customer permission.</param>
+        /// <param name="parameters">The parameters that the method needs.</param>
+        /// <returns>A BasicResult object or null.</returns>
+        public static BasicResult ChangeCustomer(string token, ChangeCustomerModel parameters)
+        {
+            return HelperMethods.SendRequestToWebAPI3<BasicResult>(parameters, "/key/changecustomer/", token);
+        }
     }
 }

@@ -58,6 +58,8 @@ namespace SKM.V3.Models
         public string MachineCode { get; set; }
         public string FriendlyName { get; set; }
 
+        public long FloatingExpires { get; set; }
+
     }
 
     public class MachineInfo
@@ -690,7 +692,15 @@ namespace SKM.V3.Models
         public string Notes { get; set; }
     }
 
+    public class ChangeCustomerModel : KeyLockModel
+    {
+        public int CustomerId { get; set; }
+    }
 
+    public class ChangeResellerModel : KeyLockModel
+    {
+        public int ResellerId { get; set; }
+    }
 
     /// <summary>
     /// Input parameters to KeyLock method.
