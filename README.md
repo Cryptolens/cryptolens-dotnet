@@ -1,5 +1,7 @@
 # Cryptolens Licensing for .NET
 
+View in other languages (beta): [русский](README.ru.md), [svenska](README.sv.md).
+
 This API serves as a layer that simplifies communication with Cryptolens Web API 2 and 3 (https://app.cryptolens.io/docs/api).
 
 > You can access the documentation of the library at https://help.cryptolens.io/api/dotnet/.
@@ -51,7 +53,7 @@ To get access to all of the featues in the library, .NET Framework 4.6 or above 
 * **.NET Standard 2.0** - Computing machine codes is not supported. You can still use the available hash functions to compute a machine code, assuming you can collect machine specific information.
 * **Unity/Linux/Mac** - You need to use the packages in the "Without System.Management" folder on the release page. You can find more info [here](https://help.cryptolens.io/getting-started/unity). 
 
-Cryptolens.Licensing library does also work on Mono (eg. when running on Linux or Unity), however you need to use a special build that does not include System.Management. You can either install it through [NuGet](https://www.nuget.org/packages/Cryptolens.Licensing.CrossPlatform/), download [pre-compiled binaries](https://github.com/Cryptolens/cryptolens-dotnet/releases) (you need to use the ones in the `Without System.Management` folder) or compile it yourself using the instructions below.
+Cryptolens.Licensing library does also work on Mono (eg. when running on Linux or Unity), however you need to use a special build that does not include System.Management. You can either install it through [NuGet](https://www.nuget.org/packages/Cryptolens.Licensing.CrossPlatform/), download [pre-compiled binaries](https://github.com/Cryptolens/cryptolens-dotnet/releases) (you need to use the library with the name `Cryptolens.Licensing.CrossPlatform`) or compile it yourself using the instructions below.
 
 ## Compiling without System.Management (Linux, Unity, Mono)
 The easiest way to get the platform independent library is by either installing it through [NuGet](https://www.nuget.org/packages/Cryptolens.Licensing.CrossPlatform/) or downloading [pre-compiled binaries](https://github.com/Cryptolens/cryptolens-dotnet/releases) (the ones that are called `Cryptolens.Licensing.CrossPlatform.dll`). In this section, we describe how to compile it yourself:
