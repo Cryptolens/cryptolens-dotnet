@@ -44,7 +44,7 @@ dotnet add package Cryptolens.Licensing.CrossPlatform
 
 ## Kompatibilitet
 
-För att kunna använda alla funktioner i biblioteket behöver .NET Framework 4.6 eller högre användas. We har summerat vilken funktionalitet finns med för varje framework. Notera att .NET Standard versionen kan användas på olika versioner av .NET (inkl. .NET Core.), baserat på följande [dokument](https://docs.microsoft.com/en-us/dotnet/standard/net-standard).
+För att kunna använda alla funktioner i biblioteket behöver .NET Framework 4.6 eller högre användas. Vi har summerat vilken funktionalitet finns med för varje framework. Notera att .NET Standard versionen kan användas på olika versioner av .NET (inkl. .NET Core.), baserat på följande [dokument](https://docs.microsoft.com/en-us/dotnet/standard/net-standard).
 
 * **.NET Framework 4.0** - Verifiering av Metadata signaturen stöds inte.
 * **.NET Framework 4.6** - Alla funktioner stöds.
