@@ -184,7 +184,7 @@ namespace SKM.V3
                     licenseKey.Signature = "";
                     var rawResult = licenseKey.AsDictionary();
 
-#if NET40 || NET46 || NET35 || NET47 || NET471 || NET45
+#if NET40 || NET46 || NET35 || NET47 || NET471 || NET45 || NET48
                     RSACryptoServiceProvider rsa = new RSACryptoServiceProvider(2048);
                     rsa.FromXmlString(rsaPublicKey);
 #else
@@ -196,7 +196,7 @@ namespace SKM.V3
 
                     // the signature should not be included into the signature :)
 
-#if NET40 || NET46 || NET35 || NET47 || NET471 || NET45
+#if NET40 || NET46 || NET35 || NET47 || NET471 || NET45 || NET48
                     return rsa.VerifyData(HelperMethods.GetBytes(String.Join(",", rawResult.Where(x=> x.Key != "RawResponse" && x.Key != "Reseller").Select(x => x.Value).ToArray())), "SHA256", signature);
 #else
                     return rsa.VerifyData(HelperMethods.GetBytes(String.Join(",", rawResult.Where(x => x.Key != "RawResponse" && x.Key != "Reseller").Select(x => x.Value))), signature, HashAlgorithmName.SHA256, RSASignaturePadding.Pkcs1);

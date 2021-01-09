@@ -256,7 +256,7 @@ namespace SKM.V3.Methods
 
         public static OSType GetPlatform()
         {
-#if (NETSTANDARD2_0 || NET46 || NET47 || NET471) && SYSTEM_MANAGEMENT
+#if (NETSTANDARD2_0 || NET46 || NET47 || NET471 ||NET48) && SYSTEM_MANAGEMENT
             if (System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Linux))
             {
                 return OSType.Linux;
