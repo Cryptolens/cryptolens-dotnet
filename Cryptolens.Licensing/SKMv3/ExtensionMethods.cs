@@ -256,14 +256,20 @@ namespace SKM.V3
         /// <param name="checkWithInternetTime">If set to true, we will also check that the local
         /// time (on the client computer) has not been changed (using SKM.TimeCheck). 
         /// </param>
+        /// <param name="allowUsagOnExpirationDate">If set to true, the user will not be able to use the license on the expiration date 
+        /// (i.e. null will be returned on the expiration date).</param>
         /// <returns>A key information object if the condition is satisfied. Null otherwise.</returns>
-        public static LicenseKey HasNotExpired(this LicenseKey licenseKey, bool checkWithInternetTime = false)
+        /// <remarks>This method might still return a license key (meaning it has not expired) on the next day of the expiration date.
+        /// For example, if a license key was created 15:00 UTC on Monday, then it will continue to work on Tuesday until 15:00 UTC.
+        /// This behavior can be prevented by setting <paramref name="allowUsagOnExpirationDate"/> to False.</remarks>
+        public static LicenseKey HasNotExpired(this LicenseKey licenseKey, bool checkWithInternetTime = false, bool allowUsagOnExpirationDate = true)
         {
             if (licenseKey != null)
             {
                 TimeSpan ts = licenseKey.Expires - DateTime.UtcNow;
 
-                if (ts.Days >= 0)
+                if (allowUsagOnExpirationDate && ts.Days >= 0 ||
+                    !allowUsagOnExpirationDate && ts.Days > 0)
                 {
                     if (checkWithInternetTime && SKGL.SKM.TimeCheck())
                         return null;
