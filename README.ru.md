@@ -56,6 +56,16 @@ dotnet add package Cryptolens.Licensing.CrossPlatform
 Библиотека Cryptolens.Licensing тоже работает с Mono (к примеру в Linux или Unity), но нужно будет использовать специальную версию библиотеки. Её можно установить либо через [NuGet](https://www.nuget.org/packages/Cryptolens.Licensing.CrossPlatform/), скачать [предварительно компилированную библиотеку](https://github.com/Cryptolens/cryptolens-dotnet/releases) (нужно использовать библиотеку под названием `Cryptolens.Licensing.CrossPlatform`) или самим компилировать библиотеку (инструкции есть в английской версии документации).
 
 ## Другие настройки
+
+### Ошибка с Newtonsoft.Json на .NET 4.8
+Некоторые клиенты сообщили об ошибке, из-за которой нашей библиотеке не удаётся найти нужную версию Newtonsoft.Json. Это проблема локализована для тех, кто использует NET Framework 4.8. Снизу приведён пример ошибки:
+
+```
+System.IO.FileLoadException: Could not load file or assembly 'Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed' or one of its dependencies. The located assembly's manifest definition does not match the assembly reference.
+```
+
+Ошибка возникает, если неправильная версия Newtonsoft.Json установлена в том же проекте, что и библиотека Cryptolens.Licensing. Чтобы исправить это, вам необходимо убедиться, что Newtonsoft.Json полностью удален, а затем переустановить Cryptolens.Licensing.
+
 ### 'System.MethodAccessException' при вызове метода Helpers.GetMachineCode
 
 В некоторых Windows средах (к примеру в Excel addins), может возникнуть проблема с Helpers.GetMachineCode в .NET Framework 4.6. Причина заключается в том, что тот метод вызывает `System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform`. Чтобы решить эту проблему, мы добавили способ обойти этот метод. Перед тем как вызывать методы `Helpers.GetMachineCode` or `Helpers.IsOnRightMachine`, нужно добавить`Helpers.WindowsOnly=True`.

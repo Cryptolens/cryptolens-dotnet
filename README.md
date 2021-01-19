@@ -71,6 +71,17 @@ To compile without System.Management, open `Cryptolens.Licensing.csproj` and rem
 > Make sure there are no other `DefineConstants` definitions later in the file, as these will override the value.
 
 ## Other settings
+
+### Issues with Newtonsoft.Json on .NET 4.8
+Some customers have reported an error with the right version of Newtonsoft.Json not being found. It seems to be localized to those that target .NET Framework 4.8, and the following error is shown:
+
+```
+System.IO.FileLoadException: Could not load file or assembly 'Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed' or one of its dependencies. The located assembly's manifest definition does not match the assembly reference.
+```
+
+The error is thrown when a wrong version of Newtonsoft.Json is installed in the same project as Cryptolens.Licensing library. To fix this, you need to make sure that Newtonsoft.Json is uninstalled completely and then re-install Cryptolens.Licensing.
+
+
 ### 'System.MethodAccessException' when calling Helpers.GetMachineCode
 In some Windows environments (e.g. when developing Excel addins), it might not be feasible to call Helpers.GetMachineCode on .NET Framework 4.6. The reason for this is the call we make to `System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform`. To fix this, we have added a boolean flag in `Helpers` class. Before calling `Helpers.GetMachineCode` or `Helpers.IsOnRightMachine`, please set `Helpers.WindowsOnly=True`.
 
