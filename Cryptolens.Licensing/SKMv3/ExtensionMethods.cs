@@ -53,7 +53,10 @@ namespace SKM.V3
             return SaveToFile(licenseKey, name);
         }
         /// <summary>
-        /// Saves the current <see cref="LicenseKey"/> object to file.
+        /// Saves the current <see cref="LicenseKey"/> object to file. 
+        /// If you need a guarantee where the file will be saved, please specify an absolute path, e.g. 'C:\licensefile.skm'.
+        /// If a relative path is specified, it will in most cases be saved in the current directory. The definition of what
+        /// the current directory is will vary between execution environments.
         /// </summary>
         /// <param name="file">The entire path including file name, i.e. c:\folder\file.txt</param>
         /// <returns>Returns the original object if successful. Null otherwise.</returns>
