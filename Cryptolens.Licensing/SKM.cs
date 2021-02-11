@@ -39,7 +39,7 @@ namespace SKGL
     }
 
     /// <summary>
-    /// This class contains additional methods to ease serial key validation with Serial Key Manager. 
+    /// This class contains additional methods to ease serial key validation with Cryptolens. 
     /// Most of the methods will Web API 2, where "uid", "pid" and "hsum" are required in each request.
     /// These can be found here https://app.cryptolens.io/docs/api/v2/Activate (please make sure you are logged in).
     /// In addition to this, you need to explicitly set each product to be IsPublic and, for some methods,
@@ -190,7 +190,7 @@ namespace SKGL
 
         #region KeyValidation
         /// <summary>
-        /// This method will check whether the key is valid or invalid against the Serial Key Manager database
+        /// This method will check whether the key is valid or invalid against the Cryptolens database
         /// The method will return an object (KeyInformation) only if:<br/>
         ///  * the key exists in the database (it has been generated)<br/>
         ///  * the key is not blocked
@@ -262,7 +262,7 @@ namespace SKGL
 
 
         /// <summary>
-        /// This method will check whether the key is valid or invalid against the Serial Key Manager database.
+        /// This method will check whether the key is valid or invalid against the Cryptolens database.
         /// The method will return an object (KeyInformation) only if:<br/>
         ///  * the key exists in the database (it has been generated)<br/>
         ///  * the key is not blocked<br/>
@@ -308,7 +308,7 @@ namespace SKGL
         /// }
         /// </code>
         /// </example>
-        /// <returns>Returns a KeyInformation object if all rules were satisfied and null if an error occured.</returns>
+        /// <returns>Returns a KeyInformation object if all rules were satisfied and null if an error occurred.</returns>
         [Obsolete("Please use Key.Activate in SKM.V3.Methods.")]
         public static KeyInformation KeyActivation(string pid, string uid, string hsum, string sid, string mid, bool secure = false, bool signMid = false, bool signPid=false, bool signUid=false, bool signDate = false )
         {
@@ -446,7 +446,7 @@ namespace SKGL
 
 
         /// <summary>
-        /// This method allows you to check if the key information (creation date, expiration date, etc.) in a request was modified on the way from Serial Key Manager server to the client application.
+        /// This method allows you to check if the key information (creation date, expiration date, etc.) in a request was modified on the way from Cryptolens server to the client application.
         /// </summary>
         /// <param name="keyInformation">The variable that contains the key information (including the signature)</param>
         /// <param name="rsaPublicKey">The public key (RSA)</param>
