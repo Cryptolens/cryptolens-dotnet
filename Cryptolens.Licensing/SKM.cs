@@ -41,12 +41,12 @@ namespace SKGL
     /// <summary>
     /// This class contains additional methods to ease serial key validation with Serial Key Manager. 
     /// Most of the methods will Web API 2, where "uid", "pid" and "hsum" are required in each request.
-    /// These can be found here https://serialkeymanager.com/docs/api/v2/Activate (please make sure you are logged in).
+    /// These can be found here https://app.cryptolens.io/docs/api/v2/Activate (please make sure you are logged in).
     /// In addition to this, you need to explicitly set each product to be IsPublic and, for some methods,
-    /// enable the functionality on your Security page (https://serialkeymanager.com/User/Security). 
+    /// enable the functionality on your Security page (https://app.cryptolens.io/User/Security). 
     /// RSA public keys and your private key can also be found on the Security page.<br/>
     /// For Web API 3, you only need one token. You can find information on how it is generated here:
-    /// https://serialkeymanager.com/docs/api/v3/Auth.
+    /// https://app.cryptolens.io/docs/api/v3/Auth.
     /// </summary>
     /// <remarks>In Debug mode, the error is going to be displayed in the Output Window.
     /// </remarks>
@@ -206,7 +206,7 @@ namespace SKGL
         /// <remarks>In Debug mode, the error is going to be displayed in the Output Window.
         /// </remarks>
         /// <example>
-        /// For pid, uid and hsum, please see <a href="https://serialkeymanager.com/Ext/Val">https://serialkeymanager.com/Ext/Val</a>. You can retreive them using <see cref="GetProductVariables"/>.
+        /// For pid, uid and hsum, please see <a href="https://app.cryptolens.io/Ext/Val">https://app.cryptolens.io/Ext/Val</a>. You can retreive them using <see cref="GetProductVariables"/>.
         /// <code language="cs">
         /// public void KeyValidation()
         /// {
@@ -285,7 +285,7 @@ namespace SKGL
         /// <remarks>In Debug mode, the error is going to be displayed in the Output Window.
         /// </remarks>
         /// <example>
-        /// For pid, uid and hsum, please see <a href="https://serialkeymanager.com/Ext/Val">https://serialkeymanager.com/Ext/Val</a>. You can also retreive them using <see cref="GetProductVariables"/>. NB: If trial activation is configured, the API can return a new key (read more at <a href="http://support.serialkeymanager.com/kb/trial-activation/">http://support.serialkeymanager.com/kb/trial-activation/</a>).
+        /// For pid, uid and hsum, please see <a href="https://app.cryptolens.io/Ext/Val">https://app.cryptolens.io/Ext/Val</a>. You can also retreive them using <see cref="GetProductVariables"/>. NB: If trial activation is configured, the API can return a new key (read more at <a href="https://help.cryptolens.io/web-interface/trial-activation">https://help.cryptolens.io/web-interface/trial-activation</a>).
         /// <code language="cs">
         /// public void KeyActivation()
         /// {
@@ -431,7 +431,7 @@ namespace SKGL
                 client.Proxy = WebRequest.DefaultWebProxy;
                 client.Proxy.Credentials = CredentialCache.DefaultCredentials;
 
-                byte[] responsebytes = client.UploadValues("https://serialkeymanager.com/Ext/GetActivatedMachines", "POST", reqparm);
+                byte[] responsebytes = client.UploadValues("https://app.cryptolens.io/Ext/GetActivatedMachines", "POST", reqparm);
                 string responsebody = Encoding.UTF8.GetString(responsebytes);
 
                 if(responsebody.StartsWith("{error:"))
@@ -443,7 +443,7 @@ namespace SKGL
 
             }
         }
-  
+
 
         /// <summary>
         /// This method allows you to check if the key information (creation date, expiration date, etc.) in a request was modified on the way from Serial Key Manager server to the client application.
@@ -451,7 +451,8 @@ namespace SKGL
         /// <param name="keyInformation">The variable that contains the key information (including the signature)</param>
         /// <param name="rsaPublicKey">The public key (RSA)</param>
         /// <example>
-        /// The code below demonstrates how IsKeyInformationGenueine can be used in offine key validation. Please read more about offline key validation at <a href="http://support.serialkeymanager.com/kb/passive-key-validation/">http://support.serialkeymanager.com/kb/passive-key-validation/</a>.
+        /// The code below demonstrates how IsKeyInformationGenueine can be used in offine key validation. Please read more about offline key validation at 
+        /// <a href="https://help.cryptolens.io/examples/offline-verification">https://help.cryptolens.io/examples/offline-verification</a>.
         /// <code language="cs">
         /// public static void OfflineKeyValidationWithPeriodicTimeCheck()
         /// {
@@ -755,13 +756,13 @@ namespace SKGL
 
 
         /// <summary>
-        /// This method will take in a set of parameters (input parameters) and send them to the given action. You can find them here: <a href="http://docs.serialkeymanager.com/web-api/">http://docs.serialkeymanager.com/web-api/</a>.
+        /// This method will take in a set of parameters (input parameters) and send them to the given action. You can find them here: <a href="https://app.cryptolens.io/docs/api">https://app.cryptolens.io/docs/api</a>.
         /// </summary>
         /// <param name="inputParameters">A dictionary that contains data such as "uid", "pid", etc.</param>
         /// <param name="typeOfAction">A string that tells what to do, i.e. "validate", "activate" etc.</param>
         /// <param name="proxy">(Optional) The proxy settings.</param>
         /// <example>
-        /// If you would like to access a method in the Web API manually, please use GetParameters method. A list of them can be found at <a href="http://docs.serialkeymanager.com/web-api/">http://docs.serialkeymanager.com/web-api/</a>.
+        /// If you would like to access a method in the Web API manually, please use GetParameters method. A list of them can be found at <a href="https://app.cryptolens.io/docs/api">https://app.cryptolens.io/docs/api</a>.
         /// <code language="cs">
         /// public void GetParamtersExample()
         /// {

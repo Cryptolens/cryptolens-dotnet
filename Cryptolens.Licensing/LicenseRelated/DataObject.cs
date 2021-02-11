@@ -64,12 +64,12 @@ namespace SKM.V3
         }
 
         /// <summary>
-        /// Sets the <see cref="IntValue"/> to a new value (in SKM Platform).
+        /// Sets the <see cref="IntValue"/> to a new value (in Cryptolens).
         /// </summary>
-        /// <param name="token">The access token. Read more at https://serialkeymanager.com/docs/api/v3/Auth </param>
+        /// <param name="token">The access token. Read more at https://app.cryptolens.io/docs/api/v3/Auth </param>
         /// <param name="value">The new int value</param>
         /// <remarks>Note: for more details, please see 
-        /// <a href="https://serialkeymanager.com/docs/api/v3/SetIntValue">https://serialkeymanager.com/docs/api/v3/SetIntValue</a> <br/>
+        /// <a href="https://app.cryptolens.io/docs/api/v3/SetIntValue">https://app.cryptolens.io/docs/api/v3/SetIntValue</a> <br/>
         /// Note also: Integer overflows are not allowed. If you attempt to assign an int value that is beyond the limits of an int32, zero will be assigned to the data object's IntValue.</remarks>
         /// <returns>Returns <see cref="ListOfDataObjectsResult"/> or null.</returns>
         public bool SetIntValue(string token, int value)
@@ -93,11 +93,11 @@ namespace SKM.V3
         /// <summary>
         /// Sets the <see cref="IntValue"/> to a new value (in SKM Platform).
         /// </summary>
-        /// <param name="token">The access token. Read more at https://serialkeymanager.com/docs/api/v3/Auth </param>
+        /// <param name="token">The access token. Read more at https://app.cryptolens.io/docs/api/v3/Auth </param>
         /// <param name="value">The new int value</param>
         /// <param name="licenseKey">The license key we should associate with this data object.</param>
         /// <remarks>Note: for more details, please see 
-        /// <a href="https://serialkeymanager.com/docs/api/v3/SetIntValue">https://serialkeymanager.com/docs/api/v3/SetIntValue</a> <br/>
+        /// <a href="https://app.cryptolens.io/docs/api/v3/SetIntValue">https://app.cryptolens.io/docs/api/v3/SetIntValue</a> <br/>
         /// Note also: Integer overflows are not allowed. If you attempt to assign an int value that is beyond the limits of an int32, zero will be assigned to the data object's IntValue.</remarks>
         /// <returns>Returns <see cref="ListOfDataObjectsResult"/> or null.</returns>
         public bool SetIntValue(string token, int value, LicenseKey licenseKey)
@@ -123,10 +123,10 @@ namespace SKM.V3
         /// <summary>
         /// Sets the <see cref="StringValue"/> to a new value (in SKM Platform).
         /// </summary>
-        /// <param name="token">The access token. Read more at https://serialkeymanager.com/docs/api/v3/Auth </param>
+        /// <param name="token">The access token. Read more at https://app.cryptolens.io/docs/api/v3/Auth </param>
         /// <param name="value">The new int value</param>
         /// <remarks>Note: for more details, please see 
-        /// <a href="https://serialkeymanager.com/docs/api/v3/SetStringValue">https://serialkeymanager.com/docs/api/v3/SetStringValue</a> <br/>
+        /// <a href="https://app.cryptolens.io/docs/api/v3/SetStringValue">https://app.cryptolens.io/docs/api/v3/SetStringValue</a> <br/>
         /// </remarks>
         /// <returns>Returns true if successful or false otherwise.</returns>
         public bool SetStringValue(string token, string value)
@@ -150,11 +150,11 @@ namespace SKM.V3
         /// <summary>
         /// Sets the <see cref="StringValue"/> to a new value (in SKM Platform).
         /// </summary>
-        /// <param name="token">The access token. Read more at https://serialkeymanager.com/docs/api/v3/Auth </param>
+        /// <param name="token">The access token. Read more at https://app.cryptolens.io/docs/api/v3/Auth </param>
         /// <param name="value">The new int value</param>
         /// <param name="licenseKey">The license key we should associate with this data object.</param>
         /// <remarks>Note: for more details, please see 
-        /// <a href="https://serialkeymanager.com/docs/api/v3/SetStringValue">https://serialkeymanager.com/docs/api/v3/SetStringValue</a> <br/>
+        /// <a href="https://app.cryptolens.io/docs/api/v3/SetStringValue">https://app.cryptolens.io/docs/api/v3/SetStringValue</a> <br/>
         /// </remarks>
         /// <returns>Returns true if successful or false otherwise.</returns>
         public bool SetStringValue(string token, string value, LicenseKey licenseKey)
@@ -180,11 +180,11 @@ namespace SKM.V3
         /// <summary>
         /// Increments the <see cref="IntValue"/> by a given amount. (in SKM Platform).
         /// </summary>
-        /// <param name="token">The access token. Read more at https://serialkeymanager.com/docs/api/v3/Auth </param>
+        /// <param name="token">The access token. Read more at https://app.cryptolens.io/docs/api/v3/Auth </param>
         /// <param name="incrementValue">The number we should increment by.</param>
         /// <param name="licenseKey">The license key we should associate with this data object.</param>
         /// <remarks>Note: for more details, please see 
-        /// <a href="https://serialkeymanager.com/docs/api/v3/IncrementIntValue">https://serialkeymanager.com/docs/api/v3/IncrementIntValue</a> <br/>
+        /// <a href="https://app.cryptolens.io/docs/api/v3/IncrementIntValue">https://app.cryptolens.io/docs/api/v3/IncrementIntValue</a> <br/>
         /// </remarks>
         /// <returns>Returns true if successful or false otherwise.</returns>
         public bool IncrementIntValue(string token, int incrementValue)
@@ -195,11 +195,11 @@ namespace SKM.V3
         /// <summary>
         /// Increments the <see cref="IntValue"/> by a given amount. (in SKM Platform).
         /// </summary>
-        /// <param name="token">The access token. Read more at https://serialkeymanager.com/docs/api/v3/Auth </param>
+        /// <param name="token">The access token. Read more at https://app.cryptolens.io/docs/api/v3/Auth </param>
         /// <param name="incrementValue">The number we should increment by.</param>
         /// <param name="licenseKey">The license key we should associate with this data object.</param>
         /// <remarks>Note: for more details, please see 
-        /// <a href="https://serialkeymanager.com/docs/api/v3/IncrementIntValue">https://serialkeymanager.com/docs/api/v3/IncrementIntValue</a> <br/>
+        /// <a href="https://app.cryptolens.io/docs/api/v3/IncrementIntValue">https://app.cryptolens.io/docs/api/v3/IncrementIntValue</a> <br/>
         /// </remarks>
         /// <returns>Returns true if successful or false otherwise.</returns>
         public bool IncrementIntValue(string token, int incrementValue, LicenseKey licenseKey)
@@ -210,7 +210,7 @@ namespace SKM.V3
         /// <summary>
         /// Increments the <see cref="IntValue"/> by a given amount. (in SKM Platform).
         /// </summary>
-        /// <param name="token">The access token. Read more at https://serialkeymanager.com/docs/api/v3/Auth </param>
+        /// <param name="token">The access token. Read more at https://app.cryptolens.io/docs/api/v3/Auth </param>
         /// <param name="incrementValue">The number we should increment by.</param>
         /// <param name="enableBound">
         /// If set to true, it will be possible to specify an upper/lower bound. 
@@ -220,7 +220,7 @@ namespace SKM.V3
         /// </param>
         /// <param name="upperBound">The upper bound. It only works if <paramref name="enableBound"/> is set to true.</param>
         /// <remarks>Note: for more details, please see 
-        /// <a href="https://serialkeymanager.com/docs/api/v3/IncrementIntValue">https://serialkeymanager.com/docs/api/v3/IncrementIntValue</a> <br/>
+        /// <a href="https://app.cryptolens.io/docs/api/v3/IncrementIntValue">https://app.cryptolens.io/docs/api/v3/IncrementIntValue</a> <br/>
         /// </remarks>
         /// <returns>Returns true if successful or false otherwise.</returns>
         public bool IncrementIntValue(string token, int incrementValue, bool enableBound =false, int upperBound = 0)
@@ -248,7 +248,7 @@ namespace SKM.V3
         /// <summary>
         /// Increments the <see cref="IntValue"/> by a given amount. (in SKM Platform).
         /// </summary>
-        /// <param name="token">The access token. Read more at https://serialkeymanager.com/docs/api/v3/Auth </param>
+        /// <param name="token">The access token. Read more at https://app.cryptolens.io/docs/api/v3/Auth </param>
         /// <param name="incrementValue">The number we should increment by.</param>
         /// <param name="enableBound">
         /// If set to true, it will be possible to specify an upper/lower bound. 
@@ -259,7 +259,7 @@ namespace SKM.V3
         /// <param name="upperBound">The upper bound. It only works if <paramref name="enableBound"/> is set to true.</param>
         /// <param name="licenseKey">The license key we should associate with this data object.</param>
         /// <remarks>Note: for more details, please see 
-        /// <a href="https://serialkeymanager.com/docs/api/v3/IncrementIntValue">https://serialkeymanager.com/docs/api/v3/IncrementIntValue</a> <br/>
+        /// <a href="https://app.cryptolens.io/docs/api/v3/IncrementIntValue">https://app.cryptolens.io/docs/api/v3/IncrementIntValue</a> <br/>
         /// </remarks>
         /// <returns>Returns true if successful or false otherwise.</returns>
         public bool IncrementIntValue(string token, int incrementValue, LicenseKey licenseKey, bool enableBound = false, int upperBound = 0)
@@ -287,11 +287,11 @@ namespace SKM.V3
         /// <summary>
         /// Decrements the <see cref="IntValue"/> by a given amount. (in SKM Platform).
         /// </summary>
-        /// <param name="token">The access token. Read more at https://serialkeymanager.com/docs/api/v3/Auth </param>
+        /// <param name="token">The access token. Read more at https://app.cryptolens.io/docs/api/v3/Auth </param>
         /// <param name="decrementValue">The number we should decrement by.</param>
         /// <param name="licenseKey">The license key we should associate with this data object.</param>
         /// <remarks>Note: for more details, please see 
-        /// <a href="https://serialkeymanager.com/docs/api/v3/IncrementIntValue">https://serialkeymanager.com/docs/api/v3/IncrementIntValue</a> <br/>
+        /// <a href="https://app.cryptolens.io/docs/api/v3/IncrementIntValue">https://app.cryptolens.io/docs/api/v3/IncrementIntValue</a> <br/>
         /// </remarks>
         /// <returns>Returns true if successful or false otherwise.</returns>
         public bool DecrementIntValue(string token, int decrementValue, LicenseKey licenseKey)
@@ -303,10 +303,10 @@ namespace SKM.V3
         /// <summary>
         /// Decrements the <see cref="IntValue"/> by a given amount. (in SKM Platform).
         /// </summary>
-        /// <param name="token">The access token. Read more at https://serialkeymanager.com/docs/api/v3/Auth </param>
+        /// <param name="token">The access token. Read more at https://app.cryptolens.io/docs/api/v3/Auth </param>
         /// <param name="decrementValue">The number we should decrement by.</param>
         /// <remarks>Note: for more details, please see 
-        /// <a href="https://serialkeymanager.com/docs/api/v3/IncrementIntValue">https://serialkeymanager.com/docs/api/v3/IncrementIntValue</a> <br/>
+        /// <a href="https://app.cryptolens.io/docs/api/v3/IncrementIntValue">https://app.cryptolens.io/docs/api/v3/IncrementIntValue</a> <br/>
         /// </remarks>
         /// <returns>Returns true if successful or false otherwise.</returns>
         public bool DecrementIntValue(string token, int decrementValue)
@@ -318,7 +318,7 @@ namespace SKM.V3
         /// <summary>
         /// Decrements the <see cref="IntValue"/> by a given amount. (in SKM Platform).
         /// </summary>
-        /// <param name="token">The access token. Read more at https://serialkeymanager.com/docs/api/v3/Auth </param>
+        /// <param name="token">The access token. Read more at https://app.cryptolens.io/docs/api/v3/Auth </param>
         /// <param name="decrementValue">The number we should decrement by.</param>
         /// <param name="enableBound">
         /// If set to true, it will be possible to specify an lower bound. 
@@ -328,7 +328,7 @@ namespace SKM.V3
         /// </param>
         /// <param name="lowerBound">The upper bound. It only works if <paramref name="enableBound"/> is set to true.</param>
         /// <remarks>Note: for more details, please see 
-        /// <a href="https://serialkeymanager.com/docs/api/v3/IncrementIntValue">https://serialkeymanager.com/docs/api/v3/IncrementIntValue</a> <br/>
+        /// <a href="https://app.cryptolens.io/docs/api/v3/IncrementIntValue">https://app.cryptolens.io/docs/api/v3/IncrementIntValue</a> <br/>
         /// </remarks>
         /// <returns>Returns true if successful or false otherwise.</returns>
         public bool DecrementIntValue(string token, int decrementValue, bool enableBound = false, int lowerBound = 0)
@@ -354,7 +354,7 @@ namespace SKM.V3
         /// <summary>
         /// Decrements the <see cref="IntValue"/> by a given amount. (in SKM Platform).
         /// </summary>
-        /// <param name="token">The access token. Read more at https://serialkeymanager.com/docs/api/v3/Auth </param>
+        /// <param name="token">The access token. Read more at https://app.cryptolens.io/docs/api/v3/Auth </param>
         /// <param name="decrementValue">The number we should decrement by.</param>
         /// <param name="enableBound">
         /// If set to true, it will be possible to specify an lower bound. 
@@ -365,7 +365,7 @@ namespace SKM.V3
         /// <param name="lowerBound">The upper bound. It only works if <paramref name="enableBound"/> is set to true.</param>
         /// <param name="licenseKey">The license key we should associate with this data object.</param>
         /// <remarks>Note: for more details, please see 
-        /// <a href="https://serialkeymanager.com/docs/api/v3/IncrementIntValue">https://serialkeymanager.com/docs/api/v3/IncrementIntValue</a> <br/>
+        /// <a href="https://app.cryptolens.io/docs/api/v3/IncrementIntValue">https://app.cryptolens.io/docs/api/v3/IncrementIntValue</a> <br/>
         /// </remarks>
         /// <returns>Returns true if successful or false otherwise.</returns>
         public bool DecrementIntValue(string token, int decrementValue, LicenseKey licenseKey, bool enableBound = false, int lowerBound = 0)

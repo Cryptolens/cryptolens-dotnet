@@ -473,7 +473,7 @@ namespace SKM.V3.Models
         /// <summary>
         /// Sorts the result so that only the license keys that satisfy the
         /// criterion will be displayed. Please see:
-        /// https://support.serialkeymanager.com/kb/searching-for-licenses-using-linq-queries
+        /// https://help.cryptolens.io/web-interface/linq-search-product
         /// </summary>
         public string SearchQuery { get; set; }
     }
@@ -1015,7 +1015,7 @@ namespace SKM.V3.Models
     {
         /// <summary>
         /// The id of the product you want to access. You can find it
-        /// when you are logged in on https://serialkeymanager.com/docs/api/v3/ExtendLicense
+        /// when you are logged in on https://app.cryptolens.io/docs/api/v3/ExtendLicense
         /// and select the product in the drop down list.
         /// </summary>
         public int ProductId { get; set; }
@@ -1216,7 +1216,7 @@ namespace SKM.V3.Models
         /// <summary>
         /// This token helps SKM to identify you and ensure that
         /// you have the required permission. Read more here 
-        /// https://serialkeymanager.com/docs/api/v3/Auth.
+        /// https://app.cryptolens.io/docs/api/v3/Auth.
         /// </summary>
         public string Token { get; set; }
 
@@ -1224,7 +1224,7 @@ namespace SKM.V3.Models
         /// The version of the method you want to access. By default,
         /// it's not needed, however, if you would like to access
         /// a newer version, it can be specified. You can read more here
-        /// https://serialkeymanager.com/docs/api/v3/Versioning
+        /// https://app.cryptolens.io/docs/api/v3/Versioning
         /// </summary>
         public int Version { get; set; }
     }
