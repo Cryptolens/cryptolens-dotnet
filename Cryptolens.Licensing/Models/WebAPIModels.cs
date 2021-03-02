@@ -31,9 +31,12 @@ namespace SKM.V3.Models
     {
         public int Limit { get; set; }
         public int StartingAfter { get; set; }
+        public long EndingBefore { get; set; }
         public int ProductId { get; set; }
         public string Key { get; set; }
         public string FriendlyName { get; set; }
+        public List<short> States { get; set; }
+        public string OrderBy { get; set; }
     }
 
     public class GetWebAPILogResult : BasicResult
@@ -59,6 +62,8 @@ namespace SKM.V3.Models
         public string FriendlyName { get; set; }
 
         public long FloatingExpires { get; set; }
+        public int DOIntValue { get; set; }
+        public long DOId { get; set; }
 
     }
 

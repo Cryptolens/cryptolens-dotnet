@@ -52,10 +52,10 @@ namespace SKM.V3.Internal
                                                 int modelVersion = 1)                                                    
         {
             // converting the input
-            Dictionary<string, string> inputParams = (from x in inputParameters.GetType().GetProperties() select x)
+            Dictionary<string, object> inputParams = (from x in inputParameters.GetType().GetProperties() select x)
                                                           .ToDictionary(x => x.Name, x => (x.GetGetMethod()
                                                           .Invoke(inputParameters, null) == null ? "" : x.GetGetMethod()
-                                                          .Invoke(inputParameters, null).ToString()));
+                                                          .Invoke(inputParameters, null)));
             string server = SERVER;
 
             if (KeepAlive)
@@ -69,14 +69,21 @@ namespace SKM.V3.Internal
                     {
                         if (input.Key == "LicenseServerUrl")
                         {
-                            if (!string.IsNullOrEmpty(input.Value))
+                            if (!string.IsNullOrEmpty(input.Value.ToString()))
                             {
                                 server = input.Value + "/api/";
                             }
                             continue;
                         }
 
-                        reqparm.Add(input.Key, input.Value);
+                        if (input.Value.GetType() == typeof(List<short>))
+                        {
+                            reqparm.Add(input.Key, Newtonsoft.Json.JsonConvert.SerializeObject(input.Value));
+                        }
+                        else
+                        {
+                            reqparm.Add(input.Key, input.Value.ToString());
+                        }
                     }
 
                     reqparm.Add("token", token);
@@ -128,14 +135,21 @@ namespace SKM.V3.Internal
                     {
                         if (input.Key == "LicenseServerUrl")
                         {
-                            if (!string.IsNullOrEmpty(input.Value))
+                            if (!string.IsNullOrEmpty(input.Value.ToString()))
                             {
-                                server = input.Value + "/api/";
+                                server = input.Value.ToString() + "/api/";
                             }
                             continue;
                         }
 
-                        reqparm.Add(input.Key, input.Value);
+                        if (input.Value.GetType() == typeof(List<short>))
+                        {
+                            reqparm.Add(input.Key, Newtonsoft.Json.JsonConvert.SerializeObject(input.Value));
+                        }
+                        else
+                        {
+                            reqparm.Add(input.Key, input.Value.ToString());
+                        }
                     }
 
                     reqparm.Add("token", token);

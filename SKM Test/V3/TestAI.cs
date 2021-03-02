@@ -5,6 +5,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SKM.V3.Methods;
 using SKM.V3.Models;
 
+using System.Linq;
 
 namespace SKM_Test
 {
@@ -59,6 +60,14 @@ namespace SKM_Test
                 Assert.Fail(res.Message);
             }
 
+        }
+
+        [TestMethod]
+        public void WebAPILogTest()
+        {
+            var list = AI.GetWebAPILog(AccessToken.AccessToken.GetWebAPILog, new GetWebAPILogModel { States = new List<short> { 3010, 2010 }, Limit = 100, OrderBy = "Id descending" });
+
+            Assert.IsFalse(list.Logs.Any(x => x.State != 3010 && x.State != 2010));
         }
     }
 }
