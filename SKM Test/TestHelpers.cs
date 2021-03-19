@@ -42,5 +42,21 @@ namespace SKM_Test
         {
             Helpers.GetMachineCode(platformIndependent: false);
         }
+
+        [TestMethod]
+        public void TestHasFeature()
+        {
+            var features = "[\"f1\", [\"f2\",[[\"voice\",[\"all\"]], \"image\"]]]";
+
+            var lc = new LicenseKey();
+            lc.DataObjects = new System.Collections.Generic.List<DataObject>();
+            lc.DataObjects.Add(new DataObject() { Name = "cryptolens_features", StringValue = features });
+            
+            
+            Assert.IsTrue(Helpers.HasFeature(lc, "f2.voice.all"));
+            Assert.IsTrue(Helpers.HasFeature(lc, "f2.voice"));
+            Assert.IsTrue(Helpers.HasFeature(lc, "f2"));
+            Assert.IsFalse(Helpers.HasFeature(lc, "f1.voice"));
+        }
     }
 }

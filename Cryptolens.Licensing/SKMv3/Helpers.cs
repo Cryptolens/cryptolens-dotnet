@@ -11,6 +11,9 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 
+using System.Linq;
+using Newtonsoft.Json.Linq;
+
 namespace SKM.V3.Methods
 {
     /// <summary>
@@ -58,7 +61,7 @@ namespace SKM.V3.Methods
         /// </summary>
         public static bool VerifyPassword(LicenseKey license, string username, string password)
         {
-            if(license == null || license.ActivatedMachines == null || license.ActivatedMachines.Count == 0)
+            if (license == null || license.ActivatedMachines == null || license.ActivatedMachines.Count == 0)
             {
                 return false;
             }
@@ -70,7 +73,7 @@ namespace SKM.V3.Methods
             try
             {
                 passwordsalt = Newtonsoft.Json.JsonConvert.DeserializeObject<string[]>(new UTF8Encoding().GetString(Convert.FromBase64String(activation.Mid)));
-            } catch(Exception ex) { return false; }
+            } catch (Exception ex) { return false; }
 
             byte[] decodedSalt = Convert.FromBase64String(passwordsalt[0]);
             byte[] decodedPassword = Convert.FromBase64String(passwordsalt[1]);
@@ -98,7 +101,7 @@ namespace SKM.V3.Methods
             // computes a 256 bit password hash with a salt of the same size using PBKDF2.
             Rfc2898DeriveBytes rfc2898;
 
-            if(salt == null)
+            if (salt == null)
             {
                 rfc2898 = new Rfc2898DeriveBytes(password, 32) { IterationCount = 0xc350 };
             }
@@ -156,7 +159,7 @@ namespace SKM.V3.Methods
                 path = assembly.Location;
             }
 
-            if(!File.Exists(path))
+            if (!File.Exists(path))
             {
                 return null;
             }
@@ -212,7 +215,7 @@ namespace SKM.V3.Methods
 
             var dir = Path.GetDirectoryName(path);
 
-            if(certificate == null)
+            if (certificate == null)
             {
                 certificate = Path.GetFileName(path);
             }
@@ -237,13 +240,13 @@ namespace SKM.V3.Methods
                 }
             }
 
-            if(GetAssemblyHash(path).Signature != assemblyHash)
+            if (GetAssemblyHash(path).Signature != assemblyHash)
             {
                 return null;
             }
 
             return license;
-        } 
+        }
 
         public enum OSType {
             Undefined = 0,
@@ -251,7 +254,7 @@ namespace SKM.V3.Methods
             Unix = 2,
             Linux = 3,
             Mac = 4
-            
+
         }
 
         public static OSType GetPlatform()
@@ -345,7 +348,7 @@ namespace SKM.V3.Methods
 
         private static string ExecCommand(string fileName, string args, out string error, int v = 1)
         {
-            if(v== 1)
+            if (v == 1)
             {
                 var proc = new Process
                 {
@@ -371,7 +374,7 @@ namespace SKM.V3.Methods
                 error = proc.StandardError.ReadToEnd();
                 return sb.ToString();
             }
-            else if(v==2)
+            else if (v == 2)
             {
                 var proc = new Process
                 {
@@ -394,13 +397,13 @@ namespace SKM.V3.Methods
                 var rawOutput = proc.StandardOutput.ReadToEnd();
                 error = proc.StandardError.ReadToEnd();
 
-                return rawOutput.Substring(rawOutput.IndexOf("UUID")+4).Trim();
+                return rawOutput.Substring(rawOutput.IndexOf("UUID") + 4).Trim();
             }
             else
             {
                 throw new ArgumentException("Version can either be 1 or 2.");
             }
-           
+
         }
 
         /// <summary>
@@ -424,7 +427,7 @@ namespace SKM.V3.Methods
         /// assuming similar settings are used. You can read more about it here:
         /// https://help.cryptolens.io/faq/index#machine-code-generation
         /// </summary>
-        public static string GetMachineCodePI(int v=1)
+        public static string GetMachineCodePI(int v = 1)
         {
             return GetMachineCode(platformIndependent: true, v);
         }
@@ -486,7 +489,7 @@ namespace SKM.V3.Methods
 
                 var systemProfiler = ExecCommand("/bin/bash", "system_profiler SPHardwareDataType | awk '/UUID/ { print $3; }'", out error);
 
-                if(!string.IsNullOrEmpty(error))
+                if (!string.IsNullOrEmpty(error))
                 {
                     // system_profiler is Mac specific, so if cannot find it, it must be Linux.
                     return linuxMachineCodeHelper();
@@ -639,6 +642,80 @@ namespace SKM.V3.Methods
                 OverdraftDevices = System.Math.Max(0, UsedFloatingMachines - MaxNoOfMachines)
             };
         }
+
+        /// <summary>
+        /// <p>Uses a special data object associated with the license key to determine if a certain feature exists (instead of the 8 feature flags).</p>
+        /// <p><strong>Formatting: </strong> The name of the data object should be 'cryptolens_features' and it should be structured as a JSON array.</p>
+        /// <p>For example,</p> <pre>["f1", "f2"]</pre><p>means f1 and f2 are true. You can also have feature bundling, eg. </p> <pre>["f1", ["f2",["voice","image"]]]</pre>
+        /// <p>which means that f1 and f2 are true, as well as f2.voice and f2.image. You can set any depth, eg. you can have</p>
+        /// <pre>["f1", ["f2",[["voice",["all"]], "image"]]]</pre> <p>means f2.voice.all is true as well as f2.voice and f2.
+        /// The dots symbol is used to specify the "sub-features". </p>
+        /// <p>Read more here: https://help.cryptolens.io/web-interface/feature-templates </p>
+        /// </summary>
+        /// <param name="licenseKey">The license key</param>
+        /// <param name="featureName">For example, "f2.voice.all".</param>
+        public static bool HasFeature(LicenseKey licenseKey, string featureName)
+        {
+            // based on https://github.com/Cryptolens/cryptolens-java/blob/master/src/main/java/io/cryptolens/methods/Helpers.java#L219
+
+            if (licenseKey.DataObjects == null)
+            {
+                return false;
+            }
+
+            var features = licenseKey.DataObjects.FirstOrDefault(x => x.Name == "cryptolens_features")?.StringValue;
+
+            if(features == null)
+            {
+                // data object not found.
+                return false;
+            }
+
+            var array =  Newtonsoft.Json.JsonConvert.DeserializeObject<JToken>(features);
+
+            var featurePath = featureName.Split('.');
+
+            bool found = false;
+            for (int i = 0; i < featurePath.Length; i++)
+            {
+                found = false;
+                int index = -1;
+
+                for (int j = 0; j < ((JArray)array).Count; j++)
+                {
+                    if (!(array[j].Type == JTokenType.Array) && array[j].ToString().Equals(featurePath[i]))
+                    {
+                        found = true;
+                        break;
+                    }
+                    else if (array[j].Type == JTokenType.Array  &&  ((JArray)array[j])[0].ToString().Equals(featurePath[i]))
+                    {
+                        found = true;
+                        index = j;
+                        break;
+                    }
+                }
+
+                if (!found)
+                {
+                    return false;
+                }
+
+                if(i+1 < featurePath.Length && index != -1)
+                {
+                    array = ((JArray)array[index])[1];
+                }
+            }
+
+            if (!found)
+            {
+                return false;
+            }
+
+            return true;
+
+        }
+
     }
 
     public class FloatingLicenseInformation
