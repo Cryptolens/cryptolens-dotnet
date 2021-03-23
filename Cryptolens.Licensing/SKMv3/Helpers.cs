@@ -644,6 +644,47 @@ namespace SKM.V3.Methods
         }
 
         /// <summary>
+        /// Checks so that a certain Feature is enabled (i.e. it's set to TRUE).
+        /// </summary>
+        /// <param name="featureNumber">The feature number, eg. feature1, feature 2, etc. FeatureNumber can be 1,2,...,8.</param>
+        /// <returns>A key information object if the condition is satisfied. Null otherwise.</returns>
+        public static bool HasFeature(LicenseKey licenseKey, int featureNumber)
+        {
+            if (licenseKey != null && featureNumber <= 8
+                                       && featureNumber >= 1
+                                       && GetFeatureByNumber(licenseKey, featureNumber))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        internal static bool GetFeatureByNumber(this LicenseKey licenseKey, int i)
+        {
+            switch (i)
+            {
+                case 1:
+                    return licenseKey.F1;
+                case 2:
+                    return licenseKey.F2;
+                case 3:
+                    return licenseKey.F3;
+                case 4:
+                    return licenseKey.F4;
+                case 5:
+                    return licenseKey.F5;
+                case 6:
+                    return licenseKey.F6;
+                case 7:
+                    return licenseKey.F7;
+                case 8:
+                    return licenseKey.F8;
+                default:
+                    return false;
+            }
+        }
+
+        /// <summary>
         /// <p>Uses a special data object associated with the license key to determine if a certain feature exists (instead of the 8 feature flags).</p>
         /// <p><strong>Formatting: </strong> The name of the data object should be 'cryptolens_features' and it should be structured as a JSON array.</p>
         /// <p>For example,</p> <pre>["f1", "f2"]</pre><p>means f1 and f2 are true. You can also have feature bundling, eg. </p> <pre>["f1", ["f2",["voice","image"]]]</pre>
