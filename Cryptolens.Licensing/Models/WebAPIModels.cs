@@ -774,9 +774,14 @@ namespace SKM.V3.Models
     public class ChangeStringValueToKeyModel : KeyLockModel, IChangeValueModel
     {
         /// <summary>
-        /// The unique object id for the data object.
+        /// The unique object id for the data object. If you set the Name parameter, you can skip the Id parameter.
         /// </summary>
         public long Id { get; set; }
+
+        /// <summary>
+        /// The name of the data object (assuming there are no duplicates).	
+        /// </summary>
+        public string Name { get; set; }
 
         /// <summary>
         /// A string value (text) to store. Max 10000 characters.
@@ -790,9 +795,14 @@ namespace SKM.V3.Models
     public class ChangeIntValueToKeyModel : KeyLockModel, IChangeValueModel
     {
         /// <summary>
-        /// The unique object id for the data object.	
+        /// The unique object id for the data object. If you set the Name parameter, you can skip the Id parameter.
         /// </summary>
         public long Id { get; set; }
+
+        /// <summary>
+        /// The name of the data object (assuming there are no duplicates).	
+        /// </summary>
+        public string Name { get; set; }
 
         /// <summary>
         /// This is either the new int value that should be assigned to the Data Object
@@ -831,9 +841,14 @@ namespace SKM.V3.Models
     public class RemoveDataObjectToKeyModel : KeyLockModel, IChangeValueModel
     {
         /// <summary>
-        /// The unique object id for the data object.
+        /// The unique object id for the data object. If you set the Name parameter, you can skip the Id parameter.
         /// </summary>
         public long Id { get; set; }
+
+        /// <summary>
+        /// The name of the data object (assuming there are no duplicates).	
+        /// </summary>
+        public string Name { get; set; }
     }
 
 
@@ -1132,7 +1147,15 @@ namespace SKM.V3.Models
 
     public class ChangeIntValueToMachineCodeModel : ProdKeyMachineCode, IChangeValueModel
     {
+        /// <summary>
+        /// The unique object id for the data object. If you set the Name parameter, you can skip the Id parameter.
+        /// </summary>
         public long Id { get; set; }
+
+        /// <summary>
+        /// The name of the data object (assuming there are no duplicates).	
+        /// </summary>
+        public string Name { get; set; }
 
         /// <summary>
         /// This is either the new int value that should be assigned to the Data Object
@@ -1168,9 +1191,14 @@ namespace SKM.V3.Models
     public class ChangeStringValueToMachineCodeModel : ProdKeyMachineCode, IChangeValueModel
     {
         /// <summary>
-        /// The unique object id for the data object.
+        /// The unique object id for the data object. If you set the Name parameter, you can skip the Id parameter.
         /// </summary>
         public long Id { get; set; }
+
+        /// <summary>
+        /// The name of the data object (assuming there are no duplicates).	
+        /// </summary>
+        public string Name { get; set; }
 
         /// <summary>
         /// A string value (text) to store. Max 10000 characters.
