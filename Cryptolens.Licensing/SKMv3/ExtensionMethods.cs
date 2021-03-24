@@ -422,9 +422,12 @@ namespace SKM.V3
 
                 if (isFloatingLicense)
                 {
-                    if (licenseKey.ActivatedMachines.Count() == 1 &&
-                        (licenseKey.ActivatedMachines[0].Mid.Substring(9).Equals(mc) ||
-                         allowOverdraft && licenseKey.ActivatedMachines[0].Mid.Substring(19).Equals(mc))) return licenseKey;
+                    foreach (var machine in licenseKey.ActivatedMachines.Where(x => x.Mid != null))
+                    {
+                        // if we find a machine code that corresponds to that of this machine -> success.
+                        if (machine.Mid.Length >= 9 && machine.Mid.Substring(9).Equals(mc) ||
+                            allowOverdraft && machine.Mid.Length >= 19 && machine.Mid.Substring(19).Equals(mc)) return licenseKey;
+                    }
                 }
                 else
                 {

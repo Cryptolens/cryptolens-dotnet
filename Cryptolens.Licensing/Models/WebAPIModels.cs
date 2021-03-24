@@ -311,13 +311,59 @@ namespace SKM.V3.Models
         /// Please read more here: https://app.cryptolens.io/docs/api/v3/GetCustomerLicenses
         /// </summary>
         public bool Detailed { get; set; }
+    }
 
+    public class EditCustomerModel : RequestModel
+    {
+        /// <summary>
+        /// The id of the customer whose licenses we want to access.
+        /// </summary>
+        public int CustomerId { get; set; }
 
+        /// <summary>
+        /// Name of the customer.	
+        /// </summary>
+        public string Name { get; set; }
+
+        /// <summary>
+        /// Email of the customer.
+        /// </summary>
+        public string Email { get; set; }
+
+        /// <summary>
+        /// Company name of the customer.
+        /// </summary>
+        public string CompanyName { get; set; }
+
+        /// <summary>
+        /// If set to true, a portal link will be returned where the customer will be able to view their licenses.
+        /// </summary>
+        public bool? EnableCustomerAssociation { get; set; }
+
+        /// <summary>
+        /// This limits the number of computers that will be able to use customer's licenses. '0' stands for unlimited.	
+        /// </summary>
+        public int? MaxNoOfDevices { get; set; }
+
+        /// <summary>
+        /// If set to true, the customer activate and deactivate devices through the customer portal.
+        /// </summary>
+        public bool? AllowActivationManagement { get; set; }
+
+        /// <summary>
+        /// If set to true, it will be possible to associate multiple user accounts with this customer.	
+        /// </summary>
+        public bool? AllowMultipleUserAssociation { get; set; }
     }
 
     public class GetCustomerLicensesResult : BasicResult
     {
         public List<LicenseKey> LicenseKeys { get; set; }
+    }
+
+    public class EditCustomerResult : AddCustomerResult
+    {
+
     }
 
     public class RemoveCustomerModel : RequestModel
