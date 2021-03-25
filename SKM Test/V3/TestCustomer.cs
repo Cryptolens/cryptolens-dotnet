@@ -55,6 +55,14 @@ namespace SKM_Test
 
             Assert.IsTrue(result.Customers.Count == 5);
         }
+
+        [TestMethod]
+        public void EditCustomerTest()
+        {
+            var res = CustomerMethods.EditCustomer(AccessToken.AccessToken.EditCustomer, new EditCustomerModel { CustomerId = 13910, Name="Artem" });
+
+            Assert.IsTrue(res.Result == ResultType.Success);
+        }
     }
 }
     

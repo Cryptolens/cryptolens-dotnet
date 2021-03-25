@@ -54,7 +54,7 @@ namespace SKM.V3.Internal
             // converting the input
             Dictionary<string, object> inputParams = (from x in inputParameters.GetType().GetProperties() select x)
                                                           .ToDictionary(x => x.Name, x => (x.GetGetMethod()
-                                                          .Invoke(inputParameters, null) == null ? "" : x.GetGetMethod()
+                                                          .Invoke(inputParameters, null) == null ? null : x.GetGetMethod()
                                                           .Invoke(inputParameters, null)));
             string server = SERVER;
 
@@ -67,7 +67,7 @@ namespace SKM.V3.Internal
 
                     foreach (var input in inputParams)
                     {
-                        if (input.Key == "LicenseServerUrl")
+                        if (input.Key == "LicenseServerUrl" && input.Value != null)
                         {
                             if (!string.IsNullOrEmpty(input.Value.ToString()))
                             {
@@ -75,6 +75,8 @@ namespace SKM.V3.Internal
                             }
                             continue;
                         }
+
+                        if(input.Value == null) { continue; }
 
                         if (input.Value.GetType() == typeof(List<short>))
                         {
@@ -133,7 +135,7 @@ namespace SKM.V3.Internal
 
                     foreach (var input in inputParams)
                     {
-                        if (input.Key == "LicenseServerUrl")
+                        if (input.Key == "LicenseServerUrl" && input.Value != null)
                         {
                             if (!string.IsNullOrEmpty(input.Value.ToString()))
                             {
@@ -141,6 +143,8 @@ namespace SKM.V3.Internal
                             }
                             continue;
                         }
+
+                        if (input.Value == null) { continue; }
 
                         if (input.Value.GetType() == typeof(List<short>))
                         {
