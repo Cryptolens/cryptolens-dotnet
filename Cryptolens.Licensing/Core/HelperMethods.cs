@@ -54,7 +54,7 @@ namespace SKM.V3.Internal
             // converting the input
             Dictionary<string, object> inputParams = (from x in inputParameters.GetType().GetProperties() select x)
                                                           .ToDictionary(x => x.Name, x => (x.GetGetMethod()
-                                                          .Invoke(inputParameters, null) == null ? null : x.GetGetMethod()
+                                                          .Invoke(inputParameters, null) == null ? "" : x.GetGetMethod()
                                                           .Invoke(inputParameters, null)));
             string server = SERVER;
 

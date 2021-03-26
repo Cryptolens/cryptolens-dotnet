@@ -59,7 +59,7 @@ namespace SKM_Test
         [TestMethod]
         public void EditCustomerTest()
         {
-            var res = CustomerMethods.EditCustomer(AccessToken.AccessToken.EditCustomer, new EditCustomerModel { CustomerId = 13910, Name="Artem" });
+            var res = CustomerMethods.EditCustomer(AccessToken.AccessToken.EditCustomer, new EditCustomerModel { CustomerId = 13910, Email="test@cryptolens.io", EnableCustomerAssociation=null });
 
             Assert.IsTrue(res.Result == ResultType.Success);
         }
