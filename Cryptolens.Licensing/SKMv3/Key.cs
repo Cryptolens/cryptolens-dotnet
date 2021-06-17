@@ -81,7 +81,7 @@ namespace SKM.V3.Methods
         /// In order to get the license key, you can call <see cref="LicenseKey.FromResponse(string, RawResponse)"/>.
         /// </summary>
         public static RawResponse Activate(string token, int productId, string key, string machineCode = "", bool metadata = false,
-            int floatingTimeInterval = 0, int maxOverdraft = 0, string OSInfo = null, string friendlyName = "")
+            int floatingTimeInterval = 0, int maxOverdraft = 0, string OSInfo = null, string friendlyName = "", string LicenseServerUrl = null)
         {
 
             var parameters = new ActivateModel()
@@ -95,7 +95,8 @@ namespace SKM.V3.Methods
                 Sign = true,
                 SignMethod = SignMethod.StringSign,
                 OSInfo = OSInfo,
-                FriendlyName = friendlyName
+                FriendlyName = friendlyName,
+                LicenseServerUrl = LicenseServerUrl
             };
 
             if (parameters != null)
