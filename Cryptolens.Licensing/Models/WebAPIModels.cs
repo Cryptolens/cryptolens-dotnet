@@ -880,6 +880,11 @@ namespace SKM.V3.Models
         public int Bound { get; set; }
     }
 
+    public class UploadValuesToKeyModel : KeyLockModel
+    {
+        public string Data { get; set; }
+    }
+
 
     /// <summary>
     /// Used to remove a data object.

@@ -19,7 +19,7 @@ namespace TestCases {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class TestData {
@@ -75,6 +75,15 @@ namespace TestCases {
         internal static string signedData {
             get {
                 return ResourceManager.GetString("signedData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to k8QQsnIStLL8+Z/6Y0X63H0oi8UBAG1etaCOOJxOZh2voGAJL4G3Hzarm4nNqaJrBVzlvGQzuMD8/okSzxWxRm2+JBuQkUIJEnfowXLmeTa7dL5DH+1O9naRkYIPonjXWQwDDVnGn4vwIaQjn0et/VwDLxnFc3+UN7pRy7qsP7HmPhRsWdnP+d5Y3DabrPt9WaJbrH91nWnIqKia+XphZN08s4axqan/1L1s4vR3bi5n1PuubPGqTiQGv8b6vtw9ISSFLDXDwE8muN51tDpPYhM32ShU/+WA1T4Dn8N+fRl2RYVKJXG1UZXPjy9KjJW57jzaANgw2Zri1cyOHZGN/a5fZwSQvJuDkLM7dh3oPA5nnMsA6rjFC/Aoct3K7ktt3VOEL8WtSfP3c93CeK9c0KzsZezJRGk1Tezoxkc0K/w66a1V0CJ8yagLe9bqjaboESxyfSDHYvwIXaZOI3fdJbkWiMPGPJvlFvYEGLxXvw8uFk9F3s3UF2LrDAigP8ig [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string valuestoUpload {
+            get {
+                return ResourceManager.GetString("valuestoUpload", resourceCulture);
             }
         }
     }

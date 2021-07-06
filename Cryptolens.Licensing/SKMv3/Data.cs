@@ -354,5 +354,23 @@ namespace SKM.V3.Methods
         {
             return HelperMethods.SendRequestToWebAPI3<BasicResult>(parameters, "/data/removedataobjecttomachinecode/", token);
         }
+
+
+        /// <summary>
+        /// This method will extract content from a Cryptolens log (used in offline licensing) and update existing data objects (either by incrementing or decrementing them).
+        /// To call this method, you either need an "Increment Int Value" and/or "Decrement Int Value" permission, depending on if the log that you submit increases or
+        /// decreases an int value of a data object. Note: for the time being, the limit of the number of entries in the log is 1000.
+        /// i.e. <see cref="ChangeIntValueModel.IntValue"/>.
+        /// </summary>
+        /// <param name="token">The access token. Read more at https://app.cryptolens.io/docs/api/v3/Auth </param>
+        /// <param name="parameters">The parameters that the method needs</param>
+        /// <remarks>Note: for more details, please see 
+        /// <a href="https://app.cryptolens.io/docs/api/v3/UploadValues">https://app.cryptolens.io/docs/api/v3/UploadValues</a> <br/>
+        /// </remarks>
+        /// <returns>Returns <see cref="ListOfDataObjectsResult"/> or null.</returns>
+        public static BasicResult UploadValues(string token, UploadValuesToKeyModel parameters)
+        {
+            return HelperMethods.SendRequestToWebAPI3<BasicResult>(parameters, "/data/uploadvaluestokey/", token);
+        }
     }
 }

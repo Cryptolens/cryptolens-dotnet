@@ -367,5 +367,12 @@ namespace SKM_Test
             }
 
         }
+
+        [TestMethod]
+        public void TestUploadValues()
+        {
+            var res = Data.UploadValues(AccessToken.AccessToken.DataObjectaAll, new UploadValuesToKeyModel { Key = "EFPWF-SLZTK-XLVJF-NGBAX", ProductId = 3349, Data = TestCases.TestData.valuestoUpload});
+
+        }
     }
 }
