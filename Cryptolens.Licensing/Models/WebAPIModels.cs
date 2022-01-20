@@ -19,6 +19,26 @@ namespace SKM.V3.Models
 
     }
 
+    public class GetEventsResult : BasicResult
+    {
+        public List<EventObject> Events { get; set; }
+    }
+
+    public class EventObject
+    {
+        public int Id { get; set; }
+        public int ProductId { get; set; }
+        public string Key { get; set; }
+        public string MachineCode { get; set; }
+        public string FeatureName { get; set; }
+        public string EventName { get; set; }
+        public int Value { get; set; }
+        public string Currency { get; set; }
+        public long Time { get; set; }
+        public string Metadata { get; set; }
+    }
+
+
     public class GetEventsModel : RequestModel
     {
         public int Limit { get; set; }
@@ -313,6 +333,22 @@ namespace SKM.V3.Models
         public bool Detailed { get; set; }
     }
 
+    public class GetCustomerLicensesByUIDModel : RequestModel
+    {
+        /// <summary>
+        /// The unique identifier of the customer.
+        /// </summary>
+        public int UniqueIdentifier { get; set; }
+
+        /// <summary>
+        /// Specifies the amount of parameters that should be included with each license key in the LiceseKeys. 
+        /// If true, License Key will be used. By default, Basic License Key will be used (where for instance data objects and activated devices are omitted.)
+        /// Please read more here: https://app.cryptolens.io/docs/api/v3/GetCustomerLicenses
+        /// </summary>
+        public bool Detailed { get; set; }
+    }
+
+
     public class EditCustomerModel : RequestModel
     {
         /// <summary>
@@ -354,6 +390,11 @@ namespace SKM.V3.Models
         /// If set to true, it will be possible to associate multiple user accounts with this customer.	
         /// </summary>
         public bool? AllowMultipleUserAssociation { get; set; }
+
+        /// <summary>
+        /// If set to true, the unique identifier will be updated.
+        /// </summary>
+        public bool? UniqueIdentifier { get; set; }
     }
 
     public class GetCustomerLicensesResult : BasicResult

@@ -55,6 +55,17 @@ namespace SKM.V3.Methods
         }
 
         /// <summary>
+        /// This method will return a list of license keys that belong to a certain customer.
+        /// </summary>
+        /// <param name="token">An access token with GetCustomerLicenses permission. More info: https://app.cryptolens.io/docs/api/v3/Auth </param>
+        /// <param name="parameters">Parameters of the method.</param>
+        /// <returns></returns>
+        public static GetCustomerLicensesResult GetCustomerLicensesByUID(string token, GetCustomerLicensesModel parameters)
+        {
+            return HelperMethods.SendRequestToWebAPI3<GetCustomerLicensesResult>(parameters, "/customer/getcustomerlicensesbyuid/", token);
+        }
+
+        /// <summary>
         /// This method will edit an existing customer. It will only change the properties that you specify.
         /// </summary>
         /// <param name="token">An access token with EditCustomer permission. More info: https://app.cryptolens.io/docs/api/v3/Auth </param>
