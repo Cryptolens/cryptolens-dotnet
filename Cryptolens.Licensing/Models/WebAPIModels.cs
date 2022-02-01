@@ -333,12 +333,12 @@ namespace SKM.V3.Models
         public bool Detailed { get; set; }
     }
 
-    public class GetCustomerLicensesByUIDModel : RequestModel
+    public class GetCustomerLicensesBySecretModel : RequestModel
     {
         /// <summary>
-        /// The unique identifier of the customer.
+        /// Customer secret.
         /// </summary>
-        public int UniqueIdentifier { get; set; }
+        public int Secret { get; set; }
 
         /// <summary>
         /// Specifies the amount of parameters that should be included with each license key in the LiceseKeys. 
