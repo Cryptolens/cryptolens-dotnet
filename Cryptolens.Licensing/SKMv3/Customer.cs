@@ -58,7 +58,7 @@ namespace SKM.V3.Methods
         /// This method will return a list of license keys that belong to a certain customer.
         /// A customer is identified by the their secret value.
         /// </summary>
-        /// <param name="token">An access token with GetCustomerLicenses permission. More info: https://app.cryptolens.io/docs/api/v3/Auth </param>
+        /// <param name="token">An access token with GetCustomerLicensesBySecret permission. More info: https://app.cryptolens.io/docs/api/v3/Auth </param>
         /// <param name="parameters">Parameters of the method.</param>
         /// <returns></returns>
         public static GetCustomerLicensesResult GetCustomerLicensesBySecret(string token, GetCustomerLicensesBySecretModel parameters)

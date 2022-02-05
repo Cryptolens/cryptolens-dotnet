@@ -392,9 +392,9 @@ namespace SKM.V3.Models
         public bool? AllowMultipleUserAssociation { get; set; }
 
         /// <summary>
-        /// If set to true, the unique identifier will be updated.
+        /// If set to true, the customer secret will be updated.
         /// </summary>
-        public bool? UniqueIdentifier { get; set; }
+        public bool? Secret { get; set; }
     }
 
     public class GetCustomerLicensesResult : BasicResult
