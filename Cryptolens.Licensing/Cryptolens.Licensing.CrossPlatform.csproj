@@ -23,7 +23,7 @@ This library is aimed at users who plan to target environments other than Window
     <DelaySign>false</DelaySign>
     <AssemblyOriginatorKeyFile>certifikat.pfx</AssemblyOriginatorKeyFile>
     <PackageTags>licensing system, SKGL, serial key management, http://app.cryptolens.io/ , skgl extension, SKM Client API, cryptolens</PackageTags>
-    <PackageReleaseNotes>Release notes available at https://help.cryptolens.io/api/dotnet/articles/v4034.html</PackageReleaseNotes>
+    <PackageReleaseNotes>Release notes available at https://help.cryptolens.io/api/dotnet/articles/v4035.html</PackageReleaseNotes>
 
 
   <PackageLicenseFile>LICENSE</PackageLicenseFile>
