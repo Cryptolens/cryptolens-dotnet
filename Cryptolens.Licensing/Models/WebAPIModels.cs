@@ -338,7 +338,7 @@ namespace SKM.V3.Models
         /// <summary>
         /// Customer secret.
         /// </summary>
-        public int Secret { get; set; }
+        public string Secret { get; set; }
 
         /// <summary>
         /// Specifies the amount of parameters that should be included with each license key in the LiceseKeys. 

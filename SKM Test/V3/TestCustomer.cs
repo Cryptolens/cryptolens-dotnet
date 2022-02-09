@@ -44,6 +44,19 @@ namespace SKM_Test
         }
 
         [TestMethod]
+        public void GetCustomerLicensesBySecretTest()
+        {
+            var result = CustomerMethods.GetCustomerLicensesBySecret(AccessToken.AccessToken.GetCustomerLicensesBySecret,
+                new GetCustomerLicensesBySecretModel { Secret  = "0a03943f-0eac-4e23-b1e2-b7f3098db51f" });
+
+            if (result.Result == ResultType.Error)
+            {
+                Assert.Fail();
+            }
+
+        }
+
+        [TestMethod]
         public void GetCustomersTest()
         {
             var result = CustomerMethods.GetCustomers(AccessToken.AccessToken.GetCustomers, new GetCustomersModel { Limit=5 });
