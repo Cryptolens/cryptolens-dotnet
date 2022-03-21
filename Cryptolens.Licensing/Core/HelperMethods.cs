@@ -37,7 +37,7 @@ namespace SKM.V3.Internal
 
 
 
-        internal static string DOMAIN = "https://app.cryptolens.io/";
+        internal static string DOMAIN = "https://api.cryptolens.io/";
 
         internal static string SERVER = DOMAIN + "api/";
 
