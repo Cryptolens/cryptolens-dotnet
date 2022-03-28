@@ -58,5 +58,21 @@ namespace SKM_Test
             Assert.IsTrue(Helpers.HasFeature(lc, "f2"));
             Assert.IsFalse(Helpers.HasFeature(lc, "f1.voice"));
         }
+
+        [TestMethod]
+        public void Test2()
+        {
+            //var features = "[[\"ModuleB\",[\"Submodule 1\"]],\"ModuleC\",[\"ModuleD\",[\"ModuleD1\",[\"Submodule D1\",\"Submodule D2\"]]]]";
+            var features = "[[\"ModuleD\",[\"ModuleD1\",[\"Submodule D1\",\"Submodule D2\"]]]]";
+
+            var lc = new LicenseKey();
+            lc.DataObjects = new System.Collections.Generic.List<DataObject>();
+            lc.DataObjects.Add(new DataObject() { Name = "cryptolens_features", StringValue = features });
+
+
+            Assert.IsTrue(Helpers.HasFeature(lc, "ModuleD.ModuleD1.Submodule D1"));
+            Assert.IsTrue(Helpers.HasFeature(lc, "ModuleD.ModuleD1.Submodule D2"));
+
+        }
     }
 }

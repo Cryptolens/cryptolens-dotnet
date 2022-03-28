@@ -280,6 +280,13 @@ namespace SKM_Test
 
 
         [TestMethod]
+        public void CustomerTest()
+        {
+            SKM.V3.Methods.CustomerMethods.GetCustomerLicensesBySecret("", new GetCustomerLicensesBySecretModel {LicenseServerUrl = "http://172.28.208.1:8080" });
+        }
+
+
+        [TestMethod]
         public void GetParamtersTest()
         {
             var input = new System.Collections.Generic.Dictionary<string, string>();
