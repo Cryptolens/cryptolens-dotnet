@@ -259,7 +259,7 @@ namespace SKM.V3.Methods
 
         public static OSType GetPlatform()
         {
-#if (NETSTANDARD2_0 || NET471 ||NET48)
+#if (NETSTANDARD2_0 || NET471 || NET48)
             if (System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Linux))
             {
                 return OSType.Linux;
@@ -469,7 +469,7 @@ namespace SKM.V3.Methods
 #if !SYSTEM_MANAGEMENT
             platformIndependent = true;       
 #endif
-            if (os == OSType.Unix)
+            if (os == OSType.Unix ||os == OSType.Linux || os == OSType.Mac)
             {
                 //unix
 
