@@ -397,7 +397,7 @@ namespace SKM.V3.Methods
                 var rawOutput = proc.StandardOutput.ReadToEnd();
                 error = proc.StandardError.ReadToEnd();
 
-                return rawOutput.Substring(rawOutput.IndexOf("UUID") + 4).Trim();
+                return rawOutput.Trim();
             }
             else
             {
@@ -507,7 +507,14 @@ namespace SKM.V3.Methods
 
                 if (platformIndependent)
                 {
-                    return SKGL.SKM.getSHA256(ExecCommand("cmd.exe", "/C wmic csproduct get uuid", out error, v), v);
+                    if (v == 2)
+                    {
+                        return SKGL.SKM.getSHA256(ExecCommand("cmd.exe", "/c powershell.exe -Command \"(Get-CimInstance -Class Win32_ComputerSystemProduct).UUID\"", out error, v), v);
+                    }
+                    else
+                    {
+                        return SKGL.SKM.getSHA256(ExecCommand("cmd.exe", "/C wmic csproduct get uuid", out error, v), v);
+                    }
                 }
                 else
                 {

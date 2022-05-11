@@ -63,15 +63,15 @@ namespace SKM_Test
         public void Test2()
         {
             //var features = "[[\"ModuleB\",[\"Submodule 1\"]],\"ModuleC\",[\"ModuleD\",[\"ModuleD1\",[\"Submodule D1\",\"Submodule D2\"]]]]";
-            var features = "[[\"ModuleD\",[\"ModuleD1\",[\"Submodule D1\",\"Submodule D2\"]]]]";
+            var features = "[[\"ModuleB\",[\"Submodule 2\"]],[\"ModuleD\",[[\"ModuleD1\",[\"Submodule D4\"]]]]]";
 
             var lc = new LicenseKey();
             lc.DataObjects = new System.Collections.Generic.List<DataObject>();
             lc.DataObjects.Add(new DataObject() { Name = "cryptolens_features", StringValue = features });
 
 
-            Assert.IsTrue(Helpers.HasFeature(lc, "ModuleD.ModuleD1.Submodule D1"));
-            Assert.IsTrue(Helpers.HasFeature(lc, "ModuleD.ModuleD1.Submodule D2"));
+            Assert.IsTrue(Helpers.HasFeature(lc, "ModuleD.ModuleD1.Submodule D4"));
+            //Assert.IsTrue(Helpers.HasFeature(lc, "ModuleD.ModuleD1.Submodule D2"));
 
         }
     }
