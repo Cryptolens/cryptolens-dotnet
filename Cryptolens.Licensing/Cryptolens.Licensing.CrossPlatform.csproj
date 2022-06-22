@@ -35,7 +35,7 @@ This library is aimed at users who plan to target environments other than Window
   </PropertyGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net40' or '$(TargetFramework)' == 'net46' or '$(TargetFramework)' == 'net35' or '$(TargetFramework)' == 'net45'">
-    <PackageReference Include="Newtonsoft.Json" Version="6.0.8" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
 
   <ItemGroup Condition="('$(TargetFramework)' == 'net46' or '$(TargetFramework)' == 'net47') and $(DefineConstants.Contains('SYSTEM_MANAGEMENT'))">
@@ -43,7 +43,7 @@ This library is aimed at users who plan to target environments other than Window
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0' or '$(TargetFramework)' == 'net47' or '$(TargetFramework)' == 'net471' or '$(TargetFramework)' == 'net48'">
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0' and $(DefineConstants.Contains('SYSTEM_MANAGEMENT'))">
