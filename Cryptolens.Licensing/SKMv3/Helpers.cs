@@ -496,7 +496,7 @@ namespace SKM.V3.Methods
 
                 var systemProfiler = ExecCommand("/bin/bash", "system_profiler SPHardwareDataType | awk '/UUID/ { print $3; }'", out error);
 
-                if (!string.IsNullOrEmpty(error))
+                if (!string.IsNullOrEmpty(error) || !string.IsNullOrEmpty(systemProfiler))
                 {
                     // system_profiler is Mac specific, so if cannot find it, it must be Linux.
                     return linuxMachineCodeHelper();
