@@ -479,7 +479,7 @@ namespace SKM.V3.Methods
                 {
                     var machineCodeSeed = ExecCommand("/bin/bash", "system_profiler SPHardwareDataType | awk '/UUID/ { print $3; }'", out error);
 
-                    if (!string.IsNullOrEmpty(machineCodeSeed) || !string.IsNullOrEmpty(error))
+                    if (string.IsNullOrEmpty(machineCodeSeed) || !string.IsNullOrEmpty(error))
                     {
                         throw new Exception("Machine Code could not be computed. Error message: " + error);
                     }
@@ -496,7 +496,7 @@ namespace SKM.V3.Methods
 
                 var systemProfiler = ExecCommand("/bin/bash", "system_profiler SPHardwareDataType | awk '/UUID/ { print $3; }'", out error);
 
-                if (!string.IsNullOrEmpty(error) || !string.IsNullOrEmpty(systemProfiler))
+                if (string.IsNullOrEmpty(error) || !string.IsNullOrEmpty(systemProfiler))
                 {
                     // system_profiler is Mac specific, so if cannot find it, it must be Linux.
                     return linuxMachineCodeHelper();
@@ -518,7 +518,7 @@ namespace SKM.V3.Methods
                     {
                         var machineCodeSeed = ExecCommand("cmd.exe", "/c powershell.exe -Command \"(Get-CimInstance -Class Win32_ComputerSystemProduct).UUID\"", out error, v);
 
-                        if(!string.IsNullOrEmpty(machineCodeSeed) || !string.IsNullOrEmpty( error))
+                        if(string.IsNullOrEmpty(machineCodeSeed) || !string.IsNullOrEmpty( error))
                         {
                             throw new Exception("Machine Code could not be computed. Error message: " + error);
                         }
@@ -529,7 +529,7 @@ namespace SKM.V3.Methods
                     {
                         var machineCodeSeed = ExecCommand("cmd.exe", "/C wmic csproduct get uuid", out error, v);
 
-                        if (!string.IsNullOrEmpty(machineCodeSeed) || !string.IsNullOrEmpty(error))
+                        if (string.IsNullOrEmpty(machineCodeSeed) || !string.IsNullOrEmpty(error))
                         {
                             throw new Exception("Machine Code could not be computed. Error message: " + error);
                         }
