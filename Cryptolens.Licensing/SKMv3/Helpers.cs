@@ -477,7 +477,14 @@ namespace SKM.V3.Methods
 
                 if (os == OSType.Mac)
                 {
-                    return SKGL.SKM.getSHA256(ExecCommand("/bin/bash", "system_profiler SPHardwareDataType | awk '/UUID/ { print $3; }'", out error));
+                    var machineCodeSeed = ExecCommand("/bin/bash", "system_profiler SPHardwareDataType | awk '/UUID/ { print $3; }'", out error);
+
+                    if (!string.IsNullOrEmpty(machineCodeSeed) || !string.IsNullOrEmpty(error))
+                    {
+                        throw new Exception("Machine Code could not be computed. Error message: " + error);
+                    }
+
+                    return SKGL.SKM.getSHA256(machineCodeSeed);
                 }
                 else if (os == OSType.Linux)
                 {
@@ -509,11 +516,25 @@ namespace SKM.V3.Methods
                 {
                     if (v == 2)
                     {
-                        return SKGL.SKM.getSHA256(ExecCommand("cmd.exe", "/c powershell.exe -Command \"(Get-CimInstance -Class Win32_ComputerSystemProduct).UUID\"", out error, v), v);
+                        var machineCodeSeed = ExecCommand("cmd.exe", "/c powershell.exe -Command \"(Get-CimInstance -Class Win32_ComputerSystemProduct).UUID\"", out error, v);
+
+                        if(!string.IsNullOrEmpty(machineCodeSeed) || !string.IsNullOrEmpty( error))
+                        {
+                            throw new Exception("Machine Code could not be computed. Error message: " + error);
+                        }
+
+                        return SKGL.SKM.getSHA256(machineCodeSeed, v);
                     }
                     else
                     {
-                        return SKGL.SKM.getSHA256(ExecCommand("cmd.exe", "/C wmic csproduct get uuid", out error, v), v);
+                        var machineCodeSeed = ExecCommand("cmd.exe", "/C wmic csproduct get uuid", out error, v);
+
+                        if (!string.IsNullOrEmpty(machineCodeSeed) || !string.IsNullOrEmpty(error))
+                        {
+                            throw new Exception("Machine Code could not be computed. Error message: " + error);
+                        }
+
+                        return SKGL.SKM.getSHA256(machineCodeSeed, v);
                     }
                 }
                 else
