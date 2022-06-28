@@ -481,7 +481,8 @@ namespace SKM.V3.Methods
 
                     if (string.IsNullOrEmpty(machineCodeSeed) || !string.IsNullOrEmpty(error))
                     {
-                        throw new Exception("Machine Code could not be computed. Error message: " + error);
+                        return null;
+                        //throw new Exception("Machine Code could not be computed. Error message: " + error);
                     }
 
                     return SKGL.SKM.getSHA256(machineCodeSeed);
@@ -520,7 +521,8 @@ namespace SKM.V3.Methods
 
                         if(string.IsNullOrEmpty(machineCodeSeed) || !string.IsNullOrEmpty( error))
                         {
-                            throw new Exception("Machine Code could not be computed. Error message: " + error);
+                            return null;
+                            //throw new Exception("Machine Code could not be computed. Error message: " + error);
                         }
 
                         return SKGL.SKM.getSHA256(machineCodeSeed, v);
@@ -531,7 +533,8 @@ namespace SKM.V3.Methods
 
                         if (string.IsNullOrEmpty(machineCodeSeed) || !string.IsNullOrEmpty(error))
                         {
-                            throw new Exception("Machine Code could not be computed. Error message: " + error);
+                            return null;
+                            //throw new Exception("Machine Code could not be computed. Error message: " + error);
                         }
 
                         return SKGL.SKM.getSHA256(machineCodeSeed, v);
