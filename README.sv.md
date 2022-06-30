@@ -72,6 +72,12 @@ Helpers.WindowsOnly = true;
 var machineCode = Helpers.GetMachineCode();
 ```
 
+Om metoden ovan inte fungerar, vänligen testa följande anrop istället:
+
+```cs
+var machineCode = SKGL.SKM.getMachineCode(SKGL.SKM.getSHA1);
+```
+
 ### Stänga av KeepAlive
 För att göra ett API anrop utan KeepAlive, behöver man lägga till `HelperMethods.KeepAlive=False.
 

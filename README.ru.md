@@ -75,6 +75,11 @@ Helpers.WindowsOnly = true;
 var machineCode = Helpers.GetMachineCode();
 ```
 
+Если метод сверху не будет работать, попробуйте пожалуйста использовать следующий метод:
+```cs
+var machineCode = SKGL.SKM.getMachineCode(SKGL.SKM.getSHA1);
+```
+
 ### Выключить KeepAlive
 
 Чтобы сделать вызов API без KeepAlive, его можно выключить с помощью `HelperMethods.KeepAlive=False`.

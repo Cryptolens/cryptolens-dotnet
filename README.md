@@ -90,6 +90,12 @@ Helpers.WindowsOnly = true;
 var machineCode = Helpers.GetMachineCode();
 ```
 
+If the approach above does not work, please try the following call instead:
+
+```cs
+var machineCode = SKGL.SKM.getMachineCode(SKGL.SKM.getSHA1);
+```
+
 ### Turn off KeepAlive
 In order to perform API calls with KeepAlive disabled, please set `HelperMethods.KeepAlive=False`. If you want to remove all references to code that uses KeepAlive that is true, you can compile the library with the `KeepAliveDisabled` flag, which is added the same way as `SYSTEM_MANAGEMENT` mentioned earlier. If you have multiple flags, they can be separated with a semicolon.
 
