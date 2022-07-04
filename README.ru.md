@@ -43,6 +43,7 @@ dotnet add package Cryptolens.Licensing.CrossPlatform
 * [Unity 3D / Mono](https://help.cryptolens.io/getting-started/unity)
 * [AutoCAD](https://cryptolens.io/2019/01/autocad-plugin-software-licensing/)
 * [Rhinoceros / Grasshoper](https://cryptolens.io/2019/01/protecting-rhinoceros-plugins-with-software-licensing/)
+*[Excel / Office Addins](https://help.cryptolens.io/getting-started/excel)
 
 ## Совместимость
 
