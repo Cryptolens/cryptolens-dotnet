@@ -44,6 +44,16 @@ namespace SKM.V3.Methods
 
 
         /// <summary>
+        /// Computes the MAC address, which can be used as a way to identify a machine uniquely.
+        /// </summary>
+        public static string GetMACAddress()
+        {
+            return (from nic in System.Net.NetworkInformation.NetworkInterface.GetAllNetworkInterfaces()
+                    where nic.OperationalStatus == System.Net.NetworkInformation.OperationalStatus.Up
+                    select nic.GetPhysicalAddress().ToString()).FirstOrDefault();
+        }
+
+        /// <summary>
         /// Checks if the result obtained from an API call is successful.
         /// </summary>
         public static bool IsSuccessful(BasicResult result)
