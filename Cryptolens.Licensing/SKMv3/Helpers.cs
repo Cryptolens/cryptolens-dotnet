@@ -86,7 +86,7 @@ namespace SKM.V3.Methods
             } catch (Exception ex) { return false; }
 
             byte[] decodedSalt = Convert.FromBase64String(passwordsalt[0]);
-            byte[] decodedPassword = Convert.FromBase64String(passwordsalt[1]);
+            //byte[] decodedPassword = Convert.FromBase64String(passwordsalt[1]);
 
             return ComputePasswordHash(password, decodedSalt) == activation.Mid;
         }
@@ -123,7 +123,7 @@ namespace SKM.V3.Methods
             var saltUsed = Convert.ToBase64String(rfc2898.Salt);
             var passwordHash = Convert.ToBase64String(rfc2898.GetBytes(32));
 
-            return Convert.ToBase64String(new UTF8Encoding().GetBytes(Newtonsoft.Json.JsonConvert.SerializeObject(new string[] { saltUsed, password })));
+            return Convert.ToBase64String(new UTF8Encoding().GetBytes(Newtonsoft.Json.JsonConvert.SerializeObject(new string[] { saltUsed, passwordHash })));
         }
 
 
