@@ -95,7 +95,7 @@ namespace SKGL
             //By: @Nasreddine
 
             //default Windows time server
-            const string ntpServer = "time.windows.com";
+            const string ntpServer = "pool.ntp.org";
 
             // NTP message size - 16 bytes of the digest (RFC 2030)
             var ntpData = new byte[48];
