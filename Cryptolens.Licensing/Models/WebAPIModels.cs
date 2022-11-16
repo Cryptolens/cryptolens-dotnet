@@ -498,6 +498,8 @@ namespace SKM.V3.Models
         public int FieldsToReturn { get; set; }
 
         public bool Metadata { get; set; }
+
+        public SignMethod SignMethod { get; set; }
     }
 
     public class CreateTrialKeyModel : RequestModel

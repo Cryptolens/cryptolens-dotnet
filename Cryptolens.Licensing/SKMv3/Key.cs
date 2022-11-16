@@ -120,6 +120,29 @@ namespace SKM.V3.Methods
         }
 
         /// <summary>
+        /// This method is similar to <see cref="Key.GetKey(string, KeyInfoModel)"/> with the only exception that it will return a license key signed with the new protocol.
+        /// <b>Note:</b> it's better to use this method, especially if you target Mono/Unity.<br/>
+        /// In order to get the license key, you can call <see cref="LicenseKey.FromResponse(string, RawResponse)"/>.
+        /// </summary>
+        public static RawResponse GetKey(string token, int productId, string key, bool metadata = false
+            , string LicenseServerUrl = null)
+        {
+
+            var parameters = new KeyInfoModel()
+            {
+                ProductId = productId,
+                Key = key,
+                Metadata = metadata,
+                Sign = true,
+                SignMethod = SignMethod.StringSign,
+                LicenseServerUrl = LicenseServerUrl
+            };
+
+            var res = HelperMethods.SendRequestToWebAPI3<RawResponse>(parameters, "/key/getkey/", token, modelVersion: 3);
+            return res;
+        }
+
+        /// <summary>
         ///This method will 'undo' a key activation with a certain machine code. 
         ///The key should not be blocked, since otherwise this method will throw an error.
         /// https://app.cryptolens.io/docs/api/v3/Deactivate

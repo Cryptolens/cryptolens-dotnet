@@ -89,6 +89,18 @@ namespace SKM_Test
         }
 
         [TestMethod]
+        public void TestGetKey2()
+        {
+            var result = Key.GetKey(AccessToken.AccessToken.GetKey, key: "MTMPW-VZERP-JZVNZ-SCPZM", productId: 3349);
+
+            var rsa = "<RSAKeyValue><Modulus>sGbvxwdlDbqFXOMlVUnAF5ew0t0WpPW7rFpI5jHQOFkht/326dvh7t74RYeMpjy357NljouhpTLA3a6idnn4j6c3jmPWBkjZndGsPL4Bqm+fwE48nKpGPjkj4q/yzT4tHXBTyvaBjA8bVoCTnu+LiC4XEaLZRThGzIn5KQXKCigg6tQRy0GXE13XYFVz/x1mjFbT9/7dS8p85n8BuwlY5JvuBIQkKhuCNFfrUxBWyu87CFnXWjIupCD2VO/GbxaCvzrRjLZjAngLCMtZbYBALksqGPgTUN7ZM24XbPWyLtKPaXF2i4XRR9u6eTj5BfnLbKAU5PIVfjIS+vNYYogteQ==</Modulus><Exponent>AQAB</Exponent></RSAKeyValue>";
+            var res = LicenseKey.FromResponse(rsa, result);
+
+            Assert.IsTrue(res != null);
+
+        }
+
+        [TestMethod]
         public void SignatureTestNewMethod()
         {
             var result = Key.Activate(AccessToken.AccessToken.Activate, 3349, "MTMPW-VZERP-JZVNZ-SCPZM", "test");
