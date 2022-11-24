@@ -63,7 +63,14 @@ namespace SKM.V3.Internal
 #if !KeepAliveDisabled
                 using (WebClient client = new WebClient())
                 {
-                    NameValueCollection reqparm = new NameValueCollection();
+                    try
+                    {
+                        var asm = AssemblyName.GetAssemblyName(Assembly.GetExecutingAssembly().Location);
+                        client.Headers.Add(HttpRequestHeader.UserAgent, $"{asm.Name}/{asm.Version}");
+                    }
+                    catch (Exception ex) { }
+
+                NameValueCollection reqparm = new NameValueCollection();
 
                     foreach (var input in inputParams)
                     {
