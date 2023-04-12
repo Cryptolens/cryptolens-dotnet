@@ -100,6 +100,7 @@ namespace SKM.V3.Internal
                     reqparm.Add("modelversion", modelVersion.ToString());
 
                     // make sure .NET uses the default proxy set up on the client device.
+                    client.Credentials = CredentialCache.DefaultCredentials;
                     client.Proxy = WebRequest.DefaultWebProxy;
                     client.Proxy.Credentials = CredentialCache.DefaultCredentials;
 
@@ -168,6 +169,7 @@ namespace SKM.V3.Internal
                     reqparm.Add("modelversion", modelVersion.ToString());
 
                     // make sure .NET uses the default proxy set up on the client device.
+                    client.Credentials = CredentialCache.DefaultCredentials;
                     client.Proxy = WebRequest.DefaultWebProxy;
                     client.Proxy.Credentials = CredentialCache.DefaultCredentials;
 
