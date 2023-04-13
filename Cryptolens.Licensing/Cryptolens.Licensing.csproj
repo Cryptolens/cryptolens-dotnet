@@ -67,5 +67,12 @@ NB: There is also one for C++ (https://github.com/Cryptolens/cryptolens-cpp)</De
       <PackagePath></PackagePath>
     </None>
   </ItemGroup>
+
+
+  <ItemGroup>
+    <Reference Include="System.Net.Http">
+      <HintPath>..\SKM Test\bin\Release\System.Net.Http.dll</HintPath>
+    </Reference>
+  </ItemGroup>
   
 </Project>

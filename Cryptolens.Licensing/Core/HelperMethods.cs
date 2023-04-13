@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Reflection;
 using System.Text;
 
@@ -58,6 +59,8 @@ namespace SKM.V3.Internal
                                                           .Invoke(inputParameters, null)));
             string server = SERVER;
 
+
+#if NET35
             if (KeepAlive)
             {
 #if !KeepAliveDisabled
@@ -194,6 +197,80 @@ namespace SKM.V3.Internal
 
                 }
             }
+
+#else
+            using (HttpClient client = new HttpClient())
+            {
+                try
+                {
+                    var asm = AssemblyName.GetAssemblyName(Assembly.GetExecutingAssembly().Location);
+                    client.DefaultRequestHeaders.Add("User-Agent", $"{asm.Name}/{asm.Version}");
+                }
+                catch (Exception ex) { }
+
+                var reqparm = new List<KeyValuePair<string,string>>();
+
+                foreach (var input in inputParams)
+                {
+                    if (input.Key == "LicenseServerUrl" && input.Value != null)
+                    {
+                        if (!string.IsNullOrEmpty(input.Value.ToString()))
+                        {
+                            server = input.Value + "/api/";
+                        }
+                        continue;
+                    }
+
+                    if (input.Value == null) { continue; }
+
+                    if (input.Value.GetType() == typeof(List<short>))
+                    {
+                        reqparm.Add(new KeyValuePair<string,string>(input.Key, Newtonsoft.Json.JsonConvert.SerializeObject(input.Value)));
+                    }
+                    else
+                    {
+                        reqparm.Add(new KeyValuePair<string, string>(input.Key, input.Value.ToString()));
+                    }
+                }
+
+                reqparm.Add(new KeyValuePair<string, string>("token", token));
+                reqparm.Add(new KeyValuePair<string, string>("v", "1"));
+                reqparm.Add(new KeyValuePair<string, string>("modelversion", modelVersion.ToString()));
+
+                // make sure .NET uses the default proxy set up on the client device.
+                //client.Credentials = CredentialCache.DefaultCredentials;
+                //client.Proxy = WebRequest.DefaultWebProxy;
+                //client.Proxy.Credentials = CredentialCache.DefaultCredentials;
+
+                try
+                {
+                    var result = client.PostAsync(server + typeOfAction, new FormUrlEncodedContent(reqparm)).Result;
+                    return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(result.Content.ReadAsStringAsync().Result);
+                    //string responsebody = Encoding.UTF8.GetString(responsebytes);
+
+                    //return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(responsebody);
+                }
+                catch (WebException ex)
+                {
+                    try
+                    {
+                        using (var sr = new System.IO.StreamReader(ex.Response.GetResponseStream()))
+                        {
+                            return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(sr.ReadToEnd());
+                        }
+                    }
+                    catch (Exception ex2)
+                    {
+                        return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(Newtonsoft.Json.JsonConvert.SerializeObject(new BasicResult { Result = ResultType.Error, Message = "An error occurred when contacting the server." }));
+                    }
+                }
+                catch (Exception ex)
+                {
+                    return default(T);
+                }
+
+            }
+#endif
         }
 
      
