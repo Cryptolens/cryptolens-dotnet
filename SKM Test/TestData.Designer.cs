@@ -19,7 +19,7 @@ namespace TestCases {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class TestData {
@@ -61,7 +61,7 @@ namespace TestCases {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;RSAKeyValue&gt;&lt;Modulus&gt;sGbvxwdlDbqFXOMlVUnAF5ew0t0WpPW7rFpI5jHQOFkht/326dvh7t74RYeMpjy357NljouhpTLA3a6idnn4j6c3jmPWBkjZndGsPL4Bqm+fwE48nKpGPjkj4q/yzT4tHXBTyvaBjA8bVoCTnu+LiC4XEaLZRThGzIn5KQXKCigg6tQRy0GXE13XYFVz/x1mjFbT9/7dS8p85n8BuwlY5JvuBIQkKhuCNFfrUxBWyu87CFnXWjIupCD2VO/GbxaCvzrRjLZjAngLCMtZbYBALksqGPgTUN7ZM24XbPWyLtKPaXF2i4XRR9u6eTj5BfnLbKAU5PIVfjIS+vNYYogteQ==&lt;/Modulus&gt;&lt;Exponent&gt;AQAB&lt;/Exponent&gt;&lt;/RSAKeyValue&gt;.
+        ///   Looks up a localized string similar to &lt;RSAKeyValue&gt;&lt;Modulus&gt;uEnu1b4Rc6Tu+9FdVqlp2UzJsfOte3rxX9bLbh2hcrAISaTX6F6GWvNhOBfxALIcm1KAOA6qXtV7RZZzDL97QIUeeNr9lN/kPLMgFia9pLdbe0O9lTIJwtUlWb6kbv0O6zo6KCqvy6Oh8Gp/NF3CusTcTkpYjaJDtbF0awLamkl4NUy5CzSTN2UkPYMRzKc8p1wTbj/l7/jFxwR633hMrfizEA4yUEyyCM8Sw/+uN+bI9ktR4vPG02N074vpToBsGQ8lN0VRMV75zkVuMvgo+wevJZsU4TTZn1XuF6YgL5Ka7r26bhzFPDmrOvY4aZf/54enaa4qUpdD0xKhSo2uOw==&lt;/Modulus&gt;&lt;Exponent&gt;AQAB&lt;/Exponent&gt;&lt;/RSAKeyValue&gt;.
         /// </summary>
         internal static string pubkey {
             get {
