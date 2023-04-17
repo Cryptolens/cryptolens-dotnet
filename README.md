@@ -97,7 +97,7 @@ System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12
 
 Ideally, you should try to pick the highest available TLS version, but it is important to also test that such TLS version is supported in the .NET Framework vesion that you use.
 
-If possible, the best approach is to run the latest version of .NET Framework. If that is not possible, please use at least .NET Framework 4.7. In other cases, the workaround above can be used.
+If possible, the best approach is to run the latest version of .NET Framework. If that is not possible, please use at least .NET Framework 4.7. In other cases, the workaround above can be used (i.e. manually specifying the TLS version).
 
 ### 'System.MethodAccessException' when calling Helpers.GetMachineCode
 In some Windows environments (e.g. when developing Excel addins), it might not be feasible to call Helpers.GetMachineCode on .NET Framework 4.6. The reason for this is the call we make to `System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform`. To fix this, we have added a boolean flag in `Helpers` class. Before calling `Helpers.GetMachineCode` or `Helpers.IsOnRightMachine`, please set `Helpers.WindowsOnly=True`.
