@@ -463,6 +463,12 @@ namespace SKM.V3.Models
         /// A link that allows the customer to create an account where they will see their licenses (in the customer dashboard).
         /// </summary>
         public string PortalLink { get; set; }
+
+        /// <summary>
+        /// The customer secret that can be used in some methods as an alternative way to authenticate customers.
+        /// You can read more about it in https://help.cryptolens.io/web-interface/customer-secret.
+        /// </summary>
+        public string Secret { get; set; }
     }
     public class DeactivateModel : KeyLockModel
     {
