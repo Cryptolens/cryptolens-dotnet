@@ -5,12 +5,22 @@ using System.Diagnostics;
 using System.Linq;
 
 using SKM.V3.Models;
+using SKM.V3;
 
 namespace SKM_Test
 {
     [TestClass]
     public class UnitTest1
     {
+
+        [TestMethod]
+        public void test123()
+        {
+            var a = new LicenseKey() { Expires = DateTime.UtcNow.AddDays(-1) }.DaysLeft(zeroIfExpired: true);
+            var b = new LicenseKey() { Expires = DateTime.UtcNow.AddDays(-1) }.DaysLeft(zeroIfExpired: false);
+
+        }
+
 
         [TestMethod]
         public void MyTestMethod()
