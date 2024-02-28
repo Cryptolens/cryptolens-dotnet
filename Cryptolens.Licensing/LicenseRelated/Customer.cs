@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace SKM.V3
 {
@@ -20,7 +21,7 @@ namespace SKM.V3
         public override string ToString()
         {
             if (this != null)
-                return Name + "," + Email + "," + CompanyName + "," + Created.ToString(ConfigValues.DEFAULT_TIME_REPSENTATION);
+                return Name + "," + Email + "," + CompanyName + "," + Created.ToString(ConfigValues.DEFAULT_TIME_REPSENTATION, CultureInfo.InvariantCulture);
             return base.ToString();
         }
 

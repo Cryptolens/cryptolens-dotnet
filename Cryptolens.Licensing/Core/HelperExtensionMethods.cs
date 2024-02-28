@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Text;
 
 using SKM.V3.Models;
+using System.Globalization;
 
 namespace SKM.V3.Internal
 {
@@ -56,7 +57,7 @@ namespace SKM.V3.Internal
         public static string ToStringCultureSpecific(this object source)
         {
             if (source is DateTime)
-                return ((DateTime)source).ToString(ConfigValues.DEFAULT_TIME_REPSENTATION);
+                return ((DateTime)source).ToString(ConfigValues.DEFAULT_TIME_REPSENTATION, CultureInfo.InvariantCulture);
             else if (source is IEnumerable<DataObject>)
             {
                 var obj = (IEnumerable<DataObject>)source;
