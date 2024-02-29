@@ -23,7 +23,9 @@ namespace SKM_Test
         {
             string mc = Helpers.GetMachineCodePI();
             string mc2 = Helpers.GetMachineCodePI(2);
-            string mc3 = Helpers.GetMachineCodePI(1);
+            string mc3 = Helpers.GetMachineCodePI(10);
+
+            Assert.IsTrue(mc == mc3);
         }
 
         [TestMethod]
