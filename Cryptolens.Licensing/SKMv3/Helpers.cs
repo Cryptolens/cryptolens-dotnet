@@ -358,7 +358,7 @@ namespace SKM.V3.Methods
 
         private static string ExecCommand(string fileName, string args, out string error, int v = 1)
         {
-            if (v == 1)
+            if (v == 1 || v == 10)
             {
                 var proc = new Process
                 {
@@ -411,7 +411,7 @@ namespace SKM.V3.Methods
             }
             else
             {
-                throw new ArgumentException("Version can either be 1 or 2.");
+                throw new ArgumentException("Version can either be 1, 2 or 10.");
             }
 
         }
@@ -571,6 +571,18 @@ namespace SKM.V3.Methods
                         }
 
                         return SKGL.SKM.getSHA256(machineCodeSeed, v);
+                    }
+                    else if (v==10)
+                    {
+                        var machineCodeSeed = ExecCommand("cmd.exe", "/c powershell.exe -Command \"(Get-CimInstance -Class Win32_ComputerSystemProduct).UUID\"", out error, v);
+                        machineCodeSeed = "UUID                                  " + machineCodeSeed + "  ";
+                        if (string.IsNullOrEmpty(machineCodeSeed) || !string.IsNullOrEmpty(error))
+                        {
+                            return null;
+                            //throw new Exception("Machine Code could not be computed. Error message: " + error);
+                        }
+
+                        return SKGL.SKM.getSHA256(machineCodeSeed, v=1);
                     }
                     else
                     {
