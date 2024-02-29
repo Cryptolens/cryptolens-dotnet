@@ -572,6 +572,18 @@ namespace SKM.V3.Methods
 
                         return SKGL.SKM.getSHA256(machineCodeSeed, v);
                     }
+                    else if (v==1)
+                    {
+                        var machineCodeSeed = ExecCommand("cmd.exe", "/c powershell.exe -Command \"(Get-CimInstance -Class Win32_ComputerSystemProduct).UUID\"", out error, v);
+                        machineCodeSeed = "UUID                                  " + machineCodeSeed + "  ";
+                        if (string.IsNullOrEmpty(machineCodeSeed) || !string.IsNullOrEmpty(error))
+                        {
+                            return null;
+                            //throw new Exception("Machine Code could not be computed. Error message: " + error);
+                        }
+
+                        return SKGL.SKM.getSHA256(machineCodeSeed, v);
+                    }
                     else
                     {
                         var machineCodeSeed = ExecCommand("cmd.exe", "/C wmic csproduct get uuid", out error, v);
