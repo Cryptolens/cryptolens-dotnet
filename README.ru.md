@@ -67,6 +67,23 @@ System.IO.FileLoadException: Could not load file or assembly 'Newtonsoft.Json, V
 
 Ошибка возникает, если неправильная версия Newtonsoft.Json установлена в том же проекте, что и библиотека Cryptolens.Licensing. Чтобы исправить это, вам необходимо убедиться, что Newtonsoft.Json полностью удален, а затем переустановить Cryptolens.Licensing.
 
+### Проблема с активацией, даже если api.cryptolens.io доступен в браузере
+
+Если ваши клиенты могут посещать `app.cryptolens.io` и `api.cryptolens.io` в Microsoft Edge, но не могут активировать приложение, проблема может заключаться в том, что они используют прокси-сервер, подключаются к Active Directory или потому, что их ИТ-специалист отдел заблокировал TLS определенных версий.
+
+Чтобы устранить эти проблемы, мы рекомендуем:
+
+1. Обновите SDK до последней версии.
+2. Если вы используете версию .NET Framework до .NET Framework 4.7, мы рекомендуем вручную указать, какой TLS следует использовать. Перед любым вызовом API (например, Key.Activate выполняет вызов API) мы рекомендуем добавить следующую строку:
+
+```cs
+System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12
+```
+
+В идеале вам следует попытаться выбрать самую высокую доступную версию TLS, но важно также проверить, поддерживается ли такая версия TLS в используемой вами версии .NET Framework.
+
+Если возможно, лучше всего использовать последнюю версию .NET Framework. Если это невозможно, используйте как минимум .NET Framework 4.7. В других случаях можно использовать описанный выше обходной путь (т. е. указать версию TLS вручную).
+
 ### 'System.MethodAccessException' при вызове метода Helpers.GetMachineCode
 
 В некоторых Windows средах (к примеру в Excel addins), может возникнуть проблема с Helpers.GetMachineCode в .NET Framework 4.6. Причина заключается в том, что тот метод вызывает `System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform`. Чтобы решить эту проблему, мы добавили способ обойти этот метод. Перед тем как вызывать методы `Helpers.GetMachineCode` or `Helpers.IsOnRightMachine`, нужно добавить`Helpers.WindowsOnly=True`.

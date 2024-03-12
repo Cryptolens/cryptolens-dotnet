@@ -65,6 +65,23 @@ System.IO.FileLoadException: Could not load file or assembly 'Newtonsoft.Json, V
 
 Felet orsakas av att fel version av Newtonsoft.Json är installerad i samma projekt som Cryptolens.Licensing. För att lösa detta behöver du se till att Newtonsoft.Json är avinstallerat helt och sedan installera om Cryptolens.Licensing.
 
+### Problem att aktivera även om api.cryptolens.io är tillgänglig i en webbläsare.
+
+Om era kunder kan gå in på `app.cryptolens.io` och `api.cryptolens.io` i Microsoft Edge men får ett fel när de försöker att aktivera, kan problemet vara att de antingen använder en proxy, försöker ansluta till Active directory eller om deras IT avdelning har blockerat vissa versioner av TLS.
+
+För att lösa dessa problem, rekommenderar vi att:
+
+1. Updatera till den senaste versionen av SDK.
+2. Om du använder en version av .NET Framework som är äldre än .NET Framework 4.7, rekommenderar vi att manuellt ange vilken TLS version som ska användas. Innan APIt anropas (till exempel, Key.Activate är utför ett API anrop), rekommenderar vi att lägga till följande rad innan:
+
+```cs
+System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12
+```
+
+Helst bör du försöka välja den högsta tillgängliga TLS-versionen, men det är viktigt att även testa att en sådan TLS-version stöds i den .NET Framework-version som du använder.
+
+Om möjligt är det bästa sättet att köra den senaste versionen av .NET Framework. Om det inte är möjligt, använd åtminstone .NET Framework 4.7. I andra fall kan lösningen ovan användas (d.v.s. manuellt ange TLS-versionen).
+
 ### 'System.MethodAccessException' vid anrop till Helpers.GetMachineCode
 I vissa Windows miljöer (t.ex. Excel addins), kan det ibland uppstå problem vid anrop till Helpers.GetMachineCode på .NET Framework 4.6. Anledning är att vi i den metoden anropar `System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform`. Detta kan lösas som i exemplet nedan, dvs. innan anropet till `Helpers.GetMachineCode` eller `Helpers.IsOnRightMachine` behöver man lägga till `Helpers.WindowsOnly=True`.
 
