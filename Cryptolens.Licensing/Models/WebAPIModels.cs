@@ -1,12 +1,52 @@
-﻿using Newtonsoft.Json;
+﻿
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 
 using System.Security.Cryptography;
 
+#if NET48 || NET47_OR_GREATER || NETSTANDARD2_0_OR_GREATER
+using System.Text.Json.Serialization;
+using System.Text.Json;
+#else
+using Newtonsoft.Json;
+#endif
+
 namespace SKM.V3.Models
 {
+#if NET48 || NET47_OR_GREATER || NETSTANDARD2_0_OR_GREATER
+    public class DefaultValueConverter<T> : JsonConverter<T>
+    {
+        private T defaultValue;
+
+        public DefaultValueConverter(T defaultValue)
+        {
+            this.defaultValue = defaultValue;
+        }
+
+        public override T Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+        {
+            if (reader.TokenType == JsonTokenType.Null)
+            {
+                return defaultValue;
+            }
+            return JsonSerializer.Deserialize<T>(ref reader, options);
+        }
+
+        public override void Write(Utf8JsonWriter writer, T value, JsonSerializerOptions options)
+        {
+            if (EqualityComparer<T>.Default.Equals(value, defaultValue))
+            {
+                writer.WriteNullValue();
+            }
+            else
+            {
+                JsonSerializer.Serialize(writer, value, options);
+            }
+        }
+    }
+#endif
+
 
     /// <summary>
     ///   <para>
@@ -304,16 +344,24 @@ namespace SKM.V3.Models
     public class Event
     {
         [DefaultValue("")]
+#if !(NET48 || NET47_OR_GREATER || NETSTANDARD2_0_OR_GREATER)
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Populate)]
+#endif
         public string FeatureName { get; set; }
         [DefaultValue("")]
+#if !(NET48 || NET47_OR_GREATER || NETSTANDARD2_0_OR_GREATER)
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Populate)]
+#endif
         public string EventName { get; set; }
         [DefaultValue(0)]
+#if !(NET48 || NET47_OR_GREATER || NETSTANDARD2_0_OR_GREATER)
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Populate)]
+#endif
         public int Value { get; set; }
         [DefaultValue("")]
+#if !(NET48 || NET47_OR_GREATER || NETSTANDARD2_0_OR_GREATER)
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Populate)]
+#endif
         public string Currency { get; set; }
         public long Time { get; set; }
         public string Metadata { get; set; }
@@ -770,7 +818,11 @@ namespace SKM.V3.Models
             if (res == null)
                 return false;
 
+#if NET48 || NET47_OR_GREATER || NETSTANDARD2_0_OR_GREATER
+            var obj = System.Text.Json.JsonSerializer.Deserialize<KeyMetadata>(res.Object);
+#else
             var obj = Newtonsoft.Json.JsonConvert.DeserializeObject<KeyMetadata>(res.Object);
+#endif
 
             if (obj.ActivatedMachines != ActivatedMachines ||
                 !obj.LicenseStatus.Equals(LicenseStatus))
@@ -779,7 +831,7 @@ namespace SKM.V3.Models
             return true;
         }
 #endif
-    }
+        }
 
     public class MachineLockLimit : KeyLockModel
     {

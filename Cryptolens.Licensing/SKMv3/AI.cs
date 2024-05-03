@@ -49,7 +49,11 @@ namespace SKM.V3.Methods
             var internalModel = new RegisterEventsModelServer
             {
                 ProductId = parameters.ProductId,
+#if NET48 || NET47_OR_GREATER || NETSTANDARD2_0_OR_GREATER
+                Events = System.Text.Json.JsonSerializer.Serialize(parameters.Events),
+#else
                 Events = Newtonsoft.Json.JsonConvert.SerializeObject(parameters.Events),
+#endif
                 Key = parameters.Key,
                 MachineCode = parameters.MachineCode,
                 LicenseServerUrl = parameters.LicenseServerUrl

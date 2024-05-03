@@ -12,7 +12,12 @@ using System.Text;
 using System.Threading;
 
 using System.Linq;
+
+#if NET48 || NET47_OR_GREATER || NETSTANDARD2_0_OR_GREATER
+using System.Text.Json;
+#else
 using Newtonsoft.Json.Linq;
+#endif
 
 namespace SKM.V3.Methods
 {
@@ -39,7 +44,11 @@ namespace SKM.V3.Methods
             machineInfo.Is64Bit = Environment.Is64BitOperatingSystem;
 #endif
 
+#if NET48 || NET47_OR_GREATER || NETSTANDARD2_0_OR_GREATER
+            return System.Text.Json.JsonSerializer.Serialize(machineInfo);
+#else
             return Newtonsoft.Json.JsonConvert.SerializeObject(machineInfo);
+#endif
         }
 
 
@@ -82,8 +91,14 @@ namespace SKM.V3.Methods
 
             try
             {
+#if NET48 || NET47_OR_GREATER || NETSTANDARD2_0_OR_GREATER
+                passwordsalt = System.Text.Json.JsonSerializer.Deserialize<string[]>(new UTF8Encoding().GetString(Convert.FromBase64String(activation.Mid)));
+
+#else
                 passwordsalt = Newtonsoft.Json.JsonConvert.DeserializeObject<string[]>(new UTF8Encoding().GetString(Convert.FromBase64String(activation.Mid)));
-            } catch (Exception ex) { return false; }
+#endif
+            }
+            catch (Exception ex) { return false; }
 
             byte[] decodedSalt = Convert.FromBase64String(passwordsalt[0]);
             //byte[] decodedPassword = Convert.FromBase64String(passwordsalt[1]);
@@ -123,7 +138,12 @@ namespace SKM.V3.Methods
             var saltUsed = Convert.ToBase64String(rfc2898.Salt);
             var passwordHash = Convert.ToBase64String(rfc2898.GetBytes(32));
 
+#if NET48 || NET47_OR_GREATER || NETSTANDARD2_0_OR_GREATER
+            return Convert.ToBase64String(new UTF8Encoding().GetBytes(System.Text.Json.JsonSerializer.Serialize(new string[] { saltUsed, passwordHash })));
+
+#else
             return Convert.ToBase64String(new UTF8Encoding().GetBytes(Newtonsoft.Json.JsonConvert.SerializeObject(new string[] { saltUsed, passwordHash })));
+#endif
         }
 
 
@@ -475,7 +495,7 @@ namespace SKM.V3.Methods
             return model + serialnumber;
         }
 
-    #endif
+#endif
 
 
     /// <summary>
@@ -800,8 +820,15 @@ namespace SKM.V3.Methods
                 return false;
             }
 
+#if NET48 || NET47_OR_GREATER || NETSTANDARD2_0_OR_GREATER
+
+            var array =  JsonSerializer.Deserialize<JsonElement>(features);
+            
+#else
             var array =  Newtonsoft.Json.JsonConvert.DeserializeObject<JToken>(features);
 
+#endif
+            
             var featurePath = featureName.Split('.');
 
             bool found = false;
@@ -810,14 +837,30 @@ namespace SKM.V3.Methods
                 found = false;
                 int index = -1;
 
+#if NET48 || NET47_OR_GREATER || NETSTANDARD2_0_OR_GREATER
+                for (int j = 0; j < array.GetArrayLength(); j++)
+                {
+#else
                 for (int j = 0; j < ((JArray)array).Count; j++)
                 {
+#endif
+
+#if NET48 || NET47_OR_GREATER || NETSTANDARD2_0_OR_GREATER
+                    if (!(array[j].ValueKind == JsonValueKind.Array) && array[j].ToString().Equals(featurePath[i]))
+
+#else
                     if (!(array[j].Type == JTokenType.Array) && array[j].ToString().Equals(featurePath[i]))
+#endif
                     {
                         found = true;
                         break;
                     }
+#if NET48 || NET47_OR_GREATER || NETSTANDARD2_0_OR_GREATER
+                    else if (array[j].ValueKind == JsonValueKind.Array && array[j][0].ToString().Equals(featurePath[i]))
+
+#else
                     else if (array[j].Type == JTokenType.Array  &&  ((JArray)array[j])[0].ToString().Equals(featurePath[i]))
+#endif
                     {
                         found = true;
                         index = j;
@@ -832,7 +875,11 @@ namespace SKM.V3.Methods
 
                 if(i+1 < featurePath.Length && index != -1)
                 {
+#if NET48 || NET47_OR_GREATER || NETSTANDARD2_0_OR_GREATER
+                    array = array[index][1];
+#else
                     array = ((JArray)array[index])[1];
+#endif
                 }
             }
 

@@ -44,7 +44,8 @@ NB: There is also one for C++ (https://github.com/Cryptolens/cryptolens-cpp)</De
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0' or '$(TargetFramework)' == 'net47' or '$(TargetFramework)' == 'net471' or '$(TargetFramework)' == 'net48'">
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <!--<PackageReference Include="Newtonsoft.Json" Version="12.0.3" />-->
+	<PackageReference Include="System.Text.Json" Version="8.0.3" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0' and $(DefineConstants.Contains('SYSTEM_MANAGEMENT'))">

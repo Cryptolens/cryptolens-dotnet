@@ -1,4 +1,8 @@
-﻿using Newtonsoft.Json;
+﻿#if NET48 || NET47_OR_GREATER || NETSTANDARD2_0_OR_GREATER
+using System.Text.Json;
+#else
+using Newtonsoft.Json;
+#endif
 using SKM.V3.Internal;
 using SKM.V3.Methods;
 using SKM.V3.Models;
@@ -226,8 +230,12 @@ namespace SKM.V3
                 return null;
             }
 
+#if NET48 || NET47_OR_GREATER || NETSTANDARD2_0_OR_GREATER
+            var license = JsonSerializer.Deserialize<LicenseKeyPI>(System.Text.UTF8Encoding.UTF8.GetString(licenseBytes)).ToLicenseKey();
 
+#else
             var license = JsonConvert.DeserializeObject<LicenseKeyPI>(System.Text.UTF8Encoding.UTF8.GetString(licenseBytes)).ToLicenseKey();
+#endif
             license.RawResponse = response;
 
             return license;

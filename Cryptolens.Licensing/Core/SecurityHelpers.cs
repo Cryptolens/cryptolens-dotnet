@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -21,7 +20,11 @@ namespace SKM.V3.Internal
             if (string.IsNullOrEmpty(signature))
                 return null;
 
-            var obj = JsonConvert.DeserializeObject<SignatureV1>(UTF8Encoding.UTF8.GetString(Convert.FromBase64String(signature)));
+#if NET48 || NET47_OR_GREATER || NETSTANDARD2_0_OR_GREATER
+            var obj = System.Text.Json.JsonSerializer.Deserialize<SignatureV1>(UTF8Encoding.UTF8.GetString(Convert.FromBase64String(signature)));
+#else
+            var obj = Newtonsoft.Json.JsonConvert.DeserializeObject<SignatureV1>(UTF8Encoding.UTF8.GetString(Convert.FromBase64String(signature)));
+#endif
 
             // should return data instead.
 
@@ -37,10 +40,10 @@ namespace SKM.V3.Internal
 
 #if (NETSTANDARD2_0 || NET47 || NET471 || NET48)
 
-        /// <summary>
-        /// Retrieves the public key parameters from XML string. Used for compatibility with .NET Framework ToXMLString.
-        /// </summary>
-        public static RSAParameters FromXMLString(string xmlPublicKey)
+            /// <summary>
+            /// Retrieves the public key parameters from XML string. Used for compatibility with .NET Framework ToXMLString.
+            /// </summary>
+            public static RSAParameters FromXMLString(string xmlPublicKey)
         {
             // inspired by https://gist.github.com/Jargon64/5b172c452827e15b21882f1d76a94be4/
 

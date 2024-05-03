@@ -6,7 +6,11 @@ using System.Text;
 using SKM.V3.Models;
 using SKM.V3.Internal;
 using System.Security.Cryptography;
+#if NET48 || NET47_OR_GREATER || NETSTANDARD2_0_OR_GREATER
+using System.Text.Json;
+#else
 using Newtonsoft.Json.Linq;
+#endif
 
 namespace SKM.V3
 {
@@ -92,9 +96,17 @@ namespace SKM.V3
             if(licenseKey?.RawResponse != null)
             {
                 // new protocol
+#if NET48 || NET47_OR_GREATER || NETSTANDARD2_0_OR_GREATER
+                return System.Text.Json.JsonSerializer.Serialize(licenseKey.RawResponse);
+#else
                 return Newtonsoft.Json.JsonConvert.SerializeObject(licenseKey.RawResponse);
+#endif
             }
+#if NET48 || NET47_OR_GREATER || NETSTANDARD2_0_OR_GREATER
+            return System.Text.Json.JsonSerializer.Serialize(licenseKey);
+#else
             return Newtonsoft.Json.JsonConvert.SerializeObject(licenseKey);
+#endif
         }
 
         /// <summary>
@@ -104,7 +116,12 @@ namespace SKM.V3
         {
             try
             {
+#if NET48 || NET47_OR_GREATER || NETSTANDARD2_0_OR_GREATER
+
+                var response = System.Text.Json.JsonSerializer.Deserialize<RawResponse>(serializedLicenseObject);
+#else
                 var response = Newtonsoft.Json.JsonConvert.DeserializeObject<RawResponse>(serializedLicenseObject);
+#endif
 
                 if (!string.IsNullOrEmpty(response.LicenseKey))
                 {
@@ -114,11 +131,21 @@ namespace SKM.V3
                 {
                     if (RSAPubKey == null)
                     {
+#if NET48 || NET47_OR_GREATER || NETSTANDARD2_0_OR_GREATER
+                        return System.Text.Json.JsonSerializer.Deserialize<LicenseKey>(serializedLicenseObject);
+
+#else
                         return Newtonsoft.Json.JsonConvert.DeserializeObject<LicenseKey>(serializedLicenseObject);
+#endif
                     }
                     else
                     {
+#if NET48 || NET47_OR_GREATER || NETSTANDARD2_0_OR_GREATER
+                        return System.Text.Json.JsonSerializer.Deserialize<LicenseKey>(serializedLicenseObject).HasValidSignature(RSAPubKey);
+
+#else
                         return Newtonsoft.Json.JsonConvert.DeserializeObject<LicenseKey>(serializedLicenseObject).HasValidSignature(RSAPubKey);
+#endif
                     }
                 }
             }

@@ -439,7 +439,11 @@ namespace SKGL
                     return null;
                 }
 
+#if NET48 || NET47_OR_GREATER || NETSTANDARD2_0_OR_GREATER
+                return System.Text.Json.JsonSerializer.Deserialize<List<ActivationData>>(responsebody);
+#else
                 return Newtonsoft.Json.JsonConvert.DeserializeObject<List<ActivationData>>(responsebody);
+#endif
 
             }
         }
@@ -556,7 +560,11 @@ namespace SKGL
                 try
                 {
                     sw = new System.IO.StreamWriter(file);
+#if NET48 || NET47_OR_GREATER || NETSTANDARD2_0_OR_GREATER
+                    sw.Write(System.Text.Json.JsonSerializer.Serialize(keyInformation));
+#else
                     sw.Write(Newtonsoft.Json.JsonConvert.SerializeObject(keyInformation));
+#endif
                     state = true;
                 }
                 catch {
@@ -618,7 +626,11 @@ namespace SKGL
                     try
                     {
                         sr = new System.IO.StreamReader(file);
+#if NET48 || NET47_OR_GREATER || NETSTANDARD2_0_OR_GREATER
+                        ki = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, string>>(sr.ReadToEnd());
+#else
                         ki = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, string>>(sr.ReadToEnd());
+#endif
                     }
                     catch { }
                     finally
@@ -643,7 +655,11 @@ namespace SKGL
                     try
                     {
                         sr = new System.IO.StreamReader(file);
+#if NET48 || NET47_OR_GREATER || NETSTANDARD2_0_OR_GREATER
+                        ki = System.Text.Json.JsonSerializer.Deserialize<KeyInformation>(sr.ReadToEnd());
+#else
                         ki = Newtonsoft.Json.JsonConvert.DeserializeObject<KeyInformation>(sr.ReadToEnd());
+#endif
                     }
                     catch { }
                     finally
@@ -677,7 +693,7 @@ namespace SKGL
             }
         }
 
-        #endregion
+#endregion
 
         #region OtherAPIRequests
 
@@ -803,7 +819,12 @@ namespace SKGL
                 byte[] responsebytes = client.UploadValues("https://serialkeymanager.com/Ext/" + typeOfAction, "POST", reqparm);
                 string responsebody = Encoding.UTF8.GetString(responsebytes);
 
+#if NET48 || NET47_OR_GREATER || NETSTANDARD2_0_OR_GREATER
+                return System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, string>>(responsebody);
+
+#else
                 return Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, string>>(responsebody);
+#endif
 
             }
 
@@ -900,9 +921,12 @@ namespace SKGL
 
                 byte[] responsebytes = client.UploadValues("https://serialkeymanager.com/Ext/ListProducts", "POST", reqparm);
                 string responsebody = Encoding.UTF8.GetString(responsebytes);
-
+#if NET48 || NET47_OR_GREATER || NETSTANDARD2_0_OR_GREATER
+                return System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, string>>(responsebody);
+#else
                 return Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string,string>>(responsebody);
-                
+#endif
+
             }   
         }
 
@@ -947,8 +971,11 @@ namespace SKGL
                 byte[] responsebytes = client.UploadValues("https://serialkeymanager.com/Ext/GetProductVariables", "POST", reqparm);
                 string responsebody = Encoding.UTF8.GetString(responsebytes);
 
+#if NET48 || NET47_OR_GREATER || NETSTANDARD2_0_OR_GREATER
+                var obj = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, string>>(responsebody);
+#else
                 var obj = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string,string>>(responsebody);
-
+#endif
                 return new ProductVariables() { ProductName = obj["productName"], UID = obj["uid"], PID = obj["pid"] , HSUM = obj["hsum"]};
             }  
         }
@@ -972,39 +999,43 @@ namespace SKGL
         /// <returns></returns>
         public static ProductVariables LoadProductVariablesFromString(string productVariablesString)
         {
+#if NET48 || NET47_OR_GREATER || NETSTANDARD2_0_OR_GREATER
+            var obj = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, string>>(productVariablesString);
+#else
             var obj = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, string>>(productVariablesString);
+#endif
 
             return new ProductVariables() { ProductName = obj.ContainsKey("productName") ? obj["productName"] : "", UID = obj["uid"], PID = obj["pid"], HSUM = obj["hsum"] };
         }
 
-        #endregion
+#endregion
 
 #endif
 
-        #region NewMachineCode
+            #region NewMachineCode
 
 
 
-        /// <summary>
-        /// This method will calculate a machine code
-        /// </summary>
-        /// <param name="hashFunction">The hash function that is to be used. getEightDigitLongHash or SHA1 can be used as a default hash function.</param>
-        /// <code language="VB.NET">
-        /// 'eg. "61843235" (getEightDigitsLongHash)
-        /// 'eg. "D38F13CAB8938AC3C393BC111E1A85BB4BA2CCC9" (getSHA1)
-        /// Dim machineCode = SKGL.SKM.getMachineCode(AddressOf SKGL.SKM.getEightDigitsLongHash)
-        /// Dim machineCode = SKGL.SKM.getMachineCode(AddressOf SKGL.SKM.getSHA1)
-        /// </code>
-        /// <code language="cs" title="C#">
-        /// //eg. "61843235" (getEightDigitsLongHash)
-        /// //eg. "D38F13CAB8938AC3C393BC111E1A85BB4BA2CCC9" (getSHA1)
-        /// string machineID1 = SKGL.SKM.getMachineCode(SKGL.SKM.getEightDigitsLongHash);
-        /// string machineID2 = SKGL.SKM.getMachineCode(SKGL.SKM.getSHA1);
-        /// </code>
-        /// </example>
-        /// <returns>A machine code</returns>
-        /// <remarks>On platforms other than .NET Framework 4.0 and 4.6, includeUserName value will be false.</remarks>
-        [SecuritySafeCritical]
+            /// <summary>
+            /// This method will calculate a machine code
+            /// </summary>
+            /// <param name="hashFunction">The hash function that is to be used. getEightDigitLongHash or SHA1 can be used as a default hash function.</param>
+            /// <code language="VB.NET">
+            /// 'eg. "61843235" (getEightDigitsLongHash)
+            /// 'eg. "D38F13CAB8938AC3C393BC111E1A85BB4BA2CCC9" (getSHA1)
+            /// Dim machineCode = SKGL.SKM.getMachineCode(AddressOf SKGL.SKM.getEightDigitsLongHash)
+            /// Dim machineCode = SKGL.SKM.getMachineCode(AddressOf SKGL.SKM.getSHA1)
+            /// </code>
+            /// <code language="cs" title="C#">
+            /// //eg. "61843235" (getEightDigitsLongHash)
+            /// //eg. "D38F13CAB8938AC3C393BC111E1A85BB4BA2CCC9" (getSHA1)
+            /// string machineID1 = SKGL.SKM.getMachineCode(SKGL.SKM.getEightDigitsLongHash);
+            /// string machineID2 = SKGL.SKM.getMachineCode(SKGL.SKM.getSHA1);
+            /// </code>
+            /// </example>
+            /// <returns>A machine code</returns>
+            /// <remarks>On platforms other than .NET Framework 4.0 and 4.6, includeUserName value will be false.</remarks>
+            [SecuritySafeCritical]
         public static string getMachineCode(Func<string, string> hashFunction)
         {
             return getMachineCode(hashFunction, false);

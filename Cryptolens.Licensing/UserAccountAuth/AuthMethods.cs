@@ -2,7 +2,6 @@
 using System.Diagnostics;
 using System.Security.Cryptography;
 using System.Runtime.InteropServices;
-using Newtonsoft.Json;
 using System.Reflection;
 using System.Linq;
 using System.Net;
@@ -41,14 +40,23 @@ namespace SKM.V3.Internal
 #endif
 
             RSAParamsPrivate = rsa.ExportParameters(true);
-            RSAParamsPublic = JsonConvert.SerializeObject(rsa.ExportParameters(false));
+#if NET48 || NET47_OR_GREATER || NETSTANDARD2_0_OR_GREATER
+            RSAParamsPublic = System.Text.Json.JsonSerializer.Serialize(rsa.ExportParameters(false));
+#else
+            RSAParamsPublic = Newtonsoft.Json.JsonConvert.SerializeObject(rsa.ExportParameters(false));
+#endif
 
             var model = new AuthorizeAppModel()
             {
                 AuthorizationToken = Convert.ToBase64String(authToken),
                 Expires = expires,
                 PublicKey = RSAParamsPublic,
-                Scope = JsonConvert.SerializeObject(scope),
+#if NET48 || NET47_OR_GREATER || NETSTANDARD2_0_OR_GREATER
+                Scope = System.Text.Json.JsonSerializer.Serialize(scope),
+#else
+                Scope = Newtonsoft.Json.JsonConvert.SerializeObject(scope),
+
+#endif
                 VendorAppName = appName,
                 DeviceName = Environment.GetEnvironmentVariable("COMPUTERNAME") ?? Environment.GetEnvironmentVariable("HOSTNAME"), //Environment.MachineName in .NET Standard > 1.5,
                 MachineCode = machineCode,
@@ -139,7 +147,11 @@ namespace SKM.V3.Internal
         {
             string jsonData = HelperMethods.DecodeFrom64(token);
 
-            string[] data = JsonConvert.DeserializeObject<string[]>(jsonData);
+#if NET48 || NET47_OR_GREATER || NETSTANDARD2_0_OR_GREATER
+            string[] data = System.Text.Json.JsonSerializer.Deserialize<string[]>(jsonData);
+#else
+            string[] data = Newtonsoft.Json.JsonConvert.DeserializeObject<string[]>(jsonData);
+#endif
 
             return Convert.ToInt32(data[0]);
         }

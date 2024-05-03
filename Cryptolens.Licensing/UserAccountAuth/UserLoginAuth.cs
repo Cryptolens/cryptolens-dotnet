@@ -5,12 +5,15 @@ using System.Text;
 using System.Threading;
 
 using System.Security.Cryptography;
-using Newtonsoft.Json;
 using System.Linq;
 
 using SKM.V3.Models;
 using SKM.V3.Methods;
 using SKM.V3.Internal;
+
+#if NET48 || NET47_OR_GREATER || NETSTANDARD2_0_OR_GREATER
+using System.Text.Json;
+#endif
 
 namespace SKM.V3.Accounts
 {
@@ -121,7 +124,11 @@ namespace SKM.V3.Accounts
             }
 #endif
 
-            var machineCodes = JsonConvert.DeserializeObject<List<String>>(System.Text.UTF8Encoding.UTF8.GetString(activatedMachines));
+#if NET48 || NET47_OR_GREATER || NETSTANDARD2_0_OR_GREATER
+            var machineCodes = System.Text.Json.JsonSerializer.Deserialize<List<String>>(System.Text.UTF8Encoding.UTF8.GetString(activatedMachines));
+#else
+            var machineCodes = Newtonsoft.Json.JsonConvert.DeserializeObject<List<String>>(System.Text.UTF8Encoding.UTF8.GetString(activatedMachines));
+#endif
             if (machineCodes?.Count != 0 && !machineCodes.Contains(machineCode))
             {
                 return new GetLicenseKeysResult { LicenseKeyToken = tokenNew, Error = "This machine code has not been authorized." };
@@ -130,7 +137,11 @@ namespace SKM.V3.Accounts
 
             return new GetLicenseKeysResult
             {
-                Licenses = JsonConvert.DeserializeObject<List<KeyInfoResult>>(System.Text.UTF8Encoding.UTF8.GetString((licenseKeys))).Select(x=> x.LicenseKey).ToList(),
+#if NET48 || NET47_OR_GREATER || NETSTANDARD2_0_OR_GREATER
+                Licenses = JsonSerializer.Deserialize<List<KeyInfoResult>>(System.Text.UTF8Encoding.UTF8.GetString((licenseKeys))).Select(x => x.LicenseKey).ToList(),
+#else
+                Licenses = Newtonsoft.Json.JsonConvert.DeserializeObject<List<KeyInfoResult>>(System.Text.UTF8Encoding.UTF8.GetString((licenseKeys))).Select(x=> x.LicenseKey).ToList(),
+#endif
                 LicenseKeyToken = tokenNew
             };
 
