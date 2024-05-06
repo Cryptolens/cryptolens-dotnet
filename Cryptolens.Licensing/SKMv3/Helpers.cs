@@ -803,6 +803,7 @@ namespace SKM.V3.Methods
         /// </summary>
         /// <param name="licenseKey">The license key</param>
         /// <param name="featureName">For example, "f2.voice.all".</param>
+        [SecuritySafeCritical]
         public static bool HasFeature(LicenseKey licenseKey, string featureName)
         {
             // based on https://github.com/Cryptolens/cryptolens-java/blob/master/src/main/java/io/cryptolens/methods/Helpers.java#L219

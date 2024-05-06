@@ -4,6 +4,7 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Net;
 using System.Reflection;
+using System.Security;
 using System.Text;
 
 using SKM.V3.Models;
@@ -50,6 +51,7 @@ namespace SKM.V3.Internal
         /// <summary>
         /// Used to send requests to Web API 3.
         /// </summary>
+        [SecuritySafeCritical]
         public static T SendRequestToWebAPI3<T>(RequestModel inputParameters, 
                                                 string typeOfAction,
                                                 string token,
