@@ -310,6 +310,7 @@ namespace SKGL
         /// </example>
         /// <returns>Returns a KeyInformation object if all rules were satisfied and null if an error occurred.</returns>
         [Obsolete("Please use Key.Activate in SKM.V3.Methods.")]
+        [SecuritySafeCritical]
         public static KeyInformation KeyActivation(string pid, string uid, string hsum, string sid, string mid, bool secure = false, bool signMid = false, bool signPid=false, bool signUid=false, bool signDate = false )
         {
             Dictionary<string, string> input = new Dictionary<string, string>();
@@ -415,6 +416,7 @@ namespace SKGL
         /// <param name="privateKey">The private key of the user.</param>
         /// <returns>A list of ActivatedData or null.</returns>
         [Obsolete]
+        [SecuritySafeCritical]
         public static List<ActivationData> GetActivatedMachines(ProductVariables productVariables,string privateKey, string sid)
         {
             using (WebClient client = new WebClient())
@@ -551,6 +553,7 @@ namespace SKGL
         /// <remarks>This method does not use the same JSON format structure as activation files. Instead,
         /// if you want to read these files using <see cref="LoadKeyInformationFromFile"/>, then activationFile has
         /// to be set to FALSE.</remarks>
+        [SecuritySafeCritical]
         public static bool SaveKeyInformationToFile(KeyInformation keyInformation, string file, bool json=false)
         {
             if (json)
@@ -615,6 +618,7 @@ namespace SKGL
         /// <remarks>If you want to read a file that uses the JSON format created by <see cref="SaveKeyInformationToFile"/>, activationFile has to be set to FALSE while
         /// json is set to TRUE.</remarks>
         /// <returns>If successful, this method returns a KeyInformation object. Null otherwise.</returns>
+        [SecuritySafeCritical]
         public static KeyInformation LoadKeyInformationFromFile(string file, bool json = false, bool activationFile = false)
         {
             if (json || activationFile)
@@ -801,6 +805,7 @@ namespace SKGL
         /// </code>
         /// </example>
         /// <returns>A dictionary of the JSON elements returned for that particular request.</returns>
+        [SecuritySafeCritical]
         public static Dictionary<string, string> GetParameters(Dictionary<string, string> inputParameters, string typeOfAction)
         {
             using (WebClient client = new WebClient())
@@ -905,6 +910,7 @@ namespace SKGL
         /// <param name="password">Your password</param>
         /// <param name="proxy">(Optional) The proxy settings.</param>
         /// <returns>All products as a dictionary. The "key" is the product name and the "value" is the product id.</returns>
+        [SecuritySafeCritical]
         public static Dictionary<string, string> ListUserProducts(string username, string password)
         {
             using (WebClient client = new WebClient())
@@ -953,6 +959,7 @@ namespace SKGL
         /// </code>
         /// </example>
         /// <returns>The "uid","pid", and "hsum" variables</returns>
+        [SecuritySafeCritical]
         public static ProductVariables GetProductVariables(string username, string password, string productID)
         {
             using (WebClient client = new WebClient())
@@ -997,6 +1004,7 @@ namespace SKGL
         /// </code>
         /// </example>
         /// <returns></returns>
+        [SecuritySafeCritical]
         public static ProductVariables LoadProductVariablesFromString(string productVariablesString)
         {
 #if NET48 || NET47_OR_GREATER || NETSTANDARD2_0_OR_GREATER
