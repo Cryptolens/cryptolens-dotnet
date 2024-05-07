@@ -44,6 +44,7 @@ namespace SKM.V3.Methods
         /// <a href="https://app.cryptolens.io/docs/api/v3/RegisterEvent">https://app.cryptolens.io/docs/api/v3/RegisterEvent</a> <br/>
         /// </remarks>
         /// <returns>Returns <see cref="KeyLockResult"/> or null.</returns>
+        [System.Security.SecuritySafeCritical]
         public static BasicResult RegisterEvents(string token, RegisterEventsModel parameters)
         {
             var internalModel = new RegisterEventsModelServer
