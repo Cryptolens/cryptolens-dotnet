@@ -423,6 +423,11 @@ namespace SKM.V3.Models
         /// </summary>
         public int Limit { get; set; }
 
+        /// <summary>
+        /// If this is set, you can use the CustomerId field to find a specific customer based on their integer Id.
+        /// </summary>
+        public int CustomerId { get; set; }
+
     }
     public class GetCustomersResult : BasicResult
     {
