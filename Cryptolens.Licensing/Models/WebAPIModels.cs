@@ -30,6 +30,15 @@ namespace SKM.V3.Models
             {
                 return defaultValue;
             }
+
+            if(options!= null)
+            {
+                options.PropertyNameCaseInsensitive = true;
+            }
+            else
+            {
+                options = new System.Text.Json.JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+            }
             return JsonSerializer.Deserialize<T>(ref reader, options);
         }
 
@@ -824,7 +833,7 @@ namespace SKM.V3.Models
                 return false;
 
 #if NET48 || NET47_OR_GREATER || NETSTANDARD2_0_OR_GREATER
-            var obj = System.Text.Json.JsonSerializer.Deserialize<KeyMetadata>(res.Object);
+            var obj = System.Text.Json.JsonSerializer.Deserialize<KeyMetadata>(res.Object, new System.Text.Json.JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 #else
             var obj = Newtonsoft.Json.JsonConvert.DeserializeObject<KeyMetadata>(res.Object);
 #endif

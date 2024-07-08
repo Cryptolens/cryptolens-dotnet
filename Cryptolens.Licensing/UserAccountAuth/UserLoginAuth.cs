@@ -125,7 +125,7 @@ namespace SKM.V3.Accounts
 #endif
 
 #if NET48 || NET47_OR_GREATER || NETSTANDARD2_0_OR_GREATER
-            var machineCodes = System.Text.Json.JsonSerializer.Deserialize<List<String>>(System.Text.UTF8Encoding.UTF8.GetString(activatedMachines));
+            var machineCodes = System.Text.Json.JsonSerializer.Deserialize<List<String>>(System.Text.UTF8Encoding.UTF8.GetString(activatedMachines), new System.Text.Json.JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 #else
             var machineCodes = Newtonsoft.Json.JsonConvert.DeserializeObject<List<String>>(System.Text.UTF8Encoding.UTF8.GetString(activatedMachines));
 #endif
@@ -138,7 +138,7 @@ namespace SKM.V3.Accounts
             return new GetLicenseKeysResult
             {
 #if NET48 || NET47_OR_GREATER || NETSTANDARD2_0_OR_GREATER
-                Licenses = JsonSerializer.Deserialize<List<KeyInfoResult>>(System.Text.UTF8Encoding.UTF8.GetString((licenseKeys))).Select(x => x.LicenseKey).ToList(),
+                Licenses = JsonSerializer.Deserialize<List<KeyInfoResult>>(System.Text.UTF8Encoding.UTF8.GetString((licenseKeys)), new System.Text.Json.JsonSerializerOptions { PropertyNameCaseInsensitive = true }).Select(x => x.LicenseKey).ToList(),
 #else
                 Licenses = Newtonsoft.Json.JsonConvert.DeserializeObject<List<KeyInfoResult>>(System.Text.UTF8Encoding.UTF8.GetString((licenseKeys))).Select(x=> x.LicenseKey).ToList(),
 #endif

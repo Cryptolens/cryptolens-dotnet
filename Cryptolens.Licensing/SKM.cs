@@ -442,7 +442,7 @@ namespace SKGL
                 }
 
 #if NET48 || NET47_OR_GREATER || NETSTANDARD2_0_OR_GREATER
-                return System.Text.Json.JsonSerializer.Deserialize<List<ActivationData>>(responsebody);
+                return System.Text.Json.JsonSerializer.Deserialize<List<ActivationData>>(responsebody, new System.Text.Json.JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 #else
                 return Newtonsoft.Json.JsonConvert.DeserializeObject<List<ActivationData>>(responsebody);
 #endif
@@ -631,7 +631,7 @@ namespace SKGL
                     {
                         sr = new System.IO.StreamReader(file);
 #if NET48 || NET47_OR_GREATER || NETSTANDARD2_0_OR_GREATER
-                        ki = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, string>>(sr.ReadToEnd());
+                        ki = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, string>>(sr.ReadToEnd(), new System.Text.Json.JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 #else
                         ki = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, string>>(sr.ReadToEnd());
 #endif
@@ -660,7 +660,7 @@ namespace SKGL
                     {
                         sr = new System.IO.StreamReader(file);
 #if NET48 || NET47_OR_GREATER || NETSTANDARD2_0_OR_GREATER
-                        ki = System.Text.Json.JsonSerializer.Deserialize<KeyInformation>(sr.ReadToEnd());
+                        ki = System.Text.Json.JsonSerializer.Deserialize<KeyInformation>(sr.ReadToEnd(), new System.Text.Json.JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 #else
                         ki = Newtonsoft.Json.JsonConvert.DeserializeObject<KeyInformation>(sr.ReadToEnd());
 #endif
@@ -825,7 +825,7 @@ namespace SKGL
                 string responsebody = Encoding.UTF8.GetString(responsebytes);
 
 #if NET48 || NET47_OR_GREATER || NETSTANDARD2_0_OR_GREATER
-                return System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, string>>(responsebody);
+                return System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, string>>(responsebody, new System.Text.Json.JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 
 #else
                 return Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, string>>(responsebody);
@@ -928,7 +928,7 @@ namespace SKGL
                 byte[] responsebytes = client.UploadValues("https://serialkeymanager.com/Ext/ListProducts", "POST", reqparm);
                 string responsebody = Encoding.UTF8.GetString(responsebytes);
 #if NET48 || NET47_OR_GREATER || NETSTANDARD2_0_OR_GREATER
-                return System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, string>>(responsebody);
+                return System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, string>>(responsebody, new System.Text.Json.JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 #else
                 return Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string,string>>(responsebody);
 #endif
@@ -979,7 +979,7 @@ namespace SKGL
                 string responsebody = Encoding.UTF8.GetString(responsebytes);
 
 #if NET48 || NET47_OR_GREATER || NETSTANDARD2_0_OR_GREATER
-                var obj = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, string>>(responsebody);
+                var obj = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, string>>(responsebody, new System.Text.Json.JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 #else
                 var obj = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string,string>>(responsebody);
 #endif
@@ -1008,7 +1008,7 @@ namespace SKGL
         public static ProductVariables LoadProductVariablesFromString(string productVariablesString)
         {
 #if NET48 || NET47_OR_GREATER || NETSTANDARD2_0_OR_GREATER
-            var obj = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, string>>(productVariablesString);
+            var obj = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, string>>(productVariablesString, new System.Text.Json.JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 #else
             var obj = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, string>>(productVariablesString);
 #endif

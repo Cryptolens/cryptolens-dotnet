@@ -231,7 +231,7 @@ namespace SKM.V3
             }
 
 #if NET48 || NET47_OR_GREATER || NETSTANDARD2_0_OR_GREATER
-            var license = JsonSerializer.Deserialize<LicenseKeyPI>(System.Text.UTF8Encoding.UTF8.GetString(licenseBytes)).ToLicenseKey();
+            var license = JsonSerializer.Deserialize<LicenseKeyPI>(System.Text.UTF8Encoding.UTF8.GetString(licenseBytes), new System.Text.Json.JsonSerializerOptions { PropertyNameCaseInsensitive = true }).ToLicenseKey();
 
 #else
             var license = JsonConvert.DeserializeObject<LicenseKeyPI>(System.Text.UTF8Encoding.UTF8.GetString(licenseBytes)).ToLicenseKey();

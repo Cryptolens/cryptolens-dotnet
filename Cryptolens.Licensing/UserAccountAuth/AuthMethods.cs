@@ -148,7 +148,7 @@ namespace SKM.V3.Internal
             string jsonData = HelperMethods.DecodeFrom64(token);
 
 #if NET48 || NET47_OR_GREATER || NETSTANDARD2_0_OR_GREATER
-            string[] data = System.Text.Json.JsonSerializer.Deserialize<string[]>(jsonData);
+            string[] data = System.Text.Json.JsonSerializer.Deserialize<string[]>(jsonData, new System.Text.Json.JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 #else
             string[] data = Newtonsoft.Json.JsonConvert.DeserializeObject<string[]>(jsonData);
 #endif

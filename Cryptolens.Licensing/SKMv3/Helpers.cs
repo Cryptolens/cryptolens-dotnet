@@ -92,7 +92,7 @@ namespace SKM.V3.Methods
             try
             {
 #if NET48 || NET47_OR_GREATER || NETSTANDARD2_0_OR_GREATER
-                passwordsalt = System.Text.Json.JsonSerializer.Deserialize<string[]>(new UTF8Encoding().GetString(Convert.FromBase64String(activation.Mid)));
+                passwordsalt = System.Text.Json.JsonSerializer.Deserialize<string[]>(new UTF8Encoding().GetString(Convert.FromBase64String(activation.Mid)), new System.Text.Json.JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 
 #else
                 passwordsalt = Newtonsoft.Json.JsonConvert.DeserializeObject<string[]>(new UTF8Encoding().GetString(Convert.FromBase64String(activation.Mid)));
@@ -823,7 +823,7 @@ namespace SKM.V3.Methods
 
 #if NET48 || NET47_OR_GREATER || NETSTANDARD2_0_OR_GREATER
 
-            var array =  JsonSerializer.Deserialize<JsonElement>(features);
+            var array =  JsonSerializer.Deserialize<JsonElement>(features, new System.Text.Json.JsonSerializerOptions { PropertyNameCaseInsensitive = true });
             
 #else
             var array =  Newtonsoft.Json.JsonConvert.DeserializeObject<JToken>(features);

@@ -118,7 +118,7 @@ namespace SKM.V3
             {
 #if NET48 || NET47_OR_GREATER || NETSTANDARD2_0_OR_GREATER
 
-                var response = System.Text.Json.JsonSerializer.Deserialize<RawResponse>(serializedLicenseObject);
+                var response = System.Text.Json.JsonSerializer.Deserialize<RawResponse>(serializedLicenseObject, new System.Text.Json.JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 #else
                 var response = Newtonsoft.Json.JsonConvert.DeserializeObject<RawResponse>(serializedLicenseObject);
 #endif
@@ -132,7 +132,7 @@ namespace SKM.V3
                     if (RSAPubKey == null)
                     {
 #if NET48 || NET47_OR_GREATER || NETSTANDARD2_0_OR_GREATER
-                        return System.Text.Json.JsonSerializer.Deserialize<LicenseKey>(serializedLicenseObject);
+                        return System.Text.Json.JsonSerializer.Deserialize<LicenseKey>(serializedLicenseObject, new System.Text.Json.JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 
 #else
                         return Newtonsoft.Json.JsonConvert.DeserializeObject<LicenseKey>(serializedLicenseObject);
@@ -141,7 +141,7 @@ namespace SKM.V3
                     else
                     {
 #if NET48 || NET47_OR_GREATER || NETSTANDARD2_0_OR_GREATER
-                        return System.Text.Json.JsonSerializer.Deserialize<LicenseKey>(serializedLicenseObject).HasValidSignature(RSAPubKey);
+                        return System.Text.Json.JsonSerializer.Deserialize<LicenseKey>(serializedLicenseObject, new System.Text.Json.JsonSerializerOptions { PropertyNameCaseInsensitive = true }).HasValidSignature(RSAPubKey);
 
 #else
                         return Newtonsoft.Json.JsonConvert.DeserializeObject<LicenseKey>(serializedLicenseObject).HasValidSignature(RSAPubKey);

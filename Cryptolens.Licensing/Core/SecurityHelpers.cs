@@ -21,7 +21,7 @@ namespace SKM.V3.Internal
                 return null;
 
 #if NET48 || NET47_OR_GREATER || NETSTANDARD2_0_OR_GREATER
-            var obj = System.Text.Json.JsonSerializer.Deserialize<SignatureV1>(UTF8Encoding.UTF8.GetString(Convert.FromBase64String(signature)));
+            var obj = System.Text.Json.JsonSerializer.Deserialize<SignatureV1>(UTF8Encoding.UTF8.GetString(Convert.FromBase64String(signature)), new System.Text.Json.JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 #else
             var obj = Newtonsoft.Json.JsonConvert.DeserializeObject<SignatureV1>(UTF8Encoding.UTF8.GetString(Convert.FromBase64String(signature)));
 #endif
