@@ -122,7 +122,7 @@ namespace SKM.V3.Internal
                         byte[] responsebytes = client.UploadValues(server + typeOfAction, "POST", reqparm);
                         string responsebody = Encoding.UTF8.GetString(responsebytes);
 #if NET48 || NET47_OR_GREATER  || NETSTANDARD2_0_OR_GREATER
-                        return System.Text.Json.JsonSerializer.Deserialize<T>(responsebody);
+                        return System.Text.Json.JsonSerializer.Deserialize<T>(responsebody, new System.Text.Json.JsonSerializerOptions {  PropertyNameCaseInsensitive=true });
 
 #else
                         return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(responsebody);
@@ -135,7 +135,7 @@ namespace SKM.V3.Internal
                             using (var sr = new System.IO.StreamReader(ex.Response.GetResponseStream()))
                             {
 #if NET48 || NET47_OR_GREATER || NETSTANDARD2_0_OR_GREATER
-                                return System.Text.Json.JsonSerializer.Deserialize<T>(sr.ReadToEnd());
+                                return System.Text.Json.JsonSerializer.Deserialize<T>(sr.ReadToEnd(), new System.Text.Json.JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 #else
                                 return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(sr.ReadToEnd());
 #endif
@@ -144,7 +144,7 @@ namespace SKM.V3.Internal
                         catch (Exception ex2)
                         {
 #if NET48 || NET47_OR_GREATER || NETSTANDARD2_0_OR_GREATER
-                            return System.Text.Json.JsonSerializer.Deserialize<T>(System.Text.Json.JsonSerializer.Serialize(new BasicResult { Result = ResultType.Error, Message = "An error occurred when contacting the server." }));
+                            return System.Text.Json.JsonSerializer.Deserialize<T>(System.Text.Json.JsonSerializer.Serialize(new BasicResult { Result = ResultType.Error, Message = "An error occurred when contacting the server." }), new System.Text.Json.JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 #else
                             return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(Newtonsoft.Json.JsonConvert.SerializeObject(new BasicResult { Result = ResultType.Error, Message = "An error occurred when contacting the server." }));
 #endif
@@ -209,7 +209,7 @@ namespace SKM.V3.Internal
 
 #if NET48 || NET47_OR_GREATER || NETSTANDARD2_0_OR_GREATER
 
-                        return System.Text.Json.JsonSerializer.Deserialize<T>(responsebody);
+                        return System.Text.Json.JsonSerializer.Deserialize<T>(responsebody, new System.Text.Json.JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 
 #else
                         return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(responsebody);
@@ -221,7 +221,7 @@ namespace SKM.V3.Internal
                         {
 #if NET48 || NET47_OR_GREATER || NETSTANDARD2_0_OR_GREATER
 
-                            return System.Text.Json.JsonSerializer.Deserialize<T>(sr.ReadToEnd());
+                            return System.Text.Json.JsonSerializer.Deserialize<T>(sr.ReadToEnd(), new System.Text.Json.JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 #else
                                 return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(sr.ReadToEnd());
 #endif
