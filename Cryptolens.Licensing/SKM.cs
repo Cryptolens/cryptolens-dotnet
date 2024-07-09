@@ -825,6 +825,12 @@ namespace SKGL
                 string responsebody = Encoding.UTF8.GetString(responsebytes);
 
 #if NET48 || NET47_OR_GREATER || NETSTANDARD2_0_OR_GREATER
+
+                if (responsebody.Contains("error"))
+                {
+                    responsebody = responsebody.Replace("error", "\"error\"");
+                }
+
                 return System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, string>>(responsebody, new System.Text.Json.JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 
 #else
