@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 
 namespace SKM.V3
 {
@@ -30,7 +31,7 @@ namespace SKM.V3
         public override string ToString()
         {
             if (this != null)
-                return Mid + "," + IP + "," + (Time.HasValue ? Time.Value.ToString(ConfigValues.DEFAULT_TIME_REPSENTATION) : "");
+                return Mid + "," + IP + "," + (Time.HasValue ? Time.Value.ToString(ConfigValues.DEFAULT_TIME_REPSENTATION, CultureInfo.InvariantCulture) : "");
             return base.ToString();
         }
 

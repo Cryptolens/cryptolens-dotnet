@@ -423,6 +423,11 @@ namespace SKM.V3.Models
         /// </summary>
         public int Limit { get; set; }
 
+        /// <summary>
+        /// If this is set, you can use the CustomerId field to find a specific customer based on their integer Id.
+        /// </summary>
+        public int CustomerId { get; set; }
+
     }
     public class GetCustomersResult : BasicResult
     {
@@ -463,6 +468,12 @@ namespace SKM.V3.Models
         /// A link that allows the customer to create an account where they will see their licenses (in the customer dashboard).
         /// </summary>
         public string PortalLink { get; set; }
+
+        /// <summary>
+        /// The customer secret that can be used in some methods as an alternative way to authenticate customers.
+        /// You can read more about it in https://help.cryptolens.io/web-interface/customer-secret.
+        /// </summary>
+        public string Secret { get; set; }
     }
     public class DeactivateModel : KeyLockModel
     {

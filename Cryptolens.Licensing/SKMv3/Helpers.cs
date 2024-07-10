@@ -358,7 +358,7 @@ namespace SKM.V3.Methods
 
         private static string ExecCommand(string fileName, string args, out string error, int v = 1)
         {
-            if (v == 1)
+            if (v == 1 || v == 10)
             {
                 var proc = new Process
                 {
@@ -411,7 +411,7 @@ namespace SKM.V3.Methods
             }
             else
             {
-                throw new ArgumentException("Version can either be 1 or 2.");
+                throw new ArgumentException("Version can either be 1, 2 or 10.");
             }
 
         }
@@ -443,26 +443,61 @@ namespace SKM.V3.Methods
         }
 
 
-        /// <summary>
-        /// Returns the machine code of the current device with SHA-256 as the hash function.
-        /// This method works differently depending on the binaries that you use. By default,
-        /// machine code is computed using COM, which requires System.Management. This is only
-        /// supported on Windows, it's better to set platformIndependent=true. If you use a version
-        /// of library without System.Management, the platform independent machine code will be
-        /// computed by default.
-        /// 
-        /// The supported platforms are Windows, Mac and Linux. Note, sudo access is required if
-        /// Linux is used.
-        /// 
-        /// In newer projects, we recommend to always set platformIndependent=true or use 
-        /// <see cref="GetMachineCodePI"/>.
-        /// 
-        /// If version is set to 2, you can get the machine code as in the Python client,
-        /// assuming similar settings are used. You can read more about it here:
-        /// https://help.cryptolens.io/faq/index#machine-code-generation
-        /// </summary>
 #if SYSTEM_MANAGEMENT
-        [Obsolete]
+
+        /// <summary>
+        /// An alternative way to compute the machine code by relying on the Hardisk Id (assigned by the manufacturer).
+        /// This is different from Volume Id. Please note: although based on our testing, it should run without admin
+        /// access, this might not be the case on some machines. Furthermore, this method is specific to Windows and cannot
+        /// be used on other platforms.
+        /// </summary>
+        /// <returns></returns>
+        [SecuritySafeCritical]
+        public static string GetHardiskId()
+        {
+            // Create a new ManagementObjectSearcher object, which will issue a 
+            // WMI query to get information about all the hard disk drives.
+            var searcher = new System.Management.ManagementObjectSearcher("SELECT * FROM Win32_DiskDrive");
+
+            string model = "";
+            string serialnumber = "";
+            // Loop over each object that our WMI query returned, and print out some information.
+            foreach (System.Management.ManagementObject wmi_HD in searcher.Get())
+            {
+                // Model
+                model= wmi_HD["Model"].ToString();
+
+                // Serial Number
+                serialnumber =  wmi_HD["SerialNumber"].ToString();
+            }
+
+
+            return model + serialnumber;
+        }
+
+    #endif
+
+
+    /// <summary>
+    /// Returns the machine code of the current device with SHA-256 as the hash function.
+    /// This method works differently depending on the binaries that you use. By default,
+    /// machine code is computed using COM, which requires System.Management. This is only
+    /// supported on Windows, it's better to set platformIndependent=true. If you use a version
+    /// of library without System.Management, the platform independent machine code will be
+    /// computed by default.
+    /// 
+    /// The supported platforms are Windows, Mac and Linux. Note, sudo access is required if
+    /// Linux is used.
+    /// 
+    /// In newer projects, we recommend to always set platformIndependent=true or use 
+    /// <see cref="GetMachineCodePI"/>.
+    /// 
+    /// If version is set to 2, you can get the machine code as in the Python client,
+    /// assuming similar settings are used. You can read more about it here:
+    /// https://help.cryptolens.io/faq/index#machine-code-generation
+    /// </summary>
+#if SYSTEM_MANAGEMENT
+    [Obsolete]
 #endif
         [SecuritySafeCritical]
         public static string GetMachineCode(bool platformIndependent = false, int v = 1/*bool includeProcessId = false*/)
@@ -536,6 +571,18 @@ namespace SKM.V3.Methods
                         }
 
                         return SKGL.SKM.getSHA256(machineCodeSeed, v);
+                    }
+                    else if (v==10)
+                    {
+                        var machineCodeSeed = ExecCommand("cmd.exe", "/c powershell.exe -Command \"(Get-CimInstance -Class Win32_ComputerSystemProduct).UUID\"", out error, v);
+                        machineCodeSeed = "UUID                                  " + machineCodeSeed + "  ";
+                        if (string.IsNullOrEmpty(machineCodeSeed) || !string.IsNullOrEmpty(error))
+                        {
+                            return null;
+                            //throw new Exception("Machine Code could not be computed. Error message: " + error);
+                        }
+
+                        return SKGL.SKM.getSHA256(machineCodeSeed, v=1);
                     }
                     else
                     {

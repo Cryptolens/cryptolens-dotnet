@@ -82,6 +82,22 @@ System.IO.FileLoadException: Could not load file or assembly 'Newtonsoft.Json, V
 
 The error is thrown when a wrong version of Newtonsoft.Json is installed in the same project as Cryptolens.Licensing library. To fix this, you need to make sure that Newtonsoft.Json is uninstalled completely and then re-install Cryptolens.Licensing.
 
+### Issue with activation even if api.cryptolens.io is accessible in the browser
+
+If your clients are able to visit `app.cryptolens.io` and `api.cryptolens.io` in Microsoft Edge but unable to activate the application, the issue could be both that they are using a proxy, connect to Active directory or that their IT department has blocked TLS of certain versions.
+
+To fix these issues, we recommend to:
+
+1. Update to the latest version of the SDK.
+2. If you run a version of .NET Framework prior to .NET Framework 4.7, we recommend to manually specify which TLS should be used. Before any call to the API (for instance, Key.Activate performs an API call), we recommend to add the following line:
+
+```cs
+System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12
+```
+
+Ideally, you should try to pick the highest available TLS version, but it is important to also test that such TLS version is supported in the .NET Framework vesion that you use.
+
+If possible, the best approach is to run the latest version of .NET Framework. If that is not possible, please use at least .NET Framework 4.7. In other cases, the workaround above can be used (i.e. manually specifying the TLS version).
 
 ### 'System.MethodAccessException' when calling Helpers.GetMachineCode
 In some Windows environments (e.g. when developing Excel addins), it might not be feasible to call Helpers.GetMachineCode on .NET Framework 4.6. The reason for this is the call we make to `System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform`. To fix this, we have added a boolean flag in `Helpers` class. Before calling `Helpers.GetMachineCode` or `Helpers.IsOnRightMachine`, please set `Helpers.WindowsOnly=True`.

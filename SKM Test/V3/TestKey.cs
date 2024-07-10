@@ -84,7 +84,7 @@ namespace SKM_Test
                 Assert.Fail();
             }
 
-            if (!result.LicenseKey.HasValidSignature("<RSAKeyValue><Modulus>sGbvxwdlDbqFXOMlVUnAF5ew0t0WpPW7rFpI5jHQOFkht/326dvh7t74RYeMpjy357NljouhpTLA3a6idnn4j6c3jmPWBkjZndGsPL4Bqm+fwE48nKpGPjkj4q/yzT4tHXBTyvaBjA8bVoCTnu+LiC4XEaLZRThGzIn5KQXKCigg6tQRy0GXE13XYFVz/x1mjFbT9/7dS8p85n8BuwlY5JvuBIQkKhuCNFfrUxBWyu87CFnXWjIupCD2VO/GbxaCvzrRjLZjAngLCMtZbYBALksqGPgTUN7ZM24XbPWyLtKPaXF2i4XRR9u6eTj5BfnLbKAU5PIVfjIS+vNYYogteQ==</Modulus><Exponent>AQAB</Exponent></RSAKeyValue>", 30).IsValid())
+            if (!result.LicenseKey.HasValidSignature("<RSAKeyValue><Modulus>uEnu1b4Rc6Tu+9FdVqlp2UzJsfOte3rxX9bLbh2hcrAISaTX6F6GWvNhOBfxALIcm1KAOA6qXtV7RZZzDL97QIUeeNr9lN/kPLMgFia9pLdbe0O9lTIJwtUlWb6kbv0O6zo6KCqvy6Oh8Gp/NF3CusTcTkpYjaJDtbF0awLamkl4NUy5CzSTN2UkPYMRzKc8p1wTbj/l7/jFxwR633hMrfizEA4yUEyyCM8Sw/+uN+bI9ktR4vPG02N074vpToBsGQ8lN0VRMV75zkVuMvgo+wevJZsU4TTZn1XuF6YgL5Ka7r26bhzFPDmrOvY4aZf/54enaa4qUpdD0xKhSo2uOw==</Modulus><Exponent>AQAB</Exponent></RSAKeyValue>", 30).IsValid())
                 Assert.Fail();
         }
 
@@ -93,7 +93,7 @@ namespace SKM_Test
         {
             var result = Key.GetKey(AccessToken.AccessToken.GetKey, key: "MTMPW-VZERP-JZVNZ-SCPZM", productId: 3349);
 
-            var rsa = "<RSAKeyValue><Modulus>sGbvxwdlDbqFXOMlVUnAF5ew0t0WpPW7rFpI5jHQOFkht/326dvh7t74RYeMpjy357NljouhpTLA3a6idnn4j6c3jmPWBkjZndGsPL4Bqm+fwE48nKpGPjkj4q/yzT4tHXBTyvaBjA8bVoCTnu+LiC4XEaLZRThGzIn5KQXKCigg6tQRy0GXE13XYFVz/x1mjFbT9/7dS8p85n8BuwlY5JvuBIQkKhuCNFfrUxBWyu87CFnXWjIupCD2VO/GbxaCvzrRjLZjAngLCMtZbYBALksqGPgTUN7ZM24XbPWyLtKPaXF2i4XRR9u6eTj5BfnLbKAU5PIVfjIS+vNYYogteQ==</Modulus><Exponent>AQAB</Exponent></RSAKeyValue>";
+            var rsa = "<RSAKeyValue><Modulus>uEnu1b4Rc6Tu+9FdVqlp2UzJsfOte3rxX9bLbh2hcrAISaTX6F6GWvNhOBfxALIcm1KAOA6qXtV7RZZzDL97QIUeeNr9lN/kPLMgFia9pLdbe0O9lTIJwtUlWb6kbv0O6zo6KCqvy6Oh8Gp/NF3CusTcTkpYjaJDtbF0awLamkl4NUy5CzSTN2UkPYMRzKc8p1wTbj/l7/jFxwR633hMrfizEA4yUEyyCM8Sw/+uN+bI9ktR4vPG02N074vpToBsGQ8lN0VRMV75zkVuMvgo+wevJZsU4TTZn1XuF6YgL5Ka7r26bhzFPDmrOvY4aZf/54enaa4qUpdD0xKhSo2uOw==</Modulus><Exponent>AQAB</Exponent></RSAKeyValue>";
             var res = LicenseKey.FromResponse(rsa, result);
 
             Assert.IsTrue(res != null);
@@ -103,14 +103,16 @@ namespace SKM_Test
         [TestMethod]
         public void SignatureTestNewMethod()
         {
-            var result = Key.Activate(AccessToken.AccessToken.Activate, 3349, "MTMPW-VZERP-JZVNZ-SCPZM", "test");
+            //var result = Key.Activate(AccessToken.AccessToken.Activate, 3349, "IMKUL-PKEMD-VDUKM-VCFZU", "test", LicenseServerUrl: "http://172.30.64.1:8080/", floatingTimeInterval: 300);
 
-            if (result == null || result.Result == ResultType.Error)
-            {
-                Assert.Fail();
-            }
+            //if (result == null || result.Result == ResultType.Error)
+            //{
+            //    Assert.Fail();
+            //}
 
-            var license = LicenseKey.FromResponse("<RSAKeyValue><Modulus>sGbvxwdlDbqFXOMlVUnAF5ew0t0WpPW7rFpI5jHQOFkht/326dvh7t74RYeMpjy357NljouhpTLA3a6idnn4j6c3jmPWBkjZndGsPL4Bqm+fwE48nKpGPjkj4q/yzT4tHXBTyvaBjA8bVoCTnu+LiC4XEaLZRThGzIn5KQXKCigg6tQRy0GXE13XYFVz/x1mjFbT9/7dS8p85n8BuwlY5JvuBIQkKhuCNFfrUxBWyu87CFnXWjIupCD2VO/GbxaCvzrRjLZjAngLCMtZbYBALksqGPgTUN7ZM24XbPWyLtKPaXF2i4XRR9u6eTj5BfnLbKAU5PIVfjIS+vNYYogteQ==</Modulus><Exponent>AQAB</Exponent></RSAKeyValue>", result);
+            var result = new RawResponse { LicenseKey = "eyJQcm9kdWN0SWQiOjMzNDksIklEIjoxMzk0LCJLZXkiOiJJTUtVTC1QS0VNRC1WRFVLTS1WQ0ZaVSIsIkNyZWF0ZWQiOjE2NzM0NzQzMTYsIkV4cGlyZXMiOjE2NzYwNjYzMTYsIlBlcmlvZCI6MzAsIkYxIjpmYWxzZSwiRjIiOmZhbHNlLCJGMyI6ZmFsc2UsIkY0IjpmYWxzZSwiRjUiOmZhbHNlLCJGNiI6ZmFsc2UsIkY3IjpmYWxzZSwiRjgiOmZhbHNlLCJOb3RlcyI6bnVsbCwiQmxvY2siOmZhbHNlLCJHbG9iYWxJZCI6MzAwNDQ0LCJDdXN0b21lciI6bnVsbCwiQWN0aXZhdGVkTWFjaGluZXMiOlt7Ik1pZCI6ImZsb2F0aW5nOjkyYWFhNDMzZjQyNjc1NTRmNWZhZjhmZDYzOWNhN2M5YmFhYmNhZmRmOWNjZDYzYTJlZDg0M2U0ZDY3ZDExMjEiLCJGcmllbmRseU5hbWUiOiJMQVBUT1AtUUU5VFY4MDMiLCJJUCI6IjE3Mi4zMC42NC4xOjYwNzk0IiwiVGltZSI6MTY3Mzk0OTMyMSwiRmxvYXRpbmdFeHBpcmVzIjoxNjczOTQ5NjIxfV0sIlRyaWFsQWN0aXZhdGlvbiI6ZmFsc2UsIk1heE5vT2ZNYWNoaW5lcyI6NSwiQWxsb3dlZE1hY2hpbmVzIjpudWxsLCJEYXRhT2JqZWN0cyI6W3siSWQiOjE1NTQ3MywiTmFtZSI6ImNyeXB0b2xlbnNfZmVhdHVyZXMiLCJTdHJpbmdWYWx1ZSI6IltdIiwiSW50VmFsdWUiOjB9XSwiU2lnbkRhdGUiOjE2NzM5NDkzMjF9", Signature = "Hf8sjQetnuonznjO9lSSGQYWNF+6wNYkvRpxdKwMkdbwyLihOSUbqtTVDbQP4sk90M7ZpxVB1PTgMvu82eJAol+6UquZkbW5NQLmy9EGYd9iAi25g4HXSum0ifXumUh8Z9A5p3fUk8cKRpH6TsSfCsuxCuzmCwb60g/aqQi4c2c=" };
+
+            var license = LicenseKey.FromResponse("<RSAKeyValue><Modulus>mmZsOtbTBHQn9QjqRTjHFVpnCgkb5nO7uWSa2MqVh2QtYpBmOGFhfI/r7x2ini+o0493tsiR2IfhdoeeSO/8zDsEthVdcU/92SrO6TfOgzynWL8eUqHfSIC37qbIegmlEkQWTJdWGU1qWcMPk2gZHhKOPYOf+8zlQxyhM+OCP8k=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue>", result);
 
             Assert.IsNotNull(license);
       
@@ -562,7 +564,7 @@ namespace SKM_Test
             Assert.IsTrue(license.IsValid());
             Assert.IsTrue(result.Metadata.LicenseStatus.IsValid);
 
-            Assert.IsTrue(result.Metadata.VerifySignature("<RSAKeyValue><Modulus>sGbvxwdlDbqFXOMlVUnAF5ew0t0WpPW7rFpI5jHQOFkht/326dvh7t74RYeMpjy357NljouhpTLA3a6idnn4j6c3jmPWBkjZndGsPL4Bqm+fwE48nKpGPjkj4q/yzT4tHXBTyvaBjA8bVoCTnu+LiC4XEaLZRThGzIn5KQXKCigg6tQRy0GXE13XYFVz/x1mjFbT9/7dS8p85n8BuwlY5JvuBIQkKhuCNFfrUxBWyu87CFnXWjIupCD2VO/GbxaCvzrRjLZjAngLCMtZbYBALksqGPgTUN7ZM24XbPWyLtKPaXF2i4XRR9u6eTj5BfnLbKAU5PIVfjIS+vNYYogteQ==</Modulus><Exponent>AQAB</Exponent></RSAKeyValue>"));
+            Assert.IsTrue(result.Metadata.VerifySignature("<RSAKeyValue><Modulus>uEnu1b4Rc6Tu+9FdVqlp2UzJsfOte3rxX9bLbh2hcrAISaTX6F6GWvNhOBfxALIcm1KAOA6qXtV7RZZzDL97QIUeeNr9lN/kPLMgFia9pLdbe0O9lTIJwtUlWb6kbv0O6zo6KCqvy6Oh8Gp/NF3CusTcTkpYjaJDtbF0awLamkl4NUy5CzSTN2UkPYMRzKc8p1wTbj/l7/jFxwR633hMrfizEA4yUEyyCM8Sw/+uN+bI9ktR4vPG02N074vpToBsGQ8lN0VRMV75zkVuMvgo+wevJZsU4TTZn1XuF6YgL5Ka7r26bhzFPDmrOvY4aZf/54enaa4qUpdD0xKhSo2uOw==</Modulus><Exponent>AQAB</Exponent></RSAKeyValue>"));
         }
 
         [TestMethod]

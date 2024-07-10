@@ -307,10 +307,12 @@ namespace SKM.V3
         {
             var remaining = Expires - DateTime.UtcNow;
 
+            int daysLeft = (int)Math.Ceiling(remaining.TotalSeconds / (3600 * 24));
+
             if (zeroIfExpired)
-                return remaining.Days < 0 ? 0 : remaining.Days;
+                return daysLeft < 0 ? 0 : daysLeft;
             else
-                return remaining.Days;
+                return daysLeft;
 
         }
 
