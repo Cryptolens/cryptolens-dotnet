@@ -152,6 +152,7 @@
     <Compile Include="TestSaveAndLoadFile.cs" />
     <Compile Include="TestHelperMethods.cs" />
     <Compile Include="TestHelpers.cs" />
+    <Compile Include="V3\TestUser.cs" />
     <Compile Include="V3\TestDataObject.cs" />
     <Compile Include="TestMachineCode.cs" />
     <Compile Include="TestSKMTimeMethods.cs" />

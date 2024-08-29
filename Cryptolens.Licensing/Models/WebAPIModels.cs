@@ -1365,5 +1365,71 @@ namespace SKM.V3.Models
         /// https://app.cryptolens.io/docs/api/v3/Versioning
         /// </summary>
         public int Version { get; set; }
+    } 
+    public class LoginUserModel : RequestModel    
+    {
+        public string UserName { get; set; }
+        public string Password { get; set; }
+    }
+
+    public class LoginUserResult : BasicResult
+    {
+        public List<LicenseKey> LicenseKeys { get; set; }
+    }
+    public class RegisterUserModel : RequestModel
+    {
+        public string UserName { get; set; }
+        public string Password { get; set; }
+        public int CustomerId { get; set; }
+        public string CustomerSecret { get; set; }
+        public string Email { get; set; }
+    }
+    public class AssociateUserModel : RequestModel
+    {
+        public string UserName { get; set; }
+        public int CustomerId { get; set; }
+
+    }
+    public class DissociateModel : RequestModel
+    {
+        public string UserName { get; set; }
+    }
+
+    public class GetUsersModel : RequestModel
+    {
+        public string UserName { get; set; }
+        public string Email { get; set; }
+        public int CustomerId { get; set; }
+    }
+    public class GetUsersResult : BasicResult
+    {
+        public List<UserObj> Users { get; set; }
+    }
+    public class UserObj
+    {
+        public string Username { get; set; }
+        public string Email { get; set; }
+        public DateTime Created { get; set; }
+        public int CustomerId { get; set; }
+    }
+    public class ChangePasswordModel : RequestModel
+    {
+        public string UserName { get; set; }
+        public string OldPassword { get; set; }
+        public string NewPassword { get; set; }
+        public string PasswordResetToken { get; set; }
+        public bool AdminMode { get; set; }
+    }
+    public class ResetPasswordModel : RequestModel
+    {
+        public string UserName { get; set; }
+    }
+    public class ResetPasswordResult : BasicResult
+    {
+        public string PasswordResetToken { get; set; }
+    }
+    public class RemoveUserModel : RequestModel
+    {
+        public string UserName { get; set; }
     }
 }
