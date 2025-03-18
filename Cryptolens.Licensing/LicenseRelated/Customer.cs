@@ -44,5 +44,53 @@ namespace SKM.V3
             return true;
 
         }
+
+
+    }
+
+    public class CustomerExtended : Customer
+    {
+        public bool EnableCustomerAssociation { get; set; }
+        public bool AllowActivationManagement { get; set; }
+        public string AssociationAuthCode { get; set; }
+        public int MaxNoOfDevices { get; set; }
+
+        public int Owner { get; set; }
+
+        public int ResellerId { get; set; }
+
+        public bool IsPublic { get; set; }
+
+        public string Secret { get; set; }
+
+        public string Notes { get; set; }
+
+
+        public override string ToString()
+        {
+            if (this != null)
+                return Name + "," + Email + "," + CompanyName + "," + Created.ToString(ConfigValues.DEFAULT_TIME_REPSENTATION, CultureInfo.InvariantCulture);
+            return base.ToString();
+        }
+
+        public override bool Equals(object obj)
+        {
+            if ((obj == null) || !this.GetType().Equals(obj.GetType()))
+            {
+                return false;
+            }
+
+            var customer = (Customer)obj;
+
+            if (customer.CompanyName != CompanyName ||
+                customer.Created != Created ||
+                customer.Email != Email ||
+                customer.Id != Id ||
+                customer.Name != Name)
+                return false;
+
+            return true;
+
+        }
     }
 }

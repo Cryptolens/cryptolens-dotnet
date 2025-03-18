@@ -201,3 +201,4 @@ FakesAssemblies/
 *.ide-shm
 *.ide-wal
 /.vs/SKM/v16/TestStore/0
+cryptolens.snk

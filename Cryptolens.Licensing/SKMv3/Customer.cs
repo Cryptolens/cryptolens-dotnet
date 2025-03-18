@@ -28,7 +28,7 @@ namespace SKM.V3.Methods
         /// <returns></returns>
         public static GetCustomersResult GetCustomers(string token, GetCustomersModel parameters)
         {
-            return HelperMethods.SendRequestToWebAPI3<GetCustomersResult>(parameters, "/customer/getcustomers/", token);
+            return HelperMethods.SendRequestToWebAPI3<GetCustomersResult>(parameters, "/customer/getcustomers/", token, modelVersion: 3);
         }
 
 

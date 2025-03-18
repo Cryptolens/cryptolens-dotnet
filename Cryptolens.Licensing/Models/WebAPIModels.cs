@@ -431,7 +431,7 @@ namespace SKM.V3.Models
     }
     public class GetCustomersResult : BasicResult
     {
-        public List<Customer> Customers { get; set; }
+        public List<CustomerExtended> Customers { get; set; }
     }
 
     public class AddCustomerModel : RequestModel

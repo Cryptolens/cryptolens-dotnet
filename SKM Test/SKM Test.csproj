@@ -8,7 +8,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SKM_Test</RootNamespace>
     <AssemblyName>SKM Test</AssemblyName>
-    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -131,13 +131,12 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="CodeSample.cs" />
     <Compile Include="AccessToken.Designer.cs">
       <DependentUpon>AccessToken.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
     </Compile>
+    <Compile Include="CodeSample.cs" />
     <Compile Include="Experimental\UnitTest1.cs" />
     <Compile Include="TestData.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -176,7 +175,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>AccessToken.Designer.cs</LastGenOutput>
       <CustomToolNamespace>AccessToken</CustomToolNamespace>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="TestData.resx">
       <Generator>ResXFileCodeGenerator</Generator>
