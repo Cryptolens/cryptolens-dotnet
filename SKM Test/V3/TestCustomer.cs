@@ -47,7 +47,7 @@ namespace SKM_Test
         public void GetCustomerLicensesBySecretTest()
         {
             var result = CustomerMethods.GetCustomerLicensesBySecret(AccessToken.AccessToken.GetCustomerLicensesBySecret,
-                new GetCustomerLicensesBySecretModel { Secret  = "0a03943f-0eac-4e23-b1e2-b7f3098db51f" });
+                new GetCustomerLicensesBySecretModel { Secret  = "DXQDR-CVMIV-USMUL-EIXGJ" });
 
             if (result.Result == ResultType.Error)
             {
