@@ -9,16 +9,9 @@
     },
       {
         "src": "*.csproj",
-        "dest": "temp/api/net40",
-        "properties": {
-            "TargetFramework": "net40"
-        }
-    },
-      {
-        "src": "*.csproj",
         "dest": "obj/api",
         "properties": {
-            "TargetFramework": "net46"
+            "TargetFramework": "net48"
         }
     }
   ],
