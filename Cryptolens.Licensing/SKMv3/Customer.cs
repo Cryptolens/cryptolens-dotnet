@@ -51,7 +51,7 @@ namespace SKM.V3.Methods
         /// <returns></returns>
         public static GetCustomerLicensesResult GetCustomerLicenses(string token, GetCustomerLicensesModel parameters)
         {
-            return HelperMethods.SendRequestToWebAPI3<GetCustomerLicensesResult>(parameters, "/customer/getcustomerlicenses/", token);
+            return HelperMethods.SendRequestToWebAPI3<GetCustomerLicensesResult>(parameters, "/customer/getcustomerlicenses/", token, modelVersion: 3);
         }
 
         /// <summary>
@@ -63,7 +63,7 @@ namespace SKM.V3.Methods
         /// <returns></returns>
         public static GetCustomerLicensesResult GetCustomerLicensesBySecret(string token, GetCustomerLicensesBySecretModel parameters)
         {
-            return HelperMethods.SendRequestToWebAPI3<GetCustomerLicensesResult>(parameters, "/customer/getcustomerlicensesbysecret/", token);
+            return HelperMethods.SendRequestToWebAPI3<GetCustomerLicensesResult>(parameters, "/customer/getcustomerlicensesbysecret/", token, modelVersion: 3);
         }
 
         /// <summary>

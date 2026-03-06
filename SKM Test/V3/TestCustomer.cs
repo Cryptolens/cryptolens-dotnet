@@ -70,6 +70,19 @@ namespace SKM_Test
         }
 
         [TestMethod]
+        public void GetCustomerLicesnesTest()
+        {
+            var result = CustomerMethods.GetCustomerLicenses(AccessToken.AccessToken.GetCustomerLicenses, new GetCustomerLicensesModel { CustomerId= 156428 });
+
+            if (result == null || result.Result == ResultType.Error)
+            {
+                Assert.Fail("API error");
+            }
+
+            //Assert.IsTrue(result.Customers.Count == 5);
+        }
+
+        [TestMethod]
         public void EditCustomerTest()
         {
             var res = CustomerMethods.EditCustomer(AccessToken.AccessToken.EditCustomer, new EditCustomerModel { CustomerId = 13910, Email="test@cryptolens.io", EnableCustomerAssociation=null });

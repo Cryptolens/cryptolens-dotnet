@@ -330,6 +330,7 @@ namespace SKM.V3.Models
         /// If true, License Key will be used. By default, Basic License Key will be used (where for instance data objects and activated devices are omitted.)
         /// Please read more here: https://app.cryptolens.io/docs/api/v3/GetCustomerLicenses
         /// </summary>
+        [Obsolete("No longer used since the underlying call requests ModelVersion=3.")]
         public bool Detailed { get; set; }
     }
 
@@ -345,6 +346,7 @@ namespace SKM.V3.Models
         /// If true, License Key will be used. By default, Basic License Key will be used (where for instance data objects and activated devices are omitted.)
         /// Please read more here: https://app.cryptolens.io/docs/api/v3/GetCustomerLicenses
         /// </summary>
+        [Obsolete("No longer used since the underlying call requests ModelVersion=3.")]
         public bool Detailed { get; set; }
     }
 
@@ -452,9 +454,24 @@ namespace SKM.V3.Models
         public string CompanyName { get; set; }
 
         /// <summary>
+        /// An optional notes field (at most 1000 chars)
+        /// </summary>
+        public string Notes { get; set; }
+
+        /// <summary>
         /// If set to true, a portal link will be returned where the customer will be able to view their licenses.
         /// </summary>
         public bool EnableCustomerAssociation { get; set; }
+
+        /// <summary>
+        /// If set to true, the customer activate and deactivate devices through the customer portal.
+        /// </summary>
+        public bool AllowActivationManagement { get; set; }
+
+        /// <summary>
+        /// If set to true, it will be possible to associate multiple user accounts with this customer.
+        /// </summary>
+        public bool AllowMultipleUserAssociation { get; set; }
     }
 
     public class AddCustomerResult : BasicResult
@@ -538,7 +555,7 @@ namespace SKM.V3.Models
 
 
     }
-    public class CreateKeyModel : RequestModel
+    public class CreateKeyModel : AddCustomerModel
     {
         public int ProductId { get; set; }
         public int Period { get; set; }
@@ -555,10 +572,14 @@ namespace SKM.V3.Models
         public bool Block { get; set; }
         public int CustomerId { get; set; } // maybe int instead?
         public bool TrialActivation { get; set; }
-        public bool AutomaticActivation { get; set; }
         public int MaxNoOfMachines { get; set; }
         public string AllowedMachines { get; set; }
+        public int NoOfKeys { get; set; }
+        public bool NewCustomer { get; set; }
+        public bool AddOrUseExistingCustomer { get; set; }
+        public int ResellerId { get; set; }
     }
+
     public class CreateKeyResult : BasicResult
     {
         public string Key { get; set; }
