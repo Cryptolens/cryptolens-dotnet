@@ -50,6 +50,7 @@ namespace SKGL
     /// </summary>
     /// <remarks>In Debug mode, the error is going to be displayed in the Output Window.
     /// </remarks>
+    [Obsolete]
     public static class SKM
     {
         #region TimeCheck

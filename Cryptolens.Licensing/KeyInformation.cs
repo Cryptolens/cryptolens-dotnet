@@ -9,7 +9,7 @@ namespace SKGL
     /// <summary>
     /// A class that stores information about a key. Note, if the Valid=false, no more information (creation date, etc) will be stored in the Key Information object.
     /// </summary>
-    [Serializable]
+    [Serializable, Obsolete]
     public class KeyInformation
     {
         /// <summary>

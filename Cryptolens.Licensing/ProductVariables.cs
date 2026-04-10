@@ -8,6 +8,7 @@ namespace SKGL
     /// <summary>
     /// A class that stores product variables that are need to perform key validation/activation/generation through the API.
     /// </summary>
+    [Obsolete]
     public class ProductVariables
     {
         /// <summary>
