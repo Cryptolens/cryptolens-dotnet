@@ -64,6 +64,164 @@ namespace SKM.V3.Models
         public List<WebAPILog> Logs { get; set; }
     }
 
+    public class GetUsageAnalyticsModel : RequestModel
+    {
+        public int Limit { get; set; }
+        public long StartingAfter { get; set; }
+        public long EndingBefore { get; set; }
+        public int ProductId { get; set; }
+        public long KeyId { get; set; }
+        public string Key { get; set; }
+        public string MachineCode { get; set; }
+        public string CountryCode { get; set; }
+        public string Start { get; set; }
+        public string End { get; set; }
+    }
+
+    public class GetDailyAggregatesResult : BasicResult
+    {
+        public List<DailyAggregate> Aggregates { get; set; }
+    }
+
+    public class GetDailyCountryAggregatesResult : BasicResult
+    {
+        public List<DailyCountryAggregate> Aggregates { get; set; }
+    }
+
+    public class GetKeyUsageSummariesResult : BasicResult
+    {
+        public List<KeyUsageSummary> Summaries { get; set; }
+    }
+
+    public class GetKeyDevicesResult : BasicResult
+    {
+        public List<KeyDevice> Devices { get; set; }
+    }
+
+    public class GetLicenseActivityBucketsResult : BasicResult
+    {
+        public List<LicenseActivityBucket> Buckets { get; set; }
+    }
+
+    public class DailyAggregate
+    {
+        public long Id { get; set; }
+        public int ProductId { get; set; }
+        public string Date { get; set; }
+        public long TotalRequestsLogged { get; set; }
+        public long Successful { get; set; }
+        public long Failed { get; set; }
+        public long ActiveDevices { get; set; }
+        public long ActiveKeys { get; set; }
+        public long ActiveCustomers { get; set; }
+        public long ActivationSuccess { get; set; }
+        public long ActivationFailed { get; set; }
+        public long KeyGenSuccess { get; set; }
+        public long KeyGenFailed { get; set; }
+        public long DeactivationSuccess { get; set; }
+        public long DeactivationFailed { get; set; }
+        public long LicenseOpsSuccess { get; set; }
+        public long LicenseOpsFailed { get; set; }
+        public long DataObjectSuccess { get; set; }
+        public long DataObjectFailed { get; set; }
+        public long TrialKeyGenerated { get; set; }
+        public long TrialKeyReused { get; set; }
+        public long TrialKeyCreateError { get; set; }
+        public long ActivationAlreadyActivated { get; set; }
+        public long ActivationNewMachine { get; set; }
+        public long ActivationTrial { get; set; }
+        public long ActivationFloating { get; set; }
+        public long ActivationOverdraftFloating { get; set; }
+        public long ActivationDeviceLimitNode { get; set; }
+        public long ActivationDeviceLimitFloat { get; set; }
+        public long DeactivationNormal { get; set; }
+        public long DeactivationFloatingRelease { get; set; }
+        public long AddFeature { get; set; }
+        public long RemoveFeature { get; set; }
+        public long BlockKey { get; set; }
+        public long UnblockKey { get; set; }
+        public long ExtendLicense { get; set; }
+        public long SetMachineLockLimit { get; set; }
+        public long ChangeNotes { get; set; }
+        public long TrialActivationSuccess { get; set; }
+        public long ChangeCustomer { get; set; }
+        public long DataObjectAdd { get; set; }
+        public long DataObjectRemove { get; set; }
+        public long DataObjectList { get; set; }
+        public long DataObjectIncrementInt { get; set; }
+        public long DataObjectDecrementInt { get; set; }
+        public long DataObjectSetInt { get; set; }
+        public long DataObjectSetString { get; set; }
+    }
+
+    public class DailyCountryAggregate
+    {
+        public long Id { get; set; }
+        public int ProductId { get; set; }
+        public string Date { get; set; }
+        public string CountryCode { get; set; }
+        public long TotalRequests { get; set; }
+        public long Successful { get; set; }
+        public long Failed { get; set; }
+    }
+
+    public class KeyUsageSummary
+    {
+        public long Id { get; set; }
+        public int ProductId { get; set; }
+        public long KeyId { get; set; }
+        public string Key { get; set; }
+        public long TotalRequests { get; set; }
+        public long TotalSuccessful { get; set; }
+        public long TotalFailed { get; set; }
+        public long FirstSeenUtc { get; set; }
+        public long LastSeenUtc { get; set; }
+        public long ActivationSuccess { get; set; }
+        public long ActivationFailed { get; set; }
+        public long DeactivationSuccess { get; set; }
+        public long DeactivationFloating { get; set; }
+        public long ActivationNewMachine { get; set; }
+        public long ActivationTrial { get; set; }
+        public long ActivationFloating { get; set; }
+        public long ActivationDeviceLimit { get; set; }
+        public long TrialKeyGenerated { get; set; }
+        public long TrialKeyReused { get; set; }
+        public long TrialKeyCreateError { get; set; }
+        public long DataObjectOps { get; set; }
+        public long DataObjectIncrementInt { get; set; }
+        public long DataObjectDecrementInt { get; set; }
+        public long DataObjectSetInt { get; set; }
+        public long DataObjectSetString { get; set; }
+    }
+
+    public class KeyDevice
+    {
+        public long Id { get; set; }
+        public int ProductId { get; set; }
+        public long KeyId { get; set; }
+        public string Key { get; set; }
+        public string MachineCode { get; set; }
+        public long FirstSeenUtc { get; set; }
+        public long LastSeenUtc { get; set; }
+        public long TotalRequests { get; set; }
+    }
+
+    public class LicenseActivityBucket
+    {
+        public long Id { get; set; }
+        public int ProductId { get; set; }
+        public long KeyId { get; set; }
+        public string Key { get; set; }
+        public string MachineCode { get; set; }
+        public long BucketStartUtc { get; set; }
+        public long RefreshCount { get; set; }
+        public long DeactivationCount { get; set; }
+        public long FirstEventUtc { get; set; }
+        public long LastEventUtc { get; set; }
+        public short LastEventState { get; set; }
+        public int? GapFromPreviousEventSeconds { get; set; }
+    }
+
     public class WebAPILog
     {
         public long Id { get; set; }

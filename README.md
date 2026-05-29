@@ -38,6 +38,39 @@ dotnet add package Cryptolens.Licensing.CrossPlatform
 * [Key verification](https://help.cryptolens.io/examples/key-verification)
 * [Offline verification](https://help.cryptolens.io/examples/offline-verification)
 
+### Usage analytics
+
+The `SKM.V3.Methods.AI` class can retrieve Usage Analytics aggregate rows when the access token has Usage Analytics permission.
+
+```cs
+using SKM.V3.Methods;
+using SKM.V3.Models;
+
+var result = AI.GetDailyAggregates(
+    "ACCESS_TOKEN_WITH_USAGE_ANALYTICS_PERMISSION",
+    new GetUsageAnalyticsModel
+    {
+        ProductId = 1234,
+        Start = "2026-05-01",
+        End = "2026-05-31",
+        Limit = 100
+    });
+
+if (result == null || result.Result == ResultType.Error)
+{
+    Console.WriteLine(result == null ? "Could not contact the server." : result.Message);
+}
+else
+{
+    foreach (var aggregate in result.Aggregates)
+    {
+        Console.WriteLine("{0}: {1}", aggregate.Date, aggregate.TotalRequestsLogged);
+    }
+}
+```
+
+Available Usage Analytics methods are `GetDailyAggregates`, `GetDailyCountryAggregates`, `GetKeyUsageSummaries`, `GetKeyDevices`, and `GetLicenseActivityBuckets`.
+
 ### Recommended articles
 
 * [Unity 3D / Mono](https://help.cryptolens.io/getting-started/unity)
