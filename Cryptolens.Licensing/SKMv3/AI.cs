@@ -77,6 +77,76 @@ namespace SKM.V3.Methods
             return HelperMethods.SendRequestToWebAPI3<GetWebAPILogResult>(parameters, "/ai/getwebapilog/", token);
         }
 
+        /// <summary>
+        /// Retrieves daily Usage Analytics totals for the products and filters available to the access token.
+        /// </summary>
+        /// <param name="token">The access token. It must have Usage Analytics permission.</param>
+        /// <param name="parameters">The filters and paging parameters for the request.</param>
+        /// <remarks>Note: for more details, please see
+        /// <a href="https://app.cryptolens.io/docs/api/v3/GetDailyAggregates">https://app.cryptolens.io/docs/api/v3/GetDailyAggregates</a> <br/>
+        /// </remarks>
+        /// <returns>Returns <see cref="GetDailyAggregatesResult"/> or null.</returns>
+        public static GetDailyAggregatesResult GetDailyAggregates(string token, GetUsageAnalyticsModel parameters)
+        {
+            return HelperMethods.SendRequestToWebAPI3<GetDailyAggregatesResult>(parameters, "/ai/getdailyaggregates/", token);
+        }
+
+        /// <summary>
+        /// Retrieves daily Usage Analytics totals grouped by country for the products and filters available to the access token.
+        /// </summary>
+        /// <param name="token">The access token. It must have Usage Analytics permission.</param>
+        /// <param name="parameters">The filters and paging parameters for the request.</param>
+        /// <remarks>Note: for more details, please see
+        /// <a href="https://app.cryptolens.io/docs/api/v3/GetDailyCountryAggregates">https://app.cryptolens.io/docs/api/v3/GetDailyCountryAggregates</a> <br/>
+        /// </remarks>
+        /// <returns>Returns <see cref="GetDailyCountryAggregatesResult"/> or null.</returns>
+        public static GetDailyCountryAggregatesResult GetDailyCountryAggregates(string token, GetUsageAnalyticsModel parameters)
+        {
+            return HelperMethods.SendRequestToWebAPI3<GetDailyCountryAggregatesResult>(parameters, "/ai/getdailycountryaggregates/", token);
+        }
+
+        /// <summary>
+        /// Retrieves Usage Analytics summaries for license keys available to the access token.
+        /// </summary>
+        /// <param name="token">The access token. It must have Usage Analytics permission.</param>
+        /// <param name="parameters">The filters and paging parameters for the request.</param>
+        /// <remarks>Note: for more details, please see
+        /// <a href="https://app.cryptolens.io/docs/api/v3/GetKeyUsageSummaries">https://app.cryptolens.io/docs/api/v3/GetKeyUsageSummaries</a> <br/>
+        /// </remarks>
+        /// <returns>Returns <see cref="GetKeyUsageSummariesResult"/> or null.</returns>
+        public static GetKeyUsageSummariesResult GetKeyUsageSummaries(string token, GetUsageAnalyticsModel parameters)
+        {
+            return HelperMethods.SendRequestToWebAPI3<GetKeyUsageSummariesResult>(parameters, "/ai/getkeyusagesummaries/", token);
+        }
+
+        /// <summary>
+        /// Retrieves Usage Analytics device rows for license keys available to the access token.
+        /// </summary>
+        /// <param name="token">The access token. It must have Usage Analytics permission.</param>
+        /// <param name="parameters">The filters and paging parameters for the request.</param>
+        /// <remarks>Note: for more details, please see
+        /// <a href="https://app.cryptolens.io/docs/api/v3/GetKeyDevices">https://app.cryptolens.io/docs/api/v3/GetKeyDevices</a> <br/>
+        /// </remarks>
+        /// <returns>Returns <see cref="GetKeyDevicesResult"/> or null.</returns>
+        public static GetKeyDevicesResult GetKeyDevices(string token, GetUsageAnalyticsModel parameters)
+        {
+            return HelperMethods.SendRequestToWebAPI3<GetKeyDevicesResult>(parameters, "/ai/getkeydevices/", token);
+        }
+
+        /// <summary>
+        /// Retrieves Usage Analytics license activity buckets for license keys available to the access token.
+        /// </summary>
+        /// <param name="token">The access token. It must have Usage Analytics permission.</param>
+        /// <param name="parameters">The filters and paging parameters for the request.</param>
+        /// <remarks>Note: for more details, please see
+        /// <a href="https://app.cryptolens.io/docs/api/v3/GetLicenseActivityBuckets">https://app.cryptolens.io/docs/api/v3/GetLicenseActivityBuckets</a> <br/>
+        /// </remarks>
+        /// <returns>Returns <see cref="GetLicenseActivityBucketsResult"/> or null.</returns>
+        public static GetLicenseActivityBucketsResult GetLicenseActivityBuckets(string token, GetUsageAnalyticsModel parameters)
+        {
+            return HelperMethods.SendRequestToWebAPI3<GetLicenseActivityBucketsResult>(parameters, "/ai/getlicenseactivitybuckets/", token);
+        }
+
 
         /// <summary>
         /// This method will retrieve a list of Web API Logs. All events that get logged are related
