@@ -3,6 +3,7 @@
 using SKM.V3.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
@@ -562,26 +563,22 @@ namespace SKM.V3.Methods
                 {
                     if (v == 2)
                     {
-                        var machineCodeSeed = ExecCommand("cmd.exe", "/c powershell.exe -Command \"(Get-CimInstance -Class Win32_ComputerSystemProduct).UUID\"", out error, v);
-             
-                        if (string.IsNullOrEmpty(machineCodeSeed) || !string.IsNullOrEmpty(error))
-                        {
-                            // Assuming Helpers.ReadRegistryValue is a method to read registry values
-                            string machineGUID = ReadRegistryValue(
-                              "HKEY_LOCAL_MACHINE", // Hive as string
-                              @"SOFTWARE\Microsoft\Cryptography",
-                              "MachineGuid");
-
-                            if (!string.IsNullOrEmpty(machineGUID))
+                        return GetWindowsMachineCodeV2(
+                            () =>
                             {
-                                return SKGL.SKM.getSHA256(machineGUID, v);
-                            }
+                                string commandError;
+                                var machineCodeSeed = ExecCommand(
+                                    "cmd.exe",
+                                    "/c powershell.exe -Command \"(Get-CimInstance -Class Win32_ComputerSystemProduct).UUID\"",
+                                    out commandError,
+                                    v);
 
-                            return null;
-                        }
-
-
-                        return SKGL.SKM.getSHA256(machineCodeSeed, v);
+                                return string.IsNullOrEmpty(commandError) ? machineCodeSeed : null;
+                            },
+                            () => ReadRegistryValue(
+                                "HKEY_LOCAL_MACHINE",
+                                @"SOFTWARE\Microsoft\Cryptography",
+                                "MachineGuid"));
                     }
                     else if (v==10)
                     {
@@ -626,6 +623,36 @@ namespace SKM.V3.Methods
             }
         }
 
+        internal static string GetWindowsMachineCodeV2(Func<string> getUuid, Func<string> getMachineGuid)
+        {
+            string machineCodeSeed = null;
+
+            try
+            {
+                machineCodeSeed = getUuid();
+            }
+            catch (Win32Exception)
+            {
+                // Process creation can be denied by AppLocker or Software Restriction Policies.
+            }
+            catch (SecurityException)
+            {
+                // Treat permission failures as an unavailable UUID source.
+            }
+
+            if (!string.IsNullOrEmpty(machineCodeSeed))
+            {
+                return SKGL.SKM.getSHA256(machineCodeSeed, 2);
+            }
+
+            var machineGuid = getMachineGuid();
+            if (!string.IsNullOrEmpty(machineGuid))
+            {
+                return SKGL.SKM.getSHA256(machineGuid, 2);
+            }
+
+            return null;
+        }
         private static string ReadRegistryValue(string hive, string subKey, string valueName)
         {
             Microsoft.Win32.RegistryKey baseKey = null;
