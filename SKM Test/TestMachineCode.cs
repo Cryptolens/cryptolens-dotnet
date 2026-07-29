@@ -1,4 +1,6 @@
 ﻿using System;
+using System.ComponentModel;
+using System.Security;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using SKM.V3.Methods;
@@ -35,10 +37,67 @@ namespace SKM_Test
         }
 
         [TestMethod]
-        public void MyTestMethod2()
+        public void GetWindowsMachineCodeV2UsesMachineGuidWhenUuidProcessStartIsDenied()
         {
-            var a = Helpers.GetMachineCodePI(v: 2);
+            const string machineGuid = "test-machine-guid";
 
+            var actual = Helpers.GetWindowsMachineCodeV2(
+                () => { throw new Win32Exception(); },
+                () => machineGuid);
+
+            Assert.AreEqual(SKM.getSHA256(machineGuid, 2), actual);
+        }
+
+        [TestMethod]
+        public void GetWindowsMachineCodeV2UsesMachineGuidWhenUuidAccessIsDenied()
+        {
+            const string machineGuid = "test-machine-guid";
+
+            var actual = Helpers.GetWindowsMachineCodeV2(
+                () => { throw new SecurityException(); },
+                () => machineGuid);
+
+            Assert.AreEqual(SKM.getSHA256(machineGuid, 2), actual);
+        }
+
+        [TestMethod]
+        public void GetWindowsMachineCodeV2UsesMachineGuidWhenUuidIsEmpty()
+        {
+            const string machineGuid = "test-machine-guid";
+
+            var actual = Helpers.GetWindowsMachineCodeV2(
+                () => string.Empty,
+                () => machineGuid);
+
+            Assert.AreEqual(SKM.getSHA256(machineGuid, 2), actual);
+        }
+
+        [TestMethod]
+        public void GetWindowsMachineCodeV2ReturnsNullWhenBothSourcesAreUnavailable()
+        {
+            var actual = Helpers.GetWindowsMachineCodeV2(
+                () => { throw new Win32Exception(); },
+                () => null);
+
+            Assert.IsNull(actual);
+        }
+
+        [TestMethod]
+        public void GetWindowsMachineCodeV2UsesUuidWithoutReadingMachineGuid()
+        {
+            const string uuid = "test-uuid";
+            var machineGuidWasRead = false;
+
+            var actual = Helpers.GetWindowsMachineCodeV2(
+                () => uuid,
+                () =>
+                {
+                    machineGuidWasRead = true;
+                    return "test-machine-guid";
+                });
+
+            Assert.AreEqual(SKM.getSHA256(uuid, 2), actual);
+            Assert.IsFalse(machineGuidWasRead);
         }
     }
 }

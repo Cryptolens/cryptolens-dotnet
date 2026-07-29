@@ -21,7 +21,7 @@ This library is aimed at users who plan to target environments other than Window
     <RepositoryUrl>https://github.com/Cryptolens/cryptolens-dotnet/</RepositoryUrl>
     <SignAssembly>true</SignAssembly>
     <DelaySign>false</DelaySign>
-	  <AssemblyOriginatorKeyFile>cryptolens.snk</AssemblyOriginatorKeyFile>
+	  <AssemblyOriginatorKeyFile>..\cryptolens.snk</AssemblyOriginatorKeyFile>
 
 	  <PackageTags>licensing system, SKGL, serial key management, http://app.cryptolens.io/ , skgl extension, SKM Client API, cryptolens</PackageTags>
     <PackageReleaseNotes>Release notes available at https://help.cryptolens.io/api/dotnet/articles/v4036.html</PackageReleaseNotes>
