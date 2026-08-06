@@ -51,7 +51,7 @@ namespace SKM.V3.Methods
         /// <param name="parameters">The parameters that the method needs</param>
         /// <remarks>Note: for more details, please see 
         /// <a href="https://app.cryptolens.io/docs/api/v3/AddDataObject">https://app.cryptolens.io/docs/api/v3/AddDataObject</a> </remarks>
-        /// <returns>Returns <see cref="DataObjectIdResult"/> or null.</returns>
+        /// <returns>Returns <see cref="DataObjectIdResult"/>. Handled client failures are returned with <see cref="ResultType.Error"/>.</returns>
         public static DataObjectIdResult AddDataObject(string token, AddDataObjectModel parameters)
         {
             return HelperMethods.SendRequestToWebAPI3<DataObjectIdResult>(parameters, "/data/adddataobject/", token);
@@ -64,7 +64,7 @@ namespace SKM.V3.Methods
         /// <param name="parameters">The parameters that the method needs</param>
         /// <remarks>Note: for more details, please see 
         /// <a href="https://app.cryptolens.io/docs/api/v3/AddDataObject">https://app.cryptolens.io/docs/api/v3/AddDataObject</a> </remarks>
-        /// <returns>Returns <see cref="DataObjectIdResult"/> or null.</returns>
+        /// <returns>Returns <see cref="DataObjectIdResult"/>. Handled client failures are returned with <see cref="ResultType.Error"/>.</returns>
         public static DataObjectIdResult AddDataObject(string token, AddDataObjectToKeyModel parameters)
         {
             return HelperMethods.SendRequestToWebAPI3<DataObjectIdResult>(parameters, "/data/adddataobjecttokey/", token);
@@ -77,7 +77,7 @@ namespace SKM.V3.Methods
         /// <param name="parameters">The parameters that the method needs</param>
         /// <remarks>Note: for more details, please see 
         /// <a href="https://app.cryptolens.io/docs/api/v3/AddDataObject">https://app.cryptolens.io/docs/api/v3/AddDataObject</a> </remarks>
-        /// <returns>Returns <see cref="DataObjectIdResult"/> or null.</returns>
+        /// <returns>Returns <see cref="DataObjectIdResult"/>. Handled client failures are returned with <see cref="ResultType.Error"/>.</returns>
         public static DataObjectIdResult AddDataObject(string token, AddDataObjectToMachineCodeModel parameters)
         {
             return HelperMethods.SendRequestToWebAPI3<DataObjectIdResult>(parameters, "/data/AddDataObjectToMachineCode/", token);
@@ -92,12 +92,21 @@ namespace SKM.V3.Methods
         /// <param name="parameters">The parameters that the method needs</param>
         /// <remarks>Note: for more details, please see 
         /// <a href="https://app.cryptolens.io/docs/api/v3/ListDataObjects">https://app.cryptolens.io/docs/api/v3/ListDataObjects</a> </remarks>
-        /// <returns>Returns <see cref="ListOfDataObjectsResult"/> or null.</returns>
+        /// <returns>Returns <see cref="ListOfDataObjectsResult"/>. Handled client failures are returned with <see cref="ResultType.Error"/>.</returns>
         public static ListOfDataObjectsResult ListDataObjects(string token, ListDataObjectsModel parameters)
         {
             if (parameters.ShowAll)
             {
                 var result = HelperMethods.SendRequestToWebAPI3<ListOfDataObjectsResultWithReferencer>(parameters, "/data/listdataobjects/", token);
+                if (result.Result == ResultType.Error)
+                {
+                    return new ListOfDataObjectsResult
+                    {
+                        Message = result.Message,
+                        Result = result.Result
+                    };
+                }
+
                 return new ListOfDataObjectsResult
                 {
                     Message = result.Message,
@@ -117,7 +126,7 @@ namespace SKM.V3.Methods
         /// <param name="parameters">The parameters that the method needs</param>
         /// <remarks>Note: for more details, please see 
         /// <a href="https://app.cryptolens.io/docs/api/v3/ListDataObjects">https://app.cryptolens.io/docs/api/v3/ListDataObjects</a> </remarks>
-        /// <returns>Returns <see cref="ListOfDataObjectsResult"/> or null.</returns>
+        /// <returns>Returns <see cref="ListOfDataObjectsResult"/>. Handled client failures are returned with <see cref="ResultType.Error"/>.</returns>
         public static ListOfDataObjectsResult ListDataObjects(string token, ListDataObjectsToKeyModel parameters)
         {
             return HelperMethods.SendRequestToWebAPI3<ListOfDataObjectsResult>(parameters, "/data/listdataobjectstokey/", token);
@@ -130,7 +139,7 @@ namespace SKM.V3.Methods
         /// <param name="parameters">The parameters that the method needs</param>
         /// <remarks>Note: for more details, please see 
         /// <a href="https://app.cryptolens.io/docs/api/v3/ListDataObjects">https://app.cryptolens.io/docs/api/v3/ListDataObjects</a> </remarks>
-        /// <returns>Returns <see cref="ListOfDataObjectsResult"/> or null.</returns>
+        /// <returns>Returns <see cref="ListOfDataObjectsResult"/>. Handled client failures are returned with <see cref="ResultType.Error"/>.</returns>
         public static ListOfDataObjectsResult ListDataObjects(string token, ListDataObjectsToMachineCodeModel parameters)
         {
             return HelperMethods.SendRequestToWebAPI3<ListOfDataObjectsResult>(parameters, "/data/listdataobjectstomachinecode/", token);
@@ -145,7 +154,7 @@ namespace SKM.V3.Methods
         /// <remarks>Note: for more details, please see 
         /// <a href="https://app.cryptolens.io/docs/api/v3/SetIntValue">https://app.cryptolens.io/docs/api/v3/SetIntValue</a> <br/>
         /// Note also: Integer overflows are not allowed. If you attempt to assign an int value that is beyond the limits of an int32, zero will be assigned to the data object's IntValue.</remarks>
-        /// <returns>Returns <see cref="ListOfDataObjectsResult"/> or null.</returns>
+        /// <returns>Returns <see cref="ListOfDataObjectsResult"/>. Handled client failures are returned with <see cref="ResultType.Error"/>.</returns>
         public static BasicResult SetIntValue(string token, ChangeIntValueModel parameters)
         {
             return HelperMethods.SendRequestToWebAPI3<BasicResult>(parameters, "/data/setintvalue/", token);
@@ -159,7 +168,7 @@ namespace SKM.V3.Methods
         /// <remarks>Note: for more details, please see 
         /// <a href="https://app.cryptolens.io/docs/api/v3/SetIntValue">https://app.cryptolens.io/docs/api/v3/SetIntValue</a> <br/>
         /// Note also: Integer overflows are not allowed. If you attempt to assign an int value that is beyond the limits of an int32, zero will be assigned to the data object's IntValue.</remarks>
-        /// <returns>Returns <see cref="ListOfDataObjectsResult"/> or null.</returns>
+        /// <returns>Returns <see cref="ListOfDataObjectsResult"/>. Handled client failures are returned with <see cref="ResultType.Error"/>.</returns>
         public static BasicResult SetIntValue(string token, ChangeIntValueToKeyModel parameters)
         {
             return HelperMethods.SendRequestToWebAPI3<BasicResult>(parameters, "/data/setintvaluetokey/", token);
@@ -173,7 +182,7 @@ namespace SKM.V3.Methods
         /// <remarks>Note: for more details, please see 
         /// <a href="https://app.cryptolens.io/docs/api/v3/SetIntValue">https://app.cryptolens.io/docs/api/v3/SetIntValue</a> <br/>
         /// Note also: Integer overflows are not allowed. If you attempt to assign an int value that is beyond the limits of an int32, zero will be assigned to the data object's IntValue.</remarks>
-        /// <returns>Returns <see cref="ListOfDataObjectsResult"/> or null.</returns>
+        /// <returns>Returns <see cref="ListOfDataObjectsResult"/>. Handled client failures are returned with <see cref="ResultType.Error"/>.</returns>
         public static BasicResult SetIntValue(string token, ChangeIntValueToMachineCodeModel parameters)
         {
             return HelperMethods.SendRequestToWebAPI3<BasicResult>(parameters, "/data/setintvaluetomachinecode/", token);
@@ -187,7 +196,7 @@ namespace SKM.V3.Methods
         /// <remarks>Note: for more details, please see 
         /// <a href="https://app.cryptolens.io/docs/api/v3/SetStringValue">https://app.cryptolens.io/docs/api/v3/SetStringValue</a> <br/>
         /// </remarks>
-        /// <returns>Returns <see cref="ListOfDataObjectsResult"/> or null.</returns>
+        /// <returns>Returns <see cref="ListOfDataObjectsResult"/>. Handled client failures are returned with <see cref="ResultType.Error"/>.</returns>
         public static BasicResult SetStringValue(string token, ChangeStringValueModel parameters)
         {
             return HelperMethods.SendRequestToWebAPI3<BasicResult>(parameters, "/data/setstringvalue/", token);
@@ -201,7 +210,7 @@ namespace SKM.V3.Methods
         /// <remarks>Note: for more details, please see 
         /// <a href="https://app.cryptolens.io/docs/api/v3/SetStringValue">https://app.cryptolens.io/docs/api/v3/SetStringValue</a> <br/>
         /// </remarks>
-        /// <returns>Returns <see cref="ListOfDataObjectsResult"/> or null.</returns>
+        /// <returns>Returns <see cref="ListOfDataObjectsResult"/>. Handled client failures are returned with <see cref="ResultType.Error"/>.</returns>
         public static BasicResult SetStringValue(string token, ChangeStringValueToKeyModel parameters)
         {
             return HelperMethods.SendRequestToWebAPI3<BasicResult>(parameters, "/data/setstringvaluetokey/", token);
@@ -215,7 +224,7 @@ namespace SKM.V3.Methods
         /// <remarks>Note: for more details, please see 
         /// <a href="https://app.cryptolens.io/docs/api/v3/SetStringValue">https://app.cryptolens.io/docs/api/v3/SetStringValue</a> <br/>
         /// </remarks>
-        /// <returns>Returns <see cref="ListOfDataObjectsResult"/> or null.</returns>
+        /// <returns>Returns <see cref="ListOfDataObjectsResult"/>. Handled client failures are returned with <see cref="ResultType.Error"/>.</returns>
         public static BasicResult SetStringValue(string token, ChangeStringValueToMachineCodeModel parameters)
         {
             return HelperMethods.SendRequestToWebAPI3<BasicResult>(parameters, "/data/setstringvaluetomachinecode/", token);
@@ -230,7 +239,7 @@ namespace SKM.V3.Methods
         /// <remarks>Note: for more details, please see 
         /// <a href="https://app.cryptolens.io/docs/api/v3/IncrementIntValue">https://app.cryptolens.io/docs/api/v3/IncrementIntValue</a> <br/>
         /// </remarks>
-        /// <returns>Returns <see cref="ListOfDataObjectsResult"/> or null.</returns>
+        /// <returns>Returns <see cref="ListOfDataObjectsResult"/>. Handled client failures are returned with <see cref="ResultType.Error"/>.</returns>
         public static BasicResult IncrementIntValue(string token, ChangeIntValueModel parameters)
         {
             return HelperMethods.SendRequestToWebAPI3<BasicResult>(parameters, "/data/incrementintvalue/", token);
@@ -246,7 +255,7 @@ namespace SKM.V3.Methods
         /// <remarks>Note: for more details, please see 
         /// <a href="https://app.cryptolens.io/docs/api/v3/IncrementIntValue">https://app.cryptolens.io/docs/api/v3/IncrementIntValue</a> <br/>
         /// </remarks>
-        /// <returns>Returns <see cref="ListOfDataObjectsResult"/> or null.</returns>
+        /// <returns>Returns <see cref="ListOfDataObjectsResult"/>. Handled client failures are returned with <see cref="ResultType.Error"/>.</returns>
         public static BasicResult IncrementIntValue(string token, ChangeIntValueToKeyModel parameters)
         {
             return HelperMethods.SendRequestToWebAPI3<BasicResult>(parameters, "/data/incrementintvaluetokey/", token);
@@ -261,7 +270,7 @@ namespace SKM.V3.Methods
         /// <remarks>Note: for more details, please see 
         /// <a href="https://app.cryptolens.io/docs/api/v3/IncrementIntValue">https://app.cryptolens.io/docs/api/v3/IncrementIntValue</a> <br/>
         /// </remarks>
-        /// <returns>Returns <see cref="ListOfDataObjectsResult"/> or null.</returns>
+        /// <returns>Returns <see cref="ListOfDataObjectsResult"/>. Handled client failures are returned with <see cref="ResultType.Error"/>.</returns>
         public static BasicResult IncrementIntValue(string token, ChangeIntValueToMachineCodeModel parameters)
         {
             return HelperMethods.SendRequestToWebAPI3<BasicResult>(parameters, "/data/incrementintvaluetomachinecode/", token);
@@ -276,7 +285,7 @@ namespace SKM.V3.Methods
         /// <remarks>Note: for more details, please see 
         /// <a href="https://app.cryptolens.io/docs/api/v3/DecrementIntValue">https://app.cryptolens.io/docs/api/v3/DecrementIntValue</a> <br/>
         /// </remarks>
-        /// <returns>Returns <see cref="ListOfDataObjectsResult"/> or null.</returns>
+        /// <returns>Returns <see cref="ListOfDataObjectsResult"/>. Handled client failures are returned with <see cref="ResultType.Error"/>.</returns>
         public static BasicResult DecrementIntValue(string token, ChangeIntValueModel parameters)
         {
             return HelperMethods.SendRequestToWebAPI3<BasicResult>(parameters, "/data/decrementintvalue/", token);
@@ -292,7 +301,7 @@ namespace SKM.V3.Methods
         /// <remarks>Note: for more details, please see 
         /// <a href="https://app.cryptolens.io/docs/api/v3/DecrementIntValue">https://app.cryptolens.io/docs/api/v3/DecrementIntValue</a> <br/>
         /// </remarks>
-        /// <returns>Returns <see cref="ListOfDataObjectsResult"/> or null.</returns>
+        /// <returns>Returns <see cref="ListOfDataObjectsResult"/>. Handled client failures are returned with <see cref="ResultType.Error"/>.</returns>
         public static BasicResult DecrementIntValue(string token, ChangeIntValueToKeyModel parameters)
         {
             return HelperMethods.SendRequestToWebAPI3<BasicResult>(parameters, "/data/decrementintvaluetokey/", token);
@@ -307,7 +316,7 @@ namespace SKM.V3.Methods
         /// <remarks>Note: for more details, please see 
         /// <a href="https://app.cryptolens.io/docs/api/v3/DecrementIntValue">https://app.cryptolens.io/docs/api/v3/DecrementIntValue</a> <br/>
         /// </remarks>
-        /// <returns>Returns <see cref="ListOfDataObjectsResult"/> or null.</returns>
+        /// <returns>Returns <see cref="ListOfDataObjectsResult"/>. Handled client failures are returned with <see cref="ResultType.Error"/>.</returns>
         public static BasicResult DecrementIntValue(string token, ChangeIntValueToMachineCodeModel parameters)
         {
             return HelperMethods.SendRequestToWebAPI3<BasicResult>(parameters, "/data/decrementintvaluetomachinecode/", token);
@@ -321,7 +330,7 @@ namespace SKM.V3.Methods
         /// <remarks>Note: for more details, please see 
         /// <a href="https://app.cryptolens.io/docs/api/v3/RemoveDataObject">https://app.cryptolens.io/docs/api/v3/RemoveDataObject</a> <br/>
         /// </remarks>
-        /// <returns>Returns <see cref="ListOfDataObjectsResult"/> or null.</returns>
+        /// <returns>Returns <see cref="ListOfDataObjectsResult"/>. Handled client failures are returned with <see cref="ResultType.Error"/>.</returns>
         public static BasicResult RemoveDataObject(string token, RemoveDataObjectModel parameters)
         {
             return HelperMethods.SendRequestToWebAPI3<BasicResult>(parameters, "/data/removedataobject/", token);
@@ -335,7 +344,7 @@ namespace SKM.V3.Methods
         /// <remarks>Note: for more details, please see 
         /// <a href="https://app.cryptolens.io/docs/api/v3/RemoveDataObject">https://app.cryptolens.io/docs/api/v3/RemoveDataObject</a> <br/>
         /// </remarks>
-        /// <returns>Returns <see cref="ListOfDataObjectsResult"/> or null.</returns>
+        /// <returns>Returns <see cref="ListOfDataObjectsResult"/>. Handled client failures are returned with <see cref="ResultType.Error"/>.</returns>
         public static BasicResult RemoveDataObject(string token, RemoveDataObjectToKeyModel parameters)
         {
             return HelperMethods.SendRequestToWebAPI3<BasicResult>(parameters, "/data/removedataobjecttokey/", token);
@@ -349,7 +358,7 @@ namespace SKM.V3.Methods
         /// <remarks>Note: for more details, please see 
         /// <a href="https://app.cryptolens.io/docs/api/v3/RemoveDataObject">https://app.cryptolens.io/docs/api/v3/RemoveDataObject</a> <br/>
         /// </remarks>
-        /// <returns>Returns <see cref="ListOfDataObjectsResult"/> or null.</returns>
+        /// <returns>Returns <see cref="ListOfDataObjectsResult"/>. Handled client failures are returned with <see cref="ResultType.Error"/>.</returns>
         public static BasicResult RemoveDataObject(string token, RemoveDataObjectToMachineCodeModel parameters)
         {
             return HelperMethods.SendRequestToWebAPI3<BasicResult>(parameters, "/data/removedataobjecttomachinecode/", token);
@@ -367,7 +376,7 @@ namespace SKM.V3.Methods
         /// <remarks>Note: for more details, please see 
         /// <a href="https://app.cryptolens.io/docs/api/v3/UploadValues">https://app.cryptolens.io/docs/api/v3/UploadValues</a> <br/>
         /// </remarks>
-        /// <returns>Returns <see cref="ListOfDataObjectsResult"/> or null.</returns>
+        /// <returns>Returns <see cref="ListOfDataObjectsResult"/>. Handled client failures are returned with <see cref="ResultType.Error"/>.</returns>
         public static BasicResult UploadValues(string token, UploadValuesToKeyModel parameters)
         {
             return HelperMethods.SendRequestToWebAPI3<BasicResult>(parameters, "/data/uploadvaluestokey/", token);

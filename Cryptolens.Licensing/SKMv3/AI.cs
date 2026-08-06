@@ -28,7 +28,7 @@ namespace SKM.V3.Methods
         /// <remarks>Note: for more details, please see 
         /// <a href="https://app.cryptolens.io/docs/api/v3/RegisterEvent">https://app.cryptolens.io/docs/api/v3/RegisterEvent</a> <br/>
         /// </remarks>
-        /// <returns>Returns <see cref="KeyLockResult"/> or null.</returns>
+        /// <returns>Returns <see cref="KeyLockResult"/>. Handled client failures are returned with <see cref="ResultType.Error"/>.</returns>
         public static BasicResult RegisterEvent(string token, RegisterEventModel parameters)
         {
             return HelperMethods.SendRequestToWebAPI3<KeyLockResult>(parameters, "/ai/registerevent/", token);
@@ -43,7 +43,7 @@ namespace SKM.V3.Methods
         /// <remarks>Note: for more details, please see 
         /// <a href="https://app.cryptolens.io/docs/api/v3/RegisterEvent">https://app.cryptolens.io/docs/api/v3/RegisterEvent</a> <br/>
         /// </remarks>
-        /// <returns>Returns <see cref="KeyLockResult"/> or null.</returns>
+        /// <returns>Returns <see cref="KeyLockResult"/>. Handled client failures are returned with <see cref="ResultType.Error"/>.</returns>
         public static BasicResult RegisterEvents(string token, RegisterEventsModel parameters)
         {
             var internalModel = new RegisterEventsModelServer
@@ -71,7 +71,7 @@ namespace SKM.V3.Methods
         /// <remarks>Note: for more details, please see 
         /// <a href="https://app.cryptolens.io/docs/api/v3/GetWebAPILog">https://app.cryptolens.io/docs/api/v3/GetWebAPILog</a> <br/>
         /// </remarks>
-        /// <returns>Returns <see cref="KeyLockResult"/> or null.</returns>
+        /// <returns>Returns <see cref="KeyLockResult"/>. Handled client failures are returned with <see cref="ResultType.Error"/>.</returns>
         public static GetWebAPILogResult GetWebAPILog(string token, GetWebAPILogModel parameters)
         {
             return HelperMethods.SendRequestToWebAPI3<GetWebAPILogResult>(parameters, "/ai/getwebapilog/", token);
@@ -85,7 +85,7 @@ namespace SKM.V3.Methods
         /// <remarks>Note: for more details, please see
         /// <a href="https://app.cryptolens.io/docs/api/v3/GetDailyAggregates">https://app.cryptolens.io/docs/api/v3/GetDailyAggregates</a> <br/>
         /// </remarks>
-        /// <returns>Returns <see cref="GetDailyAggregatesResult"/> or null.</returns>
+        /// <returns>Returns <see cref="GetDailyAggregatesResult"/>. Handled client failures are returned with <see cref="ResultType.Error"/>.</returns>
         public static GetDailyAggregatesResult GetDailyAggregates(string token, GetUsageAnalyticsModel parameters)
         {
             return HelperMethods.SendRequestToWebAPI3<GetDailyAggregatesResult>(parameters, "/ai/getdailyaggregates/", token);
@@ -99,7 +99,7 @@ namespace SKM.V3.Methods
         /// <remarks>Note: for more details, please see
         /// <a href="https://app.cryptolens.io/docs/api/v3/GetDailyCountryAggregates">https://app.cryptolens.io/docs/api/v3/GetDailyCountryAggregates</a> <br/>
         /// </remarks>
-        /// <returns>Returns <see cref="GetDailyCountryAggregatesResult"/> or null.</returns>
+        /// <returns>Returns <see cref="GetDailyCountryAggregatesResult"/>. Handled client failures are returned with <see cref="ResultType.Error"/>.</returns>
         public static GetDailyCountryAggregatesResult GetDailyCountryAggregates(string token, GetUsageAnalyticsModel parameters)
         {
             return HelperMethods.SendRequestToWebAPI3<GetDailyCountryAggregatesResult>(parameters, "/ai/getdailycountryaggregates/", token);
@@ -113,7 +113,7 @@ namespace SKM.V3.Methods
         /// <remarks>Note: for more details, please see
         /// <a href="https://app.cryptolens.io/docs/api/v3/GetKeyUsageSummaries">https://app.cryptolens.io/docs/api/v3/GetKeyUsageSummaries</a> <br/>
         /// </remarks>
-        /// <returns>Returns <see cref="GetKeyUsageSummariesResult"/> or null.</returns>
+        /// <returns>Returns <see cref="GetKeyUsageSummariesResult"/>. Handled client failures are returned with <see cref="ResultType.Error"/>.</returns>
         public static GetKeyUsageSummariesResult GetKeyUsageSummaries(string token, GetUsageAnalyticsModel parameters)
         {
             return HelperMethods.SendRequestToWebAPI3<GetKeyUsageSummariesResult>(parameters, "/ai/getkeyusagesummaries/", token);
@@ -127,7 +127,7 @@ namespace SKM.V3.Methods
         /// <remarks>Note: for more details, please see
         /// <a href="https://app.cryptolens.io/docs/api/v3/GetKeyDevices">https://app.cryptolens.io/docs/api/v3/GetKeyDevices</a> <br/>
         /// </remarks>
-        /// <returns>Returns <see cref="GetKeyDevicesResult"/> or null.</returns>
+        /// <returns>Returns <see cref="GetKeyDevicesResult"/>. Handled client failures are returned with <see cref="ResultType.Error"/>.</returns>
         public static GetKeyDevicesResult GetKeyDevices(string token, GetUsageAnalyticsModel parameters)
         {
             return HelperMethods.SendRequestToWebAPI3<GetKeyDevicesResult>(parameters, "/ai/getkeydevices/", token);
@@ -141,7 +141,7 @@ namespace SKM.V3.Methods
         /// <remarks>Note: for more details, please see
         /// <a href="https://app.cryptolens.io/docs/api/v3/GetLicenseActivityBuckets">https://app.cryptolens.io/docs/api/v3/GetLicenseActivityBuckets</a> <br/>
         /// </remarks>
-        /// <returns>Returns <see cref="GetLicenseActivityBucketsResult"/> or null.</returns>
+        /// <returns>Returns <see cref="GetLicenseActivityBucketsResult"/>. Handled client failures are returned with <see cref="ResultType.Error"/>.</returns>
         public static GetLicenseActivityBucketsResult GetLicenseActivityBuckets(string token, GetUsageAnalyticsModel parameters)
         {
             return HelperMethods.SendRequestToWebAPI3<GetLicenseActivityBucketsResult>(parameters, "/ai/getlicenseactivitybuckets/", token);

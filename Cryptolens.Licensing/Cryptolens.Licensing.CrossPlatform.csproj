@@ -6,9 +6,9 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Company>Cryptolens AB</Company>
     <Authors>Cryptolens AB</Authors>
-    <Version>4.0.53</Version>
-    <AssemblyVersion>4.0.53.1</AssemblyVersion>
-    <FileVersion>4.0.53.1</FileVersion>
+    <Version>4.0.54</Version>
+    <AssemblyVersion>4.0.54.1</AssemblyVersion>
+    <FileVersion>4.0.54.1</FileVersion>
     <Description>An API documentation can be found at https://help.cryptolens.io/api/dotnet/.
 
 This is a client API that serves as an interface to Devolens (formerly Cryptolens) Web API (app.cryptolens.io/docs/api/).
@@ -24,7 +24,7 @@ This library is aimed at users who plan to target environments other than Window
 	  <AssemblyOriginatorKeyFile>..\cryptolens.snk</AssemblyOriginatorKeyFile>
 
 	  <PackageTags>licensing system, SKGL, serial key management, http://app.cryptolens.io/ , skgl extension, SKM Client API, cryptolens</PackageTags>
-    <PackageReleaseNotes>Release notes available at https://help.cryptolens.io/api/dotnet/articles/v4036.html</PackageReleaseNotes>
+    <PackageReleaseNotes>Release notes available at https://help.cryptolens.io/api/dotnet/articles/v4054.html</PackageReleaseNotes>
 
 
   <PackageLicenseFile>LICENSE</PackageLicenseFile>
@@ -72,4 +72,9 @@ This library is aimed at users who plan to target environments other than Window
     </None>
   </ItemGroup>
   
+  <ItemGroup>
+    <None Remove="buildTransitive\Cryptolens.Licensing.CrossPlatform.targets" />
+    <None Include="buildTransitive\Cryptolens.Licensing.CrossPlatform.targets" Pack="True" PackagePath="buildTransitive\Cryptolens.Licensing.CrossPlatform.targets" />
+  </ItemGroup>
+
 </Project>

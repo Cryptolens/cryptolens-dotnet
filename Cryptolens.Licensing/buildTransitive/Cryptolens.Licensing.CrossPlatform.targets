@@ -1,0 +1,11 @@
+<Project>
+  <Target Name="CryptolensWarnIfTrimAotUnsupported"
+          BeforeTargets="PrepareForPublish"
+          Condition="'$(DesignTimeBuild)' != 'true'
+                  and '$(IsCrossTargetingBuild)' != 'true'
+                  and '$(CryptolensSuppressTrimAotWarning)' != 'true'
+                  and ('$(PublishTrimmed)' == 'true' or '$(PublishAot)' == 'true')">
+    <Warning Code="CRYPTOLENS001"
+             Text="Cryptolens.Licensing.CrossPlatform does not support trimming or Native AOT. Set PublishTrimmed and PublishAot to false in the final evaluated project or publish profile, or set CryptolensSuppressTrimAotWarning to true to suppress this warning." />
+  </Target>
+</Project>

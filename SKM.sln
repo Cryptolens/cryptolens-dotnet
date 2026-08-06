@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SKM Test", "SKM Test\SKM Te
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cryptolens.Licensing", "Cryptolens.Licensing\Cryptolens.Licensing.csproj", "{16196F27-81BE-4248-AAA8-FF19399BDB98}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cryptolens.Licensing.Tests", "Cryptolens.Licensing.Tests\Cryptolens.Licensing.Tests.csproj", "{6130AB8E-4A26-4C5C-8F7E-DB4912120C64}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{16196F27-81BE-4248-AAA8-FF19399BDB98}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{16196F27-81BE-4248-AAA8-FF19399BDB98}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{16196F27-81BE-4248-AAA8-FF19399BDB98}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6130AB8E-4A26-4C5C-8F7E-DB4912120C64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6130AB8E-4A26-4C5C-8F7E-DB4912120C64}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6130AB8E-4A26-4C5C-8F7E-DB4912120C64}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6130AB8E-4A26-4C5C-8F7E-DB4912120C64}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

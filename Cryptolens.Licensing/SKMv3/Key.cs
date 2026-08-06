@@ -28,7 +28,7 @@ namespace SKM.V3.Methods
         /// </summary>
         /// <param name="token">The access token. Read more at https://app.cryptolens.io/docs/api/v3/Auth </param>
         /// <param name="parameters">The parameters that the method needs.</param>
-        /// <returns>A <see cref="BasicResult"/> or null.</returns>
+        /// <returns>A <see cref="BasicResult"/>. Handled client failures are returned with <see cref="ResultType.Error"/>.</returns>
         /// <remarks>
         /// The feature lock value is used to store the filedsToReturn value. If you set a certain value in the feature lock, it will be prioritized higher than the fieldsToReturn parameter.<br></br>
         /// • To compute the value of the feature lock, please use the Hide column, for those fields that you want to omit in the result above.<br></br>
@@ -149,7 +149,7 @@ namespace SKM.V3.Methods
         /// </summary>
         /// <param name="token">The access token. Read more at https://app.cryptolens.io/docs/api/v3/Auth </param>
         /// <param name="parameters">The parameters that the method needs.</param>
-        /// <returns>A <see cref="BasicResult"/> or null.</returns>
+        /// <returns>A <see cref="BasicResult"/>. Handled client failures are returned with <see cref="ResultType.Error"/>.</returns>
         /// <example>
         /// <code language="csharp" title="Deactivation example">
         /// var auth = "{access token with permission to access the deactivate method}"
@@ -219,10 +219,10 @@ namespace SKM.V3.Methods
         /// }
         /// </code>
         /// </example>
-        /// <remarks>This method may, in rare cases, return null if an error has occurred.
-        /// Null should be seen as an unsuccessful result.
+        /// <remarks>Handled client failures are returned as a non-null result with <see cref="ResultType.Error"/>.
+        /// Always inspect Result before treating the response as successful.
         /// </remarks>
-        /// <returns>A BasicResult object or null.</returns>
+        /// <returns>A BasicResult object. Handled client failures are returned with <see cref="ResultType.Error"/>.</returns>
         public static BasicResult AddFeature(string token, FeatureModel parameters)
         {
             return HelperMethods.SendRequestToWebAPI3<BasicResult>(parameters, "/key/addfeature/", token);
@@ -255,10 +255,10 @@ namespace SKM.V3.Methods
         /// }
         /// </code>
         /// </example>
-        /// <remarks>This method may, in rare cases, return null if an error has occurred.
-        /// Null should be seen as an unsuccessful result.
+        /// <remarks>Handled client failures are returned as a non-null result with <see cref="ResultType.Error"/>.
+        /// Always inspect Result before treating the response as successful.
         /// </remarks>
-        /// <returns>A BasicResult object or null.</returns>
+        /// <returns>A BasicResult object. Handled client failures are returned with <see cref="ResultType.Error"/>.</returns>
         public static BasicResult RemoveFeature(string token, FeatureModel parameters)
         {
             return HelperMethods.SendRequestToWebAPI3<BasicResult>(parameters, "/key/removefeature/", token);
@@ -292,10 +292,10 @@ namespace SKM.V3.Methods
         /// }
         /// </code>
         /// </example>
-        /// <remarks>This method may, in rare cases, return null if an error has occurred.
-        /// Null should be seen as an unsuccessful result.
+        /// <remarks>Handled client failures are returned as a non-null result with <see cref="ResultType.Error"/>.
+        /// Always inspect Result before treating the response as successful.
         /// </remarks>
-        /// <returns>A BasicResult object or null.</returns>
+        /// <returns>A BasicResult object. Handled client failures are returned with <see cref="ResultType.Error"/>.</returns>
         public static BasicResult ExtendLicense(string token, ExtendLicenseModel parameters)
         {
             return HelperMethods.SendRequestToWebAPI3<BasicResult>(parameters, "/key/extendlicense/", token);
@@ -306,10 +306,10 @@ namespace SKM.V3.Methods
         /// </summary>
         /// <param name="token">Details such as Token and Version.</param>
         /// <param name="parameters">The parameters that the method needs.</param>
-        /// <remarks>This method may, in rare cases, return null if an error has occurred.
-        /// Null should be seen as an unsuccessful result.
+        /// <remarks>Handled client failures are returned as a non-null result with <see cref="ResultType.Error"/>.
+        /// Always inspect Result before treating the response as successful.
         /// </remarks>
-        /// <returns>A BasicResult object or null.</returns>
+        /// <returns>A BasicResult object. Handled client failures are returned with <see cref="ResultType.Error"/>.</returns>
         /// <example>
         /// <code language="vb" title="Creating a new key">
         /// Private Sub CreateKey()
@@ -344,10 +344,10 @@ namespace SKM.V3.Methods
         /// </summary>
         /// <param name="token">Details such as Token and Version.</param>
         /// <param name="parameters">The parameters that the method needs.</param>
-        /// <remarks>This method may, in rare cases, return null if an error has occurred.
-        /// Null should be seen as an unsuccessful result.
+        /// <remarks>Handled client failures are returned as a non-null result with <see cref="ResultType.Error"/>.
+        /// Always inspect Result before treating the response as successful.
         /// </remarks>
-        /// <returns>A BasicResult object or null.</returns>
+        /// <returns>A BasicResult object. Handled client failures are returned with <see cref="ResultType.Error"/>.</returns>
 
         public static CreateKeyResult CreateTrialKey(string token, CreateTrialKeyModel parameters)
         {
@@ -362,10 +362,10 @@ namespace SKM.V3.Methods
         /// </summary>
         /// <param name="token">Details such as Token and Version.</param>
         /// <param name="parameters">The parameters that the method needs.</param>
-        /// <remarks>This method may, in rare cases, return null if an error has occurred.
-        /// Null should be seen as an unsuccessful result.
+        /// <remarks>Handled client failures are returned as a non-null result with <see cref="ResultType.Error"/>.
+        /// Always inspect Result before treating the response as successful.
         /// </remarks>
-        /// <returns>A BasicResult object or null.</returns>
+        /// <returns>A BasicResult object. Handled client failures are returned with <see cref="ResultType.Error"/>.</returns>
         public static KeyInfoResult GetKey(string token, KeyInfoModel parameters)
         {
             return HelperMethods.SendRequestToWebAPI3<KeyInfoResult>(parameters, "/key/getkey/", token, modelVersion: 3);
@@ -381,10 +381,10 @@ namespace SKM.V3.Methods
         /// </summary>
         /// <param name="token">The access token (https://app.cryptolens.io/User/AccessToken#/) with Block key permission.</param>
         /// <param name="parameters">The parameters that the method needs.</param>
-        /// <remarks>This method may, in rare cases, return null if an error has occurred.
-        /// Null should be seen as an unsuccessful result.
+        /// <remarks>Handled client failures are returned as a non-null result with <see cref="ResultType.Error"/>.
+        /// Always inspect Result before treating the response as successful.
         /// </remarks>
-        /// <returns>A BasicResult object or null.</returns>
+        /// <returns>A BasicResult object. Handled client failures are returned with <see cref="ResultType.Error"/>.</returns>
         public static BasicResult BlockKey(string token, KeyLockModel parameters)
         {
             return HelperMethods.SendRequestToWebAPI3<BasicResult>(parameters, "/key/blockkey/", token);
@@ -397,10 +397,10 @@ namespace SKM.V3.Methods
         /// </summary>
         /// <param name="token">The access token (https://app.cryptolens.io/User/AccessToken#/) with Unblock key permission.</param>
         /// <param name="parameters">The parameters that the method needs.</param>
-        /// <remarks>This method may, in rare cases, return null if an error has occurred.
-        /// Null should be seen as an unsuccessful result.
+        /// <remarks>Handled client failures are returned as a non-null result with <see cref="ResultType.Error"/>.
+        /// Always inspect Result before treating the response as successful.
         /// </remarks>
-        /// <returns>A BasicResult object or null.</returns>
+        /// <returns>A BasicResult object. Handled client failures are returned with <see cref="ResultType.Error"/>.</returns>
         public static BasicResult UnblockKey(string token, KeyLockModel parameters)
         {
             return HelperMethods.SendRequestToWebAPI3<BasicResult>(parameters, "/key/unblockkey/", token);
@@ -412,10 +412,10 @@ namespace SKM.V3.Methods
         /// </summary>
         /// <param name="token">Details such as Token and Version.</param>
         /// <param name="parameters">The parameters that the method needs.</param>
-        /// <remarks>This method may, in rare cases, return null if an error has occurred.
-        /// Null should be seen as an unsuccessful result.
+        /// <remarks>Handled client failures are returned as a non-null result with <see cref="ResultType.Error"/>.
+        /// Always inspect Result before treating the response as successful.
         /// </remarks>
-        /// <returns>A BasicResult object or null.</returns>
+        /// <returns>A BasicResult object. Handled client failures are returned with <see cref="ResultType.Error"/>.</returns>
         public static BasicResult MachineLockLimit(string token, MachineLockLimit parameters)
         {
             return HelperMethods.SendRequestToWebAPI3<KeyInfoResult>(parameters, "/key/machinelocklimit/", token);
@@ -426,7 +426,7 @@ namespace SKM.V3.Methods
         /// </summary>
         /// <param name="token">The access token (https://app.cryptolens.io/User/AccessToken#/) with Change Notes permission.</param>
         /// <param name="parameters">The parameters that the method needs.</param>
-        /// <returns>A BasicResult object or null.</returns>
+        /// <returns>A BasicResult object. Handled client failures are returned with <see cref="ResultType.Error"/>.</returns>
         public static BasicResult ChangeNotes(string token, ChangeNotesModel parameters)
         {
             return HelperMethods.SendRequestToWebAPI3<BasicResult>(parameters, "/key/changenotes/", token);
@@ -441,7 +441,7 @@ namespace SKM.V3.Methods
         /// </summary>
         /// <param name="token">The access token (https://app.cryptolens.io/User/AccessToken#/) with Change Reseller permission.</param>
         /// <param name="parameters">The parameters that the method needs.</param>
-        /// <returns>A BasicResult object or null.</returns>
+        /// <returns>A BasicResult object. Handled client failures are returned with <see cref="ResultType.Error"/>.</returns>
         public static BasicResult ChangeReseller(string token, ChangeResellerModel parameters)
         {
             return HelperMethods.SendRequestToWebAPI3<BasicResult>(parameters, "/key/changereseller/", token);
@@ -455,7 +455,7 @@ namespace SKM.V3.Methods
         /// </summary>
         /// <param name="token">The access token (https://app.cryptolens.io/User/AccessToken#/) with Change Customer permission.</param>
         /// <param name="parameters">The parameters that the method needs.</param>
-        /// <returns>A BasicResult object or null.</returns>
+        /// <returns>A BasicResult object. Handled client failures are returned with <see cref="ResultType.Error"/>.</returns>
         public static BasicResult ChangeCustomer(string token, ChangeCustomerModel parameters)
         {
             return HelperMethods.SendRequestToWebAPI3<BasicResult>(parameters, "/key/changecustomer/", token);

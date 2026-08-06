@@ -19,7 +19,7 @@ namespace SKM.V3.Methods
         /// </summary>
         /// <param name="token">The access token. Read more at https://app.cryptolens.io/docs/api/v3/Auth </param>
         /// <param name="parameters">The parameters that the method needs</param>
-        /// <returns>Returns <see cref="GetMessagesResult"/> or null.</returns>
+        /// <returns>Returns <see cref="GetMessagesResult"/>. Handled client failures are returned with <see cref="ResultType.Error"/>.</returns>
         public static GetMessagesResult GetMessages(string token, GetMessagesModel parameters)
         {
             return HelperMethods.SendRequestToWebAPI3<GetMessagesResult>(parameters, "/message/getmessages/", token);
@@ -30,7 +30,7 @@ namespace SKM.V3.Methods
         /// </summary>
         /// <param name="token">The access token. Read more at https://app.cryptolens.io/docs/api/v3/Auth </param>
         /// <param name="parameters">The parameters that the method needs</param>
-        /// <returns>Returns <see cref="GetMessagesResult"/> or null.</returns>
+        /// <returns>Returns <see cref="GetMessagesResult"/>. Handled client failures are returned with <see cref="ResultType.Error"/>.</returns>
         public static CreateMessageResult CreateMessage(string token, CreateMessageModel parameters)
         {
             return HelperMethods.SendRequestToWebAPI3<CreateMessageResult>(parameters, "/message/createmessage/", token);
@@ -41,7 +41,7 @@ namespace SKM.V3.Methods
         /// </summary>
         /// <param name="token">The access token. Read more at https://app.cryptolens.io/docs/api/v3/Auth </param>
         /// <param name="parameters">The parameters that the method needs</param>
-        /// <returns>Returns <see cref="GetMessagesResult"/> or null.</returns>
+        /// <returns>Returns <see cref="GetMessagesResult"/>. Handled client failures are returned with <see cref="ResultType.Error"/>.</returns>
         public static BasicResult RemoveMessage(string token, RemoveMessageModel parameters)
         {
             return HelperMethods.SendRequestToWebAPI3<BasicResult>(parameters, "/message/removemessage/", token);

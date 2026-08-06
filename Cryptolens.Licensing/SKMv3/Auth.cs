@@ -47,7 +47,7 @@ namespace SKM.V3.Methods
         /// <remarks>Note: for more details, please see 
         /// <a href="https://app.cryptolens.io/docs/api/v3/KeyLock">https://app.cryptolens.io/docs/api/v3/KeyLock</a> <br/>
         /// </remarks>
-        /// <returns>Returns <see cref="KeyLockResult"/> or null.</returns>
+        /// <returns>Returns <see cref="KeyLockResult"/>. Handled client failures are returned with <see cref="ResultType.Error"/>.</returns>
         public static KeyLockResult KeyLock(string token, KeyLockModel parameters)
         {
             return HelperMethods.SendRequestToWebAPI3<KeyLockResult>(parameters, "/auth/keylock/", token);

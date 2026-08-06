@@ -1,7 +1,5 @@
 # Cryptolens Licensing for .NET
 
-View in other languages (beta): [русский](README.ru.md), [svenska](README.sv.md).
-
 This API serves as a layer that simplifies communication with Cryptolens Web API 2 and 3 (https://app.cryptolens.io/docs/api).
 
 > You can access the documentation of the library at https://help.cryptolens.io/api/dotnet/.
@@ -105,6 +103,41 @@ To compile without System.Management, open `Cryptolens.Licensing.csproj` and rem
 > Make sure there are no other `DefineConstants` definitions later in the file, as these will override the value.
 
 ## Other settings
+
+### Web API 3 error handling
+
+Starting with version 4.0.54, built-in Web API 3 methods return a non-null typed result with `Result = ResultType.Error` when the SDK handles a transport, JSON deserialization, or other local request failure. Always inspect `Result` before treating a non-null response as successful. To remain compatible with older SDK versions, keep both checks:
+
+```cs
+if (result == null || result.Result == ResultType.Error)
+{
+    Console.WriteLine(result == null ? "The request failed." : result.Message);
+    return;
+}
+```
+
+The public low-level `HelperMethods.SendRequestToWebAPI3<T>` signature remains unchanged. Calls whose `T` derives from `BasicResult` and has a public parameterless constructor receive the same typed diagnostic errors as built-in methods. Other custom result contracts retain the legacy `default(T)` behavior for handled failures.
+
+### Trimming and Native AOT
+
+The SDK is not compatible with trimming or Native AOT. Disable both settings in the final evaluated application project or publish profile:
+
+```xml
+<PropertyGroup>
+  <PublishAot>false</PublishAot>
+  <PublishTrimmed>false</PublishTrimmed>
+</PropertyGroup>
+```
+
+Version 4.0.54 and later emit warning `CRYPTOLENS001` before publish when either setting is enabled. If you have reviewed and accepted the risk, suppress only this package warning with:
+
+```xml
+<PropertyGroup>
+  <CryptolensSuppressTrimAotWarning>true</CryptolensSuppressTrimAotWarning>
+</PropertyGroup>
+```
+
+`PublishReadyToRun` can remain enabled and does not trigger the warning.
 
 ### Issues with Newtonsoft.Json on .NET 4.8
 Some customers have reported an error with the right version of Newtonsoft.Json not being found. It seems to be localized to those that target .NET Framework 4.8, and the following error is shown:
