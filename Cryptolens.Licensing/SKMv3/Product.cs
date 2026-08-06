@@ -26,7 +26,7 @@ namespace SKM.V3.Methods
         /// </summary>
         /// <param name="token">The access token. Read more at https://app.cryptolens.io/docs/api/v3/Auth </param>
         /// <param name="parameters">The parameters that the method needs.</param>
-        /// <returns>A <see cref="BasicResult"/> or null.</returns>
+        /// <returns>A <see cref="BasicResult"/>. Handled client failures are returned with <see cref="ResultType.Error"/>.</returns>
         /// <remarks>
         /// * The fields SignDate and Signature will be empty. Please use Activation in order to get each license signed.<br></br>
         /// * The order by field has the following structure: fieldName[ascending | descending]. For example, If you want to order by the feature field 1 (F1), you should use F1.If you want it in descending order, please add the descending keywords right after the field, eg.F1 descending. The ascending keyword is the default, hence optional.<br></br>
@@ -64,7 +64,7 @@ namespace SKM.V3.Methods
         /// </summary>
         /// <param name="token">The access token. Read more at https://app.cryptolens.io/docs/api/v3/Auth </param>
         /// <param name="parameters">The parameters that the method needs.</param>
-        /// <returns>A <see cref="GetProductsResult"/> or null.</returns>
+        /// <returns>A <see cref="GetProductsResult"/>. Handled client failures are returned with <see cref="ResultType.Error"/>.</returns>
         /// </example>
         public static GetProductsResult GetProducts(string token, RequestModel parameters)
         {
