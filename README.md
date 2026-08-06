@@ -1,7 +1,5 @@
 # Cryptolens Licensing for .NET
 
-View in other languages (beta): [русский](README.ru.md), [svenska](README.sv.md).
-
 This API serves as a layer that simplifies communication with Cryptolens Web API 2 and 3 (https://app.cryptolens.io/docs/api).
 
 > You can access the documentation of the library at https://help.cryptolens.io/api/dotnet/.
